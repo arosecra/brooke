@@ -3,24 +3,58 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hello Bulma!</title>
+<title th:text="${book.displayName}">Hello Bulma!</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 </head>
-<body>
+<body> 
+<nav class="navbar">
+  <div class="container">
+    <div id="navMenu" class="navbar-menu">
+    
+      <div class="navbar-start">
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-dark" href="/">Home</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-dark" th:href="|/book/${book.name}/${book.leftPage-2}|">Prev</a>
+            <a class="button is-link" th:href="|/book/${book.name}/${book.rightPage+1}|">Next</a>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+  </div>
+</nav>
 
-<div class="tile is-ancestor">
-	<div class="tile  is-vertical is-6">
-		<div class="tile is-child box">
+<section class="hero is-fullheight-with-navbar">
+  <div class="hero-body" style="padding: 0em 0em;">
+	<div class="tile is-ancestor">
+		<div class="tile  is-vertical is-6">
+			<div class="tile is-child box">
 			
-
+				<figure class="image">
+					<img class="is-square" th:src="|/page/${book.name}/${book.leftPage}|"/>
+				</figure>
+	
+			</div>
+		</div>
+		<div class="tile">
+			<div class="tile is-child box">
+			
+				<figure class="image">
+					<img class="is-square" th:src="|/page/${book.name}/${book.rightPage}|"/>
+				</figure>
+			
+			</div>
 		</div>
 	</div>
-	<div class="tile">
-		<div class="tile is-child box">
-			
-			
-		</div>
-	</div>
-</div>
+  </div>
+</section>
 </body>
 </html>
