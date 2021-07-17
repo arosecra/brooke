@@ -23,6 +23,20 @@ public class Library {
 		this.listing = listing;
 	}
 	
+	public List<CatalogGroup> getCatalogGroups() {
+		List<CatalogGroup> results = new ArrayList<>();
+		CatalogGroup current = null;
+		for(int i = 0; i < catalogs.size(); i++) {
+			if(i == 0 || i % 3 == 0) {
+				current = new CatalogGroup();
+				results.add(current);
+			}
+			current.getCatalogs().add(catalogs.get(i));
+		}
+		
+		return results;
+	}
+	
 	public List<String> getCatalogNames() {
 		List<String> result = new ArrayList<>();
 		for(Catalog cat : catalogs) {

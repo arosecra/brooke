@@ -20,9 +20,9 @@ input[type="radio"], .tab-pane { display: none; }
 <div class="tile is-ancestor">
 	<div class="tile  is-vertical is-3">
 		<div class="tile is-child box">
-			<div class="tabs is-toggle">
+			<div class="tabs is-toggle"  th:each="catalogGroup : ${library.catalogGroups}">
 				<ul>
-					<th:block th:each="catalog : ${library.catalogs}">
+					<th:block th:each="catalog : ${catalogGroup.catalogs}">
 					<li>
 						<label th:attr="onclick=|enable(&quot;content-catalog-${catalog.name}&quot;)|"><a th:text="${catalog.name}"></a>
 						<input type="radio" th:id="|${catalog.name}-catalog|" name="nav-tab"/>
