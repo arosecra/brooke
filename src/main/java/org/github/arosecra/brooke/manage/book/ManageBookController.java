@@ -61,4 +61,11 @@ public class ManageBookController {
 		managementService.addToCategory(bookname, catalog, category);
 		return "redirect:/manage/book/"+bookname;
 	}
+
+	
+	@GetMapping("/manage/book/{bookname}/generatethumbnail")
+	public String generateThumbnail(Model model, @PathVariable(name="bookname") String bookname, @PathVariable(name="catalog") String catalog, @PathVariable(name="category") String category) throws IOException {
+		managementService.generateThumbnail(bookname);
+		return "redirect:/manage/book/"+bookname;
+	}
 }

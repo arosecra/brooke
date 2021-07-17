@@ -64,5 +64,10 @@ public class ManagementService {
 	    String lineToAdd = "\r\nbooks."+internalCategoryName+"="+bookname;
 	    FileUtils.write(new File(settings.getCatalogsHome(), catalog + ".properties"), lineToAdd, true);
 	}
+
+	public void generateThumbnail(String bookname) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

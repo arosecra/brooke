@@ -45,7 +45,8 @@ public class ManageBooksController {
 			overview.setCbtExists(new File(file, file.getName() + ".cbt").exists());
 			overview.setTocGenerated(new File(file, "toc.txt").exists());
 			
-			books.getBooks().add(overview);	
+			if(overview.getAssigned() == 0)
+				books.getBooks().add(overview);	
 			
 		}
 		

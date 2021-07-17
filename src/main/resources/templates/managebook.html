@@ -15,6 +15,7 @@
         <div class="navbar-item">
           <div class="buttons">
             <a class="button is-dark" href="/">Home</a>
+            <a class="button is-dark" href="/manage/book/${book.name}/generatethumbnail">Generate Thumbnail</a>
           </div>
         </div>
       </div>
@@ -29,7 +30,7 @@
 		<div class="tile is-child box">
 				<div class="column is-8">
 					<figure class="image">
-						<img class="is-square" th:src="|/page/${book.name}/0|">
+						<a th:href="|/book/${book.name}/0|"><img class="is-square" th:src="|/page/${book.name}/0|"></a>
 					</figure>
 				</div>
 		</div>
