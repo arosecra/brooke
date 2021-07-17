@@ -1,15 +1,8 @@
 package org.github.arosecra.brooke.manage.book;
 
 public class ManageBookCategory {
-	private String catalog;
 	private String category;
 	private boolean listed;
-	public String getCatalog() {
-		return catalog;
-	}
-	public void setCatalog(String catalog) {
-		this.catalog = catalog;
-	}
 	public String getCategory() {
 		return category;
 	}

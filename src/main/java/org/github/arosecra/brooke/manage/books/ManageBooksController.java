@@ -51,7 +51,6 @@ public class ManageBooksController {
 		}
 		
 		
-		
 		model.addAttribute("books", books);
 		
 		return "managebooks";

@@ -25,7 +25,7 @@ public class HomeController {
 		return "home";
 	}
 
-	@GetMapping("/{catalog}/{category}")
+	@GetMapping("/home/{catalog}/{category}")
 	public String home(@PathVariable(name="catalog") String catalog, 
 			@PathVariable(name="category") String category, 
 			Model model) {

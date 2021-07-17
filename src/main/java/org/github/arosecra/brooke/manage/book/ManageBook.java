@@ -5,15 +5,9 @@ import java.util.List;
 
 public class ManageBook {
 	private String name;
-	private List<ManageBookCategory> categories = new ArrayList<>();
+	private List<ManageBookCatalog> catalogs = new ArrayList<>();
 
-	public List<ManageBookCategory> getCategories() {
-		return categories;
-	}
-
-	public void setCategories(List<ManageBookCategory> categories) {
-		this.categories = categories;
-	}
+	
 
 	public String getName() {
 		return name;
@@ -21,6 +15,14 @@ public class ManageBook {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public List<ManageBookCatalog> getCatalogs() {
+		return catalogs;
+	}
+
+	public void setCatalogs(List<ManageBookCatalog> catalogs) {
+		this.catalogs = catalogs;
 	}
 	
 	

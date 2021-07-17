@@ -41,7 +41,7 @@ input[type="radio"], .tab-pane { display: none; }
 				<div class="tab-pane" th:attrappend="class=${' content-catalog-' + catalog.name}" th:style="${catalog.name == selectedCatalogName}? 'display:block' : 'display:none'">
 					<ul>
 						<li th:each="category : ${catalog.categories}">
-							<a th:href="|/${catalog.name}/${category}|" th:text="${category}"/>
+							<a th:href="|/home/${catalog.name}/${category}|" th:text="${category}"/>
 						</li>
 					</ul>
 				</div>
@@ -79,12 +79,5 @@ input[type="radio"], .tab-pane { display: none; }
     </div>
   </div>
 </nav>
-
-<script>
-function enable(catalog) {
-	$(".tab-pane").css("display", "none");
-	$("."+catalog).css("display", "block");
-}
-</script>
 </body>
 </html>

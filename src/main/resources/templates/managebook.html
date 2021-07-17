@@ -4,7 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title >Manage Books</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"><style type="text/css">
+input[type="radio"], .tab-pane { display: none; }
+</style>
+<script
+			  src="https://code.jquery.com/jquery-3.6.0.min.js"
+			  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+			  crossorigin="anonymous"></script>
+<script src="/js/tab.js"></script>
 </head>
 <body> 
 <nav class="navbar">
@@ -37,24 +44,44 @@
 	</div>
 	<div class="tile is-vertical">
 		<div class="tile is-child box">
-			<div class="table-container">
-			<table class="table is-striped is-narrow">
-				<thead>
-					<th>Catalog</th>
-					<th>Category</th>
-					<th>Assigned</th>
-					<th>Action</th>
-				</thead>
-				<tbody>
-					<tr th:each="cat : ${book.categories}">
-						<td th:text="${cat.catalog}"></td>
-						<td th:text="${cat.category}"></td>
-						<td th:text="${cat.listed}"></td>
-						<td><a class="button is-link" th:href="|/manage/book/${book.name}/addtocategory/${cat.catalog}/${cat.category}|" th:disabled="${cat.listed}">Add</a></td>
-					</tr>
-				</tbody>
-			</table>
+			
+			<div class="tabs is-toggle"  th:each="catalogGroup : ${library.catalogGroups}">
+				<ul>
+					<th:block th:each="catalog : ${catalogGroup.catalogs}">
+					<li>
+						<label th:attr="onclick=|enable(&quot;content-catalog-${catalog.name}&quot;)|"><a th:text="${catalog.name}"></a>
+						<input type="radio" th:id="|${catalog.name}-catalog|" name="nav-tab"/>
+						</label>
+					</li>
+					</th:block>
+				</ul>
 			</div>
+		
+			<div class="tab-content tile is-child box">
+				<th:block th:each="catalog : ${book.catalogs}">
+				<div class="tab-pane" th:attrappend="class=${' content-catalog-' + catalog.name}" th:style="${catalog.name == selectedCatalogName}? 'display:block' : 'display:none'">
+					<div class="table-container">
+					<table class="table is-striped is-narrow">
+						<thead>
+							<th>Category</th>
+							<th>Action</th>
+						</thead>
+						<tbody>
+							<tr th:each="cat : ${catalog.categories}">
+								<td th:text="${cat.category}"></td>
+								<td><a class="button is-link" th:href="|/manage/book/${book.name}/addtocategory/${catalog.name}/${cat.category}|" th:disabled="${cat.listed}">Add</a></td>
+							</tr>
+						</tbody>
+					</table>
+					</div>
+				</div>
+				</th:block>	
+			</div>
+		
+		
+		
+		
+			
 		</div>
 	</div>
 </div>

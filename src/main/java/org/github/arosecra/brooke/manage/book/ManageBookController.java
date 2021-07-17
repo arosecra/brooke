@@ -34,6 +34,8 @@ public class ManageBookController {
 		List<BookListing> listings = booksToListings.get(bookname);
 		
 		for(Catalog cat : library.getCatalogs()) {
+			ManageBookCatalog mbCat = new ManageBookCatalog();
+			mbCat.setName(cat.getName());
 			for(String category : cat.getCategories()) {
 				boolean listed = false;
 				if(listings != null) {
@@ -44,13 +46,15 @@ public class ManageBookController {
 					}
 				}
 				ManageBookCategory mbc = new ManageBookCategory();
-				mbc.setCatalog(cat.getName());
 				mbc.setCategory(category);
 				mbc.setListed(listed);
-				mb.getCategories().add(mbc);
+				mbCat.getCategories().add(mbc);
 			}
+			mb.getCatalogs().add(mbCat);
 		}
-		
+
+		model.addAttribute("library", library);
+		model.addAttribute("selectedCatalogName", "none");
 		model.addAttribute("book", mb);
 		return "managebook";
 	}
