@@ -1,5 +1,7 @@
 package org.github.arosecra.brooke.catalog;
 
+import java.util.Collections;
+
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.lang3.ObjectUtils;
 import org.github.arosecra.brooke.ConfigService;
@@ -57,6 +59,8 @@ public class CatalogService {
 	    for(String book : ObjectUtils.firstNonNull(books, new String[] {})) {
 	    	result.getBooks().add(book.replace(' ', '_'));
 	    }
+	    
+	    Collections.sort(result.getBooks());
 		
 		return result;
 	}
