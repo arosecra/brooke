@@ -12,6 +12,7 @@ input[type="radio"], .tab-pane { display: none; }
 			  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 			  crossorigin="anonymous"></script>
 <script src="/js/tab.js"></script>
+<script src="/js/managebook.js"></script>
 </head>
 <body> 
 <nav class="navbar">
@@ -71,9 +72,16 @@ input[type="radio"], .tab-pane { display: none; }
 							<th>Action</th>
 						</thead>
 						<tbody>
-							<tr th:each="cat : ${catalog.categories}">
+							<tr th:each="cat,catStatus : ${catalog.categories}">
 								<td th:text="${cat.category}"></td>
-								<td><a class="button is-link" th:href="|/manage/book/${book.name}/addtocategory/${catalog.name}/${cat.category}|" th:disabled="${cat.listed}">Add</a></td>
+								<td>
+									<button class="button is-link"
+									   th:id="|${catStatus.index}|" 
+								       th:attr="onclick=|addtocategory(${catStatus.index}, &quot;${book.name}&quot;, &quot;${catalog.name}&quot;, &quot;${cat.category}&quot;)|" 
+								       th:disabled="${cat.listed}">
+								    	Add
+									</button>
+								</td>
 							</tr>
 						</tbody>
 					</table>
@@ -81,11 +89,6 @@ input[type="radio"], .tab-pane { display: none; }
 				</div>
 				</th:block>	
 			</div>
-		
-		
-		
-		
-			
 		</div>
 	</div>
 </div>
