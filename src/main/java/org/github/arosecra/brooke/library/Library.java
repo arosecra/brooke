@@ -28,12 +28,19 @@ public class Library {
 	
 	public List<CatalogGroup> getCatalogGroups() {
 		List<CatalogGroup> results = new ArrayList<>();
-		CatalogGroup current = null;
+		CatalogGroup current = new CatalogGroup();
+		results.add(current);
+		int maxGroupLength = 45;
+		int groupLength = 0;
 		for(int i = 0; i < catalogs.size(); i++) {
-			if(i == 0 || i % 3 == 0) {
+			int nextLength = catalogs.get(i).getName().length()+4;
+			
+			if(groupLength + nextLength > maxGroupLength) {
 				current = new CatalogGroup();
 				results.add(current);
+				groupLength = 0;
 			}
+			groupLength += nextLength;
 			current.getCatalogs().add(catalogs.get(i));
 		}
 		
