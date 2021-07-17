@@ -23,23 +23,40 @@
   </div>
 </nav>
 
-<section class="hero is-fullheight-with-navbar">
-	<table class="table">
-		<thead>
-			<th>Catalog</th>
-			<th>Category</th>
-			<th>Assigned</th>
-			<th>Action</th>
-		</thead>
-		<tbody>
-			<tr th:each="cat : ${book.categories}">
-				<td th:text="${cat.catalog}"></td>
-				<td th:text="${cat.category}"></td>
-				<td th:text="${cat.listed}"></td>
-				<td><a class="button is-link" th:href="|/manage/book/${book.name}/addtocategory/${cat.catalog}/${cat.category}|" th:disabled="${cat.listed}">Add</a></td>
-			</tr>
-		</tbody>
-	</table>
-</section>
+
+<div class="tile is-ancestor">
+	<div class="tile  is-vertical is-8">
+		<div class="tile is-child box">
+				<div class="column is-8">
+					<figure class="image">
+						<img class="is-square" th:src="|/page/${book.name}/0|">
+					</figure>
+				</div>
+		</div>
+	</div>
+	<div class="tile is-vertical">
+		<div class="tile is-child box">
+			<div class="table-container">
+			<table class="table is-striped is-narrow">
+				<thead>
+					<th>Catalog</th>
+					<th>Category</th>
+					<th>Assigned</th>
+					<th>Action</th>
+				</thead>
+				<tbody>
+					<tr th:each="cat : ${book.categories}">
+						<td th:text="${cat.catalog}"></td>
+						<td th:text="${cat.category}"></td>
+						<td th:text="${cat.listed}"></td>
+						<td><a class="button is-link" th:href="|/manage/book/${book.name}/addtocategory/${cat.catalog}/${cat.category}|" th:disabled="${cat.listed}">Add</a></td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+		</div>
+	</div>
+</div>
+
 </body>
 </html>
