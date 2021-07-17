@@ -31,15 +31,19 @@ input[type="radio"], .tab-pane { display: none; }
   </div>
 </nav>
 
-
 <div class="tile is-ancestor">
-	<div class="tile  is-vertical is-8">
+	<div class="tile  is-vertical is-3">
 		<div class="tile is-child box">
-				<div class="column is-8">
+				<div class="column">
+					<h1 th:text="${book.name}"/></h1>
 					<figure class="image">
-						<a th:href="|/book/${book.name}/0|"><img class="is-square" th:src="|/page/${book.name}/0|"></a>
+						<a th:href="|/book/${book.name}/0|"><img class="is-square" th:src="|/thumbnail/${book.name}|"></a>
 					</figure>
 				</div>
+		</div>
+	</div>
+	<div class="tile  is-vertical is-6">
+		<div class="tile is-child box">
 		</div>
 	</div>
 	<div class="tile is-vertical">
