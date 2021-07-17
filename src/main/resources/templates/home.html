@@ -37,7 +37,7 @@ input[type="radio"], .tab-pane { display: none; }
 			
 			<div class="tab-content tile is-child box">
 				<th:block th:each="catalog : ${library.catalogs}">
-				<div class="tab-pane" th:attrappend="class=${' content-catalog-' + catalog.name}" th:style="${catalog.selected}? 'display:block' : 'display:none'">
+				<div class="tab-pane" th:attrappend="class=${' content-catalog-' + catalog.name}" th:style="${catalog.name == selectedCatalogName}? 'display:block' : 'display:none'">
 					<ul>
 						<li th:each="category : ${catalog.categories}">
 							<a th:href="|/${catalog.name}/${category}|" th:text="${category}"/>
@@ -51,7 +51,7 @@ input[type="radio"], .tab-pane { display: none; }
 	<div class="tile">
 		<div class="tile is-child box">
 			<div class="columns is-multiline">
-				<div class="column is-2" th:each="listing : ${library.listing.books}">
+				<div class="column is-2" th:each="listing : ${listing.books}">
 					<figure class="image is-3by4">
 						<a th:href="|/book/${listing}/0|"><img class="is-square" th:src="|/thumbnail/${listing}|"></a>
 					</figure>
@@ -70,6 +70,7 @@ input[type="radio"], .tab-pane { display: none; }
           <div class="buttons">
             <a class="button is-dark" href="/">Home</a>
             <a class="button is-dark" href="/">Manage Catalogs</a>
+            <a class="button is-dark" href="/manage/books">Manage Books</a>
           </div>
         </div>
       </div>
