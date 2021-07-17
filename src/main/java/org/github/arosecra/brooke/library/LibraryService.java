@@ -38,12 +38,20 @@ public class LibraryService {
 			    Configuration config = builder.getConfiguration();
 			    String[] categories = config.getStringArray("categories");
 			    for(String category : ObjectUtils.firstNonNull(categories, new String[] {})) {
-			    	cat.getCategories().add(category);
+			    	String categoryDisplayName = category;
+			    	if(config.getString("categories."+category) != null) 
+			    		categoryDisplayName = config.getString("categories."+category);
+			    	
+			    	cat.getCategories().add(categoryDisplayName);
+			    	
+			    	if(StringUtils.equals(selectedCatalog, name)) {
+			    		cat.setSelected(true);
+			    	}
 
 					if(StringUtils.equals(selectedCatalog, name) && 
-							StringUtils.equals(category, selectedCategory)) {
+							StringUtils.equals(categoryDisplayName, selectedCategory)) {
 						BookListing listing = new BookListing();
-						String[] books = config.getStringArray("books." + selectedCategory);
+						String[] books = config.getStringArray("books." + category);
 					    for(String book : ObjectUtils.firstNonNull(books, new String[] {})) {
 					    	listing.getBooks().add(book.replace(' ', '_'));
 					    }

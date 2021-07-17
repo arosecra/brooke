@@ -23,4 +23,12 @@ public class Library {
 		this.listing = listing;
 	}
 	
+	public List<String> getCatalogNames() {
+		List<String> result = new ArrayList<>();
+		for(Catalog cat : catalogs) {
+			result.add(cat.getName());
+		}
+		return result;
+	}
+	
 }

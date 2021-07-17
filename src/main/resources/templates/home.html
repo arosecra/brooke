@@ -5,29 +5,50 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>brooke</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+<style type="text/css">
+input[type="radio"], .tab-pane { display: none; }
+</style>
+<script
+			  src="https://code.jquery.com/jquery-3.6.0.min.js"
+			  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+			  crossorigin="anonymous"></script>
 </head>
 <body>
+
+
 
 <div class="tile is-ancestor">
 	<div class="tile  is-vertical is-3">
 		<div class="tile is-child box">
-			<div class="tabs">
+			<div class="tabs is-toggle">
 				<ul>
 					<th:block th:each="catalog : ${library.catalogs}">
-					<li><a th:text="${catalog.name}"></a>
-						<div th:each="category : ${catalog.categories}">
-							<a th:href="|/${catalog.name}/${category}|" th:text="${category}"/>
-						</div>
+					<li>
+						<label th:attr="onclick=|enable(&quot;content-catalog-${catalog.name}&quot;)|"><a th:text="${catalog.name}"></a>
+						<input type="radio" th:id="|${catalog.name}-catalog|" name="nav-tab"/>
+						</label>
 					</li>
 					</th:block>
 				</ul>
+			</div>
+			
+			<div class="tab-content tile is-child box">
+				<th:block th:each="catalog : ${library.catalogs}">
+				<div class="tab-pane" th:attrappend="class=${' content-catalog-' + catalog.name}" th:style="${catalog.selected}? 'display:block' : 'display:none'">
+					<ul>
+						<li th:each="category : ${catalog.categories}">
+							<a th:href="|/${catalog.name}/${category}|" th:text="${category}"/>
+						</li>
+					</ul>
+				</div>
+				</th:block>	
 			</div>
 		</div>
 	</div>
 	<div class="tile">
 		<div class="tile is-child box">
 			<div class="columns is-multiline">
-				<div class="column is-1" th:each="listing : ${library.listing.books}">
+				<div class="column is-2" th:each="listing : ${library.listing.books}">
 					<figure class="image is-3by4">
 						<a th:href="|/book/${listing}/0|"><img class="is-square" th:src="|/thumbnail/${listing}|"></a>
 					</figure>
@@ -36,5 +57,11 @@
 		</div>
 	</div>
 </div>
+<script>
+function enable(catalog) {
+	$(".tab-pane").css("display", "none");
+	$("."+catalog).css("display", "block");
+}
+</script>
 </body>
 </html>
