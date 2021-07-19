@@ -22,5 +22,17 @@ public class BookController {
 		model.addAttribute("book", book);
 		return "book";
 	}
+	
+	
+	@GetMapping("/book/addtotoc/{bookname}/{pageindex}/{toc}")
+	public String addToc(@PathVariable(name="bookname") String bookname, 
+			@PathVariable(name="pageindex") int pageindex, 
+			@PathVariable(name="toc") String toc, 
+			Model model) throws IOException {
+		bookService.addToc(bookname, pageindex, toc);
+		Book book = bookService.getBook(bookname, pageindex);
+		model.addAttribute("book", book);
+		return "book";
+	}
 
 }
