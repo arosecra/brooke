@@ -26,32 +26,40 @@
   </div>
 </nav>
 
-<section >
-	<nav class="level" th:each="book : ${books.books}">
-		<div class="level-left">
-		    <div class="level-item">
-		      <div class="field has-addons">
-							<a th:href="|/book/${book.name}/0|"><img height="250" width="250" class="is-square" th:src="|/thumbnail/${book.name}|"></a><br/>
-							
-		      </div>
-		      <div class="field has-addons">
-							<span th:text="${book.displayName}"></span><br/>
-		      </div>
-		      <div class="field has-addons">
-		      <a class="button is-link" th:href="|/manage/book/${book.name}|">Manage</a>
-							
-				<button class="button is-link" th:each="cat,catStatus : ${book.categories}"
-					   th:id="|${catStatus.index}|" 
-					   th:attr="onclick=|addtocategory(${catStatus.index}, &quot;${book.name}&quot;, &quot;${catalog.name}&quot;, &quot;${cat.name}&quot;)|" 
-					   th:disabled="${cat.assigned}"
-					   th:text="${cat.name}">
-					   	Add
-					</button>&nbsp;
-		      </div>
-		    </div>
-		  </div>	
-	</nav>
+<section class="hero" th:each="book : ${books.books}">
+<div class="hero-body">
 
+
+<div class="tile is-ancestor">
+	<div class="tile is-parent">
+		<article class="tile is-child notification is-primary">
+			<p class="title" th:text="${book.displayName}">Middle tile</p>
+			<div class="field has-addons">
+			<a th:href="|/book/${book.name}/0|"><img height="250" width="250" class="is-square" th:src="|/thumbnail/${book.name}|"></a>
+			</div>
+		</article>
+	</div>
+	<div class="tile is-vertical is-8">
+		<div class="tile">
+			<div class="tile is-parent is-vertical">
+				<article class="tile is-child notification is-primary">
+					<div class="columns is-multiline">
+						<div class="column"  th:each="cat,catStatus : ${book.categories}"	>		
+							<button class="button is-link"
+								th:id="|${catStatus.index}|" 
+								th:attr="onclick=|addtocategory(${catStatus.index}, &quot;${book.name}&quot;, &quot;${catalog.name}&quot;, &quot;${cat.name}&quot;)|" 
+								th:disabled="${cat.assigned}"
+								th:text="${cat.name}">
+								Add
+							</button>
+						</div>
+					</div>
+				</article>
+			</div>
+		</div>
+	</div>
+</div>
 </section>
+
 </body>
 </html>
