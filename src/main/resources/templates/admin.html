@@ -23,7 +23,7 @@
 			<td th:text="${catalog.name}"/>
 			<td>
             	<a class="button is-dark" th:href="|/admin/catalog/${catalog.name}|">Manage</a>
-            	<a class="button is-dark" th:href="|/admin/catalog/${catalog.name}?unassigned=true|">Only Unassigned</a>
+            	<a class="button is-dark" th:href="|/admin/catalog/${catalog.name}/books|">Manage Books</a>
 			</td>
 		</tr>
 	</tbody>

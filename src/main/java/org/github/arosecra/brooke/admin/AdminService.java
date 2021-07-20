@@ -70,4 +70,8 @@ public class AdminService {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public void addCategory(String catalog, String categoryname) {
+		System.out.println("Adding catagory " + categoryname);
+	}
 }

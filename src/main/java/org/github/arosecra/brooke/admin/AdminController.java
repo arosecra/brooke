@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class AdminController {
@@ -42,7 +43,7 @@ public class AdminController {
 		return "admin";
 	}
 
-	@GetMapping("/admin/catalog/{catalog}")
+	@GetMapping("/admin/catalog/{catalog}/books")
 	public String manageCatalog(@PathVariable(name="catalog") String catalog, 
 			Model model) throws IOException {
 		
@@ -60,7 +61,15 @@ public class AdminController {
 		
 		model.addAttribute("catalog", cat);
 		model.addAttribute("books", books);
-		return "managecatalog";
+		return "managecatalogbooks";
+	}
+
+	@GetMapping("/admin/catalog/{catalog}/add")
+	public String addCategory(@PathVariable(name="catalog") String catalog, @RequestParam(name="categoryname") String categoryname,
+			Model model) throws IOException {
+		
+		adminService.addCategory(catalog, categoryname);
+		return "redirect:/admin/catalog/"+catalog;
 	}
 
 	private void getAdminBookListing(String catalog, Map<String, List<BookListing>> booksToListings, Catalog cat,
