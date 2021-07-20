@@ -7,7 +7,7 @@ public class Catalog {
 	private String name;
 	private boolean selected;
 	private String parentCatalog;
-	private String parentCategories;
+	private List<String> parentCategories = new ArrayList<>();
 	private List<String> categories = new ArrayList<>();
 
 	public String getName() {
@@ -42,13 +42,15 @@ public class Catalog {
 		this.parentCatalog = parentCatalog;
 	}
 
-	public String getParentCategories() {
+	public List<String> getParentCategories() {
 		return parentCategories;
 	}
 
-	public void setParentCategories(String parentCategories) {
+	public void setParentCategories(List<String> parentCategories) {
 		this.parentCategories = parentCategories;
 	}
+
+	
 
 	
 	

@@ -43,8 +43,17 @@ public class AdminController {
 		return "admin";
 	}
 
-	@GetMapping("/admin/catalog/{catalog}/books")
+	@GetMapping("/admin/catalog/{catalog}")
 	public String manageCatalog(@PathVariable(name="catalog") String catalog, 
+			Model model) throws IOException {
+		Catalog cat = catalogService.getCatalog(catalog);
+		
+		model.addAttribute("catalog", cat);
+		return "managecatalog";
+	}
+
+	@GetMapping("/admin/catalog/{catalog}/books")
+	public String manageCatalogBooks(@PathVariable(name="catalog") String catalog, 
 			Model model) throws IOException {
 		
 		Library library = libraryService.getLibrary();
@@ -89,7 +98,7 @@ public class AdminController {
 						assignedCategories.add(listing.getCategory());
 					}
 					if(StringUtils.equals(cat.getParentCatalog(), listing.getCatalog()) &&
-							StringUtils.contains(cat.getParentCategories(), listing.getCategory())) {
+							cat.getParentCategories().contains(listing.getCategory())) {
 						foundInParent = true;
 					}
 				}
