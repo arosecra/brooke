@@ -1,14 +1,14 @@
-package org.github.arosecra.brooke.manage.book;
+package org.github.arosecra.brooke.admin.book;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import org.github.arosecra.brooke.admin.AdminService;
 import org.github.arosecra.brooke.catalog.BookListing;
 import org.github.arosecra.brooke.catalog.Catalog;
 import org.github.arosecra.brooke.library.Library;
 import org.github.arosecra.brooke.library.LibraryService;
-import org.github.arosecra.brooke.manage.ManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +22,7 @@ public class ManageBookController {
 	private LibraryService libraryService;
 	
 	@Autowired
-	private ManagementService managementService;
+	private AdminService adminService;
 	
 	@GetMapping("/manage/book/{bookname}")
 	public String getManageBook(Model model, @PathVariable(name="bookname") String bookname) {
@@ -30,7 +30,7 @@ public class ManageBookController {
 		ManageBook mb = new ManageBook();
 		mb.setName(bookname);
 		Library library = libraryService.getLibrary();
-		Map<String, List<BookListing>> booksToListings = managementService.getBookToListingsMap(library);
+		Map<String, List<BookListing>> booksToListings = adminService.getBookToListingsMap(library);
 		List<BookListing> listings = booksToListings.get(bookname);
 		
 		for(Catalog cat : library.getCatalogs()) {
@@ -62,14 +62,14 @@ public class ManageBookController {
 	
 	@GetMapping("/manage/book/{bookname}/addtocategory/{catalog}/{category}")
 	public String addtocategory(Model model, @PathVariable(name="bookname") String bookname, @PathVariable(name="catalog") String catalog, @PathVariable(name="category") String category) throws IOException {
-		managementService.addToCategory(bookname, catalog, category);
+		adminService.addToCategory(bookname, catalog, category);
 		return "redirect:/manage/book/"+bookname;
 	}
 
 	
 	@GetMapping("/manage/book/{bookname}/generatethumbnail")
 	public String generateThumbnail(Model model, @PathVariable(name="bookname") String bookname, @PathVariable(name="catalog") String catalog, @PathVariable(name="category") String category) throws IOException {
-		managementService.generateThumbnail(bookname);
+		adminService.generateThumbnail(bookname);
 		return "redirect:/manage/book/"+bookname;
 	}
 }

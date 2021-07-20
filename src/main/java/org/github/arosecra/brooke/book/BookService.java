@@ -48,7 +48,7 @@ public class BookService {
 		File tocFile = new File(bookFolder, "toc.txt");
 
 		Book book = new Book();
-		book.setDisplayName(FilenameUtils.getBaseName(bookFolder.getName()));
+		book.setDisplayName(getBookDisplayName(FilenameUtils.getBaseName(bookFolder.getName())));
 		book.setName(getBookname(bookname));
 
 		book.setLeftPage(page);
@@ -75,7 +75,7 @@ public class BookService {
 		return book;
 	}
 
-	public String getBookFileName(String bookname) {
+	public String getBookDisplayName(String bookname) {
 		return bookname.replace('_', ' ');
 	}
 

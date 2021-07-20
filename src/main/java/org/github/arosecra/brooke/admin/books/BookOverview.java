@@ -1,4 +1,4 @@
-package org.github.arosecra.brooke.manage.books;
+package org.github.arosecra.brooke.admin.books;
 
 public class BookOverview {
 	private String name;
