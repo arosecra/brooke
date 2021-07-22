@@ -18,7 +18,7 @@ public class BookController {
 	public String getPages(@PathVariable(name="bookname") String bookname, 
 			@PathVariable(name="pageindex") int pageindex, 
 			Model model) throws IOException {
-		Book book = bookService.getBook(bookname, pageindex);
+		OpenBook book = bookService.openBookTo(bookname, pageindex);
 		model.addAttribute("book", book);
 		return "book";
 	}
@@ -30,7 +30,7 @@ public class BookController {
 			@PathVariable(name="toc") String toc, 
 			Model model) throws IOException {
 		bookService.addToc(bookname, pageindex, toc);
-		Book book = bookService.getBook(bookname, pageindex);
+		OpenBook book = bookService.openBookTo(bookname, pageindex);
 		model.addAttribute("book", book);
 		return "book";
 	}

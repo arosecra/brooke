@@ -1,11 +1,9 @@
 package org.github.arosecra.brooke.library;
 
-import org.apache.commons.configuration2.Configuration;
-import org.apache.commons.lang3.StringUtils;
-import org.github.arosecra.brooke.ConfigService;
 import org.github.arosecra.brooke.Settings;
-import org.github.arosecra.brooke.catalog.Catalog;
+import org.github.arosecra.brooke.catalog.CatalogRepository;
 import org.github.arosecra.brooke.catalog.CatalogService;
+import org.github.arosecra.brooke.category.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,25 +12,23 @@ public class LibraryService {
 
 	@Autowired
 	private Settings settings;
-	
-	@Autowired
-	private ConfigService configService;
 
 	@Autowired 
 	private CatalogService catalogService;
 	
+	@Autowired
+	private CatalogRepository catalogRepository;
+	
+	@Autowired
+	private CategoryRepository categoryRepository;
+	
 	public Library getLibrary() {
 		Library library = new Library();
 		
-		Configuration catalogs = configService.getConfig(settings.getCatalogsHome(), "Catalogs", "properties");
+		library.setCatalogs(catalogRepository.findAll());
+		library.setCategories(categoryRepository.findAllByOrderByCatalog_NameAscNameAsc());
 		
-		for(String catalogName : catalogs.getStringArray("catalogs")) {
-			Catalog cat = catalogService.getCatalog(catalogName);
-			if(StringUtils.equals(catalogName, catalogName)) {
-	    		cat.setSelected(true);
-	    	}
-		    library.getCatalogs().add(cat);
-		}
+		
 
 		return library;
 	}

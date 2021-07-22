@@ -3,12 +3,36 @@ package org.github.arosecra.brooke.catalog;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.github.arosecra.brooke.category.Category;
+
+@Entity
+@Table(name = "catalog")
 public class Catalog {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+	
+	@Column(name="name", length=256)
 	private String name;
-	private boolean selected;
-	private String parentCatalog;
-	private List<String> parentCategories = new ArrayList<>();
-	private List<String> categories = new ArrayList<>();
+	
+	@OneToMany
+	private List<Category> parents = new ArrayList<>();
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
@@ -18,41 +42,12 @@ public class Catalog {
 		this.name = name;
 	}
 
-	public List<String> getCategories() {
-		return categories;
+	public List<Category> getParents() {
+		return parents;
 	}
 
-	public void setCategories(List<String> categories) {
-		this.categories = categories;
+	public void setParents(List<Category> parents) {
+		this.parents = parents;
 	}
 
-	public boolean isSelected() {
-		return selected;
-	}
-
-	public void setSelected(boolean selected) {
-		this.selected = selected;
-	}
-
-	public String getParentCatalog() {
-		return parentCatalog;
-	}
-
-	public void setParentCatalog(String parentCatalog) {
-		this.parentCatalog = parentCatalog;
-	}
-
-	public List<String> getParentCategories() {
-		return parentCategories;
-	}
-
-	public void setParentCategories(List<String> parentCategories) {
-		this.parentCategories = parentCategories;
-	}
-
-	
-
-	
-	
-	
 }

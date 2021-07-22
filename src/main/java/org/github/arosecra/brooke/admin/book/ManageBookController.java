@@ -32,26 +32,26 @@ public class ManageBookController {
 		Library library = libraryService.getLibrary();
 		Map<String, List<BookListing>> booksToListings = adminService.getBookToListingsMap(library);
 		List<BookListing> listings = booksToListings.get(bookname);
-		
-		for(Catalog cat : library.getCatalogs()) {
-			ManageBookCatalog mbCat = new ManageBookCatalog();
-			mbCat.setName(cat.getName());
-			for(String category : cat.getCategories()) {
-				boolean listed = false;
-				if(listings != null) {
-					for(BookListing list : listings) {
-						if(list.getCatalog().equals(cat.getName()) && list.getCategory().equals(category)) {
-							listed = true;
-						}
-					}
-				}
-				ManageBookCategory mbc = new ManageBookCategory();
-				mbc.setCategory(category);
-				mbc.setListed(listed);
-				mbCat.getCategories().add(mbc);
-			}
-			mb.getCatalogs().add(mbCat);
-		}
+		//TODO fix
+//		for(Catalog cat : library.getCatalogs()) {
+//			ManageBookCatalog mbCat = new ManageBookCatalog();
+//			mbCat.setName(cat.getName());
+//			for(String category : cat.getCategories()) {
+//				boolean listed = false;
+//				if(listings != null) {
+//					for(BookListing list : listings) {
+//						if(list.getCatalog().equals(cat.getName()) && list.getCategory().equals(category)) {
+//							listed = true;
+//						}
+//					}
+//				}
+//				ManageBookCategory mbc = new ManageBookCategory();
+//				mbc.setCategory(category);
+//				mbc.setListed(listed);
+//				mbCat.getCategories().add(mbc);
+//			}
+//			mb.getCatalogs().add(mbCat);
+//		}
 
 		model.addAttribute("library", library);
 		model.addAttribute("selectedCatalogName", "none");

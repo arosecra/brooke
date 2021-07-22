@@ -33,17 +33,18 @@ public class AdminService {
 	private CatalogService catalogService;
 	
 	public Map<String, List<BookListing>> getBookToListingsMap(Library library) {
+		//TODO fix
 		Map<String, List<BookListing>> booksToListings = new HashMap<>();
-		for(Catalog cat : library.getCatalogs()) {
-			for(String category : cat.getCategories()) {
-				BookListing listing = catalogService.getBookListing(cat.getName(), category);
-				for(String book : listing.getBooks()) {
-					if(!booksToListings.containsKey(book))
-						booksToListings.put(book, new ArrayList<>());
-					booksToListings.get(book).add(listing);
-				}
-			}
-		}
+//		for(Catalog cat : library.getCatalogs()) {
+//			for(String category : cat.getCategories()) {
+//				BookListing listing = catalogService.getBookListing(cat.getName(), category);
+//				for(String book : listing.getBooks()) {
+//					if(!booksToListings.containsKey(book))
+//						booksToListings.put(book, new ArrayList<>());
+//					booksToListings.get(book).add(listing);
+//				}
+//			}
+//		}
 		return booksToListings;
 	}
 

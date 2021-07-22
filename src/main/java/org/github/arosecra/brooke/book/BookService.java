@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BookService {
-	private static final String BOOK_EXTENSION = ".cbt";
 	private static byte[] DEFAULT_THUMBNAIL;
 	static {
 		try {
@@ -30,6 +29,9 @@ public class BookService {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	@Autowired
+	private BookRepository bookRepository;
 
 	@Autowired
 	private Settings settings;
@@ -38,28 +40,36 @@ public class BookService {
 		return new File(settings.getBooksHome(), bookname);
 	}
 	
-	public Book getBook(String bookname) throws IOException {
-		return getBook(bookname, -1);
+	public OpenBook openBookTo(String bookname) throws IOException {
+		return openBookTo(bookname, -1);
 	}
 
-	public Book getBook(String bookname, int page) throws IOException {
+	public OpenBook openBookTo(String bookname, int page) throws IOException {
 		File bookFolder = getBookFolder(bookname);
-		File thumbnailFile = new File(bookFolder, "thumbnail.png");
-		File tocFile = new File(bookFolder, "toc.txt");
 
-		Book book = new Book();
+		OpenBook book = new OpenBook();
 		book.setDisplayName(getBookDisplayName(FilenameUtils.getBaseName(bookFolder.getName())));
 		book.setName(getBookname(bookname));
 
 		book.setLeftPage(page);
 		book.setRightPage(page + 1);
+		return book;
+	}
+	
+	public BookMetaData getBookMetaData(String bookname) throws IOException {
+		BookMetaData bmd = new BookMetaData();
 		
+		File bookFolder = getBookFolder(bookname);
+		File thumbnailFile = new File(bookFolder, "thumbnail.png");
+		File tocFile = new File(bookFolder, "toc.txt");
+		
+
 		if(!thumbnailFile.exists()) {
-			book.getBookMetaData().setThumbnail(DEFAULT_THUMBNAIL);
+			bmd.setThumbnail(DEFAULT_THUMBNAIL);
 		} else {
-			book.getBookMetaData().setThumbnail(FileUtils.readFileToByteArray(thumbnailFile));
+			bmd.setThumbnail(FileUtils.readFileToByteArray(thumbnailFile));
 		}
-		
+
 		if(tocFile.exists()) {
 			List<String> lines = FileUtils.readLines(tocFile, StandardCharsets.UTF_8);
 			for(String line : lines) {
@@ -68,11 +78,11 @@ public class BookService {
 					ToCEntry entry = new ToCEntry();
 					entry.setPageIndex(Integer.parseInt(parts[0]));
 					entry.setName(parts[1]);
-					book.getBookMetaData().getTocEntries().add(entry);
+					bmd.getTocEntries().add(entry);
 				}
 			}
 		}
-		return book;
+		return bmd;
 	}
 
 	public String getBookDisplayName(String bookname) {
@@ -99,6 +109,18 @@ public class BookService {
 			}
 		});
 		FileUtils.writeLines(tocFile, lines);
+	}
+	
+	public List<Book> findAll() {
+		return bookRepository.findAll();
+	}
+	
+	public Book find(String name) {
+		return bookRepository.findByFilename(name);
+	}
+	
+	public void save(Book book) {
+		bookRepository.save(book);
 	}
 
 }

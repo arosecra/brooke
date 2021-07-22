@@ -35,8 +35,8 @@
 				<th:block th:each="catalog : ${library.catalogs}">
 				<div class="tab-pane" th:attrappend="class=${' content-catalog-' + catalog.name}" th:style="${catalog.name == selectedCatalogName}? 'display:block' : 'display:none'">
 					<ul>
-						<li th:each="category : ${catalog.categories}">
-							<a th:href="|/home/${catalog.name}/${category}|" th:text="${category}"/>
+						<li th:each="category : ${library.categories}">
+							<a th:href="|/home/${catalog.name}/${category.name}|" th:text="${category.name}" th:if="${catalog.name == category.catalog.name}"/>
 						</li>
 					</ul>
 				</div>

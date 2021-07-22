@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
-import org.github.arosecra.brooke.book.Book;
+import org.github.arosecra.brooke.book.OpenBook;
 import org.github.arosecra.brooke.book.BookService;
 import org.github.arosecra.brooke.catalog.BookListing;
 import org.github.arosecra.brooke.catalog.Catalog;
@@ -62,11 +62,11 @@ public class AdminController {
 
 		AdminBookListing books = new AdminBookListing();
 
-		if(StringUtils.isEmpty(cat.getParentCatalog())) {
+//		if(StringUtils.isEmpty(cat.getParentCatalog())) {
 			getAdminBookListing(catalog, booksToListings, cat, books, false);
-		} else {
-			getAdminBookListing(catalog, booksToListings, cat, books, true);
-		}
+//		} else {
+//			getAdminBookListing(catalog, booksToListings, cat, books, true);
+//		}
 		
 		model.addAttribute("catalog", cat);
 		model.addAttribute("books", books);
@@ -84,7 +84,7 @@ public class AdminController {
 	private void getAdminBookListing(String catalog, Map<String, List<BookListing>> booksToListings, Catalog cat,
 			AdminBookListing books, boolean onlyAddIfInParent) throws IOException {
 		for(File file : new File("D:/scans/books").listFiles()) {
-			Book book = bookService.getBook(file.getName());
+			OpenBook book = bookService.openBookTo(file.getName());
 			AdminBook adminBook = new AdminBook();
 			books.getBooks().add(adminBook);
 			adminBook.setName(book.getName());
@@ -97,22 +97,22 @@ public class AdminController {
 					if(StringUtils.equals(listing.getCatalog(), catalog)) {
 						assignedCategories.add(listing.getCategory());
 					}
-					if(StringUtils.equals(cat.getParentCatalog(), listing.getCatalog()) &&
-							cat.getParentCategories().contains(listing.getCategory())) {
-						foundInParent = true;
-					}
+//					if(StringUtils.equals(cat.getParentCatalog(), listing.getCatalog()) &&
+//							cat.getParentCategories().contains(listing.getCategory())) {
+//						foundInParent = true;
+//					}
 				}
 			}
-			
-			for(String category : cat.getCategories()) {
-				AdminBookCategory abc = new AdminBookCategory();
-				abc.setAssigned(assignedCategories.contains(category));
-				abc.setName(category);
-				
-				if(!onlyAddIfInParent || (foundInParent && onlyAddIfInParent)) {
-					adminBook.getCategories().add(abc);
-				}
-			}
+			//TODO fix
+//			for(String category : cat.getCategories()) {
+//				AdminBookCategory abc = new AdminBookCategory();
+//				abc.setAssigned(assignedCategories.contains(category));
+//				abc.setName(category);
+//				
+//				if(!onlyAddIfInParent || (foundInParent && onlyAddIfInParent)) {
+//					adminBook.getCategories().add(abc);
+//				}
+//			}
 		}
 	}
 }

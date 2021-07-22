@@ -20,7 +20,7 @@ public class ThumbnailController {
 	@GetMapping(value="/thumbnail/{bookname}", produces = MediaType.IMAGE_PNG_VALUE)
 	@ResponseBody
 	public byte[] greeting(@PathVariable(name="bookname") String bookname, Model model) throws IOException {
-		return bookService.getBook(bookname).getBookMetaData().getThumbnail();
+		return bookService.getBookMetaData(bookname).getThumbnail();
 	}
 
 }

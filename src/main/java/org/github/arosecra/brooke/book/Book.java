@@ -1,52 +1,59 @@
 package org.github.arosecra.brooke.book;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.github.arosecra.brooke.category.Category;
+
+@Entity
+@Table(name = "book")
 public class Book {
-	private BookMetaData bookMetaData = new BookMetaData();
-	private String displayName;
-	private String name;
-	private int leftPage = -1;
-	private int rightPage = -1;
 
-	public BookMetaData getBookMetaData() {
-		return bookMetaData;
+    @Id
+    @GeneratedValue
+	private Long id;
+    
+    @Column(name="filename", length=512)
+    private String filename;
+    
+    @OneToMany(mappedBy = "id")
+    private List<Category> categories = new ArrayList<>();
+    
+	public List<Category> getCategories() {
+		return categories;
 	}
 
-	public void setBookMetaData(BookMetaData bookMetaData) {
-		this.bookMetaData = bookMetaData;
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
 	}
 
-	public String getDisplayName() {
-		return displayName;
+	public Long getId() {
+		return id;
 	}
 
-	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public int getRightPage() {
-		return rightPage;
+	public String getFilename() {
+		return filename;
 	}
 
-	public void setRightPage(int rigtPage) {
-		this.rightPage = rigtPage;
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 
-	public int getLeftPage() {
-		return leftPage;
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", filename=" + filename + ", categories=" + categories + "]";
 	}
-
-	public void setLeftPage(int leftPage) {
-		this.leftPage = leftPage;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	
 	
 }

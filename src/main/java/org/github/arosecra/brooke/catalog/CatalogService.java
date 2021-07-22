@@ -23,15 +23,16 @@ public class CatalogService {
 		Catalog cat = new Catalog();
 		cat.setName(catalogName);
 		Configuration catConfig = configService.getConfig(settings.getCatalogsHome(), catalogName, "properties");
-		cat.setParentCatalog(catConfig.getString("parent", null));
+//		cat.setParentCatalog(catConfig.getString("parent", null));
 		
 		String[] categories = catConfig.getStringArray("categories");
 	    for(String category : ObjectUtils.firstNonNull(categories, new String[] {})) {
 	    	String categoryDisplayName = category;
 	    	if(catConfig.getString("categories."+category) != null) 
 	    		categoryDisplayName = catConfig.getString("categories."+category);
-	    	
-	    	cat.getCategories().add(categoryDisplayName);
+
+			//TODO fix
+//	    	cat.getCategories().add(categoryDisplayName);
 	    }
 	    return cat;
 	}
