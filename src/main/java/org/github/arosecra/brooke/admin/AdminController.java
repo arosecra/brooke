@@ -8,11 +8,13 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
-import org.github.arosecra.brooke.book.OpenBook;
 import org.github.arosecra.brooke.book.BookService;
-import org.github.arosecra.brooke.catalog.BookListing;
+import org.github.arosecra.brooke.book.OpenBook;
 import org.github.arosecra.brooke.catalog.Catalog;
 import org.github.arosecra.brooke.catalog.CatalogService;
+import org.github.arosecra.brooke.category.Category;
+import org.github.arosecra.brooke.category.CategoryService;
+import org.github.arosecra.brooke.index.Index;
 import org.github.arosecra.brooke.library.Library;
 import org.github.arosecra.brooke.library.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,9 @@ public class AdminController {
 	private CatalogService catalogService;
 	
 	@Autowired
+	private CategoryService categoryService;
+	
+	@Autowired
 	private BookService bookService;
 	
 	@Autowired
@@ -46,7 +51,7 @@ public class AdminController {
 	@GetMapping("/admin/catalog/{catalog}")
 	public String manageCatalog(@PathVariable(name="catalog") String catalog, 
 			Model model) throws IOException {
-		Catalog cat = catalogService.getCatalog(catalog);
+		Catalog cat = catalogService.findByName(catalog);
 		
 		model.addAttribute("catalog", cat);
 		return "managecatalog";
@@ -57,8 +62,8 @@ public class AdminController {
 			Model model) throws IOException {
 		
 		Library library = libraryService.getLibrary();
-		Map<String, List<BookListing>> booksToListings = adminService.getBookToListingsMap(library);
-		Catalog cat = catalogService.getCatalog(catalog);
+		Map<String, List<Index>> booksToListings = adminService.getBookToListingsMap(library);
+		Catalog cat = catalogService.findByName(catalog);
 
 		AdminBookListing books = new AdminBookListing();
 
@@ -73,6 +78,21 @@ public class AdminController {
 		return "managecatalogbooks";
 	}
 
+	@GetMapping("/admin/addcatalog/{catalog}")
+	public String addCatalog(@PathVariable(name="catalog") String catalog,
+			Model model) throws IOException {
+		
+		adminService.addCatalog(catalog);
+		return "redirect:/admin/catalog/"+catalog;
+	}
+
+	@GetMapping("/admin/export")
+	public String export(Model model) throws IOException {
+		
+		adminService.export();
+		return "redirect:/admin/";
+	}
+
 	@GetMapping("/admin/catalog/{catalog}/add")
 	public String addCategory(@PathVariable(name="catalog") String catalog, @RequestParam(name="categoryname") String categoryname,
 			Model model) throws IOException {
@@ -81,7 +101,7 @@ public class AdminController {
 		return "redirect:/admin/catalog/"+catalog;
 	}
 
-	private void getAdminBookListing(String catalog, Map<String, List<BookListing>> booksToListings, Catalog cat,
+	private void getAdminBookListing(String catalog, Map<String, List<Index>> booksToListings, Catalog cat,
 			AdminBookListing books, boolean onlyAddIfInParent) throws IOException {
 		for(File file : new File("D:/scans/books").listFiles()) {
 			OpenBook book = bookService.openBookTo(file.getName());
@@ -89,13 +109,13 @@ public class AdminController {
 			books.getBooks().add(adminBook);
 			adminBook.setName(book.getName());
 			adminBook.setDisplayName(book.getDisplayName());
-			List<BookListing> listings = booksToListings.get(book.getName());
+			List<Index> listings = booksToListings.get(book.getName());
 			Set<String> assignedCategories = new HashSet<>();
 			boolean foundInParent = false;
 			if(listings != null) {
-				for(BookListing listing : listings) {
-					if(StringUtils.equals(listing.getCatalog(), catalog)) {
-						assignedCategories.add(listing.getCategory());
+				for(Index listing : listings) {
+					if(StringUtils.equals(listing.getCategory().getCatalog().getName(), catalog)) {
+						assignedCategories.add(listing.getCategory().getName());
 					}
 //					if(StringUtils.equals(cat.getParentCatalog(), listing.getCatalog()) &&
 //							cat.getParentCategories().contains(listing.getCategory())) {
@@ -104,15 +124,15 @@ public class AdminController {
 				}
 			}
 			//TODO fix
-//			for(String category : cat.getCategories()) {
-//				AdminBookCategory abc = new AdminBookCategory();
-//				abc.setAssigned(assignedCategories.contains(category));
-//				abc.setName(category);
-//				
-//				if(!onlyAddIfInParent || (foundInParent && onlyAddIfInParent)) {
-//					adminBook.getCategories().add(abc);
-//				}
-//			}
+			for(Category category : categoryService.findAll()) {
+				AdminBookCategory abc = new AdminBookCategory();
+				abc.setAssigned(assignedCategories.contains(category.getName()));
+				abc.setName(category.getName());
+				
+				if(!onlyAddIfInParent || (foundInParent && onlyAddIfInParent)) {
+					adminBook.getCategories().add(abc);
+				}
+			}
 		}
 	}
 }

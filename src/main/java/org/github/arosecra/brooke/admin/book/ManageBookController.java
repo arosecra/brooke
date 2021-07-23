@@ -5,8 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.github.arosecra.brooke.admin.AdminService;
-import org.github.arosecra.brooke.catalog.BookListing;
-import org.github.arosecra.brooke.catalog.Catalog;
+import org.github.arosecra.brooke.index.Index;
 import org.github.arosecra.brooke.library.Library;
 import org.github.arosecra.brooke.library.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +29,8 @@ public class ManageBookController {
 		ManageBook mb = new ManageBook();
 		mb.setName(bookname);
 		Library library = libraryService.getLibrary();
-		Map<String, List<BookListing>> booksToListings = adminService.getBookToListingsMap(library);
-		List<BookListing> listings = booksToListings.get(bookname);
+		Map<String, List<Index>> booksToListings = adminService.getBookToListingsMap(library);
+		List<Index> listings = booksToListings.get(bookname);
 		//TODO fix
 //		for(Catalog cat : library.getCatalogs()) {
 //			ManageBookCatalog mbCat = new ManageBookCatalog();

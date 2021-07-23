@@ -1,8 +1,8 @@
 package org.github.arosecra.brooke.home;
 
-import org.github.arosecra.brooke.book.BookService;
-import org.github.arosecra.brooke.catalog.BookListing;
-import org.github.arosecra.brooke.catalog.CatalogService;
+import java.util.ArrayList;
+
+import org.github.arosecra.brooke.index.Index;
 import org.github.arosecra.brooke.index.IndexService;
 import org.github.arosecra.brooke.library.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,18 +18,12 @@ public class HomeController {
 	private LibraryService libraryService;
 	
 	@Autowired
-	private CatalogService catalogService;
-	
-	@Autowired
-	private BookService bookService;
-	
-	@Autowired
 	private IndexService indexService;
 
 	@GetMapping("/")
 	public String home(Model model) {
 		model.addAttribute("library", libraryService.getLibrary());
-		model.addAttribute("listing", new BookListing());
+		model.addAttribute("indices", new ArrayList<Index>());
 		return "home";
 	}
 

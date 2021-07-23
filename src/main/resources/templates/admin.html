@@ -29,7 +29,6 @@
 	</tbody>
 </table>
 
-
 <nav class="navbar is-fixed-bottom">
   <div class="container">
     <div id="navMenu" class="navbar-menu">
@@ -38,6 +37,8 @@
         <div class="navbar-item">
           <div class="buttons">
             <a class="button is-dark" href="/">Home</a>
+            <a class="button is-dark" onclick="show('#add-catalog-modal')">Add Catalog</a>
+            <a class="button is-dark" href="/admin/export">Export</a>
           </div>
         </div>
       </div>
@@ -45,5 +46,22 @@
     </div>
   </div>
 </nav>
+
+<div id="add-catalog-modal" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Add New Catalog</p>
+      <button class="delete" aria-label="close" onclick="hide('#add-category-modal')"></button>
+    </header>
+    <section class="modal-card-body">
+      <input type="text" id="new-catalog"/>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-success" onclick="addcatalog()">Save changes</button>
+      <button class="button" onclick="hide('#add-catalog-modal')">Close</button>
+    </footer>
+  </div>
+</div>
 </body>
 </html>

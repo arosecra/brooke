@@ -7,14 +7,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.github.arosecra.brooke.ConfigService;
 import org.github.arosecra.brooke.Settings;
-import org.github.arosecra.brooke.catalog.BookListing;
+import org.github.arosecra.brooke.book.BookService;
 import org.github.arosecra.brooke.catalog.Catalog;
 import org.github.arosecra.brooke.catalog.CatalogService;
+import org.github.arosecra.brooke.category.Category;
+import org.github.arosecra.brooke.category.CategoryService;
+import org.github.arosecra.brooke.index.Index;
+import org.github.arosecra.brooke.index.IndexService;
 import org.github.arosecra.brooke.library.Library;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,19 +40,29 @@ public class AdminService {
 	@Autowired 
 	private CatalogService catalogService;
 	
-	public Map<String, List<BookListing>> getBookToListingsMap(Library library) {
+	@Autowired
+	private CategoryService categoryService;
+	
+	@Autowired
+	private BookService bookService;
+	
+	@Autowired
+	private IndexService indexService;
+	
+	public Map<String, List<Index>> getBookToListingsMap(Library library) {
 		//TODO fix
-		Map<String, List<BookListing>> booksToListings = new HashMap<>();
-//		for(Catalog cat : library.getCatalogs()) {
-//			for(String category : cat.getCategories()) {
-//				BookListing listing = catalogService.getBookListing(cat.getName(), category);
-//				for(String book : listing.getBooks()) {
-//					if(!booksToListings.containsKey(book))
-//						booksToListings.put(book, new ArrayList<>());
-//					booksToListings.get(book).add(listing);
-//				}
-//			}
-//		}
+		Map<String, List<Index>> booksToListings = new HashMap<>();
+		
+		for(Catalog cat : library.getCatalogs()) {
+			for(Category category : categoryService.findAllByCatalog_NameOrderByCatalog_NameAscNameAsc(cat.getName())) {
+				for(Index index : indexService.findAllByCategory_Catalog_NameAndCategory_NameOrderByBook_FilenameAsc(cat.getName(), category.getName())) {
+					if(!booksToListings.containsKey(index.getBook().getFilename())) {
+						booksToListings.put(index.getBook().getFilename(), new ArrayList<>());
+					}
+					booksToListings.get(index.getBook().getFilename()).add(index);					
+				}
+			}
+		}
 		return booksToListings;
 	}
 
@@ -74,5 +92,31 @@ public class AdminService {
 
 	public void addCategory(String catalog, String categoryname) {
 		System.out.println("Adding catagory " + categoryname);
+	}
+
+	public void addCatalog(String catalog) {
+		Catalog cat = new Catalog();
+		cat.setName(catalog);
+		System.out.println("saving");
+		catalogService.save(cat);
+	}
+
+	public void export() {
+		Brooke b = new Brooke();
+		b.setCatalogs(catalogService.findAll());
+		b.setCategories(categoryService.findAll());
+		b.setBooks(bookService.findAll());
+		b.setIndices(indexService.findAll());
+		
+		try {
+			JAXBContext jc = JAXBContext.newInstance(Brooke.class);
+			Marshaller m = jc.createMarshaller();
+			m.setProperty( Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE );
+			m.marshal(b, new File("export.xml"));
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }

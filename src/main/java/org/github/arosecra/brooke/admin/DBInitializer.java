@@ -1,4 +1,4 @@
-package org.github.arosecra.brooke.category;
+package org.github.arosecra.brooke.admin;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -16,6 +16,8 @@ import org.github.arosecra.brooke.book.Book;
 import org.github.arosecra.brooke.book.BookRepository;
 import org.github.arosecra.brooke.catalog.Catalog;
 import org.github.arosecra.brooke.catalog.CatalogRepository;
+import org.github.arosecra.brooke.category.Category;
+import org.github.arosecra.brooke.category.CategoryRepository;
 import org.github.arosecra.brooke.index.Index;
 import org.github.arosecra.brooke.index.IndexRepository;
 import org.springframework.beans.factory.annotation.Autowired;

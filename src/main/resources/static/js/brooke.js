@@ -14,7 +14,7 @@ function enable(catalog) {
 }
 
 function addtocategory(id, book, catalog, category) {
-	var url = "/manage/book/"+book+"/addtocategory/"+catalog+"/"+category
+	var url = "/admin/book/"+book+"/addtocategory/"+catalog+"/"+category
 	$.ajax({
         url: url,
         type: 'GET',
@@ -34,6 +34,19 @@ function saveNewToCEntry(book, pageindex) {
         dataType: 'html', 
         success: function(res) {
             hide('#add-toc-modal');
+        }
+    });
+}
+
+function addcatalog() {
+	var value = $("#new-catalog").val();
+	var url = "/admin/addcatalog/"+value
+	$.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'html', 
+        success: function(res) {
+            hide('#add-catalog-modal');
         }
     });
 }
