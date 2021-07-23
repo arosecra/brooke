@@ -47,9 +47,9 @@
 	<div class="tile">
 		<div class="tile is-child box">
 			<div class="columns is-multiline">
-				<div class="column is-2" th:each="listing : ${listing.books}">
+				<div class="column is-2" th:each="index : ${indices}">
 					<figure class="image is-3by4">
-						<a th:href="|/book/${listing}/0|"><img class="is-square" th:src="|/thumbnail/${listing}|"></a>
+						<a th:href="|/book/${index.book.filename}/0|"><img class="is-square" th:src="|/thumbnail/${index.book.filename}|"></a>
 					</figure>
 				</div>
 			</div>

@@ -5,18 +5,23 @@ import java.util.Collections;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.lang3.ObjectUtils;
 import org.github.arosecra.brooke.ConfigService;
+import org.github.arosecra.brooke.JpaService;
 import org.github.arosecra.brooke.Settings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CatalogService {
+public class CatalogService implements JpaService<Catalog, Long> {
 
 	@Autowired
 	private Settings settings;
 	
 	@Autowired 
 	private ConfigService configService;
+	
+	@Autowired
+	private CatalogRepository catalogRepository;
 
 	
 	public Catalog getCatalog(String catalogName) {
@@ -65,5 +70,10 @@ public class CatalogService {
 	    Collections.sort(result.getBooks());
 		
 		return result;
+	}
+
+	@Override
+	public JpaRepository<Catalog, Long> getRepository() {
+		return catalogRepository;
 	}
 }

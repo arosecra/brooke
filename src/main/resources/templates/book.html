@@ -72,7 +72,7 @@
     </header>
     <section class="modal-card-body">
     	<ul>
-		<li th:each="tocEntry : ${book.bookMetaData.tocEntries}" ><a class="is-link" th:href="|/book/${book.name}/${tocEntry.pageIndex}|" th:text="${tocEntry.name}">Entry</a></li>
+		<li th:each="tocEntry : ${bookMetaData.tocEntries}" ><a class="is-link" th:href="|/book/${book.name}/${tocEntry.pageIndex}|" th:text="${tocEntry.name}">Entry</a></li>
 		</ul>
     </section>
     <footer class="modal-card-foot">

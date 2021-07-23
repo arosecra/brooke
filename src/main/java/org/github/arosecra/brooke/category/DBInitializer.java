@@ -1,7 +1,9 @@
 package org.github.arosecra.brooke.category;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -14,6 +16,8 @@ import org.github.arosecra.brooke.book.Book;
 import org.github.arosecra.brooke.book.BookRepository;
 import org.github.arosecra.brooke.catalog.Catalog;
 import org.github.arosecra.brooke.catalog.CatalogRepository;
+import org.github.arosecra.brooke.index.Index;
+import org.github.arosecra.brooke.index.IndexRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -35,31 +39,41 @@ public class DBInitializer {
 	@Autowired
 	private BookRepository bookRepository;
 	
+	@Autowired
+	private IndexRepository indexRepository;
+	
 	@PostConstruct
 	public void init() {
 		Configuration catalogs = configService.getConfig(settings.getCatalogsHome(), "Catalogs", "properties");
 		
 		Map<String, Book> books = loadBooks();
-		
+		List<Index> indices = new ArrayList<>();
 		
 		for(String catalogName : catalogs.getStringArray("catalogs")) {
 			Catalog cat = readCatalog(catalogName);
 			catalogRepository.save(cat);
+			catalogRepository.flush();
 			System.out.println(cat);
 			
 			Map<String, Category> categories = readCatagories(cat);
 			categoryRepository.saveAll(categories.values());
-			
-			assignBooks(books, categories, catalogName);
+			categoryRepository.flush();
+			indices.addAll(assignBooks(books, categories, catalogName));
 		}
-		for(Book book : books.values()) {
-			System.err.println(book);
-			bookRepository.save(book);
-		}
+		
+		bookRepository.saveAll(books.values());
+		bookRepository.flush();
+		
+		indexRepository.saveAll(indices);
+		indexRepository.flush();
 	}
 	
 	
-	private void assignBooks(Map<String, Book> booksMap, Map<String, Category> categoriesMap, String catalogName) {
+	private List<Index> assignBooks(Map<String, Book> booksMap, 
+			Map<String, Category> categoriesMap, 
+			String catalogName) {
+		
+		List<Index> results = new ArrayList<>();
 		Configuration catConfig = configService.getConfig(settings.getCatalogsHome(), catalogName, "properties");
 		
 		
@@ -73,11 +87,14 @@ public class DBInitializer {
 	    	String[] books = catConfig.getStringArray("books." + c);
 		    for(String book : ObjectUtils.firstNonNull(books, new String[] {})) {
 		    	
-		    	booksMap.get(book).getCategories().add(categoriesMap.get(categoryDisplayName));
+		    	Index listing = new Index();
+		    	listing.setBook(booksMap.get(book));
+		    	listing.setCategory(categoriesMap.get(categoryDisplayName));
+		    	results.add(listing);
 		    }
 	    }
 		
-		
+		return results;
 	}
 
 

@@ -1,7 +1,9 @@
 package org.github.arosecra.brooke.home;
 
+import org.github.arosecra.brooke.book.BookService;
 import org.github.arosecra.brooke.catalog.BookListing;
 import org.github.arosecra.brooke.catalog.CatalogService;
+import org.github.arosecra.brooke.index.IndexService;
 import org.github.arosecra.brooke.library.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,12 @@ public class HomeController {
 	
 	@Autowired
 	private CatalogService catalogService;
+	
+	@Autowired
+	private BookService bookService;
+	
+	@Autowired
+	private IndexService indexService;
 
 	@GetMapping("/")
 	public String home(Model model) {
@@ -31,7 +39,7 @@ public class HomeController {
 			Model model) {
 		model.addAttribute("library", libraryService.getLibrary());
 		model.addAttribute("selectedCatalogName", catalog);
-		model.addAttribute("listing", catalogService.getBookListing(catalog, category));
+		model.addAttribute("indices", indexService.findAllByCategory_Catalog_NameAndCategory_NameOrderByBook_FilenameAsc(catalog, category));
 		return "home";
 	}
 

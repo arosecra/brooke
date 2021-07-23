@@ -20,6 +20,7 @@ public class BookController {
 			Model model) throws IOException {
 		OpenBook book = bookService.openBookTo(bookname, pageindex);
 		model.addAttribute("book", book);
+		model.addAttribute("bookMetaData", bookService.getBookMetaData(bookname));
 		return "book";
 	}
 	
@@ -32,6 +33,7 @@ public class BookController {
 		bookService.addToc(bookname, pageindex, toc);
 		OpenBook book = bookService.openBookTo(bookname, pageindex);
 		model.addAttribute("book", book);
+		model.addAttribute("bookMetaData", bookService.getBookMetaData(bookname));
 		return "book";
 	}
 
