@@ -44,30 +44,35 @@ public class DBInitializer {
 	@Autowired
 	private IndexRepository indexRepository;
 	
+	@Autowired
+	private AdminService adminService;
+	
 	@PostConstruct
 	public void init() {
-		Configuration catalogs = configService.getConfig(settings.getCatalogsHome(), "Catalogs", "properties");
+//		Configuration catalogs = configService.getConfig(settings.getCatalogsHome(), "Catalogs", "properties");
+//		
+//		Map<String, Book> books = loadBooks();
+//		List<Index> indices = new ArrayList<>();
+//		
+//		for(String catalogName : catalogs.getStringArray("catalogs")) {
+//			Catalog cat = readCatalog(catalogName);
+//			catalogRepository.save(cat);
+//			catalogRepository.flush();
+//			System.out.println(cat);
+//			
+//			Map<String, Category> categories = readCatagories(cat);
+//			categoryRepository.saveAll(categories.values());
+//			categoryRepository.flush();
+//			indices.addAll(assignBooks(books, categories, catalogName));
+//		}
+//		
+//		bookRepository.saveAll(books.values());
+//		bookRepository.flush();
+//		
+//		indexRepository.saveAll(indices);
+//		indexRepository.flush();
 		
-		Map<String, Book> books = loadBooks();
-		List<Index> indices = new ArrayList<>();
-		
-		for(String catalogName : catalogs.getStringArray("catalogs")) {
-			Catalog cat = readCatalog(catalogName);
-			catalogRepository.save(cat);
-			catalogRepository.flush();
-			System.out.println(cat);
-			
-			Map<String, Category> categories = readCatagories(cat);
-			categoryRepository.saveAll(categories.values());
-			categoryRepository.flush();
-			indices.addAll(assignBooks(books, categories, catalogName));
-		}
-		
-		bookRepository.saveAll(books.values());
-		bookRepository.flush();
-		
-		indexRepository.saveAll(indices);
-		indexRepository.flush();
+		adminService.imprt();
 	}
 	
 	

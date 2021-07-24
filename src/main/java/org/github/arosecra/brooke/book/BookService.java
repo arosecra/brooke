@@ -13,12 +13,14 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.github.arosecra.brooke.JpaService;
 import org.github.arosecra.brooke.Settings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BookService {
+public class BookService implements JpaService<Book, Long> {
 	private static byte[] DEFAULT_THUMBNAIL;
 	static {
 		try {
@@ -115,12 +117,13 @@ public class BookService {
 		return bookRepository.findAll();
 	}
 	
-	public Book find(String name) {
+	public Book findByFilename(String name) {
 		return bookRepository.findByFilename(name);
 	}
-	
-	public void save(Book book) {
-		bookRepository.save(book);
+
+	@Override
+	public JpaRepository<Book, Long> getRepository() {
+		return bookRepository;
 	}
 
 }

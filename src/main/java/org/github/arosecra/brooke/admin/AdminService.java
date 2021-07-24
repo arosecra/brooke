@@ -10,15 +10,20 @@ import java.util.Map;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.github.arosecra.brooke.ConfigService;
+import org.github.arosecra.brooke.JpaEntity;
 import org.github.arosecra.brooke.Settings;
+import org.github.arosecra.brooke.book.Book;
 import org.github.arosecra.brooke.book.BookService;
 import org.github.arosecra.brooke.catalog.Catalog;
 import org.github.arosecra.brooke.catalog.CatalogService;
+import org.github.arosecra.brooke.catalogparent.CatalogParent;
+import org.github.arosecra.brooke.catalogparent.CatalogParentService;
 import org.github.arosecra.brooke.category.Category;
 import org.github.arosecra.brooke.category.CategoryService;
 import org.github.arosecra.brooke.index.Index;
@@ -49,6 +54,9 @@ public class AdminService {
 	@Autowired
 	private IndexService indexService;
 	
+	@Autowired
+	private CatalogParentService catalogParentService;
+	
 	public Map<String, List<Index>> getBookToListingsMap(Library library) {
 		//TODO fix
 		Map<String, List<Index>> booksToListings = new HashMap<>();
@@ -67,22 +75,28 @@ public class AdminService {
 	}
 
 	public void addToCategory(String bookname, String catalog, String category) throws IOException {
-		Configuration catConfig = configService.getConfig(settings.getCatalogsHome(), catalog, "properties");
-
-		String internalCategoryName = category;
-		String[] categories = catConfig.getStringArray("categories");
-	    for(String c : ObjectUtils.firstNonNull(categories, new String[] {})) {
-	    	String categoryDisplayName = c;
-	    	if(catConfig.getString("categories."+c) != null) {
-	    		categoryDisplayName = catConfig.getString("categories."+c);
-	    		if(categoryDisplayName.equals(category)) {
-	    			internalCategoryName = c;
-	    		}
-	    	}	
-	    }
+//		Configuration catConfig = configService.getConfig(settings.getCatalogsHome(), catalog, "properties");
+//
+//		String internalCategoryName = category;
+//		String[] categories = catConfig.getStringArray("categories");
+//	    for(String c : ObjectUtils.firstNonNull(categories, new String[] {})) {
+//	    	String categoryDisplayName = c;
+//	    	if(catConfig.getString("categories."+c) != null) {
+//	    		categoryDisplayName = catConfig.getString("categories."+c);
+//	    		if(categoryDisplayName.equals(category)) {
+//	    			internalCategoryName = c;
+//	    		}
+//	    	}	
+//	    }
+//		
+//	    String lineToAdd = "\r\nbooks."+internalCategoryName+"="+bookname;
+//	    FileUtils.write(new File(settings.getCatalogsHome(), catalog + ".properties"), lineToAdd, true);
 		
-	    String lineToAdd = "\r\nbooks."+internalCategoryName+"="+bookname;
-	    FileUtils.write(new File(settings.getCatalogsHome(), catalog + ".properties"), lineToAdd, true);
+		
+		Index index = new Index();
+		index.setBook(bookService.findByFilename(bookname));
+		index.setCategory(categoryService.findByCatalog_NameAndName(catalog, category));
+		indexService.save(index);
 	}
 
 	public void generateThumbnail(String bookname) {
@@ -91,7 +105,10 @@ public class AdminService {
 	}
 
 	public void addCategory(String catalog, String categoryname) {
-		System.out.println("Adding catagory " + categoryname);
+		Category cry = new Category();
+		cry.setName(categoryname);
+		cry.setCatalog(catalogService.findByName(catalog));
+		categoryService.save(cry);
 	}
 
 	public void addCatalog(String catalog) {
@@ -107,6 +124,7 @@ public class AdminService {
 		b.setCategories(categoryService.findAll());
 		b.setBooks(bookService.findAll());
 		b.setIndices(indexService.findAll());
+		b.setCatalogParents(catalogParentService.findAll());
 		
 		try {
 			JAXBContext jc = JAXBContext.newInstance(Brooke.class);
@@ -118,5 +136,67 @@ public class AdminService {
 			e.printStackTrace();
 		}
 		
+	}
+
+	public void imprt() {
+
+		
+		try {
+			JAXBContext jc = JAXBContext.newInstance(Brooke.class);
+			Unmarshaller m = jc.createUnmarshaller();
+			Brooke b = (Brooke) m.unmarshal(new File("export.xml"));
+			
+			Map<Long, Catalog> catalogs = new MapSorter<Catalog>().sort(b.getCatalogs());
+			Map<Long, Category> categories = new MapSorter<Category>().sort(b.getCategories());
+			Map<Long, Book> books = new MapSorter<Book>().sort(b.getBooks());
+			Map<Long, Index> indices = new MapSorter<Index>().sort(b.getIndices());
+			Map<Long, CatalogParent> catalogParents = new MapSorter<CatalogParent>().sort(b.getCatalogParents());
+			
+			for(Category category : categories.values()) {
+				long id = category.getCatalog().getId();
+				category.setCatalog(catalogs.get(id));
+			}
+			
+			for(Index index : indices.values()) {
+				index.setBook(books.get(index.getBook().getId()));
+				index.setCategory(categories.get(index.getCategory().getId()));
+			}
+			
+			for(CatalogParent parent : catalogParents.values()) {
+				parent.setCatalog(catalogs.get(parent.getCatalog().getId()));
+				parent.setParentCategory(categories.get(parent.getParentCategory().getId()));
+			}
+			
+			catalogService.saveAll(catalogs.values());
+			catalogService.flush();
+			
+			categoryService.saveAll(categories.values());
+			categoryService.flush();
+			
+			bookService.saveAll(books.values());
+			bookService.flush();
+			
+			indexService.saveAll(indices.values());
+			indexService.flush();
+			
+			catalogParentService.saveAll(catalogParents.values());
+			catalogParentService.flush();
+			
+			
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private static class MapSorter<T extends JpaEntity> {
+		public Map<Long, T> sort(List<T> values) {
+			Map<Long, T> res = new HashMap<>();
+			for(T t : values) {
+				res.put(t.getId(), t);
+				t.setId(null);
+			}
+			return res;
+		}
 	}
 }

@@ -14,7 +14,19 @@ function enable(catalog) {
 }
 
 function addtocategory(id, book, catalog, category) {
-	var url = "/admin/book/"+book+"/addtocategory/"+catalog+"/"+category
+	var url = "/adminbook/"+book+"/addtocategory/"+catalog+"/"+category
+	$.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'html', 
+        success: function(res) {
+            $('#'+id).prop('disabled', true);
+        }
+    });
+}
+
+function addcatalogparent(id, catalog, parentcatalog, category) {
+	var url = "/admincatalog/"+catalog+"/addparent/"+parentcatalog+"/"+category
 	$.ajax({
         url: url,
         type: 'GET',
@@ -34,6 +46,19 @@ function saveNewToCEntry(book, pageindex) {
         dataType: 'html', 
         success: function(res) {
             hide('#add-toc-modal');
+        }
+    });
+}
+
+function addcategory(catalog) {
+	var category = $("#new-category").val();
+	var url = "/admin/catalog/"+catalog+"/addcategory/"+category
+	$.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'html', 
+        success: function(res) {
+            hide('#add-category-modal');
         }
     });
 }

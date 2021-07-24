@@ -21,5 +21,9 @@ public class CategoryService implements JpaService<Category, Long> {
 	public List<Category> findAllByCatalog_NameOrderByCatalog_NameAscNameAsc(String name) {
 		return categoryRepository.findAllByCatalog_NameOrderByCatalog_NameAscNameAsc(name);
 	}
+	
+	public Category findByCatalog_NameAndName(String catalog, String category) {
+		return categoryRepository.findByCatalog_NameAndName(catalog, category);
+	}
 
 }

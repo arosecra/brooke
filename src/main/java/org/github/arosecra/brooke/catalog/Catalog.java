@@ -1,20 +1,16 @@
 package org.github.arosecra.brooke.catalog;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.github.arosecra.brooke.category.Category;
+import org.github.arosecra.brooke.JpaEntity;
 
 @Entity
 @Table(name = "catalog")
-public class Catalog {
+public class Catalog implements JpaEntity {
 
     @Id
     @GeneratedValue
@@ -22,9 +18,6 @@ public class Catalog {
 	
 	@Column(name="name", length=256)
 	private String name;
-	
-	@OneToMany
-	private List<Category> parents = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -41,13 +34,4 @@ public class Catalog {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public List<Category> getParents() {
-		return parents;
-	}
-
-	public void setParents(List<Category> parents) {
-		this.parents = parents;
-	}
-
 }

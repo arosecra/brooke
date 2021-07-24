@@ -1,4 +1,4 @@
-package org.github.arosecra.brooke.admin;
+package org.github.arosecra.brooke.admin.catalogbooks;
 
 import java.util.ArrayList;
 import java.util.List;

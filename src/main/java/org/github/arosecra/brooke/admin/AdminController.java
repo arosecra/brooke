@@ -12,6 +12,8 @@ import org.github.arosecra.brooke.book.BookService;
 import org.github.arosecra.brooke.book.OpenBook;
 import org.github.arosecra.brooke.catalog.Catalog;
 import org.github.arosecra.brooke.catalog.CatalogService;
+import org.github.arosecra.brooke.catalogparent.CatalogParent;
+import org.github.arosecra.brooke.catalogparent.CatalogParentService;
 import org.github.arosecra.brooke.category.Category;
 import org.github.arosecra.brooke.category.CategoryService;
 import org.github.arosecra.brooke.index.Index;
@@ -41,41 +43,14 @@ public class AdminController {
 	
 	@Autowired
 	private AdminService adminService;
+	
+	@Autowired 
+	private CatalogParentService catalogParentService;
 
 	@GetMapping("/admin")
 	public String getAdmin(Model model) {
 		model.addAttribute("library", libraryService.getLibrary());
 		return "admin";
-	}
-
-	@GetMapping("/admin/catalog/{catalog}")
-	public String manageCatalog(@PathVariable(name="catalog") String catalog, 
-			Model model) throws IOException {
-		Catalog cat = catalogService.findByName(catalog);
-		
-		model.addAttribute("catalog", cat);
-		return "managecatalog";
-	}
-
-	@GetMapping("/admin/catalog/{catalog}/books")
-	public String manageCatalogBooks(@PathVariable(name="catalog") String catalog, 
-			Model model) throws IOException {
-		
-		Library library = libraryService.getLibrary();
-		Map<String, List<Index>> booksToListings = adminService.getBookToListingsMap(library);
-		Catalog cat = catalogService.findByName(catalog);
-
-		AdminBookListing books = new AdminBookListing();
-
-//		if(StringUtils.isEmpty(cat.getParentCatalog())) {
-			getAdminBookListing(catalog, booksToListings, cat, books, false);
-//		} else {
-//			getAdminBookListing(catalog, booksToListings, cat, books, true);
-//		}
-		
-		model.addAttribute("catalog", cat);
-		model.addAttribute("books", books);
-		return "managecatalogbooks";
 	}
 
 	@GetMapping("/admin/addcatalog/{catalog}")
@@ -88,51 +63,7 @@ public class AdminController {
 
 	@GetMapping("/admin/export")
 	public String export(Model model) throws IOException {
-		
 		adminService.export();
 		return "redirect:/admin/";
-	}
-
-	@GetMapping("/admin/catalog/{catalog}/add")
-	public String addCategory(@PathVariable(name="catalog") String catalog, @RequestParam(name="categoryname") String categoryname,
-			Model model) throws IOException {
-		
-		adminService.addCategory(catalog, categoryname);
-		return "redirect:/admin/catalog/"+catalog;
-	}
-
-	private void getAdminBookListing(String catalog, Map<String, List<Index>> booksToListings, Catalog cat,
-			AdminBookListing books, boolean onlyAddIfInParent) throws IOException {
-		for(File file : new File("D:/scans/books").listFiles()) {
-			OpenBook book = bookService.openBookTo(file.getName());
-			AdminBook adminBook = new AdminBook();
-			books.getBooks().add(adminBook);
-			adminBook.setName(book.getName());
-			adminBook.setDisplayName(book.getDisplayName());
-			List<Index> listings = booksToListings.get(book.getName());
-			Set<String> assignedCategories = new HashSet<>();
-			boolean foundInParent = false;
-			if(listings != null) {
-				for(Index listing : listings) {
-					if(StringUtils.equals(listing.getCategory().getCatalog().getName(), catalog)) {
-						assignedCategories.add(listing.getCategory().getName());
-					}
-//					if(StringUtils.equals(cat.getParentCatalog(), listing.getCatalog()) &&
-//							cat.getParentCategories().contains(listing.getCategory())) {
-//						foundInParent = true;
-//					}
-				}
-			}
-			//TODO fix
-			for(Category category : categoryService.findAll()) {
-				AdminBookCategory abc = new AdminBookCategory();
-				abc.setAssigned(assignedCategories.contains(category.getName()));
-				abc.setName(category.getName());
-				
-				if(!onlyAddIfInParent || (foundInParent && onlyAddIfInParent)) {
-					adminBook.getCategories().add(abc);
-				}
-			}
-		}
 	}
 }

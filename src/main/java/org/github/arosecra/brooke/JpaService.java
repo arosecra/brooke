@@ -25,4 +25,8 @@ public interface JpaService<T, ID> {
 	public default List<T> saveAll(Collection<T> ts) {
 		return getRepository().saveAll(ts);
 	}
+	
+	public default void flush() {
+		getRepository().flush();
+	}
 }

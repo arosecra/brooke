@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.github.arosecra.brooke.book.Book;
 import org.github.arosecra.brooke.catalog.Catalog;
+import org.github.arosecra.brooke.catalogparent.CatalogParent;
 import org.github.arosecra.brooke.category.Category;
 import org.github.arosecra.brooke.index.Index;
 
@@ -16,6 +17,8 @@ public class Brooke {
 	private List<Category> categories = new ArrayList<>();
 	private List<Book> books = new ArrayList<>();
 	private List<Index> indices = new ArrayList<>();
+	private List<CatalogParent> catalogParents = new ArrayList<>();
+	
 	public List<Catalog> getCatalogs() {
 		return catalogs;
 	}
@@ -39,5 +42,11 @@ public class Brooke {
 	}
 	public void setIndices(List<Index> indices) {
 		this.indices = indices;
+	}
+	public List<CatalogParent> getCatalogParents() {
+		return catalogParents;
+	}
+	public void setCatalogParents(List<CatalogParent> catalogParents) {
+		this.catalogParents = catalogParents;
 	}
 }

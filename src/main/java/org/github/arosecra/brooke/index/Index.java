@@ -7,12 +7,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.github.arosecra.brooke.JpaEntity;
 import org.github.arosecra.brooke.book.Book;
 import org.github.arosecra.brooke.category.Category;
 
 @Entity
 @Table(name="listing")
-public class Index {
+public class Index implements JpaEntity {
 
     @Id
     @GeneratedValue

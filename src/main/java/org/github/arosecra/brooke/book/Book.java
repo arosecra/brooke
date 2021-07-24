@@ -6,9 +6,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.github.arosecra.brooke.JpaEntity;
+
 @Entity
 @Table(name = "book")
-public class Book {
+public class Book implements JpaEntity {
 
     @Id
     @GeneratedValue

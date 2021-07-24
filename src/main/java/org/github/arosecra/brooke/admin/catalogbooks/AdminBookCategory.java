@@ -1,7 +1,8 @@
-package org.github.arosecra.brooke.admin;
+package org.github.arosecra.brooke.admin.catalogbooks;
 
 public class AdminBookCategory {
 	private String name;
+	private String catalog;
 	private boolean assigned;
 	public String getName() {
 		return name;
@@ -14,5 +15,11 @@ public class AdminBookCategory {
 	}
 	public void setAssigned(boolean assigned) {
 		this.assigned = assigned;
+	}
+	public String getCatalog() {
+		return catalog;
+	}
+	public void setCatalog(String catalog) {
+		this.catalog = catalog;
 	}
 }

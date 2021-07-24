@@ -10,4 +10,5 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 	
 	public List<Category> findAllByOrderByCatalog_NameAscNameAsc();
 	public List<Category> findAllByCatalog_NameOrderByCatalog_NameAscNameAsc(String catalogName);
+	public Category findByCatalog_NameAndName(String catalogName, String categoryName);
 }

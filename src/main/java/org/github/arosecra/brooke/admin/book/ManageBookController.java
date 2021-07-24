@@ -23,7 +23,7 @@ public class ManageBookController {
 	@Autowired
 	private AdminService adminService;
 	
-	@GetMapping("/manage/book/{bookname}")
+	@GetMapping("/adminbook/{bookname}")
 	public String getManageBook(Model model, @PathVariable(name="bookname") String bookname) {
 		
 		ManageBook mb = new ManageBook();
@@ -59,16 +59,15 @@ public class ManageBookController {
 	}
 
 	
-	@GetMapping("/manage/book/{bookname}/addtocategory/{catalog}/{category}")
+	@GetMapping("/adminbook/{bookname}/addtocategory/{catalog}/{category}")
 	public String addtocategory(Model model, @PathVariable(name="bookname") String bookname, @PathVariable(name="catalog") String catalog, @PathVariable(name="category") String category) throws IOException {
 		adminService.addToCategory(bookname, catalog, category);
-		return "redirect:/manage/book/"+bookname;
+		return "redirect:/managebook/"+bookname;
 	}
-
 	
-	@GetMapping("/manage/book/{bookname}/generatethumbnail")
+	@GetMapping("/adminbook/{bookname}/generatethumbnail")
 	public String generateThumbnail(Model model, @PathVariable(name="bookname") String bookname, @PathVariable(name="catalog") String catalog, @PathVariable(name="category") String category) throws IOException {
 		adminService.generateThumbnail(bookname);
-		return "redirect:/manage/book/"+bookname;
+		return "redirect:/managebook/"+bookname;
 	}
 }

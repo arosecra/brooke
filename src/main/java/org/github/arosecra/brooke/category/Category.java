@@ -7,11 +7,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.github.arosecra.brooke.JpaEntity;
 import org.github.arosecra.brooke.catalog.Catalog;
 
 @Entity
 @Table(name = "category")
-public class Category {
+public class Category implements JpaEntity {
 
     @Id
     @GeneratedValue
