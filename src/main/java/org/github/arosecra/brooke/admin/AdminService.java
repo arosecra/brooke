@@ -13,6 +13,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import org.github.arosecra.brooke.JpaEntity;
+import org.github.arosecra.brooke.Settings;
 import org.github.arosecra.brooke.book.Book;
 import org.github.arosecra.brooke.book.BookService;
 import org.github.arosecra.brooke.catalog.Catalog;
@@ -44,6 +45,9 @@ public class AdminService {
 	
 	@Autowired
 	private CatalogParentService catalogParentService;
+	
+	@Autowired
+	private Settings settings;
 	
 	public Map<String, List<Index>> getBookToListingsMap(Library library) {
 		//TODO fix
@@ -82,7 +86,14 @@ public class AdminService {
 		
 		
 		Index index = new Index();
-		index.setBook(bookService.findByFilename(bookname));
+		Book book = bookService.findByFilename(bookname);
+		if(book == null) {
+			book = new Book();
+			book.setFilename(bookname);
+			bookService.save(book);
+			bookService.flush();
+		}
+		index.setBook(book);
 		index.setCategory(categoryService.findByCatalog_NameAndName(catalog, category));
 		indexService.save(index);
 	}
@@ -118,7 +129,7 @@ public class AdminService {
 			JAXBContext jc = JAXBContext.newInstance(Brooke.class);
 			Marshaller m = jc.createMarshaller();
 			m.setProperty( Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE );
-			m.marshal(b, new File("export.xml"));
+			m.marshal(b, new File(settings.getLibraryHome(), "export.xml"));
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -132,7 +143,7 @@ public class AdminService {
 		try {
 			JAXBContext jc = JAXBContext.newInstance(Brooke.class);
 			Unmarshaller m = jc.createUnmarshaller();
-			Brooke b = (Brooke) m.unmarshal(new File("export.xml"));
+			Brooke b = (Brooke) m.unmarshal(new File(settings.getLibraryHome(), "export.xml"));
 			
 			Map<Long, Catalog> catalogs = new MapSorter<Catalog>().sort(b.getCatalogs());
 			Map<Long, Category> categories = new MapSorter<Category>().sort(b.getCategories());
