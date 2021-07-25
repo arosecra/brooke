@@ -59,11 +59,7 @@ public class AdminCatalogIndexController {
 
 		AdminBookListing books = new AdminBookListing();
 
-//		if(StringUtils.isEmpty(cat.getParentCatalog())) {
-			getAdminBookListing(catalog, booksToListings, cat, books, false);
-//		} else {
-//			getAdminBookListing(catalog, booksToListings, cat, books, true);
-//		}
+		getAdminBookListing(catalog, booksToListings, cat, books);
 		
 		model.addAttribute("catalog", cat);
 		model.addAttribute("books", books);
@@ -71,7 +67,7 @@ public class AdminCatalogIndexController {
 	}
 
 	private void getAdminBookListing(String catalog, Map<String, List<Index>> booksToListings, Catalog cat,
-			AdminBookListing books, boolean onlyAddIfInParent) throws IOException {
+			AdminBookListing books) throws IOException {
 		List<CatalogParent> parentCatalogs = catalogParentService.findAllByCatalog_NameOrderByParentCategory_Catalog_Name(catalog);
 		for(File file : new File("D:/scans/books").listFiles()) {
 			OpenBook book = bookService.openBookTo(file.getName());

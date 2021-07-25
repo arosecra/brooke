@@ -12,12 +12,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import org.apache.commons.configuration2.Configuration;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.ObjectUtils;
-import org.github.arosecra.brooke.ConfigService;
 import org.github.arosecra.brooke.JpaEntity;
-import org.github.arosecra.brooke.Settings;
 import org.github.arosecra.brooke.book.Book;
 import org.github.arosecra.brooke.book.BookService;
 import org.github.arosecra.brooke.catalog.Catalog;
@@ -34,13 +29,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AdminService {
-
-
-	@Autowired
-	private Settings settings;
-	
-	@Autowired
-	private ConfigService configService;
 	
 	@Autowired 
 	private CatalogService catalogService;
