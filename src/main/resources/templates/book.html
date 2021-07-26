@@ -87,14 +87,14 @@
   <div class="modal-card">
     <header class="modal-card-head">
       <p class="modal-card-title">Add New ToC Entry</p>
-      <button class="delete" aria-label="close" onclick="hide('#toc-modal')"></button>
+      <button class="delete" aria-label="close" onclick="hide('#add-toc-modal')"></button>
     </header>
     <section class="modal-card-body">
       <input type="text" id="toc-entry"/>
     </section>
     <footer class="modal-card-foot">
       <button class="button is-success" th:attr="onclick=|saveNewToCEntry(&quot;${book.name}&quot;,${book.leftPage})|">Save changes</button>
-      <button class="button" onclick="hide('#toc-modal')">Close</button>
+      <button class="button" onclick="hide('#add-toc-modal')">Close</button>
     </footer>
   </div>
 </div>
