@@ -23,7 +23,7 @@ public class ImageWebpLibraryWrapper {
     try {
       process = new ProcessBuilder( CWEBP_BIN_PATH, "-lossless", imageFile.getAbsolutePath(), "-o",
           targetFile.getAbsolutePath() ).start();
-      process.waitFor( 30, TimeUnit.SECONDS );
+      process.waitFor( 30, TimeUnit.MINUTES );
       if ( process.exitValue() == 0 ) {
         // Success
         printProcessOutput( process.getInputStream(), System.out );
