@@ -1,9 +1,12 @@
 package org.github.arosecra.brooke;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 
 public class Main2 {
@@ -35,13 +38,20 @@ public class Main2 {
 	}
 	
 	//rename books / folders / delete extra files & folders
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		File tempFolder = new File("D:/scans/temp");
 		
 		List<Action> actions = new ArrayList<>();
-		//just do 'B' at first
+		//just do 'O' at first
 		for(File folder : tempFolder.listFiles()) {
-			String oldName = folder.getName();
+			File realFolder = folder;
+			if(folder.isFile()) {
+				realFolder = new File(tempFolder, FilenameUtils.getBaseName(folder.getName()));
+				FileUtils.moveFileToDirectory(folder, realFolder, true);
+			}
+			
+			
+			String oldName = realFolder.getName();
 			StringBuilder sb = new StringBuilder();
 			String[] parts = oldName.split("[ \\.]");
 			for(int i = 0; i < parts.length; i++) {
@@ -64,13 +74,13 @@ public class Main2 {
 			}
 			String newName = sb.toString();
 			
-			for(File file : folder.listFiles()) {
+			for(File file : realFolder.listFiles()) {
 				Action action = new Action();
 				actions.add(action);
 				action.oldName = oldName;
 				action.newName = newName;
 				action.file = file;
-				action.folder = folder;
+				action.folder = realFolder;
 				
 				if(file.getName().endsWith("RAW.cbt")) {
 					action.delete = true;

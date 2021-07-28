@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ImageWebpLibraryWrapper {
 
-  private static final String CWEBP_BIN_PATH = "D:\\Software\\libwebp\\bin\\cwebp";
+  private static final String CWEBP_BIN_PATH = "C:\\Software\\libwebp\\bin\\cwebp";
 
   public static boolean isWebPAvailable() {
     if ( CWEBP_BIN_PATH == null ) {
