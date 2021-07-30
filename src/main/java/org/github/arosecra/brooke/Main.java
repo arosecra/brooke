@@ -26,10 +26,12 @@ public class Main {
 		for(File bookFolder : baseFolder.listFiles()) {
 			File thumbnailFile = new File(bookFolder, "thumbnail.png");
 			if(!thumbnailFile.exists()) {
-				System.out.println("Creating thumbnail for " + bookFolder.getName());
 				File tar = new File(bookFolder, bookFolder.getName() + ".cbt");
-				BufferedImage thumbnail = createThumbnailFromTar(tar);
-				ImageIO.write(thumbnail, "png", thumbnailFile);
+				if(tar.exists()) {
+					System.out.println("Creating thumbnail for " + bookFolder.getName());
+					BufferedImage thumbnail = createThumbnailFromTar(tar);
+					ImageIO.write(thumbnail, "png", thumbnailFile);
+				}
 			}
 		}
 	}

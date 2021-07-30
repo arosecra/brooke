@@ -18,7 +18,8 @@
         <div class="navbar-item">
           <div class="buttons">
             <a class="button is-dark" href="/">Home</a>
-            <a class="button is-dark" href="/manage/book/${book.name}/generatethumbnail">Generate Thumbnail</a>
+            <a class="button is-dark" th:href="|/adminbook/${book.name}/generatethumbnail|">Generate Thumbnail</a>
+            <a class="button is-dark" th:href="|/adminbook/${book.name}/download|">Download</a>
           </div>
         </div>
       </div>

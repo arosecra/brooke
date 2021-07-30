@@ -51,7 +51,8 @@ public class BookService implements JpaService<Book, Long> {
 
 		OpenBook book = new OpenBook();
 		book.setDisplayName(getBookDisplayName(FilenameUtils.getBaseName(bookFolder.getName())));
-		book.setName(getBookname(bookname));
+		book.setName(getBookFilename(bookname));
+		book.setLocal(isLocal(bookname));
 
 		book.setLeftPage(page);
 		book.setRightPage(page + 1);
@@ -91,8 +92,8 @@ public class BookService implements JpaService<Book, Long> {
 		return bookname.replace('_', ' ');
 	}
 
-	public String getBookname(String name) {
-		return name.replace(' ', '_');
+	public String getBookFilename(String bookname) {
+		return bookname.replace(' ', '_');
 	}
 
 	public void addToc(String bookname, int pageindex, String toc) throws IOException {
@@ -124,6 +125,12 @@ public class BookService implements JpaService<Book, Long> {
 	@Override
 	public JpaRepository<Book, Long> getRepository() {
 		return bookRepository;
+	}
+
+	public boolean isLocal(String bookname) {
+		File bookfolder = getBookFolder(bookname);
+		File cbtFile = new File(bookfolder, bookname +".cbt");
+		return cbtFile.exists();
 	}
 
 }

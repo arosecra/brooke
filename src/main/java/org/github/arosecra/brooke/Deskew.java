@@ -20,7 +20,7 @@ public class Deskew {
 
 	public static void main(String[] args) throws Exception {
 		Deskew t = new Deskew();
-		File scansFolder = new File("D:/scans/");
+		File scansFolder = new File("D:/scans/tobeexported");
 		
 		for(File docFolder : scansFolder.listFiles())
 		{

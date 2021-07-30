@@ -19,9 +19,13 @@ public class BookController {
 			@PathVariable(name="pageindex") int pageindex, 
 			Model model) throws IOException {
 		OpenBook book = bookService.openBookTo(bookname, pageindex);
-		model.addAttribute("book", book);
-		model.addAttribute("bookMetaData", bookService.getBookMetaData(bookname));
-		return "book";
+		if(book.isLocal()) {
+			model.addAttribute("book", book);
+			model.addAttribute("bookMetaData", bookService.getBookMetaData(bookname));
+			return "book";
+		} else {
+			return "redirect:/adminbook/"+bookname;
+		}
 	}
 	
 	

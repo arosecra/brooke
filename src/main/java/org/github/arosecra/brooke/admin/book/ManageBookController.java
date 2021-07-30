@@ -1,9 +1,11 @@
 package org.github.arosecra.brooke.admin.book;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.github.arosecra.brooke.admin.AdminService;
 import org.github.arosecra.brooke.index.Index;
 import org.github.arosecra.brooke.library.Library;
@@ -66,8 +68,18 @@ public class ManageBookController {
 	}
 	
 	@GetMapping("/adminbook/{bookname}/generatethumbnail")
-	public String generateThumbnail(Model model, @PathVariable(name="bookname") String bookname, @PathVariable(name="catalog") String catalog, @PathVariable(name="category") String category) throws IOException {
+	public String generateThumbnail(Model model, @PathVariable(name="bookname") String bookname) throws IOException {
 		adminService.generateThumbnail(bookname);
 		return "redirect:/managebook/"+bookname;
+	}
+	
+	@GetMapping("/adminbook/{bookname}/download")
+	public String download(Model model, @PathVariable(name="bookname") String bookname) throws IOException {
+
+		File remoteCbt = new File("\\\\drobo5n\\public\\scans\\books\\" + bookname + "\\" + bookname + ".cbt");
+		File localCbt = new File("D:/scans/books/" + bookname + "/" + bookname + ".cbt");
+		FileUtils.copyFile(remoteCbt, localCbt);
+		
+		return "redirect:/adminbook/"+bookname;
 	}
 }

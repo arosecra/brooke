@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.github.arosecra.brooke.JpaEntity;
 import org.github.arosecra.brooke.book.Book;
@@ -26,6 +27,9 @@ public class Index implements JpaEntity {
     @OneToOne()
     @JoinColumn(name = "category_id")
     private Category category;
+    
+    @Transient
+    private boolean local;
 
 	public Long getId() {
 		return id;
@@ -51,6 +55,11 @@ public class Index implements JpaEntity {
 		this.category = category;
 	}
 
-	
-	
+	public boolean isLocal() {
+		return local;
+	}
+
+	public void setLocal(boolean local) {
+		this.local = local;
+	}
 }

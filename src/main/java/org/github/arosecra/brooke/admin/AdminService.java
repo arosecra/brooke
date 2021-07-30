@@ -12,6 +12,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import org.apache.commons.io.FileUtils;
 import org.github.arosecra.brooke.JpaEntity;
 import org.github.arosecra.brooke.Settings;
 import org.github.arosecra.brooke.book.Book;
@@ -25,11 +26,15 @@ import org.github.arosecra.brooke.category.CategoryService;
 import org.github.arosecra.brooke.index.Index;
 import org.github.arosecra.brooke.index.IndexService;
 import org.github.arosecra.brooke.library.Library;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AdminService {
+	
+	@Autowired
+	private Logger logger;
 	
 	@Autowired 
 	private CatalogService catalogService;
@@ -196,6 +201,58 @@ public class AdminService {
 				t.setId(null);
 			}
 			return res;
+		}
+	}
+
+	public void synch() throws IOException {
+		File remoteBooksFolder = new File("\\\\drobo5n\\public\\scans\\books");
+		File localBooksFolder = new File(settings.getBooksHome());
+		for(File remoteBookFolder : remoteBooksFolder.listFiles()) {
+			File localBookFolder = new File(localBooksFolder, remoteBookFolder.getName());
+			localBookFolder.mkdirs();
+			syncFile(remoteBookFolder, localBookFolder, "thumbnail.png");
+			syncFile(remoteBookFolder, localBookFolder, "toc.txt");
+		}
+		
+		//if there are books that are local but not remote, copy the book remotely
+		for(File localBookFolder : localBooksFolder.listFiles()) {
+			File remoteBookFolder = new File(remoteBooksFolder, localBookFolder.getName());
+			if(!remoteBookFolder.exists()) {
+				logger.info("Synching " + localBookFolder.getName());
+				FileUtils.copyDirectory(localBookFolder, remoteBookFolder);
+			}
+		}
+	}
+
+	private void syncFile(File remoteBookFolder, File localBookFolder, String filename) throws IOException {
+		File localFile = new File(localBookFolder, filename);
+		File remoteFile = new File(remoteBookFolder, filename);
+		
+		boolean isLocal = localFile.exists();
+		boolean isRemote = remoteFile.exists();
+		boolean isRemoteNewer = localFile.lastModified() < remoteFile.lastModified();
+		
+		boolean copy = false;
+		File srcFile = null;
+		File destFile = null;
+		
+		if(isLocal && !isRemote) {
+			copy = true;
+			srcFile = localFile; destFile = remoteFile; 
+		} else if (!isLocal && isRemote) {
+			copy = true;
+			srcFile = remoteFile; destFile = localFile; 
+		} else if (isRemote && isRemoteNewer) {
+			copy = true;
+			srcFile = remoteFile; destFile = localFile; 
+		} else if (isLocal && !isRemoteNewer) {
+			copy = true;
+			srcFile = localFile; destFile = remoteFile; 
+		}
+		
+		if(copy) {
+			logger.info("Copying " + srcFile.getAbsolutePath() + " -> " + destFile.getAbsolutePath());
+			FileUtils.copyFile(srcFile, destFile);
 		}
 	}
 }
