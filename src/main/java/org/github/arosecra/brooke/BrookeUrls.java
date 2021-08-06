@@ -3,7 +3,7 @@ package org.github.arosecra.brooke;
 
 
 public enum BrookeUrls {
-	HOME(""),
+	HOME("/"),
 	ADMIN(""),
 	VIEW_BOOK(""),
 	ADMIN_BOOK(""),
@@ -17,5 +17,9 @@ public enum BrookeUrls {
 	
 	private BrookeUrls(String url) {
 		this.url = url;
+	}
+
+	public String getUrl() {
+		return url;
 	}
 }
