@@ -16,7 +16,7 @@ public class Main8 {
 		File remoteVideosDir = new File("\\\\drobo5n2\\public\\MkvVideos");
 		File categoryDir = new File(remoteVideosDir, "Anime TV");
 		
-		File remoteVideosToProcess = new File(categoryDir, "Azumanga Daioh");
+		File remoteVideosToProcess = new File(categoryDir, "Baccano");
 		
 		File localVideosDir = new File("D:\\video");
 		File localCategoryDir = new File(localVideosDir, remoteVideosToProcess.getName());
