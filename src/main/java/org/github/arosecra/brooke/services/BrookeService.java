@@ -16,6 +16,7 @@ import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.github.arosecra.brooke.Settings;
 import org.github.arosecra.brooke.dao.LibraryDao;
 import org.github.arosecra.brooke.model.Button;
@@ -108,14 +109,7 @@ public class BrookeService {
 		
 		Collection collection = getCollectionByName(collectionName);
 
-		File localRepositoryHome = new File(collection.getLocalDirectory());
-		File charDirectory = new File(localRepositoryHome, itemName.charAt(0)+"");
-		File itemDirectory = new File(charDirectory, itemName);
-		
-		if(!itemDirectory.exists()) {
-			File categoryDirectory = new File(charDirectory, categoryName);
-			itemDirectory = new File(categoryDirectory, itemName);
-		}
+		File itemDirectory = getLocalItemFolder(collection, categoryName, itemName);
 		
 		File thumbnailFile = new File(itemDirectory, "thumbnail.png");
 		
@@ -129,14 +123,7 @@ public class BrookeService {
 	public byte[] getPage(String collectionName, String categoryName, String itemName, int pageNumber) throws IOException {
 		Collection collection = getCollectionByName(collectionName);
 
-		File localRepositoryHome = new File(collection.getLocalDirectory());
-		File charDirectory = new File(localRepositoryHome, itemName.charAt(0)+"");
-		File itemDirectory = new File(charDirectory, itemName);
-		
-		if(!itemDirectory.exists()) {
-			File categoryDirectory = new File(charDirectory, categoryName);
-			itemDirectory = new File(categoryDirectory, itemName);
-		}
+		File itemDirectory = getLocalItemFolder(collection, categoryName, itemName);
 		
 		File tar = new File(itemDirectory, itemName + "." + collection.getItemExtension());
 		return getPageFromTar(tar, pageNumber);
@@ -173,15 +160,7 @@ public class BrookeService {
 	public List<ToCEntry> getToCEntries(String collectionName, String catalogName, String categoryName, String itemName) throws IOException {
 		List<ToCEntry> results = new ArrayList<>();
 		Collection collection = getCollectionByName(collectionName);
-
-		File localRepositoryHome = new File(collection.getLocalDirectory());
-		File charDirectory = new File(localRepositoryHome, itemName.charAt(0)+"");
-		File itemDirectory = new File(charDirectory, itemName);
-		
-		if(!itemDirectory.exists()) {
-			File categoryDirectory = new File(charDirectory, categoryName);
-			itemDirectory = new File(categoryDirectory, itemName);
-		}
+		File itemDirectory = getLocalItemFolder(collection, categoryName, itemName);
 		
 		File tocFile = new File(itemDirectory, "toc.txt");
 		if(tocFile.exists()) {
@@ -202,42 +181,21 @@ public class BrookeService {
 	public File getVideoFile(String collectionName, String catalogName, String categoryName, String itemName) {
 		Collection collection = getCollectionByName(collectionName);
 
-		File remoteRepositoryHome = new File(collection.getRemoteDirectory());
-		File charDirectory = new File(remoteRepositoryHome, itemName.charAt(0)+"");
-		File itemDirectory = new File(charDirectory, itemName);
-		
-		if(!itemDirectory.exists()) {
-			File categoryDirectory = new File(charDirectory, categoryName);
-			itemDirectory = new File(categoryDirectory, itemName);
-		}
+		File itemDirectory = getRemoteItemFolder(collection, categoryName, itemName);
 		return new File(itemDirectory, itemDirectory.getName() + "." + collection.getItemExtension());
 	}
 
 	public File getSubtitleFile(String collectionName, String categoryName, String itemName, String vttName) {
 		Collection collection = getCollectionByName(collectionName);
 
-		File localRepositoryHome = new File(collection.getLocalDirectory());
-		File charDirectory = new File(localRepositoryHome, itemName.charAt(0)+"");
-		File itemDirectory = new File(charDirectory, itemName);
-		
-		if(!itemDirectory.exists()) {
-			File categoryDirectory = new File(charDirectory, categoryName);
-			itemDirectory = new File(categoryDirectory, itemName);
-		}
+		File itemDirectory = getLocalItemFolder(collection, categoryName, itemName);
 		return new File(itemDirectory, vttName+"vtt");
 	}
 
 	public List<String> getSubtitles(String collectionName, String catalogName, String categoryName, String itemName) {
 		Collection collection = getCollectionByName(collectionName);
 
-		File localRepositoryHome = new File(collection.getLocalDirectory());
-		File charDirectory = new File(localRepositoryHome, itemName.charAt(0)+"");
-		File itemDirectory = new File(charDirectory, itemName);
-		
-		if(!itemDirectory.exists()) {
-			File categoryDirectory = new File(charDirectory, categoryName);
-			itemDirectory = new File(categoryDirectory, itemName);
-		}
+		File itemDirectory = getLocalItemFolder(collection, categoryName, itemName);
 		
 		List<String> result = new ArrayList<>();
 		for(File file : itemDirectory.listFiles()) {
@@ -247,6 +205,38 @@ public class BrookeService {
 		}
 		
 		return result;
+	}
+
+	private File getRemoteItemFolder(Collection collection, String categoryName, String itemName) {
+		File remoteRepositoryHome = new File(collection.getRemoteDirectory());
+		char c = itemName.charAt(0);
+		if(NumberUtils.isDigits(c+"")) {
+			c = '0';
+		}
+		File charDirectory = new File(remoteRepositoryHome, c+"");		
+		File itemDirectory = new File(charDirectory, itemName);
+		
+		if(!itemDirectory.exists()) {
+			File categoryDirectory = new File(charDirectory, categoryName);
+			itemDirectory = new File(categoryDirectory, itemName);
+		}
+		return itemDirectory;
+	}
+
+	private File getLocalItemFolder(Collection collection, String categoryName, String itemName) {
+		File localRepositoryHome = new File(collection.getLocalDirectory());
+		char c = itemName.charAt(0);
+		if(NumberUtils.isDigits(c+"")) {
+			c = '0';
+		}
+		File charDirectory = new File(localRepositoryHome, c+"");	
+		File itemDirectory = new File(charDirectory, itemName);
+		
+		if(!itemDirectory.exists()) {
+			File categoryDirectory = new File(charDirectory, categoryName);
+			itemDirectory = new File(categoryDirectory, itemName);
+		}
+		return itemDirectory;
 	}
 	
 }
