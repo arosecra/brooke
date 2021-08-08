@@ -14,9 +14,9 @@ import org.apache.commons.io.FilenameUtils;
 public class Main8 {
 	public static void main(String[] args) throws IOException {
 		File remoteVideosDir = new File("\\\\drobo5n2\\public\\MkvVideos");
-		File categoryDir = new File(remoteVideosDir, "Anime TV");
+		File categoryDir = new File(remoteVideosDir, "Anime_TV");
 		
-		File remoteVideosToProcess = new File(categoryDir, "Baccano");
+		File remoteVideosToProcess = new File(categoryDir, "Beyond_the_Boundary");
 		
 		File localVideosDir = new File("D:\\video");
 		File localCategoryDir = new File(localVideosDir, remoteVideosToProcess.getName());

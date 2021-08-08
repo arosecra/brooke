@@ -185,18 +185,68 @@ public class BrookeService {
 		
 		File tocFile = new File(itemDirectory, "toc.txt");
 		if(tocFile.exists()) {
-		List<String> lines = FileUtils.readLines(tocFile, StandardCharsets.UTF_8);
-		for(String line : lines) {
-			if(!StringUtils.isEmpty(line.trim())) {
-				String[] parts=line.split("=");
-				ToCEntry entry = new ToCEntry();
-				entry.setPageIndex(Integer.parseInt(parts[0]));
-				entry.setName(parts[1]);
-				results.add(entry);
+			List<String> lines = FileUtils.readLines(tocFile, StandardCharsets.UTF_8);
+			for(String line : lines) {
+				if(!StringUtils.isEmpty(line.trim())) {
+					String[] parts=line.split("=");
+					ToCEntry entry = new ToCEntry();
+					entry.setPageIndex(Integer.parseInt(parts[0]));
+					entry.setName(parts[1]);
+					results.add(entry);
+				}
 			}
 		}
-	}
 		return results;
+	}
+
+	public File getVideoFile(String collectionName, String catalogName, String categoryName, String itemName) {
+		Collection collection = getCollectionByName(collectionName);
+
+		File remoteRepositoryHome = new File(collection.getRemoteDirectory());
+		File charDirectory = new File(remoteRepositoryHome, itemName.charAt(0)+"");
+		File itemDirectory = new File(charDirectory, itemName);
+		
+		if(!itemDirectory.exists()) {
+			File categoryDirectory = new File(charDirectory, categoryName);
+			itemDirectory = new File(categoryDirectory, itemName);
+		}
+		return new File(itemDirectory, itemDirectory.getName() + "." + collection.getItemExtension());
+	}
+
+	public File getSubtitleFile(String collectionName, String categoryName, String itemName, String vttName) {
+		Collection collection = getCollectionByName(collectionName);
+
+		File localRepositoryHome = new File(collection.getLocalDirectory());
+		File charDirectory = new File(localRepositoryHome, itemName.charAt(0)+"");
+		File itemDirectory = new File(charDirectory, itemName);
+		
+		if(!itemDirectory.exists()) {
+			File categoryDirectory = new File(charDirectory, categoryName);
+			itemDirectory = new File(categoryDirectory, itemName);
+		}
+		return new File(itemDirectory, vttName+"vtt");
+	}
+
+	public List<String> getSubtitles(String collectionName, String catalogName, String categoryName, String itemName) {
+		Collection collection = getCollectionByName(collectionName);
+
+		File localRepositoryHome = new File(collection.getLocalDirectory());
+		File charDirectory = new File(localRepositoryHome, itemName.charAt(0)+"");
+		File itemDirectory = new File(charDirectory, itemName);
+		
+		if(!itemDirectory.exists()) {
+			File categoryDirectory = new File(charDirectory, categoryName);
+			itemDirectory = new File(categoryDirectory, itemName);
+		}
+		
+		List<String> result = new ArrayList<>();
+		for(File file : itemDirectory.listFiles()) {
+			if(file.getName().endsWith("vtt")) {
+				result.add(file.getName());
+			}
+		}
+		
+		return result;
 	}
 	
 }

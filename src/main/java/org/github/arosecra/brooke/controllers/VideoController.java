@@ -39,7 +39,6 @@ public class VideoController
 	    try {
 	        // get your file as InputStream
 	        InputStream is = new BufferedInputStream(new FileInputStream(new File("D:/video/Angel Beats 01.vtt")));
-	        // copy it to response's OutputStream
 	        org.apache.commons.io.IOUtils.copy(is, response.getOutputStream());
 	        response.flushBuffer();
 	      } catch (IOException ex) {

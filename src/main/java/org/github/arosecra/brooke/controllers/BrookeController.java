@@ -1,7 +1,14 @@
 package org.github.arosecra.brooke.controllers;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.io.IOUtils;
 import org.github.arosecra.brooke.model.Button;
 import org.github.arosecra.brooke.model.ButtonSet;
 import org.github.arosecra.brooke.model.Collection;
@@ -101,8 +108,8 @@ public class BrookeController {
 			model.addAttribute("leftPage", number);
 			model.addAttribute("rightPage", number+1);
 			model.addAttribute("tocEntries", brookeService.getToCEntries(collectionName, catalogName, categoryName, itemName));
-		} else if(collection.getType().equals("video")) {
-			
+		} else if(collection.getOpenType().equals("video")) {
+			model.addAttribute("subtitles", brookeService.getSubtitles(collectionName, catalogName, categoryName, itemName));
 		}
 		
 
@@ -125,5 +132,36 @@ public class BrookeController {
 			@PathVariable(name="pageNumber") int pageNumber) throws IOException {
 		return brookeService.getPage(collectionName, categoryName, itemName, pageNumber);
 	}
+
 	
+	@GetMapping(value="/video/{collectionName}/{catalogName}/{categoryName}/{itemName}", produces="video/mp4")
+	@ResponseBody
+	public void getVideo(Model model, 
+			HttpServletResponse response,
+			@PathVariable(name="collectionName") String collectionName,
+			@PathVariable(name="catalogName") String catalogName, 
+			@PathVariable(name="categoryName") String categoryName,
+			@PathVariable(name="itemName") String itemName) throws IOException {
+		
+		File videoFile = brookeService.getVideoFile(collectionName, catalogName, categoryName, itemName);
+		InputStream is = new BufferedInputStream(new FileInputStream(videoFile));
+		IOUtils.copy(is, response.getOutputStream());
+		response.flushBuffer();
+	}
+
+	
+	@GetMapping(value="/subtitle/{collectionName}/{catalogName}/{categoryName}/{itemName}/{vttName}", produces = MediaType.IMAGE_PNG_VALUE)
+	@ResponseBody
+	public void geSubtitle(Model model, 
+			HttpServletResponse response,
+			@PathVariable(name="collectionName") String collectionName,
+			@PathVariable(name="catalogName") String catalogName, 
+			@PathVariable(name="categoryName") String categoryName,
+			@PathVariable(name="itemName") String itemName,
+			@PathVariable(name="vttName") String vttName) throws IOException {
+		File subtitleFile = brookeService.getSubtitleFile(collectionName, categoryName, itemName, vttName);
+        InputStream is = new BufferedInputStream(new FileInputStream(subtitleFile));
+        IOUtils.copy(is, response.getOutputStream());
+        response.flushBuffer();
+	}
 }

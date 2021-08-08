@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="../fragments/head :: head"></head>
+<body>
+
+<div>
+<video id="brooke-video" controls>
+  <source th:src="|/video/${collection.name}/${catalog.name}/${category.name}/${item.name}|" type="video/mp4">
+  <track th:each="subtitle : ${subtitles}" label="English" kind="subtitles" srclang="en" th:src="|/subtitle/${collection.name}/${catalog.name}/${category.name}/${item.name}/${subtitle}|" >
+  Your browser does not support the video tag.
+</video>
+</div>
+
+<script type='text/javascript'>
+    document.getElementById('brooke-video').addEventListener('ended',myHandler,false);
+    function myHandler(e) {
+        // What you want to do after the event
+    }
+</script>
+</body>
+</html>
