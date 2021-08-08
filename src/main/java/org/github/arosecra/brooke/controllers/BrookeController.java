@@ -101,6 +101,8 @@ public class BrookeController {
 			model.addAttribute("leftPage", number);
 			model.addAttribute("rightPage", number+1);
 			model.addAttribute("tocEntries", brookeService.getToCEntries(collectionName, catalogName, categoryName, itemName));
+		} else if(collection.getType().equals("video")) {
+			
 		}
 		
 

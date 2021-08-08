@@ -70,6 +70,7 @@ public class LibraryDao {
 		} else {
 			//we have a default catalog with no name and multiple categories
 			Catalog def = new Catalog();
+			def.setName("def");
 			if(collectionFolder.listFiles() != null) {
 				getCategories(result, def, collectionFolder);
 			}

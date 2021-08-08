@@ -23,7 +23,7 @@
 			
 			<div class="tab-content tile is-child box">
 				<th:block th:each="catalog : ${collection.catalogs}">
-				<div class="tab-pane" th:attrappend="class=${' content-catalog-' + catalog.name}" th:style="${catalog.name == selectedCatalogName}? 'display:block' : 'display:none'">
+				<div class="tab-pane" th:attrappend="class=${' content-catalog-' + catalog.name}" th:style="${catalog.name == selectedCatalogName || catalog.name == 'def'}? 'display:block' : 'display:none'">
 					<ul>
 						<li th:each="category : ${catalog.categories}">
 							<a th:href="|/collection/${collection.name}/${catalog.name}/${category.name}|" th:text="${category.name}"/>
