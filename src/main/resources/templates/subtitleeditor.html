@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="../fragments/head :: head"></head>
+<body>
+
+<div th:replace="../fragments/navbar :: navbar"/>
+
+
+<form>
+	
+	
+<div class="tile is-ancestor" th:each="subtitle,iter : ${subtitleEntries}">
+  <div class="tile is-vertical is-12">
+    <div class="tile">
+      <div class="tile is-parent is-vertical">
+        <article class="tile is-child notification is-primary">
+          <p class="title" th:text="${iter.index + 1}">Vertical...</p>
+          <p class="subtitle">
+          
+          <figure class="image ">
+			<img th:src="|data:image/png;base64,${subtitle.pngBase64}|" width="640" height="360"/>
+          </figure>
+		  </p>
+        </article>
+      </div>
+      <div class="tile is-parent">
+        <article class="tile is-child notification is-info">
+          <p class="title">Middle tile</p>
+          <p class="subtitle">
+<textarea  class="textarea is-small" th:text="${subtitle.subtitle}"></textarea>
+		  </p>
+        </article>
+      </div>
+    </div>
+  </div>
+</div>	
+	
+	
+	
+	
+	
+	
+	<button type="submit" class="button is-dark">Update</button>
+</form>
+
+
+</body>
+</html>

@@ -5,9 +5,9 @@
 
 <div>
 <video id="brooke-video" controls>
-  <source th:src="|/video/${collection.name}/${catalog.name}/${category.name}/${item.name}|" type="video/mp4">
+  <source th:src="|/video/${collection.name}/${catalog.name}/${category.name}/${item.name}|" type="video/mp4" preload="auto">
   <track th:each="subtitle : ${subtitles}" label="English" kind="subtitles" srclang="en" th:src="|/subtitle/${collection.name}/${catalog.name}/${category.name}/${item.name}/${subtitle}|" >
-  Your browser does not support the video tag.
+  <track kind="chapters" th:src="|/subtitle/${collection.name}/${catalog.name}/${category.name}/${item.name}/chapters.vtt|" >
 </video>
 </div>
 

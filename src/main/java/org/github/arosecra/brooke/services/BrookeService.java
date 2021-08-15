@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.xml.bind.DatatypeConverter;
 
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
@@ -26,6 +27,7 @@ import org.github.arosecra.brooke.model.Category;
 import org.github.arosecra.brooke.model.Collection;
 import org.github.arosecra.brooke.model.Library;
 import org.github.arosecra.brooke.model.ShelfItem;
+import org.github.arosecra.brooke.model.SubtitleEntry;
 import org.github.arosecra.brooke.model.ToCEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -145,8 +147,8 @@ public class BrookeService {
 				currentPage++;
 			}
 		}
-	return result;
-}
+		return result;
+	}
 
 	public ShelfItem getItemByName(String collectionName, String catalogName, String categoryName, String itemName) {
 		Category category = getCategoryByName(collectionName, catalogName, categoryName);
@@ -189,7 +191,7 @@ public class BrookeService {
 		Collection collection = getCollectionByName(collectionName);
 
 		File itemDirectory = getLocalItemFolder(collection, categoryName, itemName);
-		return new File(itemDirectory, vttName+"vtt");
+		return new File(itemDirectory, vttName);
 	}
 
 	public List<String> getSubtitles(String collectionName, String catalogName, String categoryName, String itemName) {
@@ -199,7 +201,7 @@ public class BrookeService {
 		
 		List<String> result = new ArrayList<>();
 		for(File file : itemDirectory.listFiles()) {
-			if(file.getName().endsWith("vtt")) {
+			if(file.getName().endsWith("vtt") && !file.getName().equals("chapters.vtt")) {
 				result.add(file.getName());
 			}
 		}
@@ -237,6 +239,66 @@ public class BrookeService {
 			itemDirectory = new File(categoryDirectory, itemName);
 		}
 		return itemDirectory;
+	}
+
+	public List<SubtitleEntry> getSubtitleEntries(String collectionName, String catalogName, String categoryName, String itemName) throws IOException {
+		Collection collection = getCollectionByName(collectionName);
+		File localItemFolder = getLocalItemFolder(collection, categoryName, itemName);
+		
+		return getSubtitleContents(localItemFolder);
+	}
+
+	private List<SubtitleEntry> getSubtitleContents(File localItemFolder) throws IOException {
+		List<SubtitleEntry> result = new ArrayList<>();
+
+		List<String> vttLines = FileUtils.readLines(new File(localItemFolder, "english.vtt"), StandardCharsets.UTF_8);
+		List<String> subtitles = getSubtitlesFromVttContent(vttLines);
+		int i = 0;
+		try (TarArchiveInputStream tarIn = new TarArchiveInputStream(
+				new BufferedInputStream(new FileInputStream(new File(localItemFolder, "english.tar"))))) {
+			TarArchiveEntry entry;
+			while ((entry = (TarArchiveEntry) tarIn.getNextEntry()) != null) {
+				if (entry.getName().endsWith("png")) {
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+					IOUtils.copy(tarIn, baos);
+					byte[] rawBytes = baos.toByteArray();
+					String base64png = DatatypeConverter.printBase64Binary(rawBytes);
+					SubtitleEntry sub = new SubtitleEntry();
+					sub.setPngBase64(base64png);
+					if(i < subtitles.size())
+						sub.setSubtitle(subtitles.get(i));
+					result.add(sub);
+					i++;
+				}
+			}
+		}
+		
+		return result;
+	}
+
+	private List<String> getSubtitlesFromVttContent(List<String> vttLines) {
+		List<String> result = new ArrayList<>();
+
+		int lastArrow = vttLines.size();
+		StringBuilder sb = null;
+		for(int i = 0; i < vttLines.size(); i++) {
+			String line = vttLines.get(i);
+			if(StringUtils.contains(line, "-->")) {
+				lastArrow = i;
+				if(sb != null)
+					result.add(sb.toString().trim());
+				sb = new StringBuilder();
+			} else if(i > lastArrow) {
+				if(!sb.isEmpty())
+					sb.append("\r\n");
+				sb.append(line);
+			} 
+		}
+		
+		if(!sb.isEmpty())
+			result.add(sb.toString().trim());
+		
+		return result;
 	}
 	
 }

@@ -111,7 +111,6 @@ public class BrookeController {
 		} else if(collection.getOpenType().equals("video")) {
 			model.addAttribute("subtitles", brookeService.getSubtitles(collectionName, catalogName, categoryName, itemName));
 		}
-		
 
 		model.addAttribute("library", brookeService.getLibrary());
 		model.addAttribute("collection", brookeService.getCollectionByName(collectionName));
@@ -145,7 +144,8 @@ public class BrookeController {
 		
 		File videoFile = brookeService.getVideoFile(collectionName, catalogName, categoryName, itemName);
 		InputStream is = new BufferedInputStream(new FileInputStream(videoFile));
-		IOUtils.copy(is, response.getOutputStream());
+		IOUtils.copyLarge(is, response.getOutputStream());
+        IOUtils.closeQuietly(is);
 		response.flushBuffer();
 	}
 
@@ -162,6 +162,26 @@ public class BrookeController {
 		File subtitleFile = brookeService.getSubtitleFile(collectionName, categoryName, itemName, vttName);
         InputStream is = new BufferedInputStream(new FileInputStream(subtitleFile));
         IOUtils.copy(is, response.getOutputStream());
+        IOUtils.closeQuietly(is);
         response.flushBuffer();
+	}
+	
+
+	@GetMapping("/editsubtitles/{collectionName}/{catalogName}/{categoryName}/{itemName}")
+	public String getSubtitleEditor(Model model, 
+			@PathVariable(name="collectionName") String collectionName, 
+			@PathVariable(name="catalogName") String catalogName, 
+			@PathVariable(name="categoryName") String categoryName,
+			@PathVariable(name="itemName") String itemName) throws IOException {
+		
+		
+		model.addAttribute("library", brookeService.getLibrary());
+		model.addAttribute("buttonSet", brookeService.getStandardButtons());	
+		model.addAttribute("collection", brookeService.getCollectionByName(collectionName));
+		model.addAttribute("catalog", brookeService.getCatalogByName(collectionName, catalogName));
+		model.addAttribute("category", brookeService.getCategoryByName(collectionName, catalogName, categoryName));
+		model.addAttribute("subtitleEntries", brookeService.getSubtitleEntries(collectionName, catalogName, categoryName, itemName));
+		
+		return "subtitleeditor";
 	}
 }
