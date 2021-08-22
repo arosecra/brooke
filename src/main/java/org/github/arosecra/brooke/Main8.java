@@ -16,11 +16,27 @@ public class Main8 {
 		File remoteVideosDir = new File("\\\\drobo5n2\\public\\MkvVideos");
 		File categoryDir = new File(remoteVideosDir, "Anime_TV");
 		
-		File remoteVideosToProcess = new File(categoryDir, "C_Control");
+		
+		File[] remoteSeriesToProcess = new File[] {
+			new File(categoryDir, "Gankutsuou_Count_of_Monte_Cristo"),
+			new File(categoryDir, "Gargantia"),	
+			new File(categoryDir, "Get_Backers"),	
+			new File(categoryDir, "Ghost_in_the_Shell_Arise"),	
+			new File(categoryDir, "Ghost_in_the_Shell_SAC_01"),	
+			new File(categoryDir, "Ghost_in_the_Shell_SAC_02"),	
+			new File(categoryDir, "Gintama"),	
+			new File(categoryDir, "Glass_Fleet"),	
+			new File(categoryDir, "Grimgar"),	
+			new File(categoryDir, "Gundam_OO"),	
+			new File(categoryDir, "Gundam_SEED"),	
+			new File(categoryDir, "Gundam_SEED_02_Destiny"),	
+			new File(categoryDir, "Gundam_Wing"),	
+		};
 		
 		File localVideosDir = new File("D:\\video");
 		File localCategoryDir = new File(localVideosDir, categoryDir.getName());
 		
+		for(File remoteVideosToProcess : remoteSeriesToProcess) {
 		for(File remoteVideo : remoteVideosToProcess.listFiles()) {
 			String basename = FilenameUtils.getBaseName(remoteVideo.getName());
 			File outputDir = new File(localCategoryDir, basename);
@@ -37,7 +53,7 @@ public class Main8 {
 				}
 			}
 		}
-		
+		}
 		
 		
 	}

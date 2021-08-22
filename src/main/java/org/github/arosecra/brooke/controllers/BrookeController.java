@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -75,6 +76,16 @@ public class BrookeController {
 			@PathVariable(name="categoryName") String categoryName,
 			@PathVariable(name="itemName") String itemName) throws IOException {
 		return brookeService.getThumbnail(collectionName, categoryName, itemName);
+	}
+	
+	@PostMapping(value="/addtoc/{collectionName}/{catalogName}/{categoryName}/{itemName}")
+	public String addToC(Model model, 
+			@PathVariable(name="collectionName") String collectionName,
+			@PathVariable(name="catalogName") String catalogName, 
+			@PathVariable(name="categoryName") String categoryName,
+			@PathVariable(name="itemName") String itemName) throws IOException {
+		brookeService.addToc(collectionName, categoryName, itemName, 0, itemName);
+		return "";
 	}
 	
 	@GetMapping(value={

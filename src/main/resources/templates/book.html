@@ -41,7 +41,7 @@
     </header>
     <section class="modal-card-body">
     	<ul>
-		<li th:each="tocEntry : ${tocEntries}" ><a class="is-link" th:href="|/page/${collection.name}/${catalog.name}/${category.name}/${item.name}/${tocEntry.pageIndex}|" th:text="${tocEntry.name}">Entry</a></li>
+		<li th:each="tocEntry : ${tocEntries}" ><a class="is-link" th:href="|/shelfitem/${collection.name}/${catalog.name}/${category.name}/${item.name}/${tocEntry.pageIndex}|" th:text="${tocEntry.name}">Entry</a></li>
 		</ul>
     </section>
     <footer class="modal-card-foot">

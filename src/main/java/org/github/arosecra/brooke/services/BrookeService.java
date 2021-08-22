@@ -300,5 +300,15 @@ public class BrookeService {
 		
 		return result;
 	}
+
+	public void addToc(String collectionName, String categoryName, String itemName, int pageNumber, String name) throws IOException {
+
+		Collection collection = getCollectionByName(collectionName);
+		File itemDirectory = getLocalItemFolder(collection, categoryName, itemName);
+		
+		File tocFile = new File(itemDirectory, "toc.txt");
+		
+		FileUtils.write(tocFile, pageNumber+"="+name, true);
+	}
 	
 }

@@ -42,7 +42,7 @@ public class Main12 {
 		tesseract.setDatapath("D:\\Software\\tessdata");
 		
 		Collection<File> subFiles = FileUtils.listFiles(new File("D:\\Library\\Video_Repository"), new String[] {"sub"}, true);
-		
+		System.out.println("Starting. Files to check: " + subFiles.size());
 		for(File file : subFiles) {
 			File folder = file.getParentFile();
 			String basename = FilenameUtils.getBaseName(file.getName());
@@ -60,21 +60,36 @@ public class Main12 {
 		System.out.println("Extracting " + subfile.getPath());
 
 		File tempFolder = new File(subfile.getParentFile(), FilenameUtils.getBaseName(subfile.getName()));
-		tempFolder.mkdirs();
+		
+		if(tempFolder.exists()) {
 
-//		extractSubtitlePngs(subfile, tempFolder);
-//		Thread.sleep(15000);
+	//		extractSubtitlePngs(subfile, tempFolder);
+	//		Thread.sleep(15000);
+			
+			renameXmlIfRequired(subfile, tempFolder);
+	
+			extractVtt(subfile, tempFolder);
+	
+			// tar the png, new xml, sub and idx files together for later - vobsub.tar
+			// delete the tar'd files, and the other sub and idx files
+			tarData(subfile, tempFolder);
+	
+			// if there's a chapter xml file, create a chapters.vtt file
+			createChaptersVtt(subfile);
+	
+			System.out.println("Done");
+		} else {
+			System.out.println("Skipped");
+		}
+	}
 
-		extractVtt(subfile, tempFolder);
-
-		// tar the png, new xml, sub and idx files together for later - vobsub.tar
-		// delete the tar'd files, and the other sub and idx files
-		tarData(subfile, tempFolder);
-
-		// if there's a chapter xml file, create a chapters.vtt file
-		createChaptersVtt(subfile);
-
-		System.out.println("Done");
+	private static void renameXmlIfRequired(File subfile, File tempFolder) throws IOException {
+		for(File file : tempFolder.listFiles()) {
+			if(file.getName().endsWith("xml") && !file.getName().equals(tempFolder.getName() + ".xml")) {
+				File newFile = new File(tempFolder, tempFolder.getName() + ".xml");
+				FileUtils.moveFile(file, newFile);
+			}
+		}
 	}
 
 	private static void tarData(File subfile, File tempFolder) throws InterruptedException, IOException {
