@@ -6,64 +6,74 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 public class Main8 {
 	public static void main(String[] args) throws IOException {
-		File remoteVideosDir = new File("\\\\drobo5n2\\public\\MkvVideos");
+		File remoteVideosDir = new File("\\\\drobo5n2\\public\\Videos");
 		File categoryDir = new File(remoteVideosDir, "Anime_TV");
 		
+		//list all mp4 files in anime
+		//list all mkv files in anime_tv
 		
-		File[] remoteSeriesToProcess = new File[] {
-			new File(categoryDir, "Gankutsuou_Count_of_Monte_Cristo"),
-			new File(categoryDir, "Gargantia"),	
-			new File(categoryDir, "Get_Backers"),	
-			new File(categoryDir, "Ghost_in_the_Shell_Arise"),	
-			new File(categoryDir, "Ghost_in_the_Shell_SAC_01"),	
-			new File(categoryDir, "Ghost_in_the_Shell_SAC_02"),	
-			new File(categoryDir, "Gintama"),	
-			new File(categoryDir, "Glass_Fleet"),	
-			new File(categoryDir, "Grimgar"),	
-			new File(categoryDir, "Gundam_OO"),	
-			new File(categoryDir, "Gundam_SEED"),	
-			new File(categoryDir, "Gundam_SEED_02_Destiny"),	
-			new File(categoryDir, "Gundam_Wing"),	
-		};
+		//get the list of mkv files without a mp4
+		//the list of files to process is built from that list
+		//do the same for movies, tv folders
+		
+		
+		List<File> remoteSeriesToProcess = new ArrayList<>();
+		for(File srcFolder : categoryDir.listFiles()) {
+			remoteSeriesToProcess.add(srcFolder);
+		}
 		
 		File localVideosDir = new File("D:\\video");
 		File localCategoryDir = new File(localVideosDir, categoryDir.getName());
 		
 		for(File remoteVideosToProcess : remoteSeriesToProcess) {
-		for(File remoteVideo : remoteVideosToProcess.listFiles()) {
-			String basename = FilenameUtils.getBaseName(remoteVideo.getName());
-			File outputDir = new File(localCategoryDir, basename);
-			if(!outputDir.exists()) {
-				outputDir.mkdirs();
+			System.out.println("REM " + remoteVideosToProcess.getName());
+			File remoteDir = getRemoteDir(remoteVideosToProcess.getName());
+			for(File remoteVideo : remoteVideosToProcess.listFiles()) {
+				String basename = FilenameUtils.getBaseName(remoteVideo.getName());
+				File remoteFile = new File(remoteDir, basename + "\\" + basename + ".mp4");
 				
-				File outputFile = new File(outputDir, basename + ".mp4");
-				convertVideo(remoteVideo, outputFile);
 				
-				for(File file : localVideosDir.listFiles()) {
-					if(file.getName().startsWith(basename)) {
-						FileUtils.moveFileToDirectory(file, outputDir, false);
+				File outputDir = new File(localCategoryDir, basename);
+				if(!remoteFile.exists()) {
+					outputDir.mkdirs();
+					
+					File outputFile = new File(outputDir, basename + ".mp4");
+					convertVideo(remoteVideo, outputFile);
+					
+					for(File file : localVideosDir.listFiles()) {
+						if(file.getName().startsWith(basename)) {
+							FileUtils.moveFileToDirectory(file, outputDir, false);
+						}
 					}
 				}
 			}
-		}
 		}
 		
 		
 	}
 	
+	private static File getRemoteDir(String name) {
+		char c = name.charAt(0);
+		File basedir = new File("\\\\drobo5n2\\public\\Anime");
+		
+		// TODO Auto-generated method stub
+		return new File(basedir, c + "\\" + name);
+	}
+
 	public static void convertVideo(File srcFile, File destFile) {
 		Process process;
 	    try {
 //	    	System.out.println("Converting " + srcFile + " to " + destFile);
-	    	
-	    	System.out.println("D:\\software\\handbrake\\handbrakecli.exe --preset MediaLibrary --preset-import-file D:\\video\\handbrake_preset.json -i \""+srcFile.getAbsolutePath()+"\" -o \""+destFile.getAbsolutePath()+"\"");
+	    	if(!destFile.exists())
+	    		System.out.println("D:\\software\\handbrake\\handbrakecli.exe --preset MediaLibrary --preset-import-file D:\\video\\handbrake_preset.json -i \""+srcFile.getAbsolutePath()+"\" -o \""+destFile.getAbsolutePath()+"\"   > "+destFile.getParentFile().getAbsolutePath()+"\\out.txt 2>&1");
 	    	
 	    	
 //	    	ProcessBuilder pb = new ProcessBuilder( "D:\\software\\handbrake\\handbrakecli.exe", 
