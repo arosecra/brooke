@@ -12,6 +12,7 @@ import org.github.arosecra.brooke.jobs.ConvertToWebp;
 import org.github.arosecra.brooke.jobs.CreateCbtThumbnail;
 import org.github.arosecra.brooke.jobs.Deskew;
 import org.github.arosecra.brooke.jobs.Extract;
+import org.github.arosecra.brooke.jobs.JobSubStep;
 import org.github.arosecra.brooke.jobs.LightNovelRename;
 import org.github.arosecra.brooke.util.Try;
 
@@ -27,19 +28,24 @@ public class BrookePipelineApplication {
 		setupMoviesPipeline(pipelines);
 //		pipelines.put("Research_Papers", new ArrayList<>());
 		
-		List<File> filesToProcess = new ArrayList<>();
+		Map<String, List<JobSubStep>> stepsPerType = new HashMap<>();
 		
 		//for each collection
 		
-		//  iterate through the items
+		//  iterate through the remote items and determine if a step is necessary
+		//  if the step is necessary, check if files need to be downloaded locally
+		//  if so, add a step to download the files, and steps to remove them locally after
+		//  add step to copy file remotely after step is done
+		
 		
 		//  iterate through the steps for the type, and see if they are needed
 		//  if it's a manual step, and needed, do not continue in the list for that file
 		//  if needed, add to a list
 		
-		//print out what is necessary per file
+		//print out what is necessary per folder
 		
 		//if in execute mode, get to work
+		//add options to only do so much at a time - by collection, type or # of steps
 		
 		
 		//temporary loop until i work through the sync mechanics

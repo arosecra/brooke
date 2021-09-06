@@ -73,10 +73,10 @@ public class Extract implements BrookeJobStep {
 			
 			for(File file : children) {
 				if(file.getName().endsWith("pdf") && file.getName().contains("covers")) {
-					JobSubStep jss = new JobSubStep("Extract", folder.getName(), 1, pdfCount);
-					jss.printStart();
+					JobSubStep jss = new JobSubStep("Extract", folder, 1, pdfCount);
+					jss.start();
 					extractPdf(file, pngFolder, folder.getName(), "000", 300, "png16m");
-					jss.printEnd();
+					jss.end();
 				}
 			}
 			
@@ -85,10 +85,10 @@ public class Extract implements BrookeJobStep {
 				File file = children[i];
 				if(file.getName().endsWith("pdf") && !file.getName().contains("covers")) {
 					String prefix = String.format("%03d", i+1);
-					JobSubStep jss = new JobSubStep("Extract", folder.getName(), i+2, pdfCount);
-					jss.printStart();
+					JobSubStep jss = new JobSubStep("Extract", folder, i+2, pdfCount);
+					jss.start();
 					extractPdf(file, pngFolder, folder.getName(), prefix, 1200, "pngmono");
-					jss.printEnd();
+					jss.end();
 				}
 			}
 			

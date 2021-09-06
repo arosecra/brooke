@@ -394,10 +394,10 @@ public class Deskew implements BrookeJobStep {
 
 						File newImageFile = new File(destPngsFolder, entry.getName());
 
-						JobSubStep jss = new JobSubStep("Deskew", folder.getName(), currentPage, pageCount);
-						jss.printStart();
+						JobSubStep jss = new JobSubStep("Deskew", folder, currentPage, pageCount);
+						jss.start();
 						deskewOrCopyImage(newImageFile, image);
-						jss.printEnd();
+						jss.end();
 						currentPage++;
 					}
 				}
