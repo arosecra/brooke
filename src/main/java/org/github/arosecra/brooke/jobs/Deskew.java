@@ -1,4 +1,4 @@
-package org.github.arosecra.brooke.jobs.deskew;
+package org.github.arosecra.brooke.jobs;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -7,102 +7,80 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
 import java.awt.image.DataBuffer;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FilenameFilter;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.github.arosecra.brooke.util.CommandLine;
 
-public class Deskew {
+public class Deskew implements BrookeJobStep {
 
-	public static void main(String[] args) throws Exception {
-		Deskew t = new Deskew();
-		File scansFolder = new File("D:/scans/tobeexported");
-		
-		for(File docFolder : scansFolder.listFiles())
+	private void deskewOrCopyImage(File newImageFile, BufferedImage image)
+			throws IOException {
+		if(!isColor(image))
 		{
-			System.out.println(docFolder.getName());
-			File pngsFolder = new File(docFolder, "pngs/");
-			File destPngsFolder = new File(docFolder + "/deskew/");
-			if(pngsFolder.isDirectory()) {
-			destPngsFolder.mkdirs();
-			if(pngsFolder.exists())
+			double skew = doIt(image);
+//			System.out.printf("%s %f\n", newImageFile.getName(), skew);
+			if(skew == 0)
 			{
-				for(File imageFile : pngsFolder.listFiles(new FilenameFilter() {
-					public boolean accept(File file, String s) {
-						return s.toLowerCase().endsWith("png");
-					}}))
+				ImageIO.write(image, 
+		                "png",
+		                newImageFile);
+			}
+			else
+//							if(skew > .01 || skew < -.01)
+			{
+//								AffineTransform at = AffineTransform.getRotateInstance(skew);
+//								AffineTransformOp ato = new AffineTransformOp(at, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+//								
+//								BufferedImage rotated = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
+//								
+//								ato.filter(image, rotated);
+				
+				BufferedImage sourceBI = new BufferedImage(image.getWidth(null),image.getHeight(null),BufferedImage.TYPE_INT_ARGB);
+				sourceBI.getGraphics().drawImage(image,0,0,null);
+				AffineTransform at = AffineTransform.getRotateInstance(skew);
+				BufferedImageOp bio = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+				BufferedImage rotated = bio.filter(sourceBI, null);
+				
+				rotated.getHeight(null);
+				rotated.getWidth(null);
+				
+				BoundingBox bb = getTransparencyBoundingBox(image, rotated, skew);
+				
+				BufferedImage noTrans = new BufferedImage(bb.width(), bb.height(), BufferedImage.TYPE_BYTE_BINARY);
+				for(int x = 0; x < bb.width(); x++)
 				{
-					try 
+					for(int y = 0; y < bb.height(); y++)
 					{
-						File newImageFile = new File(destPngsFolder, imageFile.getName());
-						if(!newImageFile.exists())
-						{
-							BufferedImage image = ImageIO.read(imageFile);
-							
-							if(!isColor(image))
-							{
-								double skew = t.doIt(image);
-								System.out.printf("%s %f\n", imageFile.getName(), skew);
-								if(skew == 0)
-								{
-									FileUtils.copyFile(imageFile, newImageFile);
-								}
-								else
-	//							if(skew > .01 || skew < -.01)
-								{
-	//								AffineTransform at = AffineTransform.getRotateInstance(skew);
-	//								AffineTransformOp ato = new AffineTransformOp(at, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
-	//								
-	//								BufferedImage rotated = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
-	//								
-	//								ato.filter(image, rotated);
-									
-									BufferedImage sourceBI = new BufferedImage(image.getWidth(null),image.getHeight(null),BufferedImage.TYPE_INT_ARGB);
-									sourceBI.getGraphics().drawImage(image,0,0,null);
-									AffineTransform at = AffineTransform.getRotateInstance(skew);
-									BufferedImageOp bio = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
-									BufferedImage rotated = bio.filter(sourceBI, null);
-									
-									rotated.getHeight(null);
-									rotated.getWidth(null);
-									
-									BoundingBox bb = getTransparencyBoundingBox(image, rotated, skew);
-									
-									BufferedImage noTrans = new BufferedImage(bb.width(), bb.height(), BufferedImage.TYPE_BYTE_BINARY);
-									for(int x = 0; x < bb.width(); x++)
-									{
-										for(int y = 0; y < bb.height(); y++)
-										{
-											int oldX = x + bb.tlx();
-											int oldY = y + bb.tly();
-											noTrans.setRGB(x, y, rotated.getRGB(oldX, oldY));
-										}
-									}
-									
-									ImageIO.write(noTrans, 
-							                "png",
-							                newImageFile);
-								}
-							}
-							else
-							{
-								FileUtils.copyFile(imageFile, newImageFile);
-							}
-						}
-					}
-					catch(Throwable throwable)
-					{
-						throwable.printStackTrace();
+						int oldX = x + bb.tlx();
+						int oldY = y + bb.tly();
+						noTrans.setRGB(x, y, rotated.getRGB(oldX, oldY));
 					}
 				}
-			}
+				
+				ImageIO.write(noTrans, 
+		                "png",
+		                newImageFile);
 			}
 		}
-		
+		else
+		{
+			ImageIO.write(image, 
+	                "png",
+	                newImageFile);
+		}
 	}
 	
 //	public void rotate(double angle, int[] pixels)
@@ -147,9 +125,9 @@ public class Deskew {
 		Point newTR = calculateNewPoint(oldTR, skew);
 		
 //		System.out.println(oldTL + "->" + newTL);
-		System.out.println("BL " + oldBL + "->" + newBL);
-		System.out.println("BR " + oldBR + "->" + newBR);
-		System.out.println("TR " + oldTR + "->" + newTR);
+//		System.out.println("BL " + oldBL + "->" + newBL);
+//		System.out.println("BR " + oldBR + "->" + newBR);
+//		System.out.println("TR " + oldTR + "->" + newTR);
 //		System.out.println(rotBR);
 		
 		if(minx < newBL.getX())
@@ -172,7 +150,7 @@ public class Deskew {
 		
 		Point croppedTL = new Point(minx,miny);
 		Point croppedBR = new Point(maxx,maxy);
-		System.out.println("CR: " + croppedTL + ", " + croppedBR);
+//		System.out.println("CR: " + croppedTL + ", " + croppedBR);
 		
 		return new BoundingBox(croppedTL, croppedBR);
 	}
@@ -374,6 +352,76 @@ public class Deskew {
 			sharpness[w2 - 1 + sign * column] = acc;
 		}
 	}
+
+	@Override
+	public boolean required(File folder) {
+
+		File rawCbt = new File(folder, folder.getName()+"_RAW.cbt");
+		File cbt = new File(folder, folder.getName()+"_PNG.cbt");
+		return rawCbt.exists() && !cbt.exists();
+	}
+
+	@Override
+	public File execute(File folder) throws IOException {
+		File rawCbt = new File(folder, folder.getName()+"_RAW.cbt");
+		File destPngsFolder = new File(folder + "/deskew/");
+		
+		if(required(folder)) {
+			destPngsFolder.mkdirs();
+			int pageCount = 0;
+			try (TarArchiveInputStream tarIn = new TarArchiveInputStream(
+					new BufferedInputStream(new FileInputStream(rawCbt)))) {
+				TarArchiveEntry entry;
+				while ((entry = (TarArchiveEntry) tarIn.getNextEntry()) != null) {
+					if (entry.getName().endsWith("png")) {
+						pageCount++;
+					}
+				}
+			}
+			
+			
+			
+			int currentPage = 0;
+			try (TarArchiveInputStream tarIn = new TarArchiveInputStream(
+					new BufferedInputStream(new FileInputStream(rawCbt)))) {
+				TarArchiveEntry entry;
+				while ((entry = (TarArchiveEntry) tarIn.getNextEntry()) != null) {
+					if (entry.getName().endsWith("png")) {
+						ByteArrayOutputStream baos = new ByteArrayOutputStream();
+						IOUtils.copy(tarIn, baos);
+						
+						BufferedImage image = ImageIO.read(new ByteArrayInputStream(baos.toByteArray()));
+
+						File newImageFile = new File(destPngsFolder, entry.getName());
+
+						JobSubStep jss = new JobSubStep("Deskew", folder.getName(), currentPage, pageCount);
+						jss.printStart();
+						deskewOrCopyImage(newImageFile, image);
+						jss.printEnd();
+						currentPage++;
+					}
+				}
+			}
+			
+
+			CommandLine.run(new String[] {
+					"D:\\software\\7za\\7za.exe", 
+	    			"a", 
+	    			"-ttar", 
+	    			"-o" + destPngsFolder.getAbsolutePath(),
+	    			folder.getAbsolutePath()+"\\"+folder.getName()+"_PNG.cbt", 
+	    			destPngsFolder.getAbsolutePath() + "\\*.png" 	
+			});
+			
+			FileUtils.deleteDirectory(destPngsFolder);
+		}
+		return folder;
+	}
+
+	@Override
+	public boolean isManual() {
+		return false;
+	}
 }
 
 class Book
@@ -390,4 +438,102 @@ class Page
 	public File   destFile;
 	public String     name;
 	public boolean  skewed;
+}
+class Point
+{
+	private int x;
+	private int y;
+	
+	public Point(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+	public Point(double x, double y) {
+		this.x = (int)x;
+		this.y = (int)y;
+	}
+	public int getX() {
+		return x;
+	}
+	public void setX(int x) {
+		this.x = x;
+	}
+	public int getY() {
+		return y;
+	}
+	public void setY(int y) {
+		this.y = y;
+	}
+	public String toString() {
+		return "(" + this.x + ", " + this.y + ")";
+	}
+}
+class BoundingBox
+{
+	private Point topLeft;
+	private Point bottomRight;
+	public BoundingBox(Point topLeft, Point bottomRight) {
+		this.topLeft = topLeft;
+		this.bottomRight = bottomRight;
+	}
+	public Point getTopLeft() {
+		return topLeft;
+	}
+	public void setTopLeft(Point topLeft) {
+		this.topLeft = topLeft;
+	}
+	public Point getBottomRight() {
+		return bottomRight;
+	}
+	public void setBottomRight(Point bottomRight) {
+		this.bottomRight = bottomRight;
+	}
+	
+	public int width(){return this.brx()-this.tlx();}
+	public int height(){return this.bry()-this.tly();}
+	
+	public int tlx(){return this.topLeft.getX();}
+	public int tly(){return this.topLeft.getY();}
+	public int brx(){return this.bottomRight.getX();}
+	public int bry(){return this.bottomRight.getY();}
+	
+	public boolean intersects(BoundingBox bb)
+	{
+		return !(
+//				  ________     ________
+//				 |        |   |        |
+//				 |   r1   |   |   r2   |
+//				 |        |   |        |
+//				 |________|   |________|
+				 brx() < bb.tlx() ||
+//				  ________     ________
+//				 |        |   |        |
+//				 |   r2   |   |   r1   |
+//				 |        |   |        |
+//				 |________|   |________|				 
+				 bb.brx() < tlx() ||
+//				  ________ 
+//				 |        |
+//				 |   r1   |
+//				 |        |
+//				 |________|
+//				  ________ 
+//				 |        |
+//				 |   r2   |
+//				 |        |
+//				 |________|				 
+				 bry() < bb.tly() ||
+//				  ________ 
+//				 |        |
+//				 |   r2   |
+//				 |        |
+//				 |________|
+//				  ________ 
+//				 |        |
+//				 |   r1   |
+//				 |        |
+//				 |________|				 
+				 bb.bry() < tly()
+				);
+	}
 }

@@ -1,0 +1,107 @@
+package org.github.arosecra.brooke.jobs;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
+import org.github.arosecra.brooke.util.CommandLine;
+import org.github.arosecra.brooke.util.Try;
+
+
+public class Extract implements BrookeJobStep {
+	
+	private static final String GS_EXE = "C:\\software\\ghostscript\\bin\\gswin64c.exe";
+
+	private static void tarToRawCbt(File pngFolder, File bookFolder) {
+		CommandLine.run(new String[] {
+				"D:\\software\\7za\\7za.exe", 
+    			"a", 
+    			"-ttar", 
+    			"-o" + pngFolder.getAbsolutePath(),
+    			bookFolder.getAbsolutePath()+"\\"+bookFolder.getName()+"_RAW.cbt", 
+    			pngFolder.getAbsolutePath() + "\\*.png" 	
+		});
+	}
+
+
+	private static void extractPdf(File file, File pngFolder, String bookname, String prefix, int dpi, String device) {
+		String[] args = new String[] {
+			GS_EXE,
+			"-dBATCH",
+			"-dNOPAUSE",
+			"-dGraphicsAlphaBits=4",
+			"-q",
+			"-r"+dpi,
+			"-sDEVICE="+device,
+			"-dUseCropBox",
+			"-sOutputFile="+pngFolder.getAbsolutePath()+"\\"+bookname+"-"+prefix+"-%03d.png",
+			file.getAbsolutePath()
+		};
+		
+		org.github.arosecra.brooke.util.CommandLine.run(args);
+	}
+
+
+	@Override
+	public boolean required(File folder) {
+		int pdfCount = 0;
+		for(File file : Try.listFilesSafe(folder)) {
+			if(file.getName().endsWith("pdf"))
+				pdfCount++;
+		}
+		
+		File rawCbtFile = new File(folder, folder.getName()+"_RAW.cbt");
+		
+		return pdfCount > 1 && !rawCbtFile.exists();
+	}
+
+	@Override
+	public File execute(File folder) throws IOException {
+		if(required(folder)) {
+			File pngFolder = new File(folder, "png");
+			pngFolder.mkdirs();
+			
+			File[] children = Try.listFilesSafe(folder);
+			
+			int pdfCount = 0; 
+			for(File file : children) {
+				if(file.getName().endsWith("pdf")) {
+					pdfCount++;
+				}
+			}
+			
+			
+			for(File file : children) {
+				if(file.getName().endsWith("pdf") && file.getName().contains("covers")) {
+					JobSubStep jss = new JobSubStep("Extract", folder.getName(), 1, pdfCount);
+					jss.printStart();
+					extractPdf(file, pngFolder, folder.getName(), "000", 300, "png16m");
+					jss.printEnd();
+				}
+			}
+			
+			
+			for(int i = 0; i < children.length; i++) {
+				File file = children[i];
+				if(file.getName().endsWith("pdf") && !file.getName().contains("covers")) {
+					String prefix = String.format("%03d", i+1);
+					JobSubStep jss = new JobSubStep("Extract", folder.getName(), i+2, pdfCount);
+					jss.printStart();
+					extractPdf(file, pngFolder, folder.getName(), prefix, 1200, "pngmono");
+					jss.printEnd();
+				}
+			}
+			
+			tarToRawCbt(pngFolder, folder);
+			
+			FileUtils.deleteDirectory(pngFolder);
+		}
+		return folder;
+	}
+
+
+	@Override
+	public boolean isManual() {
+		return false;
+	}
+}

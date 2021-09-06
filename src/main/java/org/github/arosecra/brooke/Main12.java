@@ -41,7 +41,7 @@ public class Main12 {
 	public static void main(String[] args) throws Exception {
 		tesseract.setDatapath("D:\\Software\\tessdata");
 		
-		Collection<File> subFiles = FileUtils.listFiles(new File("D:\\Library\\Video_Repository"), new String[] {"sub"}, true);
+		Collection<File> subFiles = FileUtils.listFiles(new File("D:\\Library\\Anime_Repository"), new String[] {"sub"}, true);
 		System.out.println("Starting. Files to check: " + subFiles.size());
 		for(File file : subFiles) {
 			File folder = file.getParentFile();
@@ -66,7 +66,6 @@ public class Main12 {
 	//		extractSubtitlePngs(subfile, tempFolder);
 	//		Thread.sleep(15000);
 			
-			renameXmlIfRequired(subfile, tempFolder);
 	
 			extractVtt(subfile, tempFolder);
 	
@@ -80,15 +79,6 @@ public class Main12 {
 			System.out.println("Done");
 		} else {
 			System.out.println("Skipped");
-		}
-	}
-
-	private static void renameXmlIfRequired(File subfile, File tempFolder) throws IOException {
-		for(File file : tempFolder.listFiles()) {
-			if(file.getName().endsWith("xml") && !file.getName().equals(tempFolder.getName() + ".xml")) {
-				File newFile = new File(tempFolder, tempFolder.getName() + ".xml");
-				FileUtils.moveFile(file, newFile);
-			}
 		}
 	}
 
@@ -137,12 +127,18 @@ public class Main12 {
 		for (int i = 0; i < pngs.length; i++) {
 			File file = pngs[i];
 			if (file.getName().endsWith("png")) {
+				String basename = FilenameUtils.getBaseName(file.getName());
+				File txtFile = new File(file.getParentFile(), basename + ".txt");
+
 				Subtitle subtitle = subtitles.get(pngCount);
-				String sub = doOcr(file);
-				subtitle.text = sub;
+				if(txtFile.exists()) {
+					subtitle.text = FileUtils.readFileToString(txtFile);
+				} else {
+					subtitle.text = doOcr(file);
+				}
 				System.out.println(file.getName());
 				System.out.println("------");
-				System.out.println(sub);
+				System.out.println(subtitle.text);
 
 				System.out.println("");
 				pngCount++;

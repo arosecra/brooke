@@ -9,7 +9,7 @@ import org.apache.commons.io.FilenameUtils;
 public class Main15 {
 	public static void main(String[] args) {
 		
-		Collection<File> subFiles = FileUtils.listFiles(new File("D:\\Library\\Video_Repository"), new String[] {"sub", "sup"}, true);
+		Collection<File> subFiles = FileUtils.listFiles(new File("D:\\Library\\Anime_Repository"), new String[] {"sub", "sup"}, true);
 		
 		for(File file : subFiles) {
 			File folder = file.getParentFile();

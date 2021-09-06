@@ -27,5 +27,14 @@ public class Try {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public static File[] listFilesSafe(File file) {
+		if(file.listFiles() != null) {
+			return file.listFiles();
+		} else {
+			return new File[] {};
+		}
+		
+	}
 
 }
