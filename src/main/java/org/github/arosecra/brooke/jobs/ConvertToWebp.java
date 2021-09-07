@@ -24,12 +24,14 @@ public class ConvertToWebp implements BrookeJobStep {
 		boolean pngsFound = false;
 		File cbtFile = new File(folder, folder.getName() + srcSuffix);
 
-		try (TarArchiveInputStream tarIn = new TarArchiveInputStream(
-			new BufferedInputStream(new FileInputStream(cbtFile)))) {
-			TarArchiveEntry entry;
-			while ((entry = (TarArchiveEntry) tarIn.getNextEntry()) != null) {
-				if (entry.getName().endsWith("png")) {
-					pngsFound = true;
+		if(cbtFile.exists()) {
+			try (TarArchiveInputStream tarIn = new TarArchiveInputStream(
+				new BufferedInputStream(new FileInputStream(cbtFile)))) {
+				TarArchiveEntry entry;
+				while ((entry = (TarArchiveEntry) tarIn.getNextEntry()) != null) {
+					if (entry.getName().endsWith("png")) {
+						pngsFound = true;
+					}
 				}
 			}
 		}
@@ -45,12 +47,13 @@ public class ConvertToWebp implements BrookeJobStep {
 		if(required(folder)) {
 			File srcCbtFile = new File(folder, folder.getName() + srcSuffix);
 			File bookTempSsdFolder = new File(tempSsdFolder, folder.getName());
-			
-			bookTempSsdFolder.mkdirs();
-			extractPngs(srcCbtFile, bookTempSsdFolder);
-			convertPngsToWebp(bookTempSsdFolder);
-			retarToCbt(bookTempSsdFolder, folder);
-			deleteWebPs(bookTempSsdFolder);
+			if(srcCbtFile.exists()) {
+				bookTempSsdFolder.mkdirs();
+				extractPngs(srcCbtFile, bookTempSsdFolder);
+				convertPngsToWebp(bookTempSsdFolder);
+				retarToCbt(bookTempSsdFolder, folder);
+				deleteWebPs(bookTempSsdFolder);
+			}
 			
 		}
 		return folder;
