@@ -82,8 +82,8 @@ public class BrookePipelineApplication {
 	private static void setupLightNovelsPipeline(Map<String, List<BrookeJobStep>> pipelines) {
 		List<BrookeJobStep> steps = new ArrayList<>();
 		steps.add(new LightNovelRename());
-		steps.add(new CreateCbtThumbnail());
 		steps.add(new Extract());
+		steps.add(new CreateCbtThumbnail());
 		steps.add(new Deskew());
 		steps.add(new ConvertToWebp());
 		pipelines.put("Light_Novels", steps);
@@ -91,16 +91,16 @@ public class BrookePipelineApplication {
 
 	private static void setupGraphicNovelPipeline(Map<String, List<BrookeJobStep>> pipelines) {
 		List<BrookeJobStep> steps = new ArrayList<>();
-		steps.add(new CreateCbtThumbnail());
 		steps.add(new Extract());
+		steps.add(new CreateCbtThumbnail());
 		steps.add(new ConvertToWebp());
 		pipelines.put("Graphic_Novels", steps);
 	}
 
 	private static void setupBooksPipeline(Map<String, List<BrookeJobStep>> pipelines) {
 		List<BrookeJobStep> steps = new ArrayList<>();
-		steps.add(new CreateCbtThumbnail());
 		steps.add(new Extract());
+		steps.add(new CreateCbtThumbnail());
 		steps.add(new Deskew());
 		steps.add(new ConvertToWebp());
 		pipelines.put("Books", steps);
