@@ -59,36 +59,39 @@ public class Extract implements BrookeJobStep {
 	public File execute(File folder) throws IOException {
 		if(required(folder)) {
 			File pngFolder = new File(folder, "png");
-			pngFolder.mkdirs();
 			
-			File[] children = Try.listFilesSafe(folder);
-			
-			int pdfCount = 0; 
-			for(File file : children) {
-				if(file.getName().endsWith("pdf")) {
-					pdfCount++;
+			if(!pngFolder.exists()) {
+				pngFolder.mkdirs();
+				
+				File[] children = Try.listFilesSafe(folder);
+				
+				int pdfCount = 0; 
+				for(File file : children) {
+					if(file.getName().endsWith("pdf")) {
+						pdfCount++;
+					}
 				}
-			}
-			
-			
-			for(File file : children) {
-				if(file.getName().endsWith("pdf") && file.getName().contains("covers")) {
-					JobSubStep jss = new JobSubStep("Extract", folder, 1, pdfCount);
-					jss.start();
-					extractPdf(file, pngFolder, folder.getName(), "000", 300, "png16m");
-					jss.end();
+				
+				
+				for(File file : children) {
+					if(file.getName().endsWith("pdf") && file.getName().contains("covers")) {
+						JobSubStep jss = new JobSubStep("Extract", folder, 1, pdfCount);
+						jss.startAndPrint();
+						extractPdf(file, pngFolder, folder.getName(), "000", 300, "png16m");
+						jss.endAndPrint();
+					}
 				}
-			}
-			
-			
-			for(int i = 0; i < children.length; i++) {
-				File file = children[i];
-				if(file.getName().endsWith("pdf") && !file.getName().contains("covers")) {
-					String prefix = String.format("%03d", i+1);
-					JobSubStep jss = new JobSubStep("Extract", folder, i+2, pdfCount);
-					jss.start();
-					extractPdf(file, pngFolder, folder.getName(), prefix, 1200, "pngmono");
-					jss.end();
+				
+				
+				for(int i = 0; i < children.length; i++) {
+					File file = children[i];
+					if(file.getName().endsWith("pdf") && !file.getName().contains("covers")) {
+						String prefix = String.format("%03d", i+1);
+						JobSubStep jss = new JobSubStep("Extract", folder, i+2, pdfCount);
+						jss.startAndPrint();
+						extractPdf(file, pngFolder, folder.getName(), prefix, 1200, "pngmono");
+						jss.endAndPrint();
+					}
 				}
 			}
 			

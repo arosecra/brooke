@@ -93,7 +93,7 @@ public class ConvertToWebp implements BrookeJobStep {
 			for(int i = 0; i < files.length; i++) {
 				File inputFile = files[i];
 				JobSubStep jss = new JobSubStep("Webp Conversion", bookFolder, i, files.length);
-				jss.start();
+				jss.startAndPrint();
 				File outputFile = new File(bookFolder, FilenameUtils.getBaseName(inputFile.getName()) + ".webp");
 				
 				CommandLine.run(new String[] {
@@ -103,7 +103,7 @@ public class ConvertToWebp implements BrookeJobStep {
 						"-o",
 						outputFile.getAbsolutePath()		
 				});
-				jss.end();
+				jss.endAndPrint();
 				inputFile.delete();
 			}
 		}

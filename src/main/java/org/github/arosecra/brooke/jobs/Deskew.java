@@ -2,7 +2,6 @@ package org.github.arosecra.brooke.jobs;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -14,8 +13,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -368,42 +365,45 @@ public class Deskew implements BrookeJobStep {
 		File destPngsFolder = new File(folder + "/deskew/");
 		
 		if(required(folder)) {
-			destPngsFolder.mkdirs();
-			int pageCount = 0;
-			try (TarArchiveInputStream tarIn = new TarArchiveInputStream(
-					new BufferedInputStream(new FileInputStream(rawCbt)))) {
-				TarArchiveEntry entry;
-				while ((entry = (TarArchiveEntry) tarIn.getNextEntry()) != null) {
-					if (entry.getName().endsWith("png")) {
-						pageCount++;
+			if(!destPngsFolder.exists()) { 
+				destPngsFolder.mkdirs();
+				int pageCount = 0;
+				try (TarArchiveInputStream tarIn = new TarArchiveInputStream(
+						new BufferedInputStream(new FileInputStream(rawCbt)))) {
+					TarArchiveEntry entry;
+					while ((entry = (TarArchiveEntry) tarIn.getNextEntry()) != null) {
+						if (entry.getName().endsWith("png")) {
+							pageCount++;
+						}
+					}
+				}
+				
+				
+				
+				int currentPage = 0;
+				try (TarArchiveInputStream tarIn = new TarArchiveInputStream(
+						new BufferedInputStream(new FileInputStream(rawCbt)))) {
+					TarArchiveEntry entry;
+					while ((entry = (TarArchiveEntry) tarIn.getNextEntry()) != null) {
+						if (entry.getName().endsWith("png")) {
+							ByteArrayOutputStream baos = new ByteArrayOutputStream();
+							IOUtils.copy(tarIn, baos);
+							
+							BufferedImage image = ImageIO.read(new ByteArrayInputStream(baos.toByteArray()));
+	
+							File newImageFile = new File(destPngsFolder, entry.getName());
+	
+							JobSubStep jss = new JobSubStep("Deskew", folder, currentPage, pageCount);
+							jss.startAndPrint();
+							if(!newImageFile.exists()) {
+								deskewOrCopyImage(newImageFile, image);
+							}
+							jss.endAndPrint();
+							currentPage++;
+						}
 					}
 				}
 			}
-			
-			
-			
-			int currentPage = 0;
-			try (TarArchiveInputStream tarIn = new TarArchiveInputStream(
-					new BufferedInputStream(new FileInputStream(rawCbt)))) {
-				TarArchiveEntry entry;
-				while ((entry = (TarArchiveEntry) tarIn.getNextEntry()) != null) {
-					if (entry.getName().endsWith("png")) {
-						ByteArrayOutputStream baos = new ByteArrayOutputStream();
-						IOUtils.copy(tarIn, baos);
-						
-						BufferedImage image = ImageIO.read(new ByteArrayInputStream(baos.toByteArray()));
-
-						File newImageFile = new File(destPngsFolder, entry.getName());
-
-						JobSubStep jss = new JobSubStep("Deskew", folder, currentPage, pageCount);
-						jss.start();
-						deskewOrCopyImage(newImageFile, image);
-						jss.end();
-						currentPage++;
-					}
-				}
-			}
-			
 
 			CommandLine.run(new String[] {
 					"D:\\software\\7za\\7za.exe", 
@@ -423,22 +423,6 @@ public class Deskew implements BrookeJobStep {
 	public boolean isManual() {
 		return false;
 	}
-}
-
-class Book
-{
-	public File sourceFolder;
-	public File   destFolder;
-	public String       name;
-	public List<Page>  pages = new ArrayList<Page>();
-}
-
-class Page
-{
-	public File sourceFile;
-	public File   destFile;
-	public String     name;
-	public boolean  skewed;
 }
 class Point
 {

@@ -10,6 +10,7 @@ public class JobSubStep {
 	private int total;
 	private long start;
 	private long end;
+	private BrookeJobStep step;
 	
 	public JobSubStep(String name, File folder, int index, int total) {
 		super();
@@ -19,16 +20,28 @@ public class JobSubStep {
 		this.total = total;
 	}
 
-
+	public void startAndPrint() {
+		start();
+		printStart();
+	}
 	public void start() {
-		System.out.print(name + " " + folder.getName() + " (" + index + " of " + total + ") ");
 		start = System.currentTimeMillis();
 		
 	}
 	
+	public void printStart() {
+		System.out.print(name + " " + folder.getName() + " (" + index + " of " + total + ") ");
+	}
 	
+	public void endAndPrint() {
+		end();
+		printEnd();
+	}
 	public void end() {
 		end = System.currentTimeMillis();
+	}
+	
+	public void printEnd() {
 		
 		long diff = end-start;
 		
@@ -39,5 +52,13 @@ public class JobSubStep {
 		} else {
 		    System.out.println("... " + (diff) + " milliseconds");
 		}
+	}
+
+	public BrookeJobStep getStep() {
+		return step;
+	}
+
+	public void setStep(BrookeJobStep step) {
+		this.step = step;
 	}
 }
