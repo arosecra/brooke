@@ -51,16 +51,26 @@ public class BrookePipelineApplication {
 		//temporary loop until i work through the sync mechanics
 		File basedir = new File("D:\\scans\\tobeexported");
 		
-		for(File folder : Try.listFilesSafe(basedir)) {
-			
-			for(BrookeJobStep step : pipelines.get("Books")) {
-				if(step.required(folder)) {
-					System.out.println("Executing " + step.getClass().getSimpleName() + " against " + folder.getName());
-					step.execute(folder);
+		boolean done = false;
+		while(!done) {
+			boolean workDoneInIteration = false;
+
+			for(File folder : Try.listFilesSafe(basedir)) {
+				
+				if(folder.exists()) { //folder may have been manually moved since the start of the job
+					for(BrookeJobStep step : pipelines.get("Books")) {
+						if(step.required(folder)) {
+							System.out.println("Executing " + step.getClass().getSimpleName() + " against " + folder.getName());
+							step.execute(folder);
+							workDoneInIteration = true;
+						}
+					}
 				}
 			}
 			
 			
+			if(!workDoneInIteration) 
+				done = true;
 		}
 		
 		

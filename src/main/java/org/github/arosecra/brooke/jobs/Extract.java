@@ -89,7 +89,13 @@ public class Extract implements BrookeJobStep {
 						String prefix = String.format("%03d", i+1);
 						JobSubStep jss = new JobSubStep("Extract", folder, i+2, pdfCount);
 						jss.startAndPrint();
-						extractPdf(file, pngFolder, folder.getName(), prefix, 1200, "pngmono");
+						String color = "pngmono";
+						int dpi = 1200;
+						if(file.getName().contains("color")) {
+							color = "png16m";
+							dpi = 300;
+						}
+						extractPdf(file, pngFolder, folder.getName(), prefix, dpi, color);
 						jss.endAndPrint();
 					}
 				}
