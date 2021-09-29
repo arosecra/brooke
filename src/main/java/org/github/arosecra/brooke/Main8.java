@@ -35,6 +35,8 @@ public class Main8 {
 		
 		for(File remoteVideosToProcess : remoteSeriesToProcess) {
 			System.out.println("REM " + remoteVideosToProcess.getName());
+			if(!remoteVideosToProcess.getName().contains("Samurai_X"))
+				continue;
 			File remoteDir = getRemoteDir(remoteVideosToProcess.getName());
 			for(File remoteVideo : remoteVideosToProcess.listFiles()) {
 				String basename = FilenameUtils.getBaseName(remoteVideo.getName());

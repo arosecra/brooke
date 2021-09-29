@@ -36,10 +36,25 @@
 	</div>
 	<div class="tile">
 		<div class="tile is-child box">
-			<div class="columns is-multiline" th:if="${category != null}">
+			<div class="columns is-multiline " th:if="${category != null && collection.openType == 'video'}">
+				<div class="column is-one-third" th:each="item : ${category.items}">
+					<figure class="image ">
+						<a th:href="|/shelfitem/${collection.name}/${catalog.name}/${category.name}/${item.name}/|">
+							<img class="is-fullwidth " th:src="|/thumbnail/${collection.name}/${catalog.name}/${category.name}/${item.name}|">
+						</a>
+					</figure>
+					<div class="title is-size-5" >
+						<p th:if="${!item.local}" th:inline="text">(*)&nbsp[[${#strings.replace(item.name,'_',' ')}]]</p>
+						<p th:if="${item.local}"  th:text="${#strings.replace(item.name,'_',' ')}"></p>
+					</div>
+				</div>
+			</div>
+			<div class="columns is-multiline " th:if="${category != null && collection.openType == 'book'}">
 				<div class="column is-2" th:each="item : ${category.items}">
 					<figure class="image is-3by4">
-						<a th:href="|/shelfitem/${collection.name}/${catalog.name}/${category.name}/${item.name}/|"><img class="is-square" th:src="|/thumbnail/${collection.name}/${catalog.name}/${category.name}/${item.name}|"></a>
+						<a th:href="|/shelfitem/${collection.name}/${catalog.name}/${category.name}/${item.name}/|">
+							<img class="is-fullwidth " th:src="|/thumbnail/${collection.name}/${catalog.name}/${category.name}/${item.name}|">
+						</a>
 					</figure>
 					<div class="title is-size-5" >
 						<p th:if="${!item.local}" th:inline="text">(*)&nbsp[[${#strings.replace(item.name,'_',' ')}]]</p>

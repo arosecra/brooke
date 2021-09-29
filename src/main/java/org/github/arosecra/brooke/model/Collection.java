@@ -1,7 +1,10 @@
 package org.github.arosecra.brooke.model;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Collection {
 	private List<Catalog> catalogs = new ArrayList<>();
@@ -11,7 +14,28 @@ public class Collection {
 	private String remoteCollection;
 	private String localDirectory;
 	private String itemExtension;
+	private String excludeExtensions;
+	private String pipeline;
 	private String openType;
+	private java.util.Collection<File> localFiles = new ArrayList<>();
+	private java.util.Collection<File> remoteFiles = new ArrayList<>();
+	private Map<String, ShelfItem> shelfItems = new HashMap<>();
+
+	public java.util.Collection<File> getLocalFiles() {
+		return localFiles;
+	}
+
+	public void setLocalFiles(java.util.Collection<File> localFiles) {
+		this.localFiles = localFiles;
+	}
+
+	public java.util.Collection<File> getRemoteFiles() {
+		return remoteFiles;
+	}
+
+	public void setRemoteFiles(java.util.Collection<File> remoteFiles) {
+		this.remoteFiles = remoteFiles;
+	}
 
 	public String getRemoteDirectory() {
 		return remoteDirectory;
@@ -110,4 +134,30 @@ public class Collection {
 	public void setOpenType(String openType) {
 		this.openType = openType;
 	}
+
+	public String getExcludeExtensions() {
+		return excludeExtensions;
+	}
+
+	public void setExcludeExtensions(String excludeExtensions) {
+		this.excludeExtensions = excludeExtensions;
+	}
+
+	public String[] getPipeline() {
+		return pipeline.split("," );
+	}
+
+	public void setPipeline(String pipeline) {
+		this.pipeline = pipeline;
+	}
+
+	public Map<String, ShelfItem> getShelfItems() {
+		return shelfItems;
+	}
+
+	public void setShelfItems(Map<String, ShelfItem> shelfItems) {
+		this.shelfItems = shelfItems;
+	}
+
+	
 }

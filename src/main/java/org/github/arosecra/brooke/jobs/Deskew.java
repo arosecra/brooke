@@ -13,6 +13,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -354,14 +356,14 @@ public class Deskew implements BrookeJobStep {
 	@Override
 	public boolean required(File folder) {
 
-		File rawCbt = new File(folder, folder.getName()+"_RAW.cbt");
-		File cbt = new File(folder, folder.getName()+"_PNG.cbt");
+		File rawCbt = new File(folder, folder.getName()+"_RAW.tar");
+		File cbt = new File(folder, folder.getName()+"_PNG.tar");
 		return rawCbt.exists() && !cbt.exists();
 	}
 
 	@Override
 	public File execute(File folder) throws IOException {
-		File rawCbt = new File(folder, folder.getName()+"_RAW.cbt");
+		File rawCbt = new File(folder, folder.getName()+"_RAW.tar");
 		File destPngsFolder = new File(folder + "/deskew/");
 		
 		if(required(folder)) {
@@ -410,7 +412,7 @@ public class Deskew implements BrookeJobStep {
 	    			"a", 
 	    			"-ttar", 
 	    			"-o" + destPngsFolder.getAbsolutePath(),
-	    			folder.getAbsolutePath()+"\\"+folder.getName()+"_PNG.cbt", 
+	    			folder.getAbsolutePath()+"\\"+folder.getName()+"_PNG.tar", 
 	    			destPngsFolder.getAbsolutePath() + "\\*.png" 	
 			});
 			
@@ -421,6 +423,19 @@ public class Deskew implements BrookeJobStep {
 
 	@Override
 	public boolean isManual() {
+		return false;
+	}
+
+	@Override
+	public List<File> filesRequiredForExecution(File folder) {
+		File rawCbt = new File(folder, folder.getName()+"_RAW.tar");
+		List<File> files = new ArrayList<>();
+		files.add(rawCbt);
+		return files;
+	}
+
+	@Override
+	public boolean isRemoteStep() {
 		return false;
 	}
 }

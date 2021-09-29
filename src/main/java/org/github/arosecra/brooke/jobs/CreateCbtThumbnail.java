@@ -8,6 +8,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -17,10 +19,20 @@ import org.apache.commons.io.IOUtils;
 
 public class CreateCbtThumbnail implements BrookeJobStep {
 
+	private int desiredWidth = 250;
+
+	public CreateCbtThumbnail() { }
+	public CreateCbtThumbnail(int width) {
+		desiredWidth  = width;
+	}
+	public CreateCbtThumbnail(int width, String variant) {
+		desiredWidth  = width;
+	}
+
 	@Override
 	public boolean required(File folder) throws IOException {
 		File thumbnailFile = new File(folder, "thumbnail.png");
-		File tar = new File(folder, folder.getName() + "_RAW.cbt");
+		File tar = new File(folder, folder.getName() + "_RAW.tar");
 		return !thumbnailFile.exists() && tar.exists();
 	}
 
@@ -29,7 +41,7 @@ public class CreateCbtThumbnail implements BrookeJobStep {
 		System.out.println("Creating thumbnail for " + folder.getName());
 		if(required(folder)) {
 			File thumbnailFile = new File(folder, "thumbnail.png");
-			File tar = new File(folder, folder.getName() + "_RAW.cbt");
+			File tar = new File(folder, folder.getName() + "_RAW.tar");
 			BufferedImage thumbnail = createThumbnailFromTar(tar);
 			ImageIO.write(thumbnail, "png", thumbnailFile);
 		}
@@ -61,15 +73,27 @@ public class CreateCbtThumbnail implements BrookeJobStep {
 		int width = input.getWidth();
 		int height = input.getHeight();
 		
-		int newWidth = 250;
+		int newWidth = desiredWidth;
 		
-		int reduction = width / 250;
+		int reduction = width / desiredWidth;
 		int newHeight = height / reduction;
 		
 		
 		BufferedImage thumbnail = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
 		thumbnail.createGraphics().drawImage(input.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH),0,0,null);
 		return thumbnail;
+	}
+
+	@Override
+	public List<File> filesRequiredForExecution(File folder) {
+		List<File> result = new ArrayList<>();
+		result.add(new File(folder, folder.getName() + "_RAW.tar"));
+		return result;
+	}
+
+	@Override
+	public boolean isRemoteStep() {
+		return false;
 	}
 
 }

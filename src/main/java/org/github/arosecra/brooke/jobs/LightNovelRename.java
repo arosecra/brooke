@@ -2,6 +2,8 @@ package org.github.arosecra.brooke.jobs;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 
@@ -30,26 +32,26 @@ public class LightNovelRename implements BrookeJobStep {
 	}
 
 	@Override
-	public File execute(File folder) throws IOException {
-		File result = folder;
-		if(required(folder)) {
+	public File execute(File localFolder) throws IOException {
+		File result = localFolder;
+		if(required(localFolder)) {
 			String[] mapItem = null;
 			for(String[] item : map) {
-				if(folder.getName().startsWith(item[0])) {
+				if(localFolder.getName().startsWith(item[0])) {
 					mapItem = item;
 				}
 			}
 			
-			for(File file : folder.listFiles()) {
+			for(File file : localFolder.listFiles()) {
 				if(file.getName().startsWith(mapItem[0])) {
 					String newName = mapItem[1]+file.getName().substring(mapItem[0].length());
-					FileUtils.moveFile(file, new File(folder, newName));
+					FileUtils.moveFile(file, new File(localFolder, newName));
 				}
 			}
 			
-			String newName = mapItem[1]+folder.getName().substring(mapItem[0].length());
-			result = new File(folder.getParentFile(), newName);
-			FileUtils.moveDirectory(folder, result);
+			String newName = mapItem[1]+localFolder.getName().substring(mapItem[0].length());
+			result = new File(localFolder.getParentFile(), newName);
+			FileUtils.moveDirectory(localFolder, result);
 		}
 		return result;
 	}
@@ -57,5 +59,16 @@ public class LightNovelRename implements BrookeJobStep {
 	@Override
 	public boolean isManual() {
 		return false;
+	}
+
+	@Override
+	public List<File> filesRequiredForExecution(File folder) {
+		List<File> result = new ArrayList<>();
+		return result;
+	}
+
+	@Override
+	public boolean isRemoteStep() {
+		return true;
 	}
 }

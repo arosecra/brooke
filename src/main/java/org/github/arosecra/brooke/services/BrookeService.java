@@ -3,6 +3,7 @@ package org.github.arosecra.brooke.services;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -15,6 +16,7 @@ import javax.xml.bind.DatatypeConverter;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -49,10 +51,13 @@ public class BrookeService {
 	@Autowired
 	private Settings settings;
 	
-	@Autowired
 	private LibraryDao libraryDao;
 	
 	private Library library;
+	
+
+	@Autowired
+	public void setLibraryDao(LibraryDao libraryDao) { this.libraryDao = libraryDao; }
 	
 	
 	@PostConstruct()
@@ -70,6 +75,7 @@ public class BrookeService {
 		for(Collection collection : library.getCollections()) {
 			result.addButton(new Button(collection.getName(), "/collection/" + collection.getName(), null));
 		}
+		result.addButton(new Button("Sync", "/sync", null));
 		return result;
 	}
 
@@ -309,6 +315,66 @@ public class BrookeService {
 		File tocFile = new File(itemDirectory, "toc.txt");
 		
 		FileUtils.write(tocFile, pageNumber+"="+name, true);
+	}
+
+	public void sync() throws IOException {
+		for(Collection collection : library.getCollections()) {
+			File local = new File(collection.getLocalDirectory());
+			File remote = new File(collection.getRemoteDirectory());
+			
+			//for each remote file, compute the local spot for it
+			//  create a .item file there if the file doesn't exist
+			//  copy all other files
+			
+			for(File file : FileUtils.listFiles(remote, new String[] {collection.getItemExtension()}, true)) {
+				
+				String relativePath = file.getAbsolutePath().substring(remote.getAbsolutePath().length());
+//				System.out.println(relativePath);
+				File localFile = new File(local, relativePath);
+				if(!localFile.exists()) {
+					localFile.getParentFile().mkdirs();
+					String basename = FilenameUtils.getBaseName(localFile.getName());
+					File placeholder = new File(localFile.getParentFile(), basename+".item");
+					placeholder.createNewFile();
+				}
+				
+				for(File sibling : file.getParentFile().listFiles()) {
+					String ext = FilenameUtils.getExtension(sibling.getName());
+					File localSibling = new File(localFile.getParentFile(), sibling.getName());
+					if(!ext.equals(collection.getItemExtension()) &&
+						!collection.getExcludeExtensions().contains(ext) &&
+						!localSibling.exists()) {
+						System.out.println("Copying "+sibling.getAbsolutePath() + " to " + localSibling.getAbsolutePath());
+						FileUtils.copyFile(sibling, localSibling);
+					}
+				}
+				
+				//copy loose files from the parent folder
+				for(File parentSibling : file.getParentFile().getParentFile().listFiles()) {
+
+					String ext = FilenameUtils.getExtension(parentSibling.getName());
+					File localSibling = new File(localFile.getParentFile().getParentFile(), parentSibling.getName());
+					if(parentSibling.isFile() && 
+						!ext.equals(collection.getItemExtension()) &&
+						!collection.getExcludeExtensions().contains(ext) &&
+						!localSibling.exists()) {
+//						System.out.println("Copying "+parentSibling.getAbsolutePath() + " to " + localSibling.getAbsolutePath());
+						FileUtils.copyFile(parentSibling, localSibling);
+					}
+				}
+			}
+			
+			
+//			System.out.println("Syncing " + collection.getName());
+//			FileUtils.copyDirectory(remote, local, new FileFilter() {
+//
+//				@Override
+//				public boolean accept(File pathname) {
+//					return !pathname.getName().endsWith(collection.getItemExtension());
+//				}
+//				
+//			});
+		}
 	}
 	
 }

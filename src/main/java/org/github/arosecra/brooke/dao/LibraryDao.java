@@ -2,9 +2,12 @@ package org.github.arosecra.brooke.dao;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.github.arosecra.brooke.Settings;
 import org.github.arosecra.brooke.model.Catalog;
@@ -19,8 +22,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class LibraryDao {
 	
-	@Autowired
 	private Settings settings;
+
+	@Autowired
+	public void setSettings(Settings settings) { this.settings = settings; }
 
 	public Library getLibrary() {
 		Library result = new Library();
@@ -48,6 +53,13 @@ public class LibraryDao {
 		result.setRemoteDirectory(props.getProperty("remoteDirectory"));
 		result.setItemExtension(props.getProperty("itemExtension"));
 		result.setOpenType(props.getProperty("openType"));
+		result.setExcludeExtensions(props.getProperty("excludeExtensions"));
+		result.setPipeline(props.getProperty("pipeline"));
+		
+		if(new File(result.getLocalDirectory()).exists())
+			result.setLocalFiles(FileUtils.listFiles(new File(result.getLocalDirectory()), null, true));
+		result.setRemoteFiles(FileUtils.listFiles(new File(result.getRemoteDirectory()), null, true));
+		result.setShelfItems(getShelfItem(result));
 		
 		//now we need to get the catalogs, if they exist. there's a couple patterns here, so let's figure out which one it is
 		boolean hasSubCategories = false;
@@ -78,6 +90,38 @@ public class LibraryDao {
 		}
 
 		return result;
+	}
+
+	private Map<String, ShelfItem> getShelfItem(Collection result) {
+		Map<String, ShelfItem> shelfItems = new HashMap<>();
+		
+		for(File file : result.getLocalFiles()) {
+			if(file.getName().equals(".item")) {
+				//if there's a thumbnail here, it's a shelf item
+				//if there's a thumbnail in the parent, it's a series shelf item
+				
+				if(new File(file.getParentFile(), "thumbnail.png").exists()) {
+					ShelfItem si = new ShelfItem();
+					si.setName(file.getParentFile().getName());
+					si.setLocal(new File(file.getParentFile()+"."+result.getItemExtension()).exists());
+					si.setFolder(file.getParentFile());
+					shelfItems.put(si.getName(), si);
+				} else if(new File(file.getParentFile().getParentFile(), "thumbnail.png").exists()) {
+					ShelfItem si = new ShelfItem();
+					si.setName(file.getParentFile().getName());
+					si.setSeriesName(file.getParentFile().getParentFile().getName());
+					si.setLocal(new File(file.getParentFile()+"."+result.getItemExtension()).exists());
+					if(!shelfItems.containsKey(si.getName())) {
+						si.setFolder(file.getParentFile().getParentFile());
+						shelfItems.put(si.getSeriesName(), si);
+					}
+					shelfItems.get(si.getSeriesName()).addChildItem(file.getParentFile());
+				}
+				
+			}
+		}
+		
+		return shelfItems;
 	}
 
 	private void getCategories(Collection result, Catalog catalog, File catalogFolder) {

@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
@@ -14,7 +16,7 @@ import org.github.arosecra.brooke.util.CommandLine;
 
 public class ConvertToWebp implements BrookeJobStep {
 	
-	private String srcSuffix = "_PNG.cbt";
+	private String srcSuffix = "_PNG.tar";
 	
 	public ConvertToWebp() {}
 	public ConvertToWebp(String srcSuffix) {this.srcSuffix = srcSuffix;}
@@ -123,6 +125,17 @@ public class ConvertToWebp implements BrookeJobStep {
 
 	@Override
 	public boolean isManual() {
+		return false;
+	}
+	@Override
+	public List<File> filesRequiredForExecution(File folder) {
+		List<File> result = new ArrayList<>();
+		result.add(new File(folder, folder.getName() + srcSuffix));	
+		return result;
+	}
+
+	@Override
+	public boolean isRemoteStep() {
 		return false;
 	}
 

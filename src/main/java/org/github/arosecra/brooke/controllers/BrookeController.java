@@ -35,6 +35,12 @@ public class BrookeController {
 		return "library";
 	}
 	
+	@GetMapping("/sync")
+	public String sync(Model model) throws IOException {
+		brookeService.sync();
+		return "redirect:/";
+	}
+	
 	
 	@GetMapping("/collection/{collectionName}")
 	public String getCollectionHome(Model model, @PathVariable(name="collectionName") String collectionName) {
