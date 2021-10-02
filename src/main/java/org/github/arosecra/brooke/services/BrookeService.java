@@ -75,6 +75,7 @@ public class BrookeService {
 			result.addButton(new Button(collection.getName(), "/collection/" + collection.getName(), null));
 		}
 		result.addButton(new Button("Sync", "/sync", null));
+		result.addButton(new Button("Manage", "/manage", null));
 		return result;
 	}
 

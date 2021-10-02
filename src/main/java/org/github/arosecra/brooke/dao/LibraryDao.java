@@ -123,7 +123,6 @@ public class LibraryDao {
 					si.setThumbnail(parentThumbnail);
 					si.setFolder(file.getParentFile());
 					shelfItems.get(series.getSeriesName()).addChildItem(si);
-					shelfItems.put(si.getName(), si);
 				}
 				
 			}
@@ -148,7 +147,7 @@ public class LibraryDao {
 			if(si != null)
 				result.getItems().add(si);
 			else
-				System.out.println("Could not find " + line);
+				System.out.println(collection.getName() + " could not find " + line);
 		}
 		
 		return result;

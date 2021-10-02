@@ -131,7 +131,7 @@ public class BrookeController {
 		} else if(collection.getOpenType().equals("video")) {
 			if(!item.getChildItems().isEmpty()) {
 				result = "videoseries";
-				model.addAttribute("childItems", brookeService.getItemByName(collectionName, catalogName, categoryName, itemName).getChildItems());
+				model.addAttribute("childItems", item.getChildItems());
 			} else {
 				model.addAttribute("subtitles", brookeService.getSubtitles(collectionName, catalogName, categoryName, itemName));
 			}
