@@ -12,6 +12,7 @@ import org.apache.commons.io.IOUtils;
 import org.github.arosecra.brooke.model.Button;
 import org.github.arosecra.brooke.model.ButtonSet;
 import org.github.arosecra.brooke.model.Collection;
+import org.github.arosecra.brooke.model.ShelfItem;
 import org.github.arosecra.brooke.services.BrookeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -107,8 +108,10 @@ public class BrookeController {
 			) throws IOException {
 		
 		Collection collection = brookeService.getCollectionByName(collectionName);
-		
 		ButtonSet buttonSet = brookeService.getStandardButtons();
+		ShelfItem item = brookeService.getItemByName(collectionName, catalogName, categoryName, itemName);
+		
+		String result = collection.getOpenType();
 		if(collection.getOpenType().equals("book")) {			
             buttonSet.addButton(new Button("Add ToC Entry", null, "show('#add-toc-modal')"));
             buttonSet.addButton(new Button("ToC", null, "show('#toc-modal')"));
@@ -126,6 +129,39 @@ public class BrookeController {
 			model.addAttribute("rightPage", number+1);
 			model.addAttribute("tocEntries", brookeService.getToCEntries(collectionName, catalogName, categoryName, itemName));
 		} else if(collection.getOpenType().equals("video")) {
+			if(!item.getChildItems().isEmpty()) {
+				result = "videoseries";
+				model.addAttribute("childItems", brookeService.getItemByName(collectionName, catalogName, categoryName, itemName).getChildItems());
+			} else {
+				model.addAttribute("subtitles", brookeService.getSubtitles(collectionName, catalogName, categoryName, itemName));
+			}
+		}
+
+		model.addAttribute("library", brookeService.getLibrary());
+		model.addAttribute("collection", brookeService.getCollectionByName(collectionName));
+		model.addAttribute("catalog", brookeService.getCatalogByName(collectionName, catalogName));
+		model.addAttribute("category", brookeService.getCategoryByName(collectionName, catalogName, categoryName));
+		model.addAttribute("item", item);
+		
+		return result;
+	}
+	
+	@GetMapping(value={
+		"/childshelfitem/{collectionName}/{catalogName}/{categoryName}/{itemName}/{index}"
+	})
+	public String openChildShelfItem(Model model, 
+			@PathVariable(name="collectionName") String collectionName,
+			@PathVariable(name="catalogName") String catalogName, 
+			@PathVariable(name="categoryName") String categoryName,
+			@PathVariable(name="itemName") String itemName,
+			@PathVariable(name="index", required = true) int index
+			) throws IOException {
+		
+		Collection collection = brookeService.getCollectionByName(collectionName);
+		ShelfItem item = brookeService.getItemByName(collectionName, catalogName, categoryName, itemName).getChildItems().get(index);
+		
+		String result = collection.getOpenType();
+		if(collection.getOpenType().equals("video")) {
 			model.addAttribute("subtitles", brookeService.getSubtitles(collectionName, catalogName, categoryName, itemName));
 		}
 
@@ -133,9 +169,9 @@ public class BrookeController {
 		model.addAttribute("collection", brookeService.getCollectionByName(collectionName));
 		model.addAttribute("catalog", brookeService.getCatalogByName(collectionName, catalogName));
 		model.addAttribute("category", brookeService.getCategoryByName(collectionName, catalogName, categoryName));
-		model.addAttribute("item", brookeService.getItemByName(collectionName, catalogName, categoryName, itemName));
+		model.addAttribute("item", item);
 		
-		return collection.getOpenType();
+		return result;
 	}
 	
 	@GetMapping(value="/page/{collectionName}/{catalogName}/{categoryName}/{itemName}/{pageNumber}", produces = MediaType.IMAGE_PNG_VALUE)
@@ -159,7 +195,7 @@ public class BrookeController {
 			@PathVariable(name="categoryName") String categoryName,
 			@PathVariable(name="itemName") String itemName) throws IOException {
 		
-		File videoFile = brookeService.getVideoFile(collectionName, catalogName, categoryName, itemName);
+		File videoFile = brookeService.getVideoFile(collectionName, catalogName, categoryName, itemName, 0);
 		InputStream is = new BufferedInputStream(new FileInputStream(videoFile));
 		IOUtils.copyLarge(is, response.getOutputStream());
         IOUtils.closeQuietly(is);

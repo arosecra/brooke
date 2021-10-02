@@ -15,7 +15,7 @@ import org.apache.commons.io.FileUtils;
 import org.github.arosecra.brooke.dao.LibraryDao;
 import org.github.arosecra.brooke.jobs.BrookeJobStep;
 import org.github.arosecra.brooke.jobs.ConvertMkvToMp4;
-import org.github.arosecra.brooke.jobs.ConvertSubtitleToSupFormat;
+import org.github.arosecra.brooke.jobs.ConvertSubtitleToVttFormat;
 import org.github.arosecra.brooke.jobs.ConvertToWebp;
 import org.github.arosecra.brooke.jobs.CreateCbtThumbnail;
 import org.github.arosecra.brooke.jobs.Deskew;
@@ -46,7 +46,7 @@ public class BrookePipelineApplication {
 		JOBS.put("EXTRACT_SUBTITLE_TRACKS", new ExtractSubtitles());
 		JOBS.put("CONVERT_MKV_TO_MP4", new ConvertMkvToMp4());
 		JOBS.put("REQUIRE_ONE_SUBTITLE", new RequireOneSubtitleFile());
-		JOBS.put("CONVERT_SUBTITLE_TO_SUP_FORMAT", new ConvertSubtitleToSupFormat());
+		JOBS.put("CONVERT_SUBTITLE_TO_VTT_FORMAT", new ConvertSubtitleToVttFormat());
 		JOBS.put("OCR_ENGLISH_SUBTITLES", null);
 	}
 

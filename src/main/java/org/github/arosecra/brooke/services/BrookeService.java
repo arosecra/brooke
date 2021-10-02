@@ -3,7 +3,6 @@ package org.github.arosecra.brooke.services;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -116,10 +115,7 @@ public class BrookeService {
 		//category may be the series, or not needed
 		
 		Collection collection = getCollectionByName(collectionName);
-
-		File itemDirectory = getLocalItemFolder(collection, categoryName, itemName);
-		
-		File thumbnailFile = new File(itemDirectory, "thumbnail.png");
+		File thumbnailFile = collection.getShelfItems().get(itemName).getThumbnail();
 		
 		if(!thumbnailFile.exists()) {
 			return DEFAULT_THUMBNAIL;
@@ -131,7 +127,7 @@ public class BrookeService {
 	public byte[] getPage(String collectionName, String categoryName, String itemName, int pageNumber) throws IOException {
 		Collection collection = getCollectionByName(collectionName);
 
-		File itemDirectory = getLocalItemFolder(collection, categoryName, itemName);
+		File itemDirectory = collection.getShelfItems().get(itemName).getFolder();
 		
 		File tar = new File(itemDirectory, itemName + "." + collection.getItemExtension());
 		return getPageFromTar(tar, pageNumber);
@@ -168,7 +164,7 @@ public class BrookeService {
 	public List<ToCEntry> getToCEntries(String collectionName, String catalogName, String categoryName, String itemName) throws IOException {
 		List<ToCEntry> results = new ArrayList<>();
 		Collection collection = getCollectionByName(collectionName);
-		File itemDirectory = getLocalItemFolder(collection, categoryName, itemName);
+		File itemDirectory = collection.getShelfItems().get(itemName).getFolder();
 		
 		File tocFile = new File(itemDirectory, "toc.txt");
 		if(tocFile.exists()) {
@@ -186,24 +182,24 @@ public class BrookeService {
 		return results;
 	}
 
-	public File getVideoFile(String collectionName, String catalogName, String categoryName, String itemName) {
+	public File getVideoFile(String collectionName, String catalogName, String categoryName, String itemName, int index) {
 		Collection collection = getCollectionByName(collectionName);
 
-		File itemDirectory = getRemoteItemFolder(collection, categoryName, itemName);
+		File itemDirectory = getRemoteItemFolder(collection, categoryName, itemName, index);
 		return new File(itemDirectory, itemDirectory.getName() + "." + collection.getItemExtension());
 	}
 
 	public File getSubtitleFile(String collectionName, String categoryName, String itemName, String vttName) {
 		Collection collection = getCollectionByName(collectionName);
 
-		File itemDirectory = getLocalItemFolder(collection, categoryName, itemName);
+		File itemDirectory = collection.getShelfItems().get(itemName).getFolder();
 		return new File(itemDirectory, vttName);
 	}
 
 	public List<String> getSubtitles(String collectionName, String catalogName, String categoryName, String itemName) {
 		Collection collection = getCollectionByName(collectionName);
 
-		File itemDirectory = getLocalItemFolder(collection, categoryName, itemName);
+		File itemDirectory = collection.getShelfItems().get(itemName).getFolder();
 		
 		List<String> result = new ArrayList<>();
 		for(File file : itemDirectory.listFiles()) {
@@ -215,42 +211,21 @@ public class BrookeService {
 		return result;
 	}
 
-	private File getRemoteItemFolder(Collection collection, String categoryName, String itemName) {
-		File remoteRepositoryHome = new File(collection.getRemoteDirectory());
-		char c = itemName.charAt(0);
-		if(NumberUtils.isDigits(c+"")) {
-			c = '0';
+	private File getRemoteItemFolder(Collection collection, String categoryName, String itemName, int index) {
+		ShelfItem item = collection.getShelfItems().get(itemName);
+		File folder = item.getFolder();
+		if(!item.getChildItems().isEmpty()) {
+			folder = item.getChildItems().get(index).getFolder();
 		}
-		File charDirectory = new File(remoteRepositoryHome, c+"");		
-		File itemDirectory = new File(charDirectory, itemName);
 		
-		if(!itemDirectory.exists()) {
-			File categoryDirectory = new File(charDirectory, categoryName);
-			itemDirectory = new File(categoryDirectory, itemName);
-		}
-		return itemDirectory;
-	}
-
-	private File getLocalItemFolder(Collection collection, String categoryName, String itemName) {
-		File localRepositoryHome = new File(collection.getLocalDirectory());
-		char c = itemName.charAt(0);
-		if(NumberUtils.isDigits(c+"")) {
-			c = '0';
-		}
-		File charDirectory = new File(localRepositoryHome, c+"");	
-		File itemDirectory = new File(charDirectory, itemName);
-		
-		if(!itemDirectory.exists()) {
-			File categoryDirectory = new File(charDirectory, categoryName);
-			itemDirectory = new File(categoryDirectory, itemName);
-		}
+		String relativePath = folder.getAbsolutePath().substring(collection.getLocalDirectory().length());
+		File itemDirectory = new File(collection.getRemoteDirectory(), relativePath);
 		return itemDirectory;
 	}
 
 	public List<SubtitleEntry> getSubtitleEntries(String collectionName, String catalogName, String categoryName, String itemName) throws IOException {
 		Collection collection = getCollectionByName(collectionName);
-		File localItemFolder = getLocalItemFolder(collection, categoryName, itemName);
-		
+		File localItemFolder = collection.getShelfItems().get(itemName).getFolder();
 		return getSubtitleContents(localItemFolder);
 	}
 
@@ -310,7 +285,7 @@ public class BrookeService {
 	public void addToc(String collectionName, String categoryName, String itemName, int pageNumber, String name) throws IOException {
 
 		Collection collection = getCollectionByName(collectionName);
-		File itemDirectory = getLocalItemFolder(collection, categoryName, itemName);
+		File itemDirectory = collection.getShelfItems().get(itemName).getFolder();
 		
 		File tocFile = new File(itemDirectory, "toc.txt");
 		
@@ -363,18 +338,6 @@ public class BrookeService {
 					}
 				}
 			}
-			
-			
-//			System.out.println("Syncing " + collection.getName());
-//			FileUtils.copyDirectory(remote, local, new FileFilter() {
-//
-//				@Override
-//				public boolean accept(File pathname) {
-//					return !pathname.getName().endsWith(collection.getItemExtension());
-//				}
-//				
-//			});
 		}
-	}
-	
+	}	
 }

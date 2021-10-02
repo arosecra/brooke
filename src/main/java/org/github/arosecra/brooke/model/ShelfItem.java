@@ -8,7 +8,8 @@ public class ShelfItem {
 	private String name;
 	private boolean local;
 	private String seriesName;
-	private List<File> childItems = new ArrayList<>();
+	private List<ShelfItem> childItems = new ArrayList<>();
+	private File thumbnail;
 	private File folder;
 	
 	public String getName() {
@@ -29,13 +30,13 @@ public class ShelfItem {
 	public void setSeriesName(String seriesName) {
 		this.seriesName = seriesName;
 	}
-	public List<File> getChildItems() {
+	public List<ShelfItem> getChildItems() {
 		return childItems;
 	}
-	public void setChildItems(List<File> childItems) {
+	public void setChildItems(List<ShelfItem> childItems) {
 		this.childItems = childItems;
 	}
-	public void addChildItem(File si) {
+	public void addChildItem(ShelfItem si) {
 		this.childItems.add(si);
 	}
 	public File getFolder() {
@@ -43,5 +44,11 @@ public class ShelfItem {
 	}
 	public void setFolder(File folder) {
 		this.folder = folder;
+	}
+	public File getThumbnail() {
+		return thumbnail;
+	}
+	public void setThumbnail(File thumbnail) {
+		this.thumbnail = thumbnail;
 	}	
 }

@@ -1,7 +1,6 @@
 package org.github.arosecra.brooke.dao;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,8 +57,8 @@ public class LibraryDao {
 		
 		if(new File(result.getLocalDirectory()).exists())
 			result.setLocalFiles(FileUtils.listFiles(new File(result.getLocalDirectory()), null, true));
-		result.setRemoteFiles(FileUtils.listFiles(new File(result.getRemoteDirectory()), null, true));
-		result.setShelfItems(getShelfItem(result));
+//		result.setRemoteFiles(FileUtils.listFiles(new File(result.getRemoteDirectory()), null, true));
+		result.setShelfItems(getShelfItems(result));
 		
 		//now we need to get the catalogs, if they exist. there's a couple patterns here, so let's figure out which one it is
 		boolean hasSubCategories = false;
@@ -92,30 +91,39 @@ public class LibraryDao {
 		return result;
 	}
 
-	private Map<String, ShelfItem> getShelfItem(Collection result) {
+	private Map<String, ShelfItem> getShelfItems(Collection result) {
 		Map<String, ShelfItem> shelfItems = new HashMap<>();
 		
 		for(File file : result.getLocalFiles()) {
-			if(file.getName().equals(".item")) {
+			if(file.getName().endsWith(".item")) {
 				//if there's a thumbnail here, it's a shelf item
 				//if there's a thumbnail in the parent, it's a series shelf item
-				
-				if(new File(file.getParentFile(), "thumbnail.png").exists()) {
+				File thumbnail = new File(file.getParentFile(), "thumbnail.png");
+				File parentThumbnail = new File(file.getParentFile().getParentFile(), "thumbnail.png");
+				if(thumbnail.exists()) {
 					ShelfItem si = new ShelfItem();
 					si.setName(file.getParentFile().getName());
 					si.setLocal(new File(file.getParentFile()+"."+result.getItemExtension()).exists());
 					si.setFolder(file.getParentFile());
+					si.setThumbnail(thumbnail);
 					shelfItems.put(si.getName(), si);
-				} else if(new File(file.getParentFile().getParentFile(), "thumbnail.png").exists()) {
+				} else if(parentThumbnail.exists()) {
+					ShelfItem series = new ShelfItem();
+					series.setName(file.getParentFile().getParentFile().getName());
+					series.setSeriesName(file.getParentFile().getParentFile().getName());
+					if(!shelfItems.containsKey(series.getName())) {
+						series.setFolder(file.getParentFile().getParentFile());
+						shelfItems.put(series.getSeriesName(), series);
+					}
+					series.setThumbnail(parentThumbnail);
+					
 					ShelfItem si = new ShelfItem();
 					si.setName(file.getParentFile().getName());
-					si.setSeriesName(file.getParentFile().getParentFile().getName());
 					si.setLocal(new File(file.getParentFile()+"."+result.getItemExtension()).exists());
-					if(!shelfItems.containsKey(si.getName())) {
-						si.setFolder(file.getParentFile().getParentFile());
-						shelfItems.put(si.getSeriesName(), si);
-					}
-					shelfItems.get(si.getSeriesName()).addChildItem(file.getParentFile());
+					si.setThumbnail(parentThumbnail);
+					si.setFolder(file.getParentFile());
+					shelfItems.get(series.getSeriesName()).addChildItem(si);
+					shelfItems.put(si.getName(), si);
 				}
 				
 			}
@@ -134,65 +142,16 @@ public class LibraryDao {
 		Category result = new Category();
 		result.setName(FilenameUtils.getBaseName(childFile.getName()));
 		List<String> lines = Try.readLines(childFile);
-		
-		if(lines.size() == 1 && isSeries(collection, lines.get(0).trim())) {
-			//expand the series into multiple items
-			String series = lines.get(0);
-			result.getItems().addAll(getSeriesShelfItems(collection, series));
-			
-		} else {
-			for(String line : lines) {
-				ShelfItem si = new ShelfItem();
-				si.setName(line.trim());
-				si.setLocal(isShelfItemLocal(collection, si.getName()));
+
+		for(String line : lines) {
+			ShelfItem si = collection.getShelfItems().get(line);
+			if(si != null)
 				result.getItems().add(si);
-			}
-		}		
-		
-		return result;
-	}
-
-	private List<ShelfItem> getSeriesShelfItems(Collection collection, String series) {
-		List<ShelfItem> result = new ArrayList<>();
-		File localRepositoryHome = new File(collection.getLocalDirectory());
-		File charDirectory = new File(localRepositoryHome, series.charAt(0)+"");
-		File seriesDirectory = new File(charDirectory, series);
-		
-		if(seriesDirectory.listFiles() != null) {
-			for(File file : seriesDirectory.listFiles()) {
-				if(file.isDirectory()) {
-					ShelfItem si = new ShelfItem();
-					si.setName(FilenameUtils.getBaseName(file.getName()));
-					si.setSeriesName(series);
-					si.setLocal(isShelfItemLocal(collection, file));
-					result.add(si);
-				}
-			}
+			else
+				System.out.println("Could not find " + line);
 		}
 		
 		return result;
-	}
-
-	private boolean isSeries(Collection collection, String item) {
-		File localRepositoryHome = new File(collection.getLocalDirectory());
-		File charDirectory = new File(localRepositoryHome, item.charAt(0)+"");
-		File itemDirectory = new File(charDirectory, item);
-		
-		boolean hasDirectories = false;
-		if(itemDirectory.listFiles() != null) {
-			for(File file : itemDirectory.listFiles()) {
-				if(file.isDirectory()) hasDirectories = true;
-			}
-		}
-		
-		return hasDirectories;
-	}
-
-	private boolean isShelfItemLocal(Collection collection, String item) {
-		File localRepositoryHome = new File(collection.getLocalDirectory());
-		File charDirectory = new File(localRepositoryHome, item.charAt(0)+"");
-		File itemDirectory = new File(charDirectory, item);
-		return isShelfItemLocal(collection, itemDirectory);
 	}
 	
 	private boolean isShelfItemLocal(Collection collection, File itemFolder) {

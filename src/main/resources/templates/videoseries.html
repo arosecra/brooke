@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="../fragments/head :: head"></head>
+<body>
+
+<table class="table">
+  <tbody>
+    <tr th:each="childItem,childItemStatus : ${childItems}">
+      <td><a th:href="|/childshelfitem/${collection.name}/${catalog.name}/${category.name}/${item.name}/${childItemStatus.index}|" th:text="${childItem.name}"></a></td>
+    </tr>
+  </tbody>
+</table>
+
+</body>
+</html>
