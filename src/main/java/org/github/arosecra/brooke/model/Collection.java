@@ -17,6 +17,7 @@ public class Collection {
 	private String excludeExtensions;
 	private String pipeline;
 	private String openType;
+	private boolean autoGenerateAlphaCategories;
 	private java.util.Collection<File> localFiles = new ArrayList<>();
 	private java.util.Collection<File> remoteFiles = new ArrayList<>();
 	private Map<String, ShelfItem> shelfItems = new HashMap<>();
@@ -157,6 +158,14 @@ public class Collection {
 
 	public void setShelfItems(Map<String, ShelfItem> shelfItems) {
 		this.shelfItems = shelfItems;
+	}
+
+	public boolean isAutoGenerateAlphaCategories() {
+		return autoGenerateAlphaCategories;
+	}
+
+	public void setAutoGenerateAlphaCategories(boolean autoGenerateAlphaCategories) {
+		this.autoGenerateAlphaCategories = autoGenerateAlphaCategories;
 	}
 
 	

@@ -9,6 +9,7 @@ public class ShelfItem {
 	private boolean local;
 	private String seriesName;
 	private List<ShelfItem> childItems = new ArrayList<>();
+	private List<Category> cateogries = new ArrayList<>();
 	private File thumbnail;
 	private File folder;
 	
@@ -50,5 +51,14 @@ public class ShelfItem {
 	}
 	public void setThumbnail(File thumbnail) {
 		this.thumbnail = thumbnail;
+	}
+	public List<Category> getCateogries() {
+		return cateogries;
+	}
+	public void setCateogries(List<Category> cateogries) {
+		this.cateogries = cateogries;
 	}	
+	public void addCategory(Category category) {
+		this.cateogries.add(category);
+	}
 }

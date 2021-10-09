@@ -22,23 +22,27 @@ import org.w3c.dom.NodeList;
 public class ExtractChaptersXml implements BrookeJobStep {
 
 	@Override
-	public boolean required(File folder) throws IOException {
-		File chapters = new File(folder, "chapters.vtt");
-		return !chapters.exists();
+	public boolean required(JobFolder folder) throws IOException {
+		boolean chaptersExists = false;
+		for(File file : folder.remoteFiles) {
+			if(file.getName().endsWith("chapters.vtt"))
+				chaptersExists = true;
+		}
+		return !chaptersExists;
 	}
 
 	@Override
-	public File execute(File folder) throws IOException {
-		for(File file : folder.listFiles()) {
+	public void execute(JobFolder folder) throws IOException {
+		for(File file : folder.workFiles) {
 			if(file.getName().endsWith("mkv")) {
 				CommandLine.run(new String[] {
 					"D:\\software\\MKVToolNix\\mkvextract.exe", 
 					file.getAbsolutePath(), 
 					"chapters",
-	    			folder.getAbsolutePath() + "\\chapters.xml"	
+	    			folder.workFolder.getAbsolutePath() + "\\chapters.xml"	
 				});
 				
-				File chaptersXml = new File(folder, "chapters.xml");
+				File chaptersXml = new File(folder.workFolder, "chapters.xml");
 				if (chaptersXml.exists()) {
 					List<Subtitle> chapters = new ArrayList<>();
 					Document doc = parse(chaptersXml);
@@ -56,12 +60,11 @@ public class ExtractChaptersXml implements BrookeJobStep {
 					}
 
 					StringBuilder sb = createVttString(chapters, "chapters");
-					FileUtils.write(new File(folder, "chapters.vtt"), sb.toString(), StandardCharsets.UTF_8);
+					FileUtils.write(new File(folder.workFolder, "chapters.vtt"), sb.toString(), StandardCharsets.UTF_8);
 					chaptersXml.delete();
 				}
 			}
 		}
-		return folder;
 	}
 
 	@Override
@@ -75,9 +78,9 @@ public class ExtractChaptersXml implements BrookeJobStep {
 	}
 
 	@Override
-	public List<File> filesRequiredForExecution(File folder) {
+	public List<File> filesRequiredForExecution(JobFolder folder) {
 		List<File> mkvs = new ArrayList<>();
-		for(File file : folder.listFiles()) {
+		for(File file : folder.remoteFiles) {
 			if(file.getName().endsWith("mkv"))
 				mkvs.add(file);
 		}

@@ -2,37 +2,34 @@ package org.github.arosecra.brooke.jobs;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathFactory;
-
-import org.apache.commons.io.FileUtils;
 import org.github.arosecra.brooke.util.CommandLine;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 public class ConvertMkvToMp4 implements BrookeJobStep {
 
 	@Override
-	public boolean required(File folder) throws IOException {
-		File mp4 = new File(folder, folder.getName() + ".mp4");
-		return !mp4.exists();
+	public boolean required(JobFolder folder) throws IOException {
+		boolean remoteMp4Exists = false;
+		boolean remoteMkvExists = false;
+		for(File file : folder.remoteFiles) {
+			if(file.getName().endsWith("mp4")) {
+				remoteMp4Exists = true;
+			}
+			if(file.getName().endsWith("mkv")) {
+				remoteMkvExists = true;
+			}
+		}
+		return !remoteMp4Exists && remoteMkvExists;
 	}
 
 	@Override
-	public File execute(File folder) throws IOException {
-		for(File file : folder.listFiles()) {
+	public void execute(JobFolder job) throws IOException {
+		for(File file : job.workFiles) {
 			if(file.getName().endsWith("mkv")) {
-				File destFile = new File(folder, folder.getName() + ".mp4");
-				File outfile = new File(folder, "out.txt");
+				File destFile = new File(job.workFolder, job.workFolder.getName() + ".mp4");
+				File outfile = new File(job.workFolder, "out.txt");
 				CommandLine.run(new String[] {
 					"cmd.exe",
 					"/c",
@@ -57,7 +54,6 @@ public class ConvertMkvToMp4 implements BrookeJobStep {
 				if(outfile.exists()) outfile.delete();
 			}
 		}
-		return folder;
 	}
 
 	@Override
@@ -71,9 +67,9 @@ public class ConvertMkvToMp4 implements BrookeJobStep {
 	}
 
 	@Override
-	public List<File> filesRequiredForExecution(File folder) {
+	public List<File> filesRequiredForExecution(JobFolder folder) {
 		List<File> mkvs = new ArrayList<>();
-		for(File file : folder.listFiles()) {
+		for(File file : folder.remoteFiles) {
 			if(file.getName().endsWith("mkv"))
 				mkvs.add(file);
 		}

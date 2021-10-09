@@ -15,7 +15,6 @@ import javax.imageio.ImageIO;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.github.arosecra.brooke.util.CommandLine;
-import org.github.arosecra.brooke.util.Try;
 
 
 public class ExtractPDFs implements BrookeJobStep {
@@ -56,82 +55,80 @@ public class ExtractPDFs implements BrookeJobStep {
 	}
 
 	@Override
-	public boolean required(File folder) {
+	public boolean required(JobFolder folder) {
 		int pdfCount = 0;
-		for(File file : Try.listFilesSafe(folder)) {
+		boolean rawCbtExists = false;
+		for(File file : folder.remoteFiles) {
 			if(file.getName().endsWith("pdf"))
 				pdfCount++;
-		}
-		
-		File rawCbtFile = new File(folder, folder.getName()+"_RAW.tar");
-		
-		return pdfCount > 0 && !rawCbtFile.exists();
+			if(file.getName().endsWith("_RAW.tar"))
+				rawCbtExists = true;
+		}		
+		return pdfCount > 0 && !rawCbtExists;
 	}
 
 	@Override
-	public File execute(File folder) throws IOException {
+	public void execute(JobFolder folder) throws IOException {
 		if(required(folder)) {
-			File pngFolder = new File(folder, "png");
+			File pngFolder = new File(folder.workFolder, "png");
 			
 			if(!pngFolder.exists()) {
 				pngFolder.mkdirs();
 				
-				File[] children = Try.listFilesSafe(folder);
 				
 				if(variant.equals("book")) {
 				
 					int pdfCount = 0; 
-					for(File file : children) {
+					for(File file : folder.workFiles) {
 						if(file.getName().endsWith("pdf")) {
 							pdfCount++;
 						}
 					}
 					
-					for(File file : children) {
+					for(File file : folder.workFiles) {
 						if(file.getName().endsWith("pdf") && file.getName().contains("covers")) {
-							JobSubStep jss = new JobSubStep("Extract", folder, 1, pdfCount);
+							JobSubStep jss = new JobSubStep("Extract", folder.workFolder, 1, pdfCount);
 							jss.startAndPrint();
-							extractPdf(file, pngFolder.getAbsolutePath()+"\\"+folder.getName()+"-000-%03d.png", 300, "png16m");
+							extractPdf(file, pngFolder.getAbsolutePath()+"\\"+folder.workFolder.getName()+"-000-%03d.png", 300, "png16m");
 							jss.endAndPrint();
 						}
 					}
 					
-					for(int i = 0; i < children.length; i++) {
-						File file = children[i];
+					for(int i = 0; i < folder.workFiles.size(); i++) {
+						File file = folder.workFiles.get(i);
 						if(file.getName().endsWith("pdf") && !file.getName().contains("covers")) {
 							String prefix = String.format("%03d", i+1);
-							JobSubStep jss = new JobSubStep("Extract", folder, i+2, pdfCount);
+							JobSubStep jss = new JobSubStep("Extract", folder.workFolder, i+2, pdfCount);
 							jss.startAndPrint();
-							extractPdf(file, pngFolder.getAbsolutePath()+"\\"+folder.getName()+"-"+prefix+"-%03d.png", 1200, "pngmono");
+							extractPdf(file, pngFolder.getAbsolutePath()+"\\"+folder.workFolder.getName()+"-"+prefix+"-%03d.png", 1200, "pngmono");
 							jss.endAndPrint();
 						}
 					}
 				} else if(variant.equals("general")) {
-					for(int i = 0; i < children.length; i++) {
-						File file = children[i];
+					for(int i = 0; i < folder.workFiles.size(); i++) {
+						File file = folder.workFiles.get(i);
 						if(file.getName().endsWith("pdf")) {
 							String prefix = String.format("%03d", i+1);
-							JobSubStep jss = new JobSubStep("Extract", folder, 1, 1);
+							JobSubStep jss = new JobSubStep("Extract", folder.workFolder, 1, 1);
 							jss.startAndPrint();
-							extractPdf(file, pngFolder.getAbsolutePath()+"\\"+folder.getName()+"-"+prefix+"-%03d.png", 300, "png16m");
+							extractPdf(file, pngFolder.getAbsolutePath()+"\\"+folder.workFolder.getName()+"-"+prefix+"-%03d.png", 300, "png16m");
 							jss.endAndPrint();
 						}
 					}
 				} else if(variant.equals("movie")) {
-					for(int i = 0; i < children.length; i++) {
-						File file = children[i];
+					for(int i = 0; i < folder.workFiles.size(); i++) {
+						File file = folder.workFiles.get(i);
 						if(file.getName().endsWith("pdf") && !file.getName().contains("box")) {
-							extractMoviePdf(pngFolder, folder, new File(folder, file.getName()));
+							extractMoviePdf(pngFolder, folder.workFolder, new File(folder.workFolder, file.getName()));
 						}
 					}
 				}
 			}
 			
-			tarToRawCbt(pngFolder, folder);
+			tarToRawCbt(pngFolder, folder.workFolder);
 			
 			FileUtils.deleteDirectory(pngFolder);
 		}
-		return folder;
 	}
 
 	private void extractMoviePdf(File pngFolder, File folder, File file) throws IOException {
@@ -244,9 +241,9 @@ public class ExtractPDFs implements BrookeJobStep {
 	}
 
 	@Override
-	public List<File> filesRequiredForExecution(File folder) {
+	public List<File> filesRequiredForExecution(JobFolder folder) {
 		List<File> result = new ArrayList<>();
-		for(File child : folder.listFiles()) {
+		for(File child : folder.remoteFiles) {
 			if(child.getName().endsWith("pdf"))
 				result.add(child);
 		}		

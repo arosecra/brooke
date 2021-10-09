@@ -22,43 +22,52 @@ public class ConvertToWebp implements BrookeJobStep {
 	public ConvertToWebp(String srcSuffix) {this.srcSuffix = srcSuffix;}
 
 	@Override
-	public boolean required(File folder) throws IOException {		
+	public boolean required(JobFolder folder) throws IOException {		
 		boolean pngsFound = false;
-		File cbtFile = new File(folder, folder.getName() + srcSuffix);
-
-		if(cbtFile.exists()) {
-			try (TarArchiveInputStream tarIn = new TarArchiveInputStream(
-				new BufferedInputStream(new FileInputStream(cbtFile)))) {
-				TarArchiveEntry entry;
-				while ((entry = (TarArchiveEntry) tarIn.getNextEntry()) != null) {
-					if (entry.getName().endsWith("png")) {
-						pngsFound = true;
-					}
+		boolean cbtExists = false;
+		
+		for(File file : folder.remoteFiles) {
+			if(file.getName().endsWith(".cbt")) {
+				cbtExists = true;
+			}
+		}
+		
+		if(!cbtExists) {
+			for(File file : folder.remoteFiles) {
+				if(file.getName().endsWith(srcSuffix)) {
+					try (TarArchiveInputStream tarIn = new TarArchiveInputStream(
+							new BufferedInputStream(new FileInputStream(file)))) {
+							TarArchiveEntry entry;
+							while ((entry = (TarArchiveEntry) tarIn.getNextEntry()) != null) {
+								if (entry.getName().endsWith("png")) {
+									pngsFound = true;
+								}
+							}
+						}
 				}
 			}
 		}
 		
-		return pngsFound && !new File(folder, folder.getName() + ".cbt").exists();
+		return pngsFound && !cbtExists;
 	}
 
 	@Override
-	public File execute(File folder) throws IOException {
+	public void execute(JobFolder folder) throws IOException {
 
 		File tempSsdFolder = new File("C:\\scans\\temp");
 		
 		if(required(folder)) {
-			File srcCbtFile = new File(folder, folder.getName() + srcSuffix);
-			File bookTempSsdFolder = new File(tempSsdFolder, folder.getName());
+			File srcCbtFile = new File(folder.workFolder, folder.workFolder.getName() + srcSuffix);
+			File bookTempSsdFolder = new File(tempSsdFolder, folder.workFolder.getName());
 			if(srcCbtFile.exists()) {
 				bookTempSsdFolder.mkdirs();
 				extractPngs(srcCbtFile, bookTempSsdFolder);
 				convertPngsToWebp(bookTempSsdFolder);
-				retarToCbt(bookTempSsdFolder, folder);
+				retarToCbt(bookTempSsdFolder, folder.workFolder);
 				deleteWebPs(bookTempSsdFolder);
 			}
 			
 		}
-		return folder;
 	}
 	
 	private void deleteWebPs(File bookTempFolder) {
@@ -114,12 +123,12 @@ public class ConvertToWebp implements BrookeJobStep {
 	private void retarToCbt(File bookTempFolder, File tempFolder) {
 		// D:\Software\7za>7za a -oD:\scans\temp\3D_Game_Engine_Architecture  -ttar D:\scans\temp\3D_Game_Engine_Architecture\3D_Game_Engine_Architecture.cbt D:\Scans\temp\3D_Game_Engine_Architecture\*.webp
 		CommandLine.run(new String[] {
-				"D:\\software\\7za\\7za.exe", 
-				"a", 
-				"-ttar", 
-				"-o" + tempFolder.getAbsolutePath(),
-    			tempFolder.getAbsolutePath() + "\\" + tempFolder.getName() + ".cbt", 
-    			bookTempFolder.getAbsolutePath() + "\\*.webp"		
+			"D:\\software\\7za\\7za.exe", 
+			"a", 
+			"-ttar", 
+			"-o" + tempFolder.getAbsolutePath(),
+    		tempFolder.getAbsolutePath() + "\\" + tempFolder.getName() + ".cbt", 
+    		bookTempFolder.getAbsolutePath() + "\\*.webp"		
 		});
 	}
 
@@ -128,9 +137,9 @@ public class ConvertToWebp implements BrookeJobStep {
 		return false;
 	}
 	@Override
-	public List<File> filesRequiredForExecution(File folder) {
+	public List<File> filesRequiredForExecution(JobFolder folder) {
 		List<File> result = new ArrayList<>();
-		result.add(new File(folder, folder.getName() + srcSuffix));	
+		result.add(new File(folder.remoteFolder, folder.remoteFolder.getName() + srcSuffix));	
 		return result;
 	}
 

@@ -17,10 +17,10 @@ import org.thymeleaf.util.StringUtils;
 public class ExtractSubtitles implements BrookeJobStep {
 
 	@Override
-	public boolean required(File folder) throws IOException {
+	public boolean required(JobFolder folder) throws IOException {
 		boolean subTitlesExist = false;
 		
-		for(File file : folder.listFiles()) {
+		for(File file : folder.remoteFiles) {
 			if(file.getName().endsWith("sup") || file.getName().endsWith("sub")) 
 				subTitlesExist =true;
 		}
@@ -28,8 +28,8 @@ public class ExtractSubtitles implements BrookeJobStep {
 	}
 
 	@Override
-	public File execute(File folder) throws IOException {
-		for(File file : folder.listFiles()) {
+	public void execute(JobFolder folder) throws IOException {
+		for(File file : folder.workFiles) {
 			if(file.getName().endsWith("mkv")) {
 				ByteArrayOutputStream os = new ByteArrayOutputStream();
 				PrintStream ps = new PrintStream(os);
@@ -70,7 +70,6 @@ public class ExtractSubtitles implements BrookeJobStep {
 				}
 			}
 		}
-		return folder;
 	}
 
 	@Override
@@ -84,9 +83,9 @@ public class ExtractSubtitles implements BrookeJobStep {
 	}
 
 	@Override
-	public List<File> filesRequiredForExecution(File folder) {
+	public List<File> filesRequiredForExecution(JobFolder folder) {
 		List<File> mkvs = new ArrayList<>();
-		for(File file : folder.listFiles()) {
+		for(File file : folder.remoteFiles) {
 			if(file.getName().endsWith("mkv"))
 				mkvs.add(file);
 		}

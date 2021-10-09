@@ -30,22 +30,38 @@ public class CreateCbtThumbnail implements BrookeJobStep {
 	}
 
 	@Override
-	public boolean required(File folder) throws IOException {
-		File thumbnailFile = new File(folder, "thumbnail.png");
-		File tar = new File(folder, folder.getName() + "_RAW.tar");
-		return !thumbnailFile.exists() && tar.exists();
+	public boolean required(JobFolder folder) throws IOException {
+		boolean thumbnailExists = false;
+		boolean tarExists = false;
+		for(File file : folder.remoteFiles) {
+			if(file.getName().equals("thumbnail.png"))
+				thumbnailExists = true;
+			if(file.getName().endsWith("_RAW.tar"))
+				tarExists = true;
+		}
+		return !thumbnailExists && tarExists;
 	}
 
 	@Override
-	public File execute(File folder) throws IOException {
-		System.out.println("Creating thumbnail for " + folder.getName());
+	public void execute(JobFolder folder) throws IOException {
+		System.out.println("Creating thumbnail for " + folder.workFolder.getName());
 		if(required(folder)) {
-			File thumbnailFile = new File(folder, "thumbnail.png");
-			File tar = new File(folder, folder.getName() + "_RAW.tar");
-			BufferedImage thumbnail = createThumbnailFromTar(tar);
-			ImageIO.write(thumbnail, "png", thumbnailFile);
+			File thumbnailFile = new File(folder.workFolder, "thumbnail.png");
+			File remoteTarFile = null;
+			for(File file : folder.remoteFiles) {
+				if(file.getName().endsWith("_RAW.tar")) {
+					remoteTarFile = file;
+				}
+			}
+			
+			for(File file : folder.workFiles) {
+				if(file.getName().endsWith("_RAW.tar")) {
+					BufferedImage thumbnail = createThumbnailFromTar(file, remoteTarFile);
+					if(thumbnail != null)
+						ImageIO.write(thumbnail, "png", thumbnailFile);
+				}
+			}
 		}
-		return folder;
 	}
 
 	@Override
@@ -53,7 +69,7 @@ public class CreateCbtThumbnail implements BrookeJobStep {
 		return false;
 	}
 	
-	private BufferedImage createThumbnailFromTar(File file) throws IOException {
+	private BufferedImage createThumbnailFromTar(File file, File remoteTarFile) throws IOException {
 		BufferedImage cover = null;
 		try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new BufferedInputStream(new FileInputStream(file)))) {
 	        TarArchiveEntry entry;
@@ -66,7 +82,14 @@ public class CreateCbtThumbnail implements BrookeJobStep {
 	        	}
 	        }
 	    }
-		return createThumbnail(cover);
+		if(cover == null) {
+			remoteTarFile.delete();
+			file.delete();
+			return null;
+		} else {
+			return createThumbnail(cover);			
+		}
+		
 	}
 	
 	public BufferedImage createThumbnail(BufferedImage input) {
@@ -85,9 +108,9 @@ public class CreateCbtThumbnail implements BrookeJobStep {
 	}
 
 	@Override
-	public List<File> filesRequiredForExecution(File folder) {
+	public List<File> filesRequiredForExecution(JobFolder folder) {
 		List<File> result = new ArrayList<>();
-		result.add(new File(folder, folder.getName() + "_RAW.tar"));
+		result.add(new File(folder.remoteFolder, folder.remoteFolder.getName() + "_RAW.tar"));
 		return result;
 	}
 

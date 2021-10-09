@@ -20,10 +20,10 @@ public class LightNovelRename implements BrookeJobStep {
 	};
 
 	@Override
-	public boolean required(File folder) throws IOException {
+	public boolean required(JobFolder folder) throws IOException {
 		String[] mapItem = null;
 		for(String[] item : map) {
-			if(folder.getName().startsWith(item[0])) {
+			if(folder.remoteFolder.getName().startsWith(item[0])) {
 				mapItem = item;
 			}
 		}
@@ -32,28 +32,26 @@ public class LightNovelRename implements BrookeJobStep {
 	}
 
 	@Override
-	public File execute(File localFolder) throws IOException {
-		File result = localFolder;
-		if(required(localFolder)) {
+	public void execute(JobFolder folder) throws IOException {
+		if(required(folder)) {
 			String[] mapItem = null;
 			for(String[] item : map) {
-				if(localFolder.getName().startsWith(item[0])) {
+				if(folder.remoteFolder.getName().startsWith(item[0])) {
 					mapItem = item;
 				}
 			}
 			
-			for(File file : localFolder.listFiles()) {
+			for(File file : folder.remoteFolder.listFiles()) {
 				if(file.getName().startsWith(mapItem[0])) {
 					String newName = mapItem[1]+file.getName().substring(mapItem[0].length());
-					FileUtils.moveFile(file, new File(localFolder, newName));
+					FileUtils.moveFile(file, new File(folder.remoteFolder, newName));
 				}
 			}
 			
-			String newName = mapItem[1]+localFolder.getName().substring(mapItem[0].length());
-			result = new File(localFolder.getParentFile(), newName);
-			FileUtils.moveDirectory(localFolder, result);
+			String newName = mapItem[1]+folder.remoteFolder.getName().substring(mapItem[0].length());
+			File result = new File(folder.remoteFolder.getParentFile(), newName);
+			FileUtils.moveDirectory(folder.remoteFolder, result);
 		}
-		return result;
 	}
 
 	@Override
@@ -62,7 +60,7 @@ public class LightNovelRename implements BrookeJobStep {
 	}
 
 	@Override
-	public List<File> filesRequiredForExecution(File folder) {
+	public List<File> filesRequiredForExecution(JobFolder folder) {
 		List<File> result = new ArrayList<>();
 		return result;
 	}

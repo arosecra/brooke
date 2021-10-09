@@ -354,16 +354,21 @@ public class Deskew implements BrookeJobStep {
 	}
 
 	@Override
-	public boolean required(File folder) {
-
-		File rawCbt = new File(folder, folder.getName()+"_RAW.tar");
-		File cbt = new File(folder, folder.getName()+"_PNG.tar");
-		return rawCbt.exists() && !cbt.exists();
+	public boolean required(JobFolder folder) {
+		boolean rawCbtExists = false;
+		boolean cbtExists = false;
+		for(File file : folder.remoteFiles) {
+			if(file.getName().endsWith("_RAW.tar"))
+				rawCbtExists = true;
+			if(file.getName().endsWith("_PNG.tar"))
+				cbtExists = true;
+		}
+		return rawCbtExists && !cbtExists;
 	}
 
 	@Override
-	public File execute(File folder) throws IOException {
-		File rawCbt = new File(folder, folder.getName()+"_RAW.tar");
+	public void execute(JobFolder folder) throws IOException {
+		File rawCbt = new File(folder.workFolder, folder.workFolder.getName()+"_RAW.tar");
 		File destPngsFolder = new File(folder + "/deskew/");
 		
 		if(required(folder)) {
@@ -380,8 +385,6 @@ public class Deskew implements BrookeJobStep {
 					}
 				}
 				
-				
-				
 				int currentPage = 0;
 				try (TarArchiveInputStream tarIn = new TarArchiveInputStream(
 						new BufferedInputStream(new FileInputStream(rawCbt)))) {
@@ -395,7 +398,7 @@ public class Deskew implements BrookeJobStep {
 	
 							File newImageFile = new File(destPngsFolder, entry.getName());
 	
-							JobSubStep jss = new JobSubStep("Deskew", folder, currentPage, pageCount);
+							JobSubStep jss = new JobSubStep("Deskew", folder.workFolder, currentPage, pageCount);
 							jss.startAndPrint();
 							if(!newImageFile.exists()) {
 								deskewOrCopyImage(newImageFile, image);
@@ -412,13 +415,12 @@ public class Deskew implements BrookeJobStep {
 	    			"a", 
 	    			"-ttar", 
 	    			"-o" + destPngsFolder.getAbsolutePath(),
-	    			folder.getAbsolutePath()+"\\"+folder.getName()+"_PNG.tar", 
+	    			folder.workFolder.getAbsolutePath()+"\\"+folder.workFolder.getName()+"_PNG.tar", 
 	    			destPngsFolder.getAbsolutePath() + "\\*.png" 	
 			});
 			
 			FileUtils.deleteDirectory(destPngsFolder);
 		}
-		return folder;
 	}
 
 	@Override
@@ -427,8 +429,8 @@ public class Deskew implements BrookeJobStep {
 	}
 
 	@Override
-	public List<File> filesRequiredForExecution(File folder) {
-		File rawCbt = new File(folder, folder.getName()+"_RAW.tar");
+	public List<File> filesRequiredForExecution(JobFolder folder) {
+		File rawCbt = new File(folder.remoteFolder, folder.remoteFolder.getName()+"_RAW.tar");
 		List<File> files = new ArrayList<>();
 		files.add(rawCbt);
 		return files;

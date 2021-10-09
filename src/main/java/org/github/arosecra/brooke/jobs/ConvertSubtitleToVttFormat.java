@@ -2,29 +2,35 @@ package org.github.arosecra.brooke.jobs;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
-import org.github.arosecra.brooke.util.CommandLine;
 
 public class ConvertSubtitleToVttFormat implements BrookeJobStep {
 
 	@Override
-	public boolean required(File folder) throws IOException {
-		File vtt = new File(folder, "english.vtt");
-		File srt = new File(folder, "english.srt");
-		return !vtt.exists() && srt.exists();
+	public boolean required(JobFolder folder) throws IOException {
+		boolean vttExists = false;
+		boolean srtExists = false;
+		for(File file : folder.remoteFiles) {
+			if(file.getName().equals("english.vtt"))
+				vttExists = true;
+			if(file.getName().equals("english.srt"))
+				srtExists = true;
+		}
+		return !vttExists && srtExists;
 	}
 
 	@Override
-	public File execute(File folder) throws IOException {
-		for(File file : folder.listFiles()) {
+	public void execute(JobFolder folder) throws IOException {
+		for(File file : folder.workFiles) {
 			if(file.getName().endsWith("srt")) {
 				
-				List<String> lines = FileUtils.readLines(file);
+				List<String> lines = FileUtils.readLines(file, StandardCharsets.UTF_8);
 				List<String> newLines = new ArrayList<>();
 				newLines.add("WEBVTT");
 				newLines.add("");
@@ -38,7 +44,7 @@ public class ConvertSubtitleToVttFormat implements BrookeJobStep {
 						newLines.add(line);
 					}
 				}
-				FileUtils.writeLines(new File(folder, "english.vtt"), newLines);
+				FileUtils.writeLines(new File(folder.workFolder, "english.vtt"), newLines);
 //				CommandLine.run(new String[] {
 //					"java.exe",
 //					"-jar D:\\projects\\bdsup2sub.jar",
@@ -48,7 +54,6 @@ public class ConvertSubtitleToVttFormat implements BrookeJobStep {
 //				});
 			}
 		}
-		return folder;
 	}
 
 	@Override
@@ -62,9 +67,9 @@ public class ConvertSubtitleToVttFormat implements BrookeJobStep {
 	}
 
 	@Override
-	public List<File> filesRequiredForExecution(File folder) {
+	public List<File> filesRequiredForExecution(JobFolder folder) {
 		List<File> mkvs = new ArrayList<>();
-		for(File file : folder.listFiles()) {
+		for(File file : folder.remoteFiles) {
 			if(file.getName().endsWith("srt"))
 				mkvs.add(file);
 		}

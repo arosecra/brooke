@@ -92,29 +92,29 @@ public class Main17 {
 	}
 
 	private static void processTemp3() throws IOException {
-		File tempDir = new File("D:\\scans\\temp3");
-		ExtractPDFs e = new ExtractPDFs("general");
-		e.execute(tempDir);
-		for (File file : tempDir.listFiles()) {
-		}
-
-		for (File file : new File(tempDir, "temp3_RAW").listFiles()) {
-			BufferedImage orginalImage = ImageIO.read(file);
-
-			BufferedImage blackAndWhiteImg = new BufferedImage(orginalImage.getWidth(), orginalImage.getHeight(),
-					BufferedImage.TYPE_BYTE_BINARY);
-
-			Graphics2D graphics = blackAndWhiteImg.createGraphics();
-			graphics.drawImage(orginalImage, 0, 0, null);
-
-			BufferedImage trimmed = trim(blackAndWhiteImg, orginalImage);
-
-			ImageIO.write(blackAndWhiteImg, "png",
-					new File(file.getParentFile(), FilenameUtils.getBaseName(file.getName()) + "_bw.png"));
-
-			ImageIO.write(rotate90(trimmed), "png",
-					new File(file.getParentFile(), FilenameUtils.getBaseName(file.getName()) + "_trimmed.png"));
-		}
+//		File tempDir = new File("D:\\scans\\temp3");
+//		ExtractPDFs e = new ExtractPDFs("general");
+//		e.execute(tempDir);
+//		for (File file : tempDir.listFiles()) {
+//		}
+//
+//		for (File file : new File(tempDir, "temp3_RAW").listFiles()) {
+//			BufferedImage orginalImage = ImageIO.read(file);
+//
+//			BufferedImage blackAndWhiteImg = new BufferedImage(orginalImage.getWidth(), orginalImage.getHeight(),
+//					BufferedImage.TYPE_BYTE_BINARY);
+//
+//			Graphics2D graphics = blackAndWhiteImg.createGraphics();
+//			graphics.drawImage(orginalImage, 0, 0, null);
+//
+//			BufferedImage trimmed = trim(blackAndWhiteImg, orginalImage);
+//
+//			ImageIO.write(blackAndWhiteImg, "png",
+//					new File(file.getParentFile(), FilenameUtils.getBaseName(file.getName()) + "_bw.png"));
+//
+//			ImageIO.write(rotate90(trimmed), "png",
+//					new File(file.getParentFile(), FilenameUtils.getBaseName(file.getName()) + "_trimmed.png"));
+//		}
 	}
 	
 	public static BufferedImage rotate90(BufferedImage image) {

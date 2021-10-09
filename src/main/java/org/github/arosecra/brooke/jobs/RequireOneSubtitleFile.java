@@ -8,9 +8,9 @@ import java.util.List;
 public class RequireOneSubtitleFile implements BrookeJobStep {
 
 	@Override
-	public boolean required(File folder) throws IOException {
+	public boolean required(JobFolder folder) throws IOException {
 		int nonEnglishSubtitleCount = 0;
-		for(File file : folder.listFiles()) {
+		for(File file : folder.remoteFiles) {
 			if((file.getName().endsWith("vtt") ||
 				file.getName().endsWith("sup") ||
 				file.getName().endsWith("sub")
@@ -22,8 +22,8 @@ public class RequireOneSubtitleFile implements BrookeJobStep {
 	}
 
 	@Override
-	public File execute(File folder) throws IOException {
-		return folder;
+	public void execute(JobFolder folder) throws IOException {
+		
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class RequireOneSubtitleFile implements BrookeJobStep {
 	}
 
 	@Override
-	public List<File> filesRequiredForExecution(File folder) {
+	public List<File> filesRequiredForExecution(JobFolder folder) {
 		return new ArrayList<>();
 	}
 

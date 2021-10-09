@@ -1,10 +1,10 @@
 package org.github.arosecra.brooke.dao;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.TreeMap;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -54,6 +54,8 @@ public class LibraryDao {
 		result.setOpenType(props.getProperty("openType"));
 		result.setExcludeExtensions(props.getProperty("excludeExtensions"));
 		result.setPipeline(props.getProperty("pipeline"));
+		if(props.containsKey("autoGenerateAlphaCategories"))
+			result.setAutoGenerateAlphaCategories(Boolean.parseBoolean(props.getProperty("autoGenerateAlphaCategories")));
 		
 		if(new File(result.getLocalDirectory()).exists())
 			result.setLocalFiles(FileUtils.listFiles(new File(result.getLocalDirectory()), null, true));
@@ -82,17 +84,39 @@ public class LibraryDao {
 			//we have a default catalog with no name and multiple categories
 			Catalog def = new Catalog();
 			def.setName("def");
-			if(collectionFolder.listFiles() != null) {
-				getCategories(result, def, collectionFolder);
+			if(result.isAutoGenerateAlphaCategories()) {
+				for(File folder : Try.listFilesSafe(new File(result.getLocalDirectory()))) {
+					Category cat = new Category();
+					cat.setName(folder.getName());
+					def.getCategories().add(cat);
+					for(File file : Try.listFilesSafe(folder)) {
+						ShelfItem si = result.getShelfItems().get(file.getName());
+						if(si != null) {
+							cat.getItems().add(si);
+							si.addCategory(cat);
+						} else
+							System.out.println(result.getName() + " could not find " + file.getName());
+					}
+				}
+			} else {
+				if(collectionFolder.listFiles() != null) {
+					getCategories(result, def, collectionFolder);
+				}
 			}
 			result.getCatalogs().add(def);
+		}
+		
+		
+		for(ShelfItem item : result.getShelfItems().values()) {
+			if(item.getCateogries().isEmpty())
+				System.out.println(result.getName() + " did not have " + item.getName() + " in a category");
 		}
 
 		return result;
 	}
 
 	private Map<String, ShelfItem> getShelfItems(Collection result) {
-		Map<String, ShelfItem> shelfItems = new HashMap<>();
+		Map<String, ShelfItem> shelfItems = new TreeMap<>();
 		
 		for(File file : result.getLocalFiles()) {
 			if(file.getName().endsWith(".item")) {
@@ -100,7 +124,7 @@ public class LibraryDao {
 				//if there's a thumbnail in the parent, it's a series shelf item
 				File thumbnail = new File(file.getParentFile(), "thumbnail.png");
 				File parentThumbnail = new File(file.getParentFile().getParentFile(), "thumbnail.png");
-				if(thumbnail.exists()) {
+				if(!parentThumbnail.exists()) {
 					ShelfItem si = new ShelfItem();
 					si.setName(file.getParentFile().getName());
 					si.setLocal(new File(file.getParentFile()+"."+result.getItemExtension()).exists());
@@ -144,9 +168,12 @@ public class LibraryDao {
 
 		for(String line : lines) {
 			ShelfItem si = collection.getShelfItems().get(line);
-			if(si != null)
+			if(si != null) {
 				result.getItems().add(si);
-			else
+				si.addCategory(result);
+				for(ShelfItem child : si.getChildItems())
+					child.addCategory(result);
+			} else
 				System.out.println(collection.getName() + " could not find " + line);
 		}
 		

@@ -39,8 +39,8 @@ public class Main19 {
 			}
 			if(actualPdfCount == 1) {
 				for(File file : pdf.getParentFile().listFiles()) {
-					if(file.getName().endsWith("pdf") && !file.getName().equals("sleeve.pdf"))
-						FileUtils.moveFile(file, new File(file.getParentFile(), "sleeve.pdf"));
+					if(file.getName().endsWith("pdf") && !file.getName().equals("cover.pdf"))
+						FileUtils.moveFile(file, new File(file.getParentFile(), "cover.pdf"));
 				}
 			}
 		}
@@ -48,5 +48,13 @@ public class Main19 {
 		Collections.sort(sortedExtras);
 		for(int i = 0; i < sortedExtras.size(); i++)
 			System.out.println(i + ". " + sortedExtras.get(i) +  " has extra pdfs");
+		
+
+		for(File file : FileUtils.listFiles(drobo5n2, new String[] {"srt"}, true)) {
+			if(!file.getName().equals("english.srt"))
+				FileUtils.moveFile(file, new File(file.getParentFile(), "english.srt"));
+		}
 	}
+	
+
 }
