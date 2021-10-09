@@ -119,6 +119,10 @@ public class BrookeController {
             if(pageNumber != null)
             	number = Integer.parseInt(pageNumber);
             
+            if(!brookeService.isCached(collectionName, catalogName, categoryName, itemName, 0)) {
+	        	brookeService.cacheItem(collectionName, catalogName, categoryName, itemName, 0);
+	        }
+            
             String urlPrototype = "/shelfitem/%s/%s/%s/%s/%d";
             if(number > 0)
             	buttonSet.addButton(new Button("Prev", String.format(urlPrototype, collectionName, catalogName, categoryName, itemName, number-2), null));
@@ -133,6 +137,9 @@ public class BrookeController {
 				result = "videoseries";
 				model.addAttribute("childItems", item.getChildItems());
 			} else {
+		        if(!brookeService.isCached(collectionName, catalogName, categoryName, itemName, 0)) {
+		        	brookeService.cacheItem(collectionName, catalogName, categoryName, itemName, 0);
+		        }
 				model.addAttribute("subtitles", brookeService.getSubtitles(collectionName, catalogName, categoryName, itemName));
 			}
 		}
@@ -165,6 +172,10 @@ public class BrookeController {
 			model.addAttribute("subtitles", brookeService.getSubtitles(collectionName, catalogName, categoryName, itemName));
 		}
 
+        if(!brookeService.isCached(collectionName, catalogName, categoryName, itemName, index)) {
+        	brookeService.cacheItem(collectionName, catalogName, categoryName, itemName, index);
+        }
+
 		model.addAttribute("library", brookeService.getLibrary());
 		model.addAttribute("collection", brookeService.getCollectionByName(collectionName));
 		model.addAttribute("catalog", brookeService.getCatalogByName(collectionName, catalogName));
@@ -195,7 +206,7 @@ public class BrookeController {
 			@PathVariable(name="categoryName") String categoryName,
 			@PathVariable(name="itemName") String itemName) throws IOException {
 		
-		File videoFile = brookeService.getVideoFile(collectionName, catalogName, categoryName, itemName, 0);
+		File videoFile = brookeService.getCachedFile(collectionName, catalogName, categoryName, itemName, 0);
 		InputStream is = new BufferedInputStream(new FileInputStream(videoFile));
 		IOUtils.copyLarge(is, response.getOutputStream());
         IOUtils.closeQuietly(is);

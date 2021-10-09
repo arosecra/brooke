@@ -19,6 +19,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.aspectj.util.FileUtil;
 import org.github.arosecra.brooke.Settings;
 import org.github.arosecra.brooke.dao.LibraryDao;
 import org.github.arosecra.brooke.model.Button;
@@ -30,6 +31,7 @@ import org.github.arosecra.brooke.model.Library;
 import org.github.arosecra.brooke.model.ShelfItem;
 import org.github.arosecra.brooke.model.SubtitleEntry;
 import org.github.arosecra.brooke.model.ToCEntry;
+import org.github.arosecra.brooke.util.Try;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -126,11 +128,7 @@ public class BrookeService {
 	}
 
 	public byte[] getPage(String collectionName, String categoryName, String itemName, int pageNumber) throws IOException {
-		Collection collection = getCollectionByName(collectionName);
-
-		File itemDirectory = collection.getShelfItems().get(itemName).getFolder();
-		
-		File tar = new File(itemDirectory, itemName + "." + collection.getItemExtension());
+		File tar = getCachedFile(collectionName, collectionName, categoryName, itemName, 0);
 		return getPageFromTar(tar, pageNumber);
 	}
 	
@@ -183,7 +181,7 @@ public class BrookeService {
 		return results;
 	}
 
-	public File getVideoFile(String collectionName, String catalogName, String categoryName, String itemName, int index) {
+	public File getRemoteFile(String collectionName, String catalogName, String categoryName, String itemName, int index) {
 		Collection collection = getCollectionByName(collectionName);
 
 		File itemDirectory = getRemoteItemFolder(collection, categoryName, itemName, index);
@@ -340,5 +338,32 @@ public class BrookeService {
 				}
 			}
 		}
+	}
+
+
+	public void cacheItem(String collectionName, String catalogName, String categoryName, String itemName, int index) throws IOException {
+		File cacheFolder = new File("D:\\Library\\Cache");
+		int numberCached = Try.listFilesSafe(cacheFolder).length;
+		
+		if(numberCached > 10) {
+			do {
+				Try.listFilesSafe(cacheFolder)[0].delete();
+			} while (Try.listFilesSafe(new File("D:\\Library\\Cache")).length > 10);
+		}
+		File remoteFile = getRemoteFile(collectionName, catalogName, categoryName, itemName, index);
+		File cacheFile = new File(cacheFolder, remoteFile.getName());
+		FileUtil.copyFile(remoteFile, cacheFile);
+		
 	}	
+	
+	public boolean isCached(String collectionName, String catalogName, String categoryName, String itemName, int index) {
+		return getCachedFile(collectionName, catalogName, categoryName, itemName, index).exists();
+	}
+	
+	public File getCachedFile(String collectionName, String catalogName, String categoryName, String itemName, int index) {
+		File cacheFolder = new File("D:\\Library\\Cache");
+		File remoteFile = getRemoteFile(collectionName, catalogName, categoryName, itemName, index);
+		File cacheFile = new File(cacheFolder, remoteFile.getName());
+		return cacheFile;
+	}
 }
