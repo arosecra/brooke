@@ -78,6 +78,7 @@ public class BrookeService {
 		}
 		result.addButton(new Button("Sync", "/sync", null));
 		result.addButton(new Button("Manage", "/manage", null));
+		result.addButton(new Button("Reload Library", "/reload", null));
 		return result;
 	}
 
@@ -365,5 +366,10 @@ public class BrookeService {
 		File remoteFile = getRemoteFile(collectionName, catalogName, categoryName, itemName, index);
 		File cacheFile = new File(cacheFolder, remoteFile.getName());
 		return cacheFile;
+	}
+
+
+	public void reloadLibrary() {
+		library = libraryDao.getLibrary();
 	}
 }

@@ -42,6 +42,12 @@ public class BrookeController {
 		return "redirect:/";
 	}
 	
+	@GetMapping("/reload")
+	public String reload(Model model) throws IOException {
+		brookeService.reloadLibrary();
+		return "redirect:/";
+	}
+	
 	
 	@GetMapping("/collection/{collectionName}")
 	public String getCollectionHome(Model model, @PathVariable(name="collectionName") String collectionName) {
@@ -149,6 +155,7 @@ public class BrookeController {
 		model.addAttribute("catalog", brookeService.getCatalogByName(collectionName, catalogName));
 		model.addAttribute("category", brookeService.getCategoryByName(collectionName, catalogName, categoryName));
 		model.addAttribute("item", item);
+		model.addAttribute("index", 0);
 		
 		return result;
 	}
@@ -165,7 +172,7 @@ public class BrookeController {
 			) throws IOException {
 		
 		Collection collection = brookeService.getCollectionByName(collectionName);
-		ShelfItem item = brookeService.getItemByName(collectionName, catalogName, categoryName, itemName).getChildItems().get(index);
+		ShelfItem item = brookeService.getItemByName(collectionName, catalogName, categoryName, itemName);
 		
 		String result = collection.getOpenType();
 		if(collection.getOpenType().equals("video")) {
@@ -181,6 +188,7 @@ public class BrookeController {
 		model.addAttribute("catalog", brookeService.getCatalogByName(collectionName, catalogName));
 		model.addAttribute("category", brookeService.getCategoryByName(collectionName, catalogName, categoryName));
 		model.addAttribute("item", item);
+		model.addAttribute("index", index);
 		
 		return result;
 	}
@@ -197,16 +205,17 @@ public class BrookeController {
 	}
 
 	
-	@GetMapping(value="/video/{collectionName}/{catalogName}/{categoryName}/{itemName}", produces="video/mp4")
+	@GetMapping(value={"/video/{collectionName}/{catalogName}/{categoryName}/{itemName}/{index}"}, produces="video/mp4")
 	@ResponseBody
 	public void getVideo(Model model, 
 			HttpServletResponse response,
 			@PathVariable(name="collectionName") String collectionName,
 			@PathVariable(name="catalogName") String catalogName, 
 			@PathVariable(name="categoryName") String categoryName,
-			@PathVariable(name="itemName") String itemName) throws IOException {
+			@PathVariable(name="itemName") String itemName,
+			@PathVariable(name="index") int index) throws IOException {
 		
-		File videoFile = brookeService.getCachedFile(collectionName, catalogName, categoryName, itemName, 0);
+		File videoFile = brookeService.getCachedFile(collectionName, catalogName, categoryName, itemName, index);
 		InputStream is = new BufferedInputStream(new FileInputStream(videoFile));
 		IOUtils.copyLarge(is, response.getOutputStream());
         IOUtils.closeQuietly(is);
