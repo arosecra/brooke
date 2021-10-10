@@ -32,7 +32,7 @@ public class Main17 {
 	public static void main(String[] args) throws Exception {
 
 		processTemp1();
-		processTemp2();
+//		processTemp2();
 //		processTemp3();
 	}
 
