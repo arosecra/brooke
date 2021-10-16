@@ -1,7 +1,6 @@
 package org.github.arosecra.brooke.util;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -14,7 +13,7 @@ public class CommandLine {
 		Process process;
 		try {
 			process = new ProcessBuilder(args).start();
-			process.waitFor(30, TimeUnit.MINUTES);
+			process.waitFor(5, TimeUnit.MINUTES);
 			if (process.exitValue() == 0) {
 				// Success
 				printProcessOutput(process.getInputStream(), output);

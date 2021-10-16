@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 
 public class Main19 {
 	public static void main(String[] args) throws IOException {		
@@ -53,6 +54,26 @@ public class Main19 {
 		for(File file : FileUtils.listFiles(drobo5n2, new String[] {"srt"}, true)) {
 			if(!file.getName().equals("english.srt"))
 				FileUtils.moveFile(file, new File(file.getParentFile(), "english.srt"));
+		}
+
+		renameFiles(drobo5n2, "mp4");
+		renameFiles(drobo5n2, "mkv");
+		renameFiles(drobo5n2, "item");
+	}
+
+	private static void renameFiles(File drobo5n2, String extension) throws IOException {
+		for(File file : FileUtils.listFiles(drobo5n2, null, true)) {
+			String basename = FilenameUtils.getBaseName(file.getName());
+			String parentName = file.getParentFile().getName();
+			String expectedName = parentName + "." + extension;
+			String tempName = "temp."+extension;
+			if(file.getName().endsWith(extension) && !basename.equals(parentName)) {
+				File temp = new File(file.getParentFile(), tempName);
+				File newFile = new File(file.getParentFile(), expectedName);
+				FileUtils.moveFile(file, temp);
+				FileUtils.moveFile(temp, newFile);
+				System.out.println(basename + " -> " + expectedName);
+			}
 		}
 	}
 	

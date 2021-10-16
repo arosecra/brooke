@@ -59,6 +59,8 @@ public class ExtractPDFs implements BrookeJobStep {
 		int pdfCount = 0;
 		boolean rawCbtExists = false;
 		for(File file : folder.remoteFiles) {
+			if(this.variant.equals("movie") && file.getName().contains("box"))
+				continue;
 			if(file.getName().endsWith("pdf"))
 				pdfCount++;
 			if(file.getName().endsWith("_RAW.tar"))

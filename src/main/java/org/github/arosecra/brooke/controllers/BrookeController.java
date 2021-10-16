@@ -114,7 +114,7 @@ public class BrookeController {
 			) throws IOException {
 		
 		Collection collection = brookeService.getCollectionByName(collectionName);
-		ButtonSet buttonSet = brookeService.getStandardButtons();
+		ButtonSet buttonSet = new ButtonSet();
 		ShelfItem item = brookeService.getItemByName(collectionName, catalogName, categoryName, itemName);
 		
 		String result = collection.getOpenType();
