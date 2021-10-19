@@ -189,17 +189,21 @@ public class BrookeService {
 		return new File(itemDirectory, itemDirectory.getName() + "." + collection.getItemExtension());
 	}
 
-	public File getSubtitleFile(String collectionName, String categoryName, String itemName, String vttName) {
+	public File getSubtitleFile(String collectionName, String categoryName, String itemName, int index, String vttName) {
 		Collection collection = getCollectionByName(collectionName);
-
-		File itemDirectory = collection.getShelfItems().get(itemName).getFolder();
+		ShelfItem item = collection.getShelfItems().get(itemName);
+		File itemDirectory = item.getFolder();
+		if(!item.getChildItems().isEmpty()) {
+			itemDirectory = item.getChildItems().get(index).getFolder();
+		}
 		return new File(itemDirectory, vttName);
 	}
 
-	public List<String> getSubtitles(String collectionName, String catalogName, String categoryName, String itemName) {
-		Collection collection = getCollectionByName(collectionName);
-
-		File itemDirectory = collection.getShelfItems().get(itemName).getFolder();
+	public List<String> getSubtitles(String collectionName, String catalogName, String categoryName, String itemName, int index) {
+		ShelfItem item = getItemByName(collectionName, catalogName, categoryName, itemName);
+		File itemDirectory = item.getFolder();
+		if(!item.getChildItems().isEmpty()) 
+			itemDirectory = item.getChildItems().get(index).getFolder();
 		
 		List<String> result = new ArrayList<>();
 		for(File file : itemDirectory.listFiles()) {

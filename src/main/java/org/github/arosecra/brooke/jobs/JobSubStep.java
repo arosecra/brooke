@@ -30,7 +30,7 @@ public class JobSubStep {
 	}
 	
 	public void printStart() {
-		System.out.print(name + " " + folder.getName() + " (" + index + " of " + total + ") ");
+		System.out.print(name + " " + folder.getName() + " (" + ((int)index+1) + " of " + total + ") ");
 	}
 	
 	public void endAndPrint() {

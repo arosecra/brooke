@@ -146,7 +146,7 @@ public class BrookeController {
 		        if(!brookeService.isCached(collectionName, catalogName, categoryName, itemName, 0)) {
 		        	brookeService.cacheItem(collectionName, catalogName, categoryName, itemName, 0);
 		        }
-				model.addAttribute("subtitles", brookeService.getSubtitles(collectionName, catalogName, categoryName, itemName));
+				model.addAttribute("subtitles", brookeService.getSubtitles(collectionName, catalogName, categoryName, itemName, 0));
 			}
 		}
 
@@ -176,7 +176,7 @@ public class BrookeController {
 		
 		String result = collection.getOpenType();
 		if(collection.getOpenType().equals("video")) {
-			model.addAttribute("subtitles", brookeService.getSubtitles(collectionName, catalogName, categoryName, itemName));
+			model.addAttribute("subtitles", brookeService.getSubtitles(collectionName, catalogName, categoryName, itemName, index));
 		}
 
         if(!brookeService.isCached(collectionName, catalogName, categoryName, itemName, index)) {
@@ -223,7 +223,7 @@ public class BrookeController {
 	}
 
 	
-	@GetMapping(value="/subtitle/{collectionName}/{catalogName}/{categoryName}/{itemName}/{vttName}", produces = MediaType.IMAGE_PNG_VALUE)
+	@GetMapping(value="/subtitle/{collectionName}/{catalogName}/{categoryName}/{itemName}/{index}/{vttName}", produces = MediaType.IMAGE_PNG_VALUE)
 	@ResponseBody
 	public void geSubtitle(Model model, 
 			HttpServletResponse response,
@@ -231,8 +231,9 @@ public class BrookeController {
 			@PathVariable(name="catalogName") String catalogName, 
 			@PathVariable(name="categoryName") String categoryName,
 			@PathVariable(name="itemName") String itemName,
+			@PathVariable(name="index") int index,
 			@PathVariable(name="vttName") String vttName) throws IOException {
-		File subtitleFile = brookeService.getSubtitleFile(collectionName, categoryName, itemName, vttName);
+		File subtitleFile = brookeService.getSubtitleFile(collectionName, categoryName, itemName, index, vttName);
         InputStream is = new BufferedInputStream(new FileInputStream(subtitleFile));
         IOUtils.copy(is, response.getOutputStream());
         IOUtils.closeQuietly(is);

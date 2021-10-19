@@ -31,7 +31,7 @@ public class LibraryDao {
 		
 		for(File collection : new File(settings.getLibraryHome(), "Collections").listFiles()) {
 			
-			if(collection.isDirectory()) {
+			if(collection.isDirectory() && !collection.getName().startsWith(".")) {
 				result.getCollections().add(getCollection(collection));
 			}
 		}
