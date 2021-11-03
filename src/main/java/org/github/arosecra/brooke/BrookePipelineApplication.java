@@ -24,6 +24,7 @@ import org.github.arosecra.brooke.jobs.Deskew;
 import org.github.arosecra.brooke.jobs.ExtractChaptersXml;
 import org.github.arosecra.brooke.jobs.ExtractPDFs;
 import org.github.arosecra.brooke.jobs.ExtractSubtitles;
+import org.github.arosecra.brooke.jobs.Itemize;
 import org.github.arosecra.brooke.jobs.LightNovelRename;
 import org.github.arosecra.brooke.jobs.RequireOneSubtitleFile;
 import org.github.arosecra.brooke.model.Collection;
@@ -43,6 +44,10 @@ public class BrookePipelineApplication {
 		JOBS.put("DESKEW", new Deskew());
 		JOBS.put("CONVERT_TO_WEBP", new ConvertToWebp());
 		JOBS.put("CONVERT_TO_WEBP_RAW", new ConvertToWebp("_RAW.tar"));
+		
+		JOBS.put("ITEMIZE_PDF_FOLDER", new Itemize("pdf"));
+		JOBS.put("ITEMIZE_MKV_FOLDER", new Itemize("mkv"));
+		JOBS.put("ITEMIZE_MP4_FOLDER", new Itemize("mp4"));
 
 		JOBS.put("EXTRACT_CHAPTERS_XML", new ExtractChaptersXml());
 		JOBS.put("EXTRACT_SUBTITLE_TRACKS", new ExtractSubtitles());
@@ -82,6 +87,7 @@ public class BrookePipelineApplication {
 
 	private static void executePipeline(File workDirectory, Collection collection, JobFolder remoteDir) throws IOException {
 		remoteDir.workFolder = new File(workDirectory, remoteDir.remoteFolder.getName());
+		remoteDir.workFolder.mkdirs();
 
 		File[] filesBeforeSteps = remoteDir.workFolder.listFiles();
 		boolean continueSteps = true;
@@ -105,6 +111,7 @@ public class BrookePipelineApplication {
 		Set<File> filesToCopyRemotely = determineNewFiles(filesBeforeSteps, filesAfterSteps);
 		for (File fileToCopyRemotely : filesToCopyRemotely) {
 			FileUtils.copyFileToDirectory(fileToCopyRemotely, remoteDir.remoteFolder);
+			remoteDir.remoteFiles.add(new File(remoteDir.remoteFolder, fileToCopyRemotely.getName()));
 		}
 		FileUtils.deleteDirectory(remoteDir.workFolder);
 	}
@@ -139,29 +146,27 @@ public class BrookePipelineApplication {
 			}
 			
 
-			for (File remoteItemFile : remoteFiles) {
-				if(remoteItemFile.getName().endsWith(".item")) {
-					List<File> remoteDir = filesPerPath.get(remoteItemFile.getParentFile().getAbsolutePath());
-					List<File> remoteParentDir = filesPerPath.get(remoteItemFile.getParentFile().getParentFile().getAbsolutePath());
+			for (Map.Entry<String, List<File>> entry : filesPerPath.entrySet()) {
+				JobFolder folder = new JobFolder();
+				folder.remoteFolder = new File(entry.getKey());
 					
-					JobFolder folder = new JobFolder();
-					folder.remoteFolder = remoteItemFile.getParentFile();
-					folder.remoteFiles = remoteDir;
+				List<File> remoteDir = entry.getValue();
+				List<File> remoteParentDir = filesPerPath.get(folder.remoteFolder.getParentFile().getAbsolutePath());
 				
-					JobFolder parentFolder = new JobFolder();
-					parentFolder.remoteFolder = remoteItemFile.getParentFile().getParentFile();
-					parentFolder.remoteFiles = remoteParentDir;
-					
-					for (String pipelineStep : collection.getPipeline()) {
-						BrookeJobStep step = JOBS.get(pipelineStep);
-						if (step.required(folder)) {
-							foldersToProcess.get(collection.getName()).add(folder);
-						}
-						if (remoteParentDir != null && step.required(parentFolder)) {
-							foldersToProcess.get(collection.getName()).add(parentFolder);
-						}
+				folder.remoteFiles = remoteDir;
+				
+				JobFolder parentFolder = new JobFolder();
+				parentFolder.remoteFolder = folder.remoteFolder.getParentFile();
+				parentFolder.remoteFiles = remoteParentDir;
+				
+				for (String pipelineStep : collection.getPipeline()) {
+					BrookeJobStep step = JOBS.get(pipelineStep);
+					if (step.required(folder)) {
+						foldersToProcess.get(collection.getName()).add(folder);
 					}
-				
+					if (remoteParentDir != null && step.required(parentFolder)) {
+						foldersToProcess.get(collection.getName()).add(parentFolder);
+					}
 				}
 			}
 		}

@@ -8,23 +8,18 @@ import org.apache.commons.io.FileUtils;
 public class Main20 {
 	public static void main(String[] args) throws IOException {
 		
-		createItemFile(new File("\\\\drobo5n\\public\\scans\\Fiction_Repository"), "cbt");
-		createItemFile(new File("\\\\drobo5n\\public\\scans\\Light_Novels_Repository"), "cbt");
-		createItemFile(new File("\\\\drobo5n\\public\\scans\\Magazine_Repository"), "pdf");
-		createItemFile(new File("\\\\drobo5n\\public\\scans\\NonFiction_Repository"), "cbt");
-		createItemFile(new File("\\\\drobo5n\\public\\scans\\Research_Papers_Repository"), "pdf");
-		createItemFile(new File("\\\\drobo5n2\\public\\Anime"), "mp4");
-		createItemFile(new File("\\\\drobo5n2\\public\\Movies"), "mp4");
+		listItemsWithoutEnglishVtt(new File("\\\\drobo5n2\\public\\Anime"), "mp4");
 
 	}
 
-	private static void createItemFile(File remoteDir, String extension) throws IOException {
+	private static void listItemsWithoutEnglishVtt(File remoteDir, String extension) {
 		java.util.Collection<File> remoteFiles = FileUtils.listFiles(remoteDir, null, true);
 		
 		for(File file : remoteFiles) {
 			if(file.getName().endsWith(extension)) {
-				File dir = file.getParentFile();
-				new File(dir, dir.getName()+".item").createNewFile();
+				File english = new File(file.getParentFile(), "english.vtt");
+				if(!english.exists())
+					System.out.println(file.getParentFile() + " is missing vtt");
 			}
 		}
 	}

@@ -145,6 +145,8 @@ public class Collection {
 	}
 
 	public String[] getPipeline() {
+		if(pipeline == null)
+			return new String[] {};
 		return pipeline.split("," );
 	}
 
