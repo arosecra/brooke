@@ -100,9 +100,15 @@ public class ExtractPDFs implements BrookeJobStep {
 						File file = folder.workFiles.get(i);
 						if(file.getName().endsWith("pdf") && !file.getName().contains("covers")) {
 							String prefix = String.format("%03d", i+1);
+							String colorSpace = "pngmono";
+							int size = 1200;
+							if(file.getName().contains("color")) {
+								size = 300;
+								colorSpace = "png16m";
+							}
 							JobSubStep jss = new JobSubStep("Extract", folder.workFolder, i+2, pdfCount);
 							jss.startAndPrint();
-							extractPdf(file, pngFolder.getAbsolutePath()+"\\"+folder.workFolder.getName()+"-"+prefix+"-%03d.png", 1200, "pngmono");
+							extractPdf(file, pngFolder.getAbsolutePath()+"\\"+folder.workFolder.getName()+"-"+prefix+"-%03d.png", size, colorSpace);
 							jss.endAndPrint();
 						}
 					}
