@@ -1,14 +1,9 @@
 package org.github.arosecra.brooke.controllers;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.InputStreamReader;
 
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.io.IOUtils;
 import org.github.arosecra.brooke.model.Button;
 import org.github.arosecra.brooke.model.ButtonSet;
 import org.github.arosecra.brooke.model.Collection;
@@ -51,6 +46,7 @@ public class BrookeController {
 	
 	@GetMapping("/collection/{collectionName}")
 	public String getCollectionHome(Model model, @PathVariable(name="collectionName") String collectionName) {
+		System.out.println("getCollectionHome");
 		
 		
 		model.addAttribute("library", brookeService.getLibrary());
@@ -67,6 +63,7 @@ public class BrookeController {
 			@PathVariable(name="collectionName") String collectionName, 
 			@PathVariable(name="catalogName") String catalogName, 
 			@PathVariable(name="categoryName") String categoryName) {
+		System.out.println("getCatalogHome");
 		
 		
 		model.addAttribute("library", brookeService.getLibrary());
@@ -83,7 +80,7 @@ public class BrookeController {
 	
 	@GetMapping(value="/thumbnail/{collectionName}/{catalogName}/{categoryName}/{itemName}", produces = MediaType.IMAGE_PNG_VALUE)
 	@ResponseBody
-	public byte[] greeting(Model model, 
+	public byte[] getThumbnail(Model model, 
 			@PathVariable(name="collectionName") String collectionName,
 			@PathVariable(name="catalogName") String catalogName, 
 			@PathVariable(name="categoryName") String categoryName,
@@ -112,6 +109,7 @@ public class BrookeController {
 			@PathVariable(name="itemName") String itemName,
 			@PathVariable(name="pageNo", required = false) String pageNumber
 			) throws IOException {
+		System.out.println("openShelfItem");
 		
 		Collection collection = brookeService.getCollectionByName(collectionName);
 		ButtonSet buttonSet = new ButtonSet();
@@ -146,7 +144,6 @@ public class BrookeController {
 		        if(!brookeService.isCached(collectionName, catalogName, categoryName, itemName, 0)) {
 		        	brookeService.cacheItem(collectionName, catalogName, categoryName, itemName, 0);
 		        }
-				model.addAttribute("subtitles", brookeService.getSubtitles(collectionName, catalogName, categoryName, itemName, 0));
 			}
 		}
 
@@ -157,7 +154,37 @@ public class BrookeController {
 		model.addAttribute("item", item);
 		model.addAttribute("index", 0);
 		
-		return result;
+		if(result.equals("video")) {
+			brookeService.openVLC(collectionName, catalogName, categoryName, itemName, 0);
+			
+//			ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/C", "\"C:\\Program Files\\VideoLAN\\VLC\\vlc.exe\"", "file://drobo5n2/public/Anime/A/Akashic_Records/Akashic_Records_01/Akashic_Records_01.mp4");
+//			builder.redirectErrorStream(true);
+//			final Process process = builder.start();
+//
+//			// Watch the process
+//			watch(process);
+			
+//			Runtime.getRuntime().exec();
+			return getCatalogHome(model, collectionName, catalogName, categoryName);
+		} else {
+			return result;
+		}
+	}
+	
+	private static void watch(final Process process) {
+	    new Thread() {
+	        public void run() {
+	            BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
+	            String line = null; 
+	            try {
+	                while ((line = input.readLine()) != null) {
+	                    System.out.println(line);
+	                }
+	            } catch (IOException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }.start();
 	}
 	
 	@GetMapping(value={
@@ -170,14 +197,12 @@ public class BrookeController {
 			@PathVariable(name="itemName") String itemName,
 			@PathVariable(name="index", required = true) int index
 			) throws IOException {
+		System.out.println("openChildShelfItem");
 		
 		Collection collection = brookeService.getCollectionByName(collectionName);
 		ShelfItem item = brookeService.getItemByName(collectionName, catalogName, categoryName, itemName);
 		
 		String result = collection.getOpenType();
-		if(collection.getOpenType().equals("video")) {
-			model.addAttribute("subtitles", brookeService.getSubtitles(collectionName, catalogName, categoryName, itemName, index));
-		}
 
         if(!brookeService.isCached(collectionName, catalogName, categoryName, itemName, index)) {
         	brookeService.cacheItem(collectionName, catalogName, categoryName, itemName, index);
@@ -190,7 +215,12 @@ public class BrookeController {
 		model.addAttribute("item", item);
 		model.addAttribute("index", index);
 		
-		return result;
+		if(result.equals("video")) {
+			brookeService.openVLC(collectionName, catalogName, categoryName, itemName, 0);
+			return openShelfItem(model, collectionName, catalogName, categoryName, itemName, null);
+		} else {
+			return result;
+		}
 	}
 	
 	@GetMapping(value="/page/{collectionName}/{catalogName}/{categoryName}/{itemName}/{pageNumber}", produces = MediaType.IMAGE_PNG_VALUE)
@@ -202,60 +232,5 @@ public class BrookeController {
 			@PathVariable(name="itemName") String itemName,
 			@PathVariable(name="pageNumber") int pageNumber) throws IOException {
 		return brookeService.getPage(collectionName, categoryName, itemName, pageNumber);
-	}
-
-	
-	@GetMapping(value={"/video/{collectionName}/{catalogName}/{categoryName}/{itemName}/{index}"}, produces="video/mp4")
-	@ResponseBody
-	public void getVideo(Model model, 
-			HttpServletResponse response,
-			@PathVariable(name="collectionName") String collectionName,
-			@PathVariable(name="catalogName") String catalogName, 
-			@PathVariable(name="categoryName") String categoryName,
-			@PathVariable(name="itemName") String itemName,
-			@PathVariable(name="index") int index) throws IOException {
-		
-		File videoFile = brookeService.getCachedFile(collectionName, catalogName, categoryName, itemName, index);
-		InputStream is = new BufferedInputStream(new FileInputStream(videoFile));
-		IOUtils.copyLarge(is, response.getOutputStream());
-        IOUtils.closeQuietly(is);
-		response.flushBuffer();
-	}
-
-	
-	@GetMapping(value="/subtitle/{collectionName}/{catalogName}/{categoryName}/{itemName}/{index}/{vttName}", produces = MediaType.IMAGE_PNG_VALUE)
-	@ResponseBody
-	public void geSubtitle(Model model, 
-			HttpServletResponse response,
-			@PathVariable(name="collectionName") String collectionName,
-			@PathVariable(name="catalogName") String catalogName, 
-			@PathVariable(name="categoryName") String categoryName,
-			@PathVariable(name="itemName") String itemName,
-			@PathVariable(name="index") int index,
-			@PathVariable(name="vttName") String vttName) throws IOException {
-		File subtitleFile = brookeService.getSubtitleFile(collectionName, categoryName, itemName, index, vttName);
-        InputStream is = new BufferedInputStream(new FileInputStream(subtitleFile));
-        IOUtils.copy(is, response.getOutputStream());
-        IOUtils.closeQuietly(is);
-        response.flushBuffer();
-	}
-	
-
-	@GetMapping("/editsubtitles/{collectionName}/{catalogName}/{categoryName}/{itemName}")
-	public String getSubtitleEditor(Model model, 
-			@PathVariable(name="collectionName") String collectionName, 
-			@PathVariable(name="catalogName") String catalogName, 
-			@PathVariable(name="categoryName") String categoryName,
-			@PathVariable(name="itemName") String itemName) throws IOException {
-		
-		
-		model.addAttribute("library", brookeService.getLibrary());
-		model.addAttribute("buttonSet", brookeService.getStandardButtons());	
-		model.addAttribute("collection", brookeService.getCollectionByName(collectionName));
-		model.addAttribute("catalog", brookeService.getCatalogByName(collectionName, catalogName));
-		model.addAttribute("category", brookeService.getCategoryByName(collectionName, catalogName, categoryName));
-		model.addAttribute("subtitleEntries", brookeService.getSubtitleEntries(collectionName, catalogName, categoryName, itemName));
-		
-		return "subtitleeditor";
 	}
 }

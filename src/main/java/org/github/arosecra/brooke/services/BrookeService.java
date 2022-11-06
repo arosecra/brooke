@@ -1,10 +1,12 @@
 package org.github.arosecra.brooke.services;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +31,6 @@ import org.github.arosecra.brooke.model.Category;
 import org.github.arosecra.brooke.model.Collection;
 import org.github.arosecra.brooke.model.Library;
 import org.github.arosecra.brooke.model.ShelfItem;
-import org.github.arosecra.brooke.model.SubtitleEntry;
 import org.github.arosecra.brooke.model.ToCEntry;
 import org.github.arosecra.brooke.util.Try;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -189,32 +190,6 @@ public class BrookeService {
 		return new File(itemDirectory, itemDirectory.getName() + "." + collection.getItemExtension());
 	}
 
-	public File getSubtitleFile(String collectionName, String categoryName, String itemName, int index, String vttName) {
-		Collection collection = getCollectionByName(collectionName);
-		ShelfItem item = collection.getShelfItems().get(itemName);
-		File itemDirectory = item.getFolder();
-		if(!item.getChildItems().isEmpty()) {
-			itemDirectory = item.getChildItems().get(index).getFolder();
-		}
-		return new File(itemDirectory, vttName);
-	}
-
-	public List<String> getSubtitles(String collectionName, String catalogName, String categoryName, String itemName, int index) {
-		ShelfItem item = getItemByName(collectionName, catalogName, categoryName, itemName);
-		File itemDirectory = item.getFolder();
-		if(!item.getChildItems().isEmpty()) 
-			itemDirectory = item.getChildItems().get(index).getFolder();
-		
-		List<String> result = new ArrayList<>();
-		for(File file : itemDirectory.listFiles()) {
-			if(file.getName().endsWith("vtt") && !file.getName().equals("chapters.vtt")) {
-				result.add(file.getName());
-			}
-		}
-		
-		return result;
-	}
-
 	private File getRemoteItemFolder(Collection collection, String categoryName, String itemName, int index) {
 		ShelfItem item = collection.getShelfItems().get(itemName);
 		File folder = item.getFolder();
@@ -225,65 +200,6 @@ public class BrookeService {
 		String relativePath = folder.getAbsolutePath().substring(collection.getLocalDirectory().length());
 		File itemDirectory = new File(collection.getRemoteDirectory(), relativePath);
 		return itemDirectory;
-	}
-
-	public List<SubtitleEntry> getSubtitleEntries(String collectionName, String catalogName, String categoryName, String itemName) throws IOException {
-		Collection collection = getCollectionByName(collectionName);
-		File localItemFolder = collection.getShelfItems().get(itemName).getFolder();
-		return getSubtitleContents(localItemFolder);
-	}
-
-	private List<SubtitleEntry> getSubtitleContents(File localItemFolder) throws IOException {
-		List<SubtitleEntry> result = new ArrayList<>();
-
-		List<String> vttLines = FileUtils.readLines(new File(localItemFolder, "english.vtt"), StandardCharsets.UTF_8);
-		List<String> subtitles = getSubtitlesFromVttContent(vttLines);
-		int i = 0;
-		try (TarArchiveInputStream tarIn = new TarArchiveInputStream(
-				new BufferedInputStream(new FileInputStream(new File(localItemFolder, "english.tar"))))) {
-			TarArchiveEntry entry;
-			while ((entry = (TarArchiveEntry) tarIn.getNextEntry()) != null) {
-				if (entry.getName().endsWith("png")) {
-					ByteArrayOutputStream baos = new ByteArrayOutputStream();
-					IOUtils.copy(tarIn, baos);
-					byte[] rawBytes = baos.toByteArray();
-					String base64png = DatatypeConverter.printBase64Binary(rawBytes);
-					SubtitleEntry sub = new SubtitleEntry();
-					sub.setPngBase64(base64png);
-					if(i < subtitles.size())
-						sub.setSubtitle(subtitles.get(i));
-					result.add(sub);
-					i++;
-				}
-			}
-		}
-		
-		return result;
-	}
-
-	private List<String> getSubtitlesFromVttContent(List<String> vttLines) {
-		List<String> result = new ArrayList<>();
-
-		int lastArrow = vttLines.size();
-		StringBuilder sb = null;
-		for(int i = 0; i < vttLines.size(); i++) {
-			String line = vttLines.get(i);
-			if(StringUtils.contains(line, "-->")) {
-				lastArrow = i;
-				if(sb != null)
-					result.add(sb.toString().trim());
-				sb = new StringBuilder();
-			} else if(i > lastArrow) {
-				if(!sb.isEmpty())
-					sb.append("\r\n");
-				sb.append(line);
-			} 
-		}
-		
-		if(!sb.isEmpty())
-			result.add(sb.toString().trim());
-		
-		return result;
 	}
 
 	public void addToc(String collectionName, String categoryName, String itemName, int pageNumber, String name) throws IOException {
@@ -375,5 +291,59 @@ public class BrookeService {
 
 	public void reloadLibrary() {
 		library = libraryDao.getLibrary();
+	}
+
+
+	public void openVLC(String collectionName, String catalogName, String categoryName, String itemName, int index) throws IOException {
+		// TODO Auto-generated method stub
+		ShelfItem shelfItem = this.getItemByName(collectionName, catalogName, categoryName, itemName);
+		File cacheFolder = new File("D:\\Library\\Cache");
+		File remoteFile = getRemoteFile(collectionName, catalogName, categoryName, itemName, index);
+		File cacheFile = new File(cacheFolder, remoteFile.getName());
+		
+		String vlcCacheFilename = "file:///" + cacheFile.getAbsolutePath();
+		System.out.println(shelfItem.getFolder());
+		
+		File vlcOptionsFile = new File(shelfItem.getFolder(), "vlcOptions.txt");
+		List<String> vlcOptions = new ArrayList<>();
+		vlcOptions.add("cmd.exe");
+		vlcOptions.add("/C");
+		vlcOptions.add("\"C:\\Program Files\\VideoLAN\\VLC\\vlc.exe\"");
+		vlcOptions.add(vlcCacheFilename);
+		
+		if(vlcOptionsFile.exists()) {
+			List<String> lines = FileUtils.readLines(vlcOptionsFile);
+			vlcOptions.addAll(lines);
+		}
+		
+		//--sub-track-id=
+		//--audio-track-id=
+		for(String s : vlcOptions)
+			System.out.println(s);
+		
+		ProcessBuilder builder = new ProcessBuilder((String[]) vlcOptions.toArray(new String[vlcOptions.size()]));
+		builder.redirectErrorStream(true);
+		final Process process = builder.start();
+
+		// Watch the process
+		watch(process);
+	}
+	
+
+	
+	private static void watch(final Process process) {
+	    new Thread() {
+	        public void run() {
+	            BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
+	            String line = null; 
+	            try {
+	                while ((line = input.readLine()) != null) {
+	                    System.out.println(line);
+	                }
+	            } catch (IOException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }.start();
 	}
 }

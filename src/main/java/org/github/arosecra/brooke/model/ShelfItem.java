@@ -13,6 +13,8 @@ public class ShelfItem {
 	private File thumbnail;
 	private File folder;
 	
+	public ShelfItem() {}
+	
 	public String getName() {
 		return name;
 	}
