@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 
 public class Main20 {
 	public static void main(String[] args) throws IOException {
@@ -17,7 +18,7 @@ public class Main20 {
 		
 		for(File file : remoteFiles) {
 			if(file.getName().endsWith(extension)) {
-				File english = new File(file.getParentFile(), "english.vtt");
+				File english = new File(file.getParentFile(), FilenameUtils.getBaseName(file.getName()) + ".mkv");
 				if(!english.exists())
 					System.out.println(file.getParentFile() + " is missing vtt");
 			}
