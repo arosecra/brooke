@@ -12,6 +12,7 @@ public class Main20 {
 	public static void main(String[] args) throws IOException {
 		
 		listItemsWithoutEnglishVtt(new File("\\\\drobo5n2\\public\\Anime"), "mp4");
+		listItemsWithoutEnglishVtt(new File("\\\\drobo5n2\\public\\Movies"), "mp4");
 
 	}
 

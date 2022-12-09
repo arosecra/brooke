@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.xml.bind.DatatypeConverter;
 
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
@@ -20,7 +19,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.aspectj.util.FileUtil;
 import org.github.arosecra.brooke.Settings;
 import org.github.arosecra.brooke.dao.LibraryDao;
@@ -121,6 +119,18 @@ public class BrookeService {
 		
 		Collection collection = getCollectionByName(collectionName);
 		File thumbnailFile = collection.getShelfItems().get(itemName).getThumbnail();
+		
+		if(!thumbnailFile.exists()) {
+			return DEFAULT_THUMBNAIL;
+		} else {
+			return FileUtils.readFileToByteArray(thumbnailFile);
+		}
+	}
+
+	public byte[] getLargeThumbnail(String collectionName, String catalogName, String categoryName, String itemName, int index) throws IOException {
+		ShelfItem shelfItem = this.getItemByName(collectionName, catalogName, categoryName, itemName);
+		
+		File thumbnailFile = new File(shelfItem.getFolder(), "large_thumbnail.png");
 		
 		if(!thumbnailFile.exists()) {
 			return DEFAULT_THUMBNAIL;
@@ -305,6 +315,10 @@ public class BrookeService {
 		System.out.println(shelfItem.getFolder());
 		
 		File vlcOptionsFile = new File(shelfItem.getFolder(), "vlcOptions.txt");
+		if(!shelfItem.getChildItems().isEmpty()) {
+			vlcOptionsFile = new File(shelfItem.getChildItems().get(index).getFolder(), "vlcOptions.txt");
+		}
+		
 		List<String> vlcOptions = new ArrayList<>();
 		vlcOptions.add("cmd.exe");
 		vlcOptions.add("/C");
@@ -316,8 +330,8 @@ public class BrookeService {
 			vlcOptions.addAll(lines);
 		}
 		
-		//--sub-track-id=
-		//--audio-track-id=
+		//:sub-track-id=
+		//:audio-track-id=
 		for(String s : vlcOptions)
 			System.out.println(s);
 		

@@ -1,8 +1,9 @@
 package org.github.arosecra.brooke.controllers;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.github.arosecra.brooke.model.Button;
 import org.github.arosecra.brooke.model.ButtonSet;
@@ -88,6 +89,16 @@ public class BrookeController {
 		return brookeService.getThumbnail(collectionName, categoryName, itemName);
 	}
 	
+	@GetMapping(value="/largethumbnail/{collectionName}/{catalogName}/{categoryName}/{itemName}", produces = MediaType.IMAGE_PNG_VALUE)
+	@ResponseBody
+	public byte[] getLargeThumbnail(Model model, 
+			@PathVariable(name="collectionName") String collectionName,
+			@PathVariable(name="catalogName") String catalogName, 
+			@PathVariable(name="categoryName") String categoryName,
+			@PathVariable(name="itemName") String itemName) throws IOException {
+		return brookeService.getLargeThumbnail(collectionName, catalogName, categoryName, itemName, 0);
+	}
+	
 	@PostMapping(value="/addtoc/{collectionName}/{catalogName}/{categoryName}/{itemName}")
 	public String addToC(Model model, 
 			@PathVariable(name="collectionName") String collectionName,
@@ -102,7 +113,9 @@ public class BrookeController {
 		"/shelfitem/{collectionName}/{catalogName}/{categoryName}/{itemName}",
 		"/shelfitem/{collectionName}/{catalogName}/{categoryName}/{itemName}/{pageNo}"
 	})
-	public String openShelfItem(Model model, 
+	public String openShelfItem(Model model,
+			HttpServletRequest  request,
+			HttpServletResponse response,
 			@PathVariable(name="collectionName") String collectionName,
 			@PathVariable(name="catalogName") String catalogName, 
 			@PathVariable(name="categoryName") String categoryName,
@@ -156,41 +169,19 @@ public class BrookeController {
 		
 		if(result.equals("video")) {
 			brookeService.openVLC(collectionName, catalogName, categoryName, itemName, 0);
-			
-//			ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/C", "\"C:\\Program Files\\VideoLAN\\VLC\\vlc.exe\"", "file://drobo5n2/public/Anime/A/Akashic_Records/Akashic_Records_01/Akashic_Records_01.mp4");
-//			builder.redirectErrorStream(true);
-//			final Process process = builder.start();
-//
-//			// Watch the process
-//			watch(process);
-			
-//			Runtime.getRuntime().exec();
-			return getCatalogHome(model, collectionName, catalogName, categoryName);
+			response.sendRedirect(request.getHeader("Referer"));
+			return null;
 		} else {
 			return result;
 		}
-	}
-	
-	private static void watch(final Process process) {
-	    new Thread() {
-	        public void run() {
-	            BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
-	            String line = null; 
-	            try {
-	                while ((line = input.readLine()) != null) {
-	                    System.out.println(line);
-	                }
-	            } catch (IOException e) {
-	                e.printStackTrace();
-	            }
-	        }
-	    }.start();
 	}
 	
 	@GetMapping(value={
 		"/childshelfitem/{collectionName}/{catalogName}/{categoryName}/{itemName}/{index}"
 	})
 	public String openChildShelfItem(Model model, 
+			HttpServletRequest  request,
+			HttpServletResponse response,
 			@PathVariable(name="collectionName") String collectionName,
 			@PathVariable(name="catalogName") String catalogName, 
 			@PathVariable(name="categoryName") String categoryName,
@@ -216,8 +207,9 @@ public class BrookeController {
 		model.addAttribute("index", index);
 		
 		if(result.equals("video")) {
-			brookeService.openVLC(collectionName, catalogName, categoryName, itemName, 0);
-			return openShelfItem(model, collectionName, catalogName, categoryName, itemName, null);
+			brookeService.openVLC(collectionName, catalogName, categoryName, itemName, index);
+			response.sendRedirect(request.getHeader("Referer"));
+			return null;
 		} else {
 			return result;
 		}

@@ -172,6 +172,7 @@ public class ExtractPDFs implements BrookeJobStep {
 		}
 		jss.endAndPrint();
 	}
+	
 	public static BufferedImage rotate90(BufferedImage image) {
         final double rads = Math.toRadians(90);
         final double sin = Math.abs(Math.sin(rads));

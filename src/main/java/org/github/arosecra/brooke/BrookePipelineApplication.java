@@ -36,6 +36,7 @@ public class BrookePipelineApplication {
 		JOBS.put("CREATE_CBT_THUMBNAIL", new CreateCbtThumbnail());
 		JOBS.put("CREATE_PDF_THUMBNAIL", new CreateCbtThumbnail(500));
 		JOBS.put("CREATE_MOVIE_THUMBNAIL", new CreateCbtThumbnail(700));
+		JOBS.put("CREATE_LARGE_MOVIE_THUMBNAIL", new CreateCbtThumbnail(1400, "large_thumbnail.png"));
 		JOBS.put("DESKEW", new Deskew());
 		JOBS.put("CONVERT_TO_WEBP", new ConvertToWebp());
 		JOBS.put("CONVERT_TO_WEBP_RAW", new ConvertToWebp("_RAW.tar"));
@@ -85,12 +86,14 @@ public class BrookePipelineApplication {
 		while (continueSteps && i < collection.getPipeline().length) {
 			String pipelineStep = collection.getPipeline()[i];
 			BrookeJobStep step = JOBS.get(pipelineStep);
-			if (step.required(remoteDir)) {
-				if (step.isManual()) {
-					continueSteps = false;
-				} else {
-					System.out.println("Executing " + pipelineStep + " on " + remoteDir.remoteFolder.getName());
-					executeStep(remoteDir, pipelineStep, step);
+			if(step != null) {
+				if (step.required(remoteDir)) {
+					if (step.isManual()) {
+						continueSteps = false;
+					} else {
+						System.out.println("Executing " + pipelineStep + " on " + remoteDir.remoteFolder.getName());
+						executeStep(remoteDir, pipelineStep, step);
+					}
 				}
 			}
 			i++;
@@ -151,11 +154,13 @@ public class BrookePipelineApplication {
 				
 				for (String pipelineStep : collection.getPipeline()) {
 					BrookeJobStep step = JOBS.get(pipelineStep);
-					if (step.required(folder)) {
-						foldersToProcess.get(collection.getName()).add(folder);
-					}
-					if (remoteParentDir != null && step.required(parentFolder)) {
-						foldersToProcess.get(collection.getName()).add(parentFolder);
+					if(step != null) {
+						if (step.required(folder)) {
+							foldersToProcess.get(collection.getName()).add(folder);
+						}
+						if (remoteParentDir != null && step.required(parentFolder)) {
+							foldersToProcess.get(collection.getName()).add(parentFolder);
+						}
 					}
 				}
 			}

@@ -20,13 +20,15 @@ import org.apache.commons.io.IOUtils;
 public class CreateCbtThumbnail implements BrookeJobStep {
 
 	private int desiredWidth = 250;
+	private String outputFilename = "thumbnail.png";
 
 	public CreateCbtThumbnail() { }
 	public CreateCbtThumbnail(int width) {
 		desiredWidth  = width;
 	}
-	public CreateCbtThumbnail(int width, String variant) {
+	public CreateCbtThumbnail(int width, String outputFilename) {
 		desiredWidth  = width;
+		this.outputFilename = outputFilename;
 	}
 
 	@Override
@@ -34,7 +36,7 @@ public class CreateCbtThumbnail implements BrookeJobStep {
 		boolean thumbnailExists = false;
 		boolean tarExists = false;
 		for(File file : folder.remoteFiles) {
-			if(file.getName().equals("thumbnail.png"))
+			if(file.getName().equals(outputFilename))
 				thumbnailExists = true;
 			if(file.getName().endsWith("_RAW.tar"))
 				tarExists = true;
@@ -46,7 +48,7 @@ public class CreateCbtThumbnail implements BrookeJobStep {
 	public void execute(JobFolder folder) throws IOException {
 		System.out.println("Creating thumbnail for " + folder.workFolder.getName());
 		if(required(folder)) {
-			File thumbnailFile = new File(folder.workFolder, "thumbnail.png");
+			File thumbnailFile = new File(folder.workFolder, outputFilename);
 			File remoteTarFile = null;
 			for(File file : folder.remoteFiles) {
 				if(file.getName().endsWith("_RAW.tar")) {

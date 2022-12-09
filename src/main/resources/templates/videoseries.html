@@ -3,13 +3,28 @@
 <head th:replace="../fragments/head :: head"></head>
 <body>
 
-<table class="table">
-  <tbody>
-    <tr th:each="childItem,childItemStatus : ${childItems}">
-      <td><a th:href="|/childshelfitem/${collection.name}/${catalog.name}/${category.name}/${item.name}/${childItemStatus.index}|" th:text="${childItem.name}"></a></td>
-    </tr>
-  </tbody>
-</table>
+<div class="tile is-ancestor">
+	<div class="tile  is-vertical is-3">
+		<div class="tile is-child box">
+			
+			<div class="tab-content tile is-child box">
+				<div class="tab-pane" style="display:block">
+					<ul >
+				      		<li th:each="childItem,childItemStatus : ${childItems}">
+						      <a th:href="|/childshelfitem/${collection.name}/${catalog.name}/${category.name}/${item.name}/${childItemStatus.index}|" th:text="${childItem.name}"></a>
+						    </li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tile">
+		<div class="tile is-child box">
+			<img class="is-fullwidth " th:src="|/largethumbnail/${collection.name}/${catalog.name}/${category.name}/${item.name}|">
+		</div>
+	</div>
+</div>
+
 
 </body>
 </html>

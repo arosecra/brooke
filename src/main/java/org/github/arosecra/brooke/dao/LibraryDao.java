@@ -95,7 +95,7 @@ public class LibraryDao {
 							cat.getItems().add(si);
 							si.addCategory(cat);
 						} else
-							System.out.println(result.getName() + " could not find " + file.getName());
+							System.out.println(result.getName() + " could not find shelf item for " + file.getName());
 					}
 				}
 			} else {
