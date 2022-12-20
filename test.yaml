@@ -1,0 +1,613 @@
+name: Anime
+remoteDirectory: \\\\drobo5n2\\public\\Anime
+localDirectory: D:\\Library\\Anime Repository
+itemExtension: mkv
+excludeExtensions:
+  - mp4
+  - pdf
+  - tar
+openType: video
+autoGenerateAlphaCategories: false
+pipelineSteps:
+  - ITEMIZE MKV FOLDER
+  - EXTRACT SLEEVE PDF
+  - CREATE MOVIE THUMBNAIL
+  - CREATE LARGE MOVIE THUMBNAIL
+
+categories:
+  - name: 0
+    items: 
+      - name: 5 Centimeters Per Second
+        vlcOptions:
+          audioTrack: 1
+          subtitleTrack: 4
+      - name: 7 Seeds 01
+      - name: 7 Seeds 02
+  - name: A
+    items: 
+      - name: Ajin 01
+      - name: Ajin 02
+      - name: Akashic Records
+      - name: Angel Beats
+      - name: Appleseed XIII 02 Duranos and Tartaros
+      - name: Appleseed XIII 03 Alpha
+      - name: Armitage
+      - name: Astra Lost in Space
+      - name: Azumanga Daioh 01
+      - name: Azumanga Daioh 02
+      - name: Azumanga Daioh 03
+      - name: Azumanga Daioh 04
+      - name: Azumanga Daioh 05
+  - name: B
+    items: 
+      - name: Baccano
+      - name: Banished from the Heros Party
+      - name: Belle
+      - name: Ben To
+      - name: Berserk 01
+      - name: Berserk 02
+      - name: Berserk 03
+      - name: Berserk 04
+      - name: Beyond the Boundary 01
+      - name: Beyond the Boundary 02
+      - name: Black Cat
+      - name: Black Lagoon 01
+      - name: Black Lagoon 02
+      - name: Black Lagoon Robertas Blood
+      - name: Blame!
+      - name: Bofuri
+        series: true
+        brookeOptions:
+          reverseOrder: false
+        vlcOptions:
+          audioTrack: 3
+          subtitleTrack: 4
+        childItems:
+          - name: Bofuri 01
+            vlcOptions:
+              audioTrack: 3
+              subtitleTrack: 4
+      - name: Boogie Pop Phantom 01
+      - name: Boogie Pop Phantom 02
+      - name: Boogie Pop Phantom 03
+      - name: Boogie Pop Phantom 04
+      - name: Book of Bantora 01
+      - name: Book of Bantora 02
+      - name: Boy and the Beast
+      - name: Bunny Drop
+      - name: Bunny Drop Live Action
+  - name: C
+    items:
+      - name: C Control
+      - name: Castle in the Sky
+      - name: Cat Returns
+      - name: Chaos Head 01
+      - name: Chaos Head 02
+      - name: Children who Chase Lost Voices
+      - name: Chrome Shelled Regios 01
+      - name: Chrome Shelled Regios 02
+      - name: Chrome Shelled Regios 03
+      - name: Chrome Shelled Regios 04
+      - name: Clockwork Planet
+      - name: Code Geass 01 01
+      - name: Code Geass 01 02
+      - name: Code Geass 01 03
+      - name: Code Geass 01 04
+      - name: Code Geass 01 05
+      - name: Code Geass 01 06
+      - name: Code Geass 02 01
+      - name: Code Geass 02 02
+      - name: Code Geass 02 03
+      - name: Code Geass 02 04
+      - name: Code Geass 03
+      - name: Code Geass 04 Resurrection
+      - name: Code Geass 05 Akito
+      - name: Colorful
+      - name: Coppelion
+      - name: Cowboy Bebop
+  - name: D
+    items: 
+      - name: Dan Machi 01
+      - name: Dan Machi 02
+      - name: Dan Machi 03
+      - name: Dan Machi 04
+      - name: Dan Machi 05
+      - name: Dan Machi Arrow of Orion
+      - name: Darker than Black 01
+      - name: Darker than Black 02
+      - name: Darling in the Fraxx 01
+      - name: Darling in the Fraxx 02
+      - name: Demon King Daimao
+      - name: Desert Punk
+      - name: Devil is a Part Timer
+      - name: Dot Hack Liminality
+      - name: Dot Hack SIGN
+  - name: E
+    items:
+      - name: Eden of the East 01
+      - name: Eden of the East 02 King of Eden
+      - name: Eden of the East 03 Paradise Lost
+      - name: Elfen Lied 01
+      - name: Elfen Lied 02
+      - name: Elfen Lied 03
+      - name: Ergo Proxy 01
+      - name: Ergo Proxy 02
+      - name: Ergo Proxy 03
+      - name: Ergo Proxy 04
+      - name: Ergo Proxy 05
+      - name: Ergo Proxy 06
+      - name: Excel Saga
+  - name: F
+    items:
+      - name: Fireworks
+      - name: Flag 01
+      - name: Flag 02
+      - name: Flag 03
+      - name: Flag 04
+      - name: Fractal
+      - name: From Up on Poppy Hill
+      - name: Full Metal Panic 01
+      - name: Full Metal Panic 02 Fumoffu 01
+      - name: Full Metal Panic 02 Fumoffu 02
+      - name: Full Metal Panic 02 Fumoffu 03
+      - name: Full Metal Panic 03 Second Raid 01
+      - name: Full Metal Panic 03 Second Raid 02
+      - name: Full Metal Panic 03 Second Raid 03
+      - name: Full Metal Panic 03 Second Raid 04
+      - name: Full Metal Panic 04 Invisible Victory
+      - name: Fuuka
+  - name: Fairy Tail
+    items:
+      - name: Fairy Tail 001 012
+      - name: Fairy Tail 013 024
+      - name: Fairy Tail 025 036
+      - name: Fairy Tail 037 048
+      - name: Fairy Tail 049 060
+      - name: Fairy Tail 061 072
+      - name: Fairy Tail 073 084
+      - name: Fairy Tail 085 096
+      - name: Fairy Tail 097 108
+      - name: Fairy Tail 109 120
+      - name: Fairy Tail 121 131
+      - name: Fairy Tail 132 142
+      - name: Fairy Tail 143 153
+      - name: Fairy Tail 154 164
+      - name: Fairy tail 165 175
+      - name: Fairy Tail 176 187
+      - name: Fairy Tail 188 199
+      - name: Fairy Tail 200 212
+      - name: Fairy Tail 213 226
+      - name: Fairy Tail 227 239
+      - name: Fairy Tail 240 252
+      - name: Fairy Tail 253 265
+      - name: Fairy Tail Zero
+      - name: Fairy Tail 278 290
+      - name: Fairy Tail 291 303
+      - name: Fairy Tail 304 316
+      - name: Fairy Tail 317 328
+      - name: Fairy Tail Dragon Cry
+      - name: Fairy Tail The Phoenix Priestess
+  - name: G
+    items: 
+      - name: Gankutsuou Count of Monte Cristo 01
+      - name: Gankutsuou Count of Monte Cristo 02
+      - name: Gankutsuou Count of Monte Cristo 03
+      - name: Gankutsuou Count of Monte Cristo 04
+      - name: Gankutsuou Count of Monte Cristo 05
+      - name: Gankutsuou Count of Monte Cristo 06
+      - name: Garden of Words
+      - name: Gargantia
+      - name: Get Backers
+      - name: Gintama 01
+      - name: Gintama 02
+      - name: Gintama 03
+      - name: Gintama 04
+      - name: Gintama The Movie
+      - name: Girl Who Leapt Through Time
+      - name: Glass Fleet 01
+      - name: Glass Fleet 02
+      - name: Grave of Fireflies
+      - name: Grimgar
+  - name: Ghost in the Shell
+    items:
+      - name: Ghost in the Shell 01
+      - name: Ghost in the Shell 01 2.0
+      - name: Ghost in the Shell 02 Innocence
+      - name: Ghost in the Shell 03 Solid State Society
+      - name: Ghost in the Shell 04 The New Movie
+      - name: Ghost in the Shell Arise 01
+      - name: Ghost in the Shell Arise 02
+      - name: Ghost in the Shell Arise 03
+      - name: Ghost in the Shell Arise 04
+      - name: Ghost in the Shell SAC 01 01
+      - name: Ghost in the Shell SAC 01 02
+      - name: Ghost in the Shell SAC 01 03
+      - name: Ghost in the Shell SAC 01 04
+      - name: Ghost in the Shell SAC 01 05
+      - name: Ghost in the Shell SAC 01 06
+      - name: Ghost in the Shell SAC 01 07
+      - name: Ghost in the Shell SAC 01 OVA The Laughing Man
+      - name: Ghost in the Shell SAC 02 01
+      - name: Ghost in the Shell SAC 02 02
+      - name: Ghost in the Shell SAC 02 03
+      - name: Ghost in the Shell SAC 02 04
+      - name: Ghost in the Shell SAC 02 05
+      - name: Ghost in the Shell SAC 02 06
+      - name: Ghost in the Shell SAC 02 07
+      - name: Ghost in the Shell SAC 02 OVA Individual Eleven
+  - name: Gundam
+    items: 
+      - name: Gundam Iron Blooded Orphens 01
+      - name: Gundam Iron Blooded Orphens 02
+      - name: Gundam OO 01
+      - name: Gundam OO 02
+      - name: Gundam OO 03
+      - name: Gundam OO 04
+      - name: Gundam OO A Wakening of the Trailblazer
+      - name: Gundam SEED 01 01
+      - name: Gundam SEED 01 02
+      - name: Gundam SEED 01 03
+      - name: Gundam SEED 01 04
+      - name: Gundam SEED 01 05
+      - name: Gundam SEED 01 06
+      - name: Gundam SEED 01 07
+      - name: Gundam SEED 01 08
+      - name: Gundam SEED 01 09
+      - name: Gundam SEED 01 10
+      - name: Gundam SEED 02 01
+      - name: Gundam SEED 02 02
+      - name: Gundam SEED 02 03
+      - name: Gundam SEED 02 04
+      - name: Gundam SEED 02 05
+      - name: Gundam SEED 02 06
+      - name: Gundam SEED 02 07
+      - name: Gundam SEED 02 08
+      - name: Gundam SEED 02 09
+      - name: Gundam SEED 02 10
+      - name: Gundam SEED 02 11
+      - name: Gundam SEED 02 12
+      - name: Gundam SEED Destiny Final Plus
+      - name: Gundam SEED The Rumbling Sky
+      - name: Gundam Wing 01
+      - name: Gundam Wing 02
+      - name: Gundam Wing Endless Waltz
+  - name: H
+    items:
+      - name: Haganai 01
+      - name: Haganai 02
+      - name: Haibane Renmei
+      - name: Haikyuu 01
+      - name: Haikyuu 02
+      - name: Haikyuu 03
+      - name: Hal
+      - name: Hello World
+      - name: Hellsing 01 01
+      - name: Hellsing 01 02
+      - name: Hellsing 01 03
+      - name: Hellsing 01 04
+      - name: High School of the Dead
+      - name: Hinamatsuri
+      - name: Howls Moving Castle
+      - name: Humanity has Declined
+  - name: I
+    items: 
+      - name: In This Corner of the World
+      - name: In Another World with My Smartphone
+        vlcOptions:
+          audioTrack: 1
+          subtitleTrack: 6
+      - name: Interviews with Monster Girls
+  - name: J
+    items:
+      - name: Jormungand 01
+      - name: Jormungand 02
+  - name: K
+    items:
+      - name: K On 01
+      - name: K On 02
+      - name: K On 03
+      - name: Kai Doh Maru
+      - name: Kikis Delivery Service
+      - name: Kill Me Baby
+      - name: Kinos Journey 01
+      - name: Kinos Journey 02
+      - name: Kinos Journey 03
+      - name: Kinos Journey 04
+      - name: Kokoro Connect
+        vlcOptions:
+          subtitleTrack: 7
+      - name: Konosuba 01
+      - name: Konosuba 02
+      - name: Kore Wa Zombie Desu Ka 01
+      - name: Kore Wa Zombie Desu Ka 02
+      - name: Kurau 01
+      - name: Kurau 02
+      - name: Kurau 03
+      - name: Kurau 04
+      - name: Kurau 05
+      - name: Kurau 06
+  - name: L
+    items:
+      - name: Legend of the Legendary Heroes
+      - name: Liz and the Blue Bird
+      - name: Love Hina 01
+      - name: Love Hina 02
+  - name: Last Exile
+    items:
+      - name: Last Exile 01 01
+      - name: Last Exile 01 02
+      - name: Last Exile 01 03
+      - name: Last Exile 01 04
+      - name: Last Exile 01 05
+      - name: Last Exile 01 06
+      - name: Last Exile 01 07
+      - name: Last Exile 02 01
+      - name: Last Exile 02 02
+  - name: Log Horizon
+    items: 
+      - name: Log Horizon 01
+      - name: Log Horizon 02
+      - name: Log Horizon 03
+      - name: Log Horizon 04
+      - name: Log Horizon 05
+        vlcOptions:
+          audioTrack: 1
+          subtitleTrack: 6
+  - name: M
+    items:
+      - name: Maid Sama
+      - name: March Comes in Like a Lion 01
+      - name: March Comes in Like a Lion 02
+      - name: Mary and the Witchs Flower
+      - name: Mayou
+      - name: Metropolis
+      - name: Mirai
+      - name: Miss Hokusai
+      - name: Miss Kobayashi
+      - name: Mitsuboshi Colors
+      - name: Moribito
+      - name: My Neighbor Totoro
+  - name: Monogatari
+    items:
+      - name: Monogatari 01 Bakemonogatari 01
+      - name: Monogatari 01 Bakemonogatari 02
+      - name: Monogatari 01 Bakemonogatari 03
+      - name: Monogatari 02 Nisemonogatari 01
+      - name: Monogatari 02 Nisemonogatari 02
+      - name: Monogatari 02 Nisemonogatari 03
+      - name: Monogatari 03 Nekomonogatari Black
+      - name: Monogatari 04 Nekomonogatari White
+      - name: Monogatari 05 Kabukimonogatari
+      - name: Monogatari 06 Hanamonogatari
+      - name: Monogatari 07 Otorimonogatari
+      - name: Monogatari 08 Onimonogatari
+      - name: Monogatari 09 Koimonogatari
+      - name: Monogatari 10 Tsukimonogatari
+      - name: Monogatari 11 Owarimonogatari 01
+      - name: Monogatari 11 Owarimonogatari 02
+      - name: Monogatari 11 Owarimonogatari 03
+      - name: Monogatari 12 Kizumonogatari 01
+      - name: Monogatari 12 Kizumonogatari 02
+      - name: Monogatari 12 Kizumonogatari 03
+      - name: Monogatari 13 Koyomimonogatar
+  - name: N
+    items:
+      - name: Nausicaa of the Valley of the Wind
+      - name: Negima
+      - name: Nichijou
+      - name: Nisekoi
+      - name: Noir 01
+      - name: Noir 02
+      - name: Noir 03
+      - name: Noir 04
+      - name: Noir 05
+      - name: Noir 06
+      - name: Noir 07
+  - name: O
+    items: 
+      - name: Okkos Inn
+      - name: Only Yesterday
+      - name: Ore Monogatari
+      - name: Origin
+      - name: Outlaw Star
+  - name: P
+    items:
+      - name: Paprika
+      - name: Patema Inverted
+      - name: Penguin Highway
+      - name: Phantom 01
+      - name: Phantom 02
+      - name: Phantom 03
+      - name: Phantom 04
+      - name: Place Promised in our Early Days
+      - name: Pom Poko
+      - name: Ponyo
+      - name: Porco Rosso
+      - name: Princess Monoke
+      - name: Psycho Pass 01
+      - name: Psycho Pass 02
+      - name: Psycho Pass 03
+  - name: R
+    items: 
+      - name: Read Or Die
+      - name: Ride Your Wave
+      - name: Robotech Shadow Chronicles
+      - name: Robotics Notes 01
+      - name: Robotics Notes 02
+  - name: S
+    items:
+      - name: Sacred Blacksmith
+      - name: Saga Of Tanya The Evil
+      - name: Samurai 7
+      - name: Samurai Champloo 01
+      - name: Samurai Champloo 02
+      - name: Samurai Champloo 03
+      - name: Samurai Champloo 04
+      - name: Samurai Champloo 05
+      - name: Samurai Champloo 06
+      - name: Samurai Champloo 07
+      - name: Sands of Destruction
+      - name: Secret World of Arrietty
+      - name: Seikai 01 Crest of the Stars
+      - name: Seikai 02 Banner of the Stars
+      - name: Serial Experiments Lain
+      - name: Shangi La 01
+      - name: Shangi La 02
+      - name: Silent Voice
+      - name: Sky Crawlers
+      - name: Sound of the Sky 01
+      - name: Sound of the Sky 02
+      - name: Sound of the Sky 03
+      - name: Sound of the Sky 04
+      - name: Spice and Wolf 01
+      - name: Spice and Wolf 02
+      - name: Spirited Away
+      - name: Steamboy
+      - name: Steins;Gate 0 01
+      - name: Steins;Gate 0 02
+      - name: Steins;Gate 1 01
+      - name: Steins;Gate 1 02
+      - name: Steins Gate Movie
+      - name: Strike Witches
+      - name: Summer Wars
+      - name: Sword of the Stranger
+  - name: Slayers
+    items:
+      - name: Slayers 01
+      - name: Slayers 02 Next
+      - name: Slayers 03 Try
+      - name: Slayers 04 Book of Spells
+      - name: Slayers 05 Excellent
+      - name: Slayers 06 Perfect
+      - name: Slayers 07 Return
+      - name: Slayers 08 Great
+      - name: Slayers 09 Gorgeous
+      - name: Slayers 10 Premium
+      - name: Slayers 11 Revolution
+      - name: Slayers 12 Evolution R
+  - name: Sword Art Online
+    items:
+      - name: Sword Art Online 01
+      - name: Sword Art Online 02 01
+      - name: Sword Art Online 02 02
+      - name: Sword Art Online 02 03
+      - name: Sword Art Online 02 04
+      - name: Sword Art Online 03 01
+      - name: Sword Art Online 03 02
+      - name: Sword Art Online Extra Edition
+      - name: Sword Art Online Ordinal Scale
+  - name: T
+    items:
+      - name: Tale of Princess Kaguya
+      - name: Tenchi Muyou War on Geminar 01
+      - name: Tenchi Muyou War on Geminar 02
+      - name: Texhnolyze
+      - name: That Time I Was Reincarnated As A Slime 01
+        vlcOptions:
+          audioTrack: 1
+          subtitleTrack: 4
+      - name: That Time I Was Reincarnated As A Slime 02
+        vlcOptions:
+          audioTrack: 1
+          subtitleTrack: 4
+      - name: That Time I Was Reincarnated As A Slime 03
+        vlcOptions:
+          audioTrack: 1
+          subtitleTrack: 6
+      - name: That Time I Was Reincarnated As A Slime 04
+        vlcOptions:
+          audioTrack: 1
+          subtitleTrack: 6
+      - name: Those Who Hunt Elves 01
+      - name: Those Who Hunt Elves 02
+      - name: Those Who Hunt Elves 03
+      - name: Those Who Hunt Elves 04
+      - name: Time of Eve
+      - name: Toward the Terra 01
+        vlcOptions:
+          audioTrack: 2
+          subtitleTrack: 3
+      - name: Toward the Terra 02
+        vlcOptions:
+          audioTrack: 2
+          subtitleTrack: 3
+      - name: Toward the Terra 03
+        vlcOptions:
+          audioTrack: 2
+          subtitleTrack: 3
+      - name: Toward the Terra 04
+        vlcOptions:
+          audioTrack: 2
+          subtitleTrack: 3
+      - name: Toward the Terra 05
+        vlcOptions:
+          audioTrack: 2
+          subtitleTrack: 3
+      - name: Toward the Terra 06
+        vlcOptions:
+          audioTrack: 2
+          subtitleTrack: 3
+      - name: Toward the Terra 07
+        vlcOptions:
+          audioTrack: 2
+          subtitleTrack: 3
+      - name: Tower Of Druaga
+      - name: To Loveru 01
+      - name: To Loveru 02
+      - name: Trigun 01
+      - name: Trigun 02
+      - name: Trigun Badlands Rumble
+      - name: Tsubasa 01
+      - name: Tsubasa 02
+      - name: Tsubasa 03
+      - name: Tsukigakirei
+      - name: Twelve Kingdoms 01
+      - name: Twelve Kingdoms 02
+      - name: Twelve Kingdoms 03
+      - name: Twelve Kingdoms 04
+      - name: Twelve Kingdoms 05
+      - name: Twelve Kingdoms 06
+      - name: Twelve Kingdoms 07
+      - name: Twelve Kingdoms 08
+      - name: Twelve Kingdoms 09
+      - name: Twelve Kingdoms 10
+  - name: Toaru
+    items:
+      - name: Toaru Raildex 01 Index 01
+      - name: Toaru Raildex 01 Index 02
+      - name: Toaru Raildex 02 Railgun 01
+      - name: Toaru Raildex 02 Railgun 02
+      - name: Toaru Raildex 03 Index 02 01
+      - name: Toaru Raildex 03 Index 02 02
+      - name: Toaru Raildex 04 Railgun 02 01
+      - name: Toaru Raildex 04 Railgun 02 02
+      - name: Toaru Raildex 05 Index 03 01
+      - name: Toaru Raildex 05 Index 03 02
+      - name: Toaru Raildex 06 Accelerator 01
+      - name: Toaru Raildex 07 Railgun 03
+      - name: Toaru Raildex 08 Railgun 04
+      - name: Toaru Miracle of Endymion
+  - name: UVWXYZ
+    items: 
+      - name: Utaware
+      - name: Violet Evergarden 01
+      - name: Violet Evergarden 02 Eternity and the Auto Memory Doll
+      - name: Voices of a Distant Star
+      - name: Weathering With You
+      - name: When Marnie was There
+      - name: Wind Rises
+      - name: Wisemans Grandchild
+        vlcOptions:
+          audioTrack: 1
+          subtitleTrack: 6
+      - name: Witch Hunter Robin
+      - name: Wolf's Rain 01
+      - name: Wolf's Rain 02
+      - name: Wolf Children
+      - name: World End
+      - name: X
+      - name: Xxxholic
+      - name: Your Lie in April 01
+      - name: Your Lie in April 02
+      - name: Your Lie in April Live Action
+      - name: Your Name

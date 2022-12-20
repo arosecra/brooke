@@ -30,6 +30,7 @@ import org.github.arosecra.brooke.model.Collection;
 import org.github.arosecra.brooke.model.Library;
 import org.github.arosecra.brooke.model.ShelfItem;
 import org.github.arosecra.brooke.model.ToCEntry;
+import org.github.arosecra.brooke.util.CommandLine;
 import org.github.arosecra.brooke.util.Try;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -227,6 +228,8 @@ public class BrookeService {
 			File local = new File(collection.getLocalDirectory());
 			File remote = new File(collection.getRemoteDirectory());
 			
+//			System.out.println("Synchronizing " + collection.getName());
+			
 			//for each remote file, compute the local spot for it
 			//  create a .item file there if the file doesn't exist
 			//  copy all other files
@@ -234,7 +237,8 @@ public class BrookeService {
 			for(File file : FileUtils.listFiles(remote, new String[] {collection.getItemExtension()}, true)) {
 				
 				String relativePath = file.getAbsolutePath().substring(remote.getAbsolutePath().length());
-//				System.out.println(relativePath);
+//				if(collection.getName().contains("Movies"))
+//					System.out.println(relativePath);
 				File localFile = new File(local, relativePath);
 				if(!localFile.exists()) {
 					localFile.getParentFile().mkdirs();
@@ -359,5 +363,43 @@ public class BrookeService {
 	            }
 	        }
 	    }.start();
+	}
+
+
+	public void copyForTablet(String collectionName, String catalogName, String categoryName, String itemName) throws IOException {
+		File tempSsdFolder = new File("C:\\scans\\temp");
+		File unzippedFolder = new File(tempSsdFolder, itemName);
+		unzippedFolder.mkdirs();
+		Collection collection = getCollectionByName(collectionName);
+		
+		File remoteFolder = getRemoteItemFolder(collection, categoryName, itemName, 0);
+		File remoteFile = new File(remoteFolder, itemName + "_PNG.tar");
+		
+		FileUtils.copyFileToDirectory(remoteFile, tempSsdFolder);
+		File localSourceFile = new File(tempSsdFolder, remoteFile.getName());
+		File localCbzFile = new File(tempSsdFolder.getAbsolutePath(), itemName + ".cbz");
+		
+		CommandLine.run(new String[] {
+				"D:\\software\\7za\\7za.exe", 
+				"e", 
+				"-o" + unzippedFolder.getAbsolutePath(),
+				localSourceFile.getAbsolutePath()	
+		});
+		
+		
+		CommandLine.run(new String[] {
+				"D:\\software\\7za\\7za.exe", 
+				"a", 
+				"-tzip", 
+				"-o" + unzippedFolder.getAbsolutePath(),
+				localCbzFile.getAbsolutePath(), 
+				unzippedFolder.getAbsolutePath() + "\\*.png"		
+			});
+		
+		FileUtils.copyFileToDirectory(localCbzFile, new File("\\\\drobo5n\\Public\\Scans\\ForTablet"));
+		FileUtils.deleteDirectory(unzippedFolder);
+		FileUtils.delete(localSourceFile);
+		FileUtils.delete(localCbzFile);
+		System.out.println("Done copying new CBZ to tablet sync directory");
 	}
 }

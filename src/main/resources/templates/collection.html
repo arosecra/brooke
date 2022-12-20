@@ -57,8 +57,9 @@
 						</a>
 					</figure>
 					<div class="title is-size-5" >
-						<p th:if="${!item.local}" th:inline="text">(*)&nbsp[[${#strings.replace(item.name,'_',' ')}]]</p>
-						<p th:if="${item.local}"  th:text="${#strings.replace(item.name,'_',' ')}"></p>
+						<p th:text="${#strings.replace(item.name,'_',' ')}"></p>
+						<a th:href="|/shelfitem/${collection.name}/${catalog.name}/${category.name}/${item.name}/|" class="button is-small">Open</a>
+						<a th:href="|/shelfitem-to-cbt/${collection.name}/${catalog.name}/${category.name}/${item.name}/|" class="button is-small">CBZ</a>
 					</div>
 				</div>
 			</div>
