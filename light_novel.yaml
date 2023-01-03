@@ -1,0 +1,236 @@
+name: Light Novel
+remoteDirectory: \\\\drobo5n\\public\\Scans\\Light Novels Repository
+localDirectory: D:\\Library\\Light Novels Repository
+itemExtension: cbt
+excludeExtensions: 
+ - tar
+ - pdf
+openType: book
+pipelineSteps: 
+  - LIGHT NOVEL RENAME
+  - ITEMIZE PDF FOLDER
+  - EXTRACT BOOK PDF
+  - CREATE CBT THUMBNAIL
+  - DESKEW
+  - CONVERT TO WEBP
+  
+categories:
+  - name: Certain Magical Index
+    items:
+      -name: Certain Magical Index 01
+      -name: Certain Magical Index 02
+      -name: Certain Magical Index 03
+      -name: Certain Magical Index 04
+      -name: Certain Magical Index 05
+      -name: Certain Magical Index 06
+      -name: Certain Magical Index 07
+      -name: Certain Magical Index 08
+      -name: Certain Magical Index 09
+      -name: Certain Magical Index 10
+      -name: Certain Magical Index 11
+      -name: Certain Magical Index 12
+      -name: Certain Magical Index 13
+  - name: Ghost in the Shell
+    items:
+      -name: Ghost In the Shell 2 Innocence After the Long Goodbye
+      -name: Ghost In the Shell Sac Revenge of the Cold Machines
+      -name: Ghost In the Shell Sac White Maze
+      -name: Ghost In the Shell Sac the Lost Memory
+  - name: Haruhi Suzumiya
+    items:
+      -name: Haruhi Suzumiya 01 Melancholy
+      -name: Haruhi Suzumiya 02 Sigh
+      -name: Haruhi Suzumiya 03 Boredom
+      -name: Haruhi Suzumiya 04 Disappearance
+      -name: Haruhi Suzumiya 05 Rampage
+      -name: Haruhi Suzumiya 06 Wavering
+      -name: Haruhi Suzumiya 07 Intrigues
+      -name: Haruhi Suzumiya 08 Indignation
+      -name: Haruhi Suzumiya 09 Dissociation
+      -name: Haruhi Suzumiya 10 Surprise
+  - name: Irregular at Magic High School
+    items:
+      -name: Irregular at Magic High School 01
+      -name: Irregular at Magic High School 02
+      -name: Irregular at Magic High School 03
+      -name: Irregular at Magic High School 04
+      -name: Irregular at Magic High School 05
+      -name: Irregular at Magic High School 06
+      -name: Irregular at Magic High School 07
+      -name: Irregular at Magic High School 08
+      -name: Irregular at Magic High School 09
+      -name: Irregular at Magic High School 10
+      -name: Irregular at Magic High School 11
+      -name: Irregular at Magic High School 12
+      -name: Irregular at Magic High School 13
+      -name: Irregular at Magic High School 14
+      -name: Irregular at Magic High School 15
+      -name: Irregular at Magic High School 16
+      -name: Irregular at Magic High School 17
+      -name: Irregular at Magic High School 18
+      -name: Irregular at Magic High School 19
+      -name: Irregular at Magic High School 20
+  - name: Is it Wrong to Pick Up Girls in a Dungeon
+    items:
+      -name: Is it Wrong to Pick Up Girls in a Dungeon 01
+      -name: Is it Wrong to Pick Up Girls in a Dungeon 02
+      -name: Is it Wrong to Pick Up Girls in a Dungeon 03
+      -name: Is it Wrong to Pick Up Girls in a Dungeon 04
+      -name: Is it Wrong to Pick Up Girls in a Dungeon 05
+      -name: Is it Wrong to Pick Up Girls in a Dungeon 06
+      -name: Is it Wrong to Pick Up Girls in a Dungeon 07
+      -name: Is it Wrong to Pick Up Girls in a Dungeon 08
+      -name: Is it Wrong to Pick Up Girls in a Dungeon 09
+      -name: Is it Wrong to Pick Up Girls in a Dungeon 10
+      -name: Is it Wrong to Pick Up Girls in a Dungeon 11
+      -name: Is it Wrong to Pick Up Girls in a Dungeon 12
+      -name: Is it Wrong to Pick Up Girls in a Dungeon 13
+      -name: Is it Wrong to Pick Up Girls in a Dungeon 14
+      -name: Is it Wrong to Pick Up Girls in a Dungeon 15
+      -name: Is it Wrong to Pick Up Girls in a Dungeon 16
+      -name: Is it Wrong to Pick Up Girls in a Dungeon 17
+  - name: Kino no Tabi
+    items:
+      -name: Kino No Tabi 1
+  - name: Seikai
+    items:
+      -name: Seikai 1 Princess of the Empire
+      -name: Seikai 2 Modest War
+      -name: Seikai 3 Return To a Strange World
+      -name: Seikai CE 01 Crest of the Stars
+      -name: Seikai CE 02 Banner of the Stars 01
+      -name: Seikai CE 03 Banner of the Stars 02
+  - name: So I'm a Spider, So What
+    items:
+      -name: So Im a Spider So What 01
+      -name: So Im a Spider So What 02
+      -name: So Im a Spider So What 03
+      -name: So Im a Spider So What 04
+      -name: So Im a Spider So What 05
+      -name: So Im a Spider So What 06
+      -name: So Im a Spider So What 07
+      -name: So Im a Spider So What 08
+      -name: So Im a Spider So What 09
+      -name: So Im a Spider So What 10
+      -name: So Im a Spider So What 11
+      -name: So Im a Spider So What 12
+      -name: So Im a Spider So What 13
+      -name: So Im a Spider So What 14
+      -name: So Im a Spider So What 15
+  - name: Spice and Wolf
+    items:
+      -name: Spice and Wolf 01
+      -name: Spice and Wolf 02
+      -name: Spice and Wolf 03
+      -name: Spice and Wolf 04
+      -name: Spice and Wolf 05
+      -name: Spice and Wolf 06
+      -name: Spice and Wolf 07 Side Colors 1
+      -name: Spice and Wolf 08 Town of Strife 1
+      -name: Spice and Wolf 09 Town of Strife 2
+      -name: Spice and Wolf 10
+      -name: Spice and Wolf 11 Side Colors 2
+      -name: Spice and Wolf 12
+      -name: Spice and Wolf 13 Side Colors 3
+      -name: Spice and Wolf 14
+      -name: Spice and Wolf 15 Coin of the Sun 1
+      -name: Spice and Wolf 16 Coin of the Sun 2
+      -name: Spice and Wolf 17
+      -name: Spice and Wolf 18
+      -name: Spice and Wolf 19
+      -name: Spice and Wolf 20
+      -name: Spice and Wolf 21
+      -name: Spice and Wolf 22
+      -name: Spice and Wolf 23
+
+  - name: Sword Art Online
+    items:
+      -name: Sword Art Online 001 Aincrad
+      -name: Sword Art Online 002 Aincrad
+      -name: Sword Art Online 003 Fairy Dance
+      -name: Sword Art Online 004 Fairy Dance
+      -name: Sword Art Online 005 Phantom Bullet
+      -name: Sword Art Online 006 Phantom Bullet
+      -name: Sword Art Online 007 Mothers Rosary
+      -name: Sword Art Online 008
+      -name: Sword Art Online 09
+      -name: Sword Art Online 10
+      -name: Sword Art Online 11
+      -name: Sword Art Online 12
+      -name: Sword Art Online 13
+      -name: Sword Art Online 14
+      -name: Sword Art Online 15
+      -name: Sword Art Online 16
+      -name: Sword Art Online 17
+      -name: Sword Art Online 18
+      -name: Sword Art Online 19
+      -name: Sword Art Online 20
+      -name: Sword Art Online 21
+      -name: Sword Art Online 22
+      -name: Sword Art Online 23
+      -name: Sword Art Online 24
+      -name: Sword Art Online 25
+  - name: Sword Art Online Fanscans
+    items:
+      -name: Sword Art Online Accel World Crossover
+      -name: Sword Art Online Aria In The Starless N
+      -name: Sword Art Online Material Edition Compi
+      -name: Sword Art Online Sound Of Water, Sound
+      -name: Sword Art Online There Is But One Ultim
+      -name: Sword Art Online Volume 1 Aincrad
+      -name: Sword Art Online Volume 2 Aincrad
+      -name: Sword Art Online Volume 3 Fairy Dance
+      -name: Sword Art Online Volume 4 Fairy Dance
+      -name: Sword Art Online Volume 5 Phantom Bulle
+      -name: Sword Art Online Volume 6 Phantom Bulle
+      -name: Sword Art Online Volume 7 Mother's Rosa
+      -name: Sword Art Online Volume 8 Early And Lat
+      -name: Sword Art Online Volume 9 Alicization B
+  - name: Sword Art Online Progressive
+    items:
+      -name: Sword Art Online Progressive 001
+      -name: Sword Art Online Progressive 002
+      -name: Sword Art Online Progressive 003
+      -name: Sword Art Online Progressive 004
+      -name: Sword Art Online Progressive 005
+      -name: Sword Art Online Progressive 006
+      -name: Sword Art Online Progressive 007
+      -name: Sword Art Online Progressive 008
+  - name: That Time I Reincarnated as a Slime
+    items:
+      -name: That Time I Reincarnated as a Slime 01
+      -name: That Time I Reincarnated as a Slime 02
+      -name: That Time I Reincarnated as a Slime 03
+      -name: That Time I Reincarnated as a Slime 04
+      -name: That Time I Reincarnated as a Slime 05
+      -name: That Time I Reincarnated as a Slime 06
+      -name: That Time I Reincarnated as a Slime 07
+      -name: That Time I Reincarnated as a Slime 08
+      -name: That Time I Reincarnated as a Slime 09
+      -name: That Time I Reincarnated as a Slime 10
+      -name: That Time I Reincarnated as a Slime 11
+      -name: That Time I Reincarnated as a Slime 12
+      -name: That Time I Reincarnated as a Slime 13
+      -name: That Time I Reincarnated as a Slime 14
+      -name: That Time I Reincarnated as a Slime 15
+  - name: Twelve Kingdoms
+    items:
+      -name: Twelve Kingdoms 1 Sea of Shadow
+      -name: Twelve Kingdoms 2 Sea of Wind
+      -name: Twelve Kingdoms 3 Vast Spread of the Sea
+      -name: Twelve Kingdoms 4 Skies of Dawn
+  - name: Vampire Hunter D
+    items:
+      -name: Vampire Hunter D
+      -name: Vampire Hunter D Demon Deathchase
+      -name: Vampire Hunter D Raiser of Gales
+      -name: Vampire Hunter D the Stuff of Dreams
+
+  - name: Wolf and Parchment
+    items:
+      -name: Wolf and Parchment 01
+      -name: Wolf and Parchment 02
+      -name: Wolf and Parchment 03
+      -name: Wolf and Parchment 04
+      -name: Wolf and Parchment 05
+      -name: Wolf and Parchment 06

@@ -1,0 +1,1443 @@
+remoteDirectory: \\\\drobo5n\\public\\Scans\\Research Papers Repository
+localDirectory: D:\\Library\\Research Papers
+itemExtension: cbt
+excludeExtensions: 
+  - pdf
+  - tar
+openType: book
+autoGenerateAlphaCategories: true
+pipelineSteps: 
+  - ITEMIZE PDF FOLDER
+  - EXTRACT GENERAL PDF 
+  - CREATE PDF THUMBNAIL
+  - CONVERT TO WEBP RAW
+
+categories:
+    -name: 0
+    -items: 
+      -name: 10 Gram Microflyer For Vision Based In
+      -name: 2014 Guide to Continuous Delivery
+      -name: 2015 State Of DevOps Report
+      -name: 3D Field D Improved Path Planning And
+      -name: 3D Interface For An Unmanned Aerial Ve
+      -name: 3D Reconstruction From Sparse Views Usin
+      -name: 3D Site Mapping With The CMU Autonomous
+      -name: 3 Axis Accelerometer Controlled Robotic
+      -name: 3 D Depth Reconstruction From A Single S
+      -name: 6 DOF Nonlinear Simulation Of Vision Bas
+      -name: 90 Percent Perspiration Engineering Static Ana
+    -name: A
+    -items: 
+      -name: Abstracting A Specifcation From Code
+      -name: Abstracting Module Views From Source Cod
+      -name: Abstraction, Imagery, And Control In Cog
+      -name: Abstraction Abstracted
+      -name: Abstract Interpretation
+      -name: Abstract Interpretation Achievements An
+      -name: Abstract Interpretation A First Introduc
+      -name: Abstract Interpretation A Unified Latti
+      -name: Abstract Interpretation Based Framewo
+      -name: Abstract Interpretation Frameworks
+      -name: Abstract Slicing A New Approach To Prog
+      -name: Acausal Modelling Of Helicopter Dynamics
+      -name: Accelerating Asympotically Exact MCMC for Computationally Intensive Models via Local Approximations
+      -name: Accelerating XPath Location Steps
+      -name: Accelerating XPath Location Steps Slides
+      -name: Accuracy Enhancement Of Unmanned Helicop
+      -name: Achieving Flexibility And Generality In
+      -name: Achieving Real Time Object Detection And
+      -name: Actions And Other Events In Situation Ca
+      -name: Active Contours Without Edges Image Pr
+      -name: ADAGE Avionics Reference Architectur
+      -name: Adaptive Approach To The Vision Based
+      -name: Adaptive Control Using Combined Online A
+      -name: Adaptive Document Image Binarization
+      -name: Adaptive Flight Control For An Autonomou
+      -name: Adaptive Guidance And Control For Autono
+      -name: Adaptive Integrated Guidance And Contro
+      -name: Adaptive Neural Network Flight Control U
+      -name: Adaptive Online Program Analysis
+      -name: Adaptive Output Feedback Control Of A Cl
+      -name: Adaptive Output Feedback Control Of Unce
+      -name: Adaptive Output Feedback Control Of Unce Extended
+      -name: Adaptive Sequential Prediction Of Multidimensional Signals
+      -name: Adaptive Trajectory Based Control For Au
+      -name: Adaptive Trajectory Control For Autonomo
+      -name: Adaptive Vision Based Approach To Dec
+      -name: Advanced 3D Game Programming With Direct
+      -name: Advanced Java Networking
+      -name: Agents And Markets
+      -name: Agent Learning As A Control Problem
+      -name: Agent Theories, Architectures, And Languages A Survey
+      -name: Aggressive Maneuvering Of Autonomous Aer
+      -name: Agile Model Driven Development In Practi
+      -name: Airworthiness Certification Criteria
+      -name: AI And Philosophy How Can You Know The
+      -name: AI Architecture Based On Message Pass
+      -name: AI Magazine 2013 03
+      -name: AI Modern Approach
+      -name: Algorithms For Distributed And Mobile Se
+      -name: Algorithms For Generic Role Assignment I
+      -name: Algorithm for Finding Skew Angle and then De-Skewing the Image
+      -name: Alienware Area51 R2 Reference Guide En U
+      -name: All The World Is An Abstract Interpretat
+      -name: Alternating Control Flow Reconstruction
+      -name: Alternative Implementations Of Two Level
+      -name: Analysis And Visualization Of Informatio
+      -name: Analysis Of Adaptive Nerual Networks For
+      -name: Analysis Of Adaptive Neural Networks For
+      -name: Analysis of Different Regression Testing Approaches
+      -name: Analysis Of Model Based Regression Testing Approaches
+      -name: Analytics Big Bang Infographic
+      -name: Analyzing Data In The Internet Of Things
+      -name: Analyzing The Analyzers
+      -name: ANSI ISO C Professional Programmer's H
+      -name: ANSI SQL 99 Specification 1
+      -name: ANSI SQL 99 Specification 2
+      -name: ANSI SQL 99 Specification 4
+      -name: ANSI SQL 99 Specification 5
+      -name: Answer To The Question What Is Enli
+      -name: Anticipatory And Improvisional Robot Via
+      -name: Anticipatory Robot Navigation By Simulta
+      -name: Anytime Path Planning And Replanning In
+      -name: Anytime RRTs
+      -name: Apache Hadoop
+      -name: Applications of Adaptive Neural-Network
+      -name: Applications Of Logic Databases
+      -name: Applications Of Robotics And Artificial
+      -name: Application Architectures
+      -name: Application Of Reinforcement Learning
+      -name: Applying Meyer's Taxonomy To Object Orie
+      -name: Applying Models in your Testing Process
+      -name: Apprenticeship Learning And Reinforcemen
+      -name: Approaches To Vision Based Formation Con
+      -name: Approach For Selective State Machine Based Regression Testing
+      -name: Approximate Convex Decomposition And Its
+      -name: APT30 and the Mechanics of a Long Running Cyber Espionage Operation
+      -name: Architect's Journey
+      -name: Architecting Service Oriented Systems
+      -name: Architectural Styles And The Design Of N
+      -name: Architecture Analysis and Design Language AADL Introduction
+      -name: Architecture Of A Database System
+      -name: Architecture Recovery By Semi Automatic
+      -name: Artificial Intelligence A Modern Approa
+      -name: Artificial Intelligence For A Better Future
+      -name: ASM 3.0 A Java Bytecode Engineering Libr
+      -name: ASTLOG A Language For Examining Abstrac
+      -name: Asymptotically-optimal Path Planning for
+      -name: Asynchronous Iterative Methods For Solvi
+      -name: ATDD By Example A Practical Guide To Ac
+      -name: Auction Based Approach To Complex Tas
+      -name: Auction Based Approach To Complex Task A
+      -name: Augmented Reality For Robot Development
+      -name: Automated Abstractions For Contract Validation
+      -name: Automated Approach To Grammar Recover
+      -name: Automated Process For Unmanned Aerial Sy
+      -name: Automatic Classification of Defect Page Content in Scanned Document Collections
+      -name: Automatic Determination Of May Must Set
+      -name: Automatic Determination Of May Must Set Thesis
+      -name: Automatic Document Orientation Detection and Categorization through Document Vectorization
+      -name: Automatic Generation Of Program Specific
+      -name: Automatic Metro Map Layout Using Multicriteria Optimization
+      -name: Automatic Mining Of Source Code Reposito
+      -name: Automatic Ontology Based Knowledge Extra
+      -name: Automatic Parallelization Of Programming
+      -name: Automatic Test Case Generation from UML Models and OCL Expressions
+      -name: Automatic Text Skew Estimation In Document Images
+      -name: Automation Of Small UAVs Using A Low Cos
+      -name: Autonomous Helicopter Flight Via Reinfor
+      -name: Autonomous Inverted Helicopter Flight Vi
+      -name: Autonomous Mission Planning For UAVs A
+      -name: Autumn Leaves Curing The Window Plague
+      -name: AWS Certified Cloud Practitioner Certifi
+      -name: AWS Certified Solutions Architect Slides
+      -name: AWS CSAA Hands On Labs Slides
+      -name: AWS CSAA Reference Links
+    -name: B
+    -items: 
+      -name: Barrier Slicing And Chopping
+      -name: Base An ACID Alternative
+      -name: BC ABAP Workbench Tutorial
+      -name: Bebop A Path Sensitive Interprocedural
+      -name: Behavior Based Blackboard Architecture
+      -name: Benefits Of A Data Flow Aware Programmin
+      -name: Big Data Analytics Emerging Architecture
+      -name: Binarization, Character Extraction, And
+      -name: Binarization Method With Learning Buil
+      -name: Binary Analysis for Code Reconstruction of Control Software
+      -name: Binary Code Disassembly for Reverse Engineering
+      -name: Binary Image Comparison With Local Dissi
+      -name: Biographical Sketch Of An Infant
+      -name: Blackboard Architecture For Integratin
+      -name: Boosted Decision Trees For Word Recognit
+      -name: Bottom-up shape analysis using LISF
+      -name: Bounded Expectations For Discrepancy Detection In Goal Driven Autonomy
+      -name: Brief Survey Of Software Architecture
+      -name: Bristlecone Language Support For Software Applications
+      -name: Building An Interpreter With Vmgen
+      -name: Building A 3D Model From A Single Still
+      -name: Building Data Science Teams
+      -name: Building Embedded Linux Systems
+      -name: Building Pipelines With Make
+      -name: Building Real Time Data Pipelines
+      -name: Built-in Contract Testing in Model-driven Component-Based Development
+      -name: Business Models For Data Economy
+      -name: Bytecode Based Java Program Analysis
+      -name: Byte Of Vim
+      -name: Byzantine Generals Problem
+    -name: C
+    -items: 
+      -name: Calculus Cheat Sheet
+      -name: Calculus For Uniform Feature Compositi
+      -name: Calculus Of Mobile Processes, Part I
+      -name: Calculus Of Mobile Processes, Part II
+      -name: Camel In Action
+      -name: CAMRAD II Comprehensive Analytical Mod
+      -name: Cascaded Classification Models Combinin
+      -name: Case Based Behavior Adaptation Using An Inverse Trust Metric
+      -name: Case History Analysis Of Software Erro
+      -name: Case Study In Integrating Probabilisti
+      -name: CASE Tool Platform Using An XML Repres
+      -name: CCMPerf A Benchmarking Tool For CORBA Co
+      -name: CCP Code Commands And Reference Links
+      -name: Certifying and Removing Disparate Impact
+      -name: Change Impact Analysis For Object Orient
+      -name: Character Recognition In Natural Images
+      -name: Checking System Rules Using System Speci
+      -name: CHOC'LATE A Framework For Specification
+      -name: Choice Calculus A Representation Fo
+      -name: CIL Infrastructure For C Program Analysi
+      -name: Classification Based Adaptive Filtering For Multiframe Blind Image Restoration
+      -name: Classification Of Crosscutting Concern
+      -name: Classifying Software Changes As Clean Or Buggy
+      -name: Clustering For Sensor And Adhoc Networks
+      -name: Clutter Noise Removal In Binary Document Images
+      -name: CMMI For Development, Version 1.3 CMM
+      -name: Code As Design Three Essays
+      -name: Code Generation And Reorganization In Th
+      -name: Code Spelunking
+      -name: Cognitive Architectures Research Issues
+      -name: Cognitive Basis Of Material Engageme
+      -name: Cognitive Robotics Using The Soar Cognit
+      -name: Collaborating Software
+      -name: Collaborative Autonomy For Manned Unmann
+      -name: Collaborative Autonomy For Manned Unmanned Teams
+      -name: Collaborative Tasking Of Tightly Constra
+      -name: Combining Architecture Centric Engineeri
+      -name: Combining Fuzzy And PID Control For An U
+      -name: Combining Static And Dynamic Analyses To
+      -name: Combining Static And Dynamic Analysis To
+      -name: Combining Static And Dynamic Data In Cod
+      -name: Communications For Integrated Modular Av
+      -name: Compact Guidance, Navigation, And Cont
+      -name: Comparative Study Of Software Model Checkers As Test Tools
+      -name: Comparing Call Graphs
+      -name: Comparison Of Binarization Methods For
+      -name: Comparison Of Edge Detectors
+      -name: Comparison Of Image Segmentation Algorit
+      -name: Comparison Of Mamdani Type And Sugeno Type Fuzzy Inference Systems For Air Condition System
+      -name: Comparison Of Some Thresholding Agorithm
+      -name: Compiler As A Static Analysis Tool
+      -name: Compiler For Multimodal Scenarios Tra
+      -name: Compiling Scala For The Java Virtual Mac
+      -name: Complexity Effective Superscalar Process
+      -name: Compling Language Definitions The ASF S
+      -name: Component Design Of Retargetable Program
+      -name: Comprehension And Maintenance Of Large S
+      -name: Comprehensive Study Of Control Design
+      -name: Comprehensive XQuery To SQL Translatio
+      -name: Compressed Sensing
+      -name: Computability Logic Lectures
+      -name: Computational Theory Of Belief Introsp
+      -name: Computer Security Technology Planning St
+      -name: Computer System Design
+      -name: Concept Analysis A New Framework For P
+      -name: Concrete Mathematics
+      -name: Configuring Apache Derby For Performance
+      -name: Connected Component Labeling Using Components Neighbor Scanning Approach
+      -name: Connection Analysis A Practical Interpr
+      -name: ConSUS A Light Weight Program Conditione
+      -name: Content-Aware Surface Parameterization for Interactive Restoration of Historical Documents
+      -name: Context Aware And Content Based Dynamic
+      -name: Context Sensitive Program Analysis As Da
+      -name: Controlled Experiment For Evaluating Coupling
+      -name: Controlled Experiment For Program Comprehension
+      -name: Control Algorithm And Flight Simulation
+      -name: Control Architecture For Quadruped Loc
+      -name: Control Flow Analysis Of Functional Prog
+      -name: Control Hazards
+      -name: Control Logic For Automated Aerobatic Fl
+      -name: Control Of An Autonomous Helicopter In A
+      -name: Control Of A Robot Arm With Artificial And Biological Neural Networks
+      -name: Control Structure For Autonomous Model
+      -name: Control Systems I Introduction
+      -name: Convex Optimization
+      -name: Cooperative Hunters Efficient Coop
+      -name: Coordinating Busy Agents Using A Hybrid
+      -name: Coordinating Hundreds Of Cooperative, Au
+      -name: CORDON WUT Lectures II III IV GFSs
+      -name: Correcting the Document Layout A Machine Learning Approach
+      -name: Coupled Estimation And Control Analysi
+      -name: Coverage And Regression Testing
+      -name: COVERT A Framework For Finding Buffer O
+      -name: CPS 720 Artificial Intelligence Programm
+      -name: Creating A Distributed Field Robot Archi
+      -name: Creating Reference Architectures An Exa
+      -name: Cross Language Program Analysis And Refa
+      -name: CUDA By Example
+      -name: Curriculum Learning Survey
+      -name: C Game Programming For Dummies 2
+      -name: C Macro Handling In Automated Source Code Transformation Systems
+      -name: C Programming Language
+    -name: D
+    -items: 
+      -name: DARPA Multi Agent Kick Off Slides
+      -name: DARWIN  An Approach to Debugging Evolvin
+      -name: Database Architecture Federated Vs. Clu
+      -name: Dataflow Pattern Catalog For Sound And Music
+      -name: Data Centric Approach To Synchronizati
+      -name: Data Centric Routing Using Bloom Filters
+      -name: Data Flow Analysis Of Program Fragments
+      -name: Data Structure For Efficient Dynamic Pro
+      -name: DDXVideo A Lightweight Video Framework
+      -name: DD Lite Efficient Incremental Search W
+      -name: Decentralised Control In Complex Systems
+      -name: Decomposition of Test Cases in Model-based Testing
+      -name: DECOR Method For Specification And Detection Of Smells
+      -name: Defence of Free-Thinking in Mathematics
+      -name: Definition Of Abstraction
+      -name: Definitive ANTLR Reference
+      -name: Definitive Guide To Grails
+      -name: Demand Interprocedural Program Analysis
+      -name: Dependence Based Program Analysis
+      -name: Dependence Clusters In Source Code
+      -name: Depth Estimation Using Monocular And Ste
+      -name: Designing An XML Based Exchange Format F
+      -name: Designing A PC Game Engine
+      -name: Designing GUIs By Sketch Drawing And Vis
+      -name: Design And Analysis Techniques For Concu
+      -name: Design And Implementation Of An Obje
+      -name: Design And Implementation Of A Stroke Interface Library
+      -name: Design And Integration Of An Unmanned Ae
+      -name: Design Complex Gates
+      -name: Design Of A Persistence Layer For Re
+      -name: Design Of A Relational Engine
+      -name: Design Of A Robust Persistence Layer
+      -name: Design Of Large Scale Polylingual System
+      -name: Design Of Whole Program Analysis Too
+      -name: Design Patterns Devils In The Details
+      -name: Design Tool Frameworks Slides
+      -name: Design Tradeoffs For The Alpha EV8 Condi
+      -name: Deskew for Card Image Scanning
+      -name: Detection Of Sensor Faults In Autonomous
+      -name: Development And Implementation Of Rotorc
+      -name: Development And Test Of Highly Autonomou
+      -name: Development Of AHRS
+      -name: Development Of An Autonomous Vehicle For
+      -name: Development Of Autopilot System For
+      -name: Development Of A Flight Control Algorith
+      -name: Development Of A INS GPS Navigation Loop
+      -name: Development Of A Real Time Flight Simula
+      -name: DFA Minimization
+      -name: Diagnostic Information For Multiple Bus
+      -name: Differencing And Merging Of Architectura
+      -name: Direct Comparison Of Neural Network Fuzzy Logic And Model Pre
+      -name: Distributed And Mobility Adaptive Cluste
+      -name: Distributed Architecture Of An Autonomou
+      -name: Distributed Blackboard Architecture For
+      -name: Distributed Clustering For Scalable, Lon
+      -name: Distributed Dynamic Clustering Algorithm
+      -name: Distributed Optimization In Sensor Netwo
+      -name: Distributed Spatial Clustering In Sensor
+      -name: Distributed Tasks Allocation Scheme In M
+      -name: Distribution Of Federal Taxes And Expenditures Urban Vs Rural
+      -name: DocMining A Document Analysis System Builder
+      -name: Document Flattening Through Grid Modeling And Regularization
+      -name: Document Image Dewarping Contest
+      -name: Document Image Noises And Removal Methods
+      -name: Document Image Understanding
+      -name: Document Layout Analysis Algorithms a Literature Survey
+      -name: Document Layout Structure Extraction Using Bounding Boxes of Different Entities
+      -name: Document Restoration Using 3D Shape
+      -name: Document Structure And Layout Analysis
+      -name: DoDAF Architecture Framework 1.5 III Ar
+      -name: DoDAF Architecture Framework 1.5 II Pro
+      -name: DoDAF Architecture Framework 1.5 I Defi
+      -name: Domain Driven Design Quickly
+      -name: Dominant Design
+      -name: Don't Read Books
+      -name: Doors Of Perception
+      -name: Do Crosscutting Concerns Cause Defects
+      -name: Drinking Our Own Champagne
+      -name: DUDE An Algorithm For Discrete Universal
+      -name: DUDE Framework For Continuous Tone Image
+      -name: Dynamically Configurable Coprocessor F
+      -name: Dynamic 3D Path Following For An Autonom
+      -name: Dynamic Analysis For Diagnosing Integration Faults
+      -name: Dynamic Clustering And Distance Aware Ro
+      -name: Dynamic Clustering And Energy Efficien
+      -name: Dynamic Cluster Header Selection With Se
+      -name: Dynamic Instruction Scheduler
+      -name: Dynamic Logistics Model For Optimal Deli
+      -name: Dynamic Model For A Miniature Aerobatic Helicopter
+      -name: Dynamic Multi Robot Coordination
+      -name: DZone 2015ContinuousDelivery 6
+    -name: E
+    -items: 
+      -name: Easier Said Than Done An Empirical Inve
+      -name: Edge and Line Detection of Complicated and Blurred Objects
+      -name: Effcient Skew Estimation And Correction Algorithm For Document Images
+      -name: Efficiently Implementing Episodic Memory
+      -name: Efficiently Learning A Detection Cascade With Sparse Eigenvectors
+      -name: Efficient Algorithms for Sorting and Synchronization
+      -name: Efficient Algorithms For The Identificat
+      -name: Efficient Constraint Propagation Engines
+      -name: Efficient Coverage Testing Using Global
+      -name: Efficient Dataflow Analysis Of Logic Pro
+      -name: Efficient Implementation Of Local Adapti
+      -name: Efficient Method Of Computing Static
+      -name: Efficient Motion Planning Using Generali
+      -name: Efficient Object Recognition And Image
+      -name: Efficient Software Verification Statistical Testing Using Automated Search
+      -name: Elements Of Statistical Learning
+      -name: Elided Conditionals
+      -name: Eloquent JavaScript
+      -name: ElytS EdoC
+      -name: ElytS EdoC DetisiveR
+      -name: Embedded Distributed Real Time Resource
+      -name: Embedded Hybrid Systems Slides
+      -name: Embedded Open Control Platform EOCP Poster
+      -name: Embedded Operating Systems Requirements
+      -name: Embedded Real Time Software Architecture
+      -name: Embedding Analytics In Modern Applicatio
+      -name: Embedding Health Management Into Mission
+      -name: Emergent Hierarchies For Knowledge Agent
+      -name: Empirical Investigation Of Program Sp
+      -name: Energy Aware Dynamic Clustering Algor
+      -name: Energy Efficient Communication Protocol
+      -name: Energy Efficient Dynamic Cluster Algorit
+      -name: Energy Efficient Mobility Adaptive Distr
+      -name: Enforcing And Validating User Defined Pr
+      -name: Enhancing the Performance of Dynamic Scripting in Computer Games
+      -name: Equation Group Questions and Answers
+      -name: ESP  Path-Sensitive Program Verification
+      -name: Estimating and Undoing Rotation for Print-Scan Resilient Data Hiding
+      -name: Estimating The Run Time Progress Of A Ca
+      -name: Estimation and Guidance Strategies for V
+      -name: Estimation And Control Of A Quadrotor Ve
+      -name: Evaluating Evaluations A Comparative St
+      -name: Evaluating Key Statements Analysis
+      -name: Evaluation Of CERT Secure Coding Rules T
+      -name: Evaluation Of Slicing Algorithms For
+      -name: Evolutionary Design Of A Fuzzy Controller For Robot Nav
+      -name: Evolutionary Design of a Fuzzy Knowledge Base for a Mobile Robot
+      -name: Evolutionary Design Of A Helicopter Auto
+      -name: Evolution Of Captialism
+      -name: Evolution Of Neural Networks For Helicop
+      -name: Examination Of Software Engineering W
+      -name: Example Of Global Data Flow Analysis
+      -name: Experiences Of Test Automation Case Stu
+      -name: Experiences With The Design And Implemen
+      -name: Experimental Evaluation Of Continous
+      -name: Experimental Results On Adaptive Output
+      -name: Exploiting Structure A Guided Approach
+      -name: Explorations In AI And ML
+      -name: ExploratoryTestAutomation CAST
+      -name: Extending Languages By Leveraging Compil
+      -name: Extending Soar With Dissociated Symbolic
+      -name: Extending The Path Planning Horizon
+      -name: Extending The Soar Cognitive Architectur
+      -name: Extensibility Safety and Performance in the SPIN Operating System
+      -name: Extensible Hardware Architecture For Mob
+      -name: Extensible Meta Model For Program Ana
+      -name: Extensible Metrics Extraction Environ
+      -name: Extracting Meaning From Abbreviated Iden
+      -name: Extracting Structural Information From B
+      -name: Extraction Of Text Areas In Printed Document Images
+      -name: Eye Movements In Reading And Information Processing 20 Years Of Research
+    -name: F
+    -items: 
+      -name: Faster Cutting Plane Method and its Implications for Combinatorial and Convex Optimization
+      -name: Fast Algorithm For Raster Rotation
+      -name: Fast And Elitist Multiobjective Geneti
+      -name: Fast And Robust Text Detection In Images
+      -name: Fast Concurrent Object Classification An
+      -name: Fast interprocedural linear two-variable
+      -name: Fast Likelihood Search For Hidden Markov
+      -name: Fast Portscan Detection Using Sequential Hypothesis Testing
+      -name: Fast Sparse Image Reconstruction Using Adapctive Nonlinear Filtering
+      -name: Fault Models And Process Feedback
+      -name: Feature Extraction By Neural Network Nonlinear Mapping
+      -name: Few Billion Lines Of Code Later Using
+      -name: FFXIII 2 Mini Guide
+      -name: Field D Algorithm For Improved Path
+      -name: Field D Star an Interpolation-based Path Planner and Replanner
+      -name: Field Study In Static Extraction Of Ru
+      -name: Finding Application Errors And Security
+      -name: Finding Bugs Is Easy
+      -name: Finding Images And Line Drawings In Document Scanning Systems
+      -name: Finding Skewness and Deskewing Scanned Document
+      -name: Finite State Model-Based Testing on a Shoestring
+      -name: Firm Real Time System Implementation U
+      -name: Five Facts On The Adoption Of Open Sourc
+      -name: FlagRemover  A testability transformatio
+      -name: Flexible Heterogeneous Software Systems
+      -name: Flight Control System For Aerial Robot
+      -name: Flight Dynamic Simulation With Refined A
+      -name: Flight Evaluation Of Adaptive High Bandw
+      -name: Flight Simulation For The Development Of
+      -name: Flight Test Implementation Of A Second G
+      -name: FLOC A Fast Local Clustering Service For
+      -name: Flow Of Activity In The Ouroboros Model
+      -name: Formal Methods To Aid The Evolution Of S
+      -name: Formal Requirements for Structure Code-Coverage Preservation of Code Optimization SCCP x Framework
+      -name: Form IT 150 2008 Resident Income Tax Ret
+      -name: Foundations For Defining Software Metric
+      -name: FPGA Based Flexibile Autopilot Platform
+      -name: FPGPA Based Flexible Autopilot Platform
+      -name: Frameworks Generate Domain Specific Languages
+      -name: Framework For Comparing Models Of Comp
+      -name: Framework For Evaluating Common Operat
+      -name: Framework For Fuzzy Logic Based UAV Na
+      -name: Framework For Robust 3 D Change Detect
+      -name: Framework For Studying Clones In Large
+      -name: Framework For The Checking And Refacto
+      -name: Framework For UAV Based Navigation And
+      -name: Free Trade
+      -name: From Here To Infinity
+      -name: From Indentation Shapes To Code Structur
+      -name: From Off Line To On Line Handwriting Rec
+      -name: Functional Testing Patterns And Smells
+      -name: Future Directions In Control For Unmanne
+    -name: G
+    -items: 
+      -name: Gaia PL A Product Line Engineering Appr
+      -name: Gardening Your Architecture, Part 1 Ref
+      -name: GA Directed Self Organized Search And At
+      -name: GCC Architectural Overview
+      -name: GCC Internals A Conceptual View
+      -name: GCC Quick Reference Guide
+      -name: GDB Quick Reference Card
+      -name: General Purpose Computation On Graphics
+      -name: Generating Design Pattern Detectors From
+      -name: Generating Robot Motion The Integration
+      -name: Generic Agent Architecture For Multiag
+      -name: GENERIC And GIMPLE A New Tree Represent
+      -name: Generic Architecture For Data Flow Ana
+      -name: Generic Framework For Robotic Navigati
+      -name: Generic Sensor Model API
+      -name: Genetic Algorithms For Randomized Unit Testing
+      -name: Genetic Fuzzy based Artificial Intelligence for
+      -name: Genetic Fuzzy Systems Fuzy Knowledge Ext
+      -name: GENOA A Customizable Front End Retarge
+      -name: Gentle Introduction To SOAR, And Archi
+      -name: Geometric And Structural Based Symbol Sp
+      -name: Geometric Layout Analysis of Scanned Images
+      -name: Geometric Layout Analysis Techniques for Document Image Understanding Review
+      -name: GeoServNet GSN 3D Client
+      -name: Geospatial Portal Reference Architecture
+      -name: Getting Started With Play Framework
+      -name: GIDTS A Graphical Programming Environm
+      -name: GIT Internals
+      -name: Global Sparse Analysis Framework
+      -name: GNU Compiler Collection Internals
+      -name: Goal-Oriented Programming or Composing Using Events or Threads Considered Harmful
+      -name: Goal Oriented Programming, Or Compositio
+      -name: Golden Age Of Software Architecture
+      -name: Google Android Stack Slides
+      -name: GORE, SORE, Or What
+      -name: Governing Lethal Behavior P1 Embedding Eth
+      -name: Governing Lethal Behavior P2 Embedding Eth
+      -name: GPU An Embedded GPU Development Syst
+      -name: Grammar Based Whitebox Fuzzing
+      -name: Graph-Theory Techniques in Model-based Testing
+      -name: Graph Free Approach To Data Flow Analy
+      -name: Grasp Planning For Object Manipulation B
+      -name: Great Philosophers From Socrates T
+      -name: Guidance, Navigation, Control, And Opera
+      -name: Guide For Writing Requirements
+      -name: Guide To Secure Web Services
+      -name: GUI Interaction Testing Incorporating Event Context
+      -name: Gulfstream Incremental Static Analysis
+    -name: H
+    -items: 
+      -name: Handbook Of Artificial Intelligence
+      -name: Handle Flags Efficient And Flexible Sel
+      -name: Handwritten Document Retrieval Strategie
+      -name: Hardcore AI For Computer Games And Anima
+      -name: Hardware In The Loop Simulation For Simp
+      -name: Harmonia A Flexible Framework For Const
+      -name: Head First Design Patterns
+      -name: HEED A Hybrid, Energy Efficient, Distri
+      -name: Helicopter Flight Dynamic Simulation Wit
+      -name: Helicopter UAV Control Booklet
+      -name: Helping End User Programmers 'Engineer'
+      -name: Heterogeneous Software System Interopera
+      -name: Hierarchal Abstraction Model For Softw
+      -name: Hierarchal Control Of Aircraft Propulsion Systems Discrete Event Supervisor Approach
+      -name: Hierarchal Discrete Event Supervisory Co
+      -name: Hierarchal Hybrid System Design On Berkl
+      -name: Hierarchal Parsing And Recognition Of Ha
+      -name: Hierarchal SLAM Real Time Accurate Mapp
+      -name: Hierarchial Data Models In Relational Da
+      -name: Hierarchical Approach To Adaptive Cont
+      -name: Hierarchical Discrete Event Supervisory Control
+      -name: High Performance Document Layout Analysis
+      -name: High Power Inexpensive On-board Vision System for Miniature Unmanned VTOL Vehicles
+      -name: High Quality Alias Free Image Rotation
+      -name: High Speed Obstacle Avoidance Using Mono
+      -name: Historical Review Of Evolutionary Learni
+      -name: Historical Review of Evolutionary Learning Methods for Mamdani-type Fuzzy Rule Based Systems
+      -name: Holonic Multiagent Systems
+      -name: Holonic Multi Agent Systems
+      -name: How Module Systems Give Direction To Arc
+      -name: How Robots Can Recognize Activities And Plans Using Topic Models
+      -name: How Tests And Proofs Impede One Another
+      -name: How To Build LR Parsers Which Accept Inc
+      -name: How To Write System Specific, Static Che
+      -name: Hybrid And Embedded Systems
+      -name: Hybrid Control Architecture For Aggres
+      -name: Hybrid Control For Aggressive Maneuverin
+      -name: Hybrid Control Of An Autonomous Helicopt
+      -name: Hybrid Program Slicing Framework
+      -name: Hybrid Routing In Clustered DTNs With Me
+      -name: Hybrid Systems Modeling, Analysis, Contr
+      -name: Hybrid Type Checking
+      -name: HyperSQL User Guide
+    -name: I
+    -items: 
+      -name: Ichaicha Railgun 1
+      -name: Ichaicha Railgun 2
+      -name: Ichaicha Railgun 3
+      -name: Identification Of Extract Method Refacto
+      -name: IDUDE Framework For Grayscale Image Denoising
+      -name: IEEE 29148 Requirements Engineering
+      -name: IEEE 829 Standard For Software And Syste
+      -name: IEEE Recommended Practices For Software
+      -name: IEEE Standard For Developming A Software
+      -name: IEEE Standard For Information Technology
+      -name: IEEE Standard For Modeling And Simulation
+      -name: IEEE Standard Glossary Of Software Engin
+      -name: IEEE Std 1003.26TM 2003, IEEE Standard F
+      -name: IEEE Std 1003.5, 1999 Edition
+      -name: IEEE Std 1278.1 1995 Distributed Interac
+      -name: IEEE Std 754 1985 Revision Of Reaffirmed
+      -name: Ignorable Information In Multi Agent Sce
+      -name: Imagery In Cognitive Architecture Repre
+      -name: Image Based Trainable Symbol Recogniz
+      -name: Image Processing, Analysis And Machine V
+      -name: Image Processing Lecture
+      -name: Implementation And Flight Test Results O
+      -name: Implementation Issues Of Real Time Traje
+      -name: Implementation Of A Manned Vehicle UAV
+      -name: Implementation Of Precise Interrupts In
+      -name: Implementing OGC Web Map Service Client Applications Using JSP JSTL XMLC
+      -name: Implications Of Classical Scheduling Res
+      -name: Improved Mathematical Model For Helicopter
+      -name: Improved Physically Based Restoration
+      -name: Improved Slicer For Java
+      -name: Improving Software Quality With Static A
+      -name: Improving Source Code Lexicon
+      -name: Improving The Accuracy Of Dynamic Branch
+      -name: Incremental Semantic Analysis
+      -name: Incremental Static Analysis
+      -name: Inc Training Of Detector Using Online Sparse Eigendecomposition
+      -name: Indoor Multi Vehicle Flight Testbed For
+      -name: Information Quality Testing
+      -name: Information Sharing In Teams Of Self Aware Entities
+      -name: Informed Machine Learning Taxonomy
+      -name: Info Engine Administration And Implement
+      -name: Ink Features For Diagram Recognition
+      -name: Ink Segmentation
+      -name: Instruction Issue Logic For Pipelined Su
+      -name: Instruction Level Reverse Execution For
+      -name: Integrated Modeling And Robust Control F
+      -name: Integrated Modeling And Robust Control For Full Envelope Flight Of Robotic Helicopters
+      -name: Integrated Modular Avionics With COTS Directed To Open Systems And Obsolescence Management
+      -name: Integrated OCR Software for Mathematical Documents and its Output With Accessibility
+      -name: Integrated Planning And Execution Elast
+      -name: Integrated Scheduling Mechanism For F
+      -name: Integrated Three Tier Logistics Model
+      -name: Integrating Action And Reasoningn Throug
+      -name: Integrating Visual And Range Data For Ro
+      -name: Integration And System Testing
+      -name: Integration Of Adaptive Estimation And A
+      -name: Integration Of Exact Arrangements Wi
+      -name: Integrative Levels Of Program Comprehension
+      -name: Intelligent Test Automation
+      -name: Intentional Cognitive Models With Voliti
+      -name: Intentional Meaning Of Programs
+      -name: Interactive Predictive Parsing Using A W
+      -name: Interface your PC to a RC Radio
+      -name: Intergraph GeoMedia WebMap WMS Adapter K
+      -name: Intermediate Representation For Integ
+      -name: Internet Encyclopedia Of Philosophy
+      -name: Interval And Dynamic Time Warping Based
+      -name: Introduction To Abstract Interpretati
+      -name: Introduction To Abstract Interpretation
+      -name: Introduction To Abstract Interpretation Slides
+      -name: Introduction To Computability Logic
+      -name: Introduction To Computer Security Th
+      -name: Introduction To Cuda C
+      -name: Introduction To Grails Slides
+      -name: Introduction To GraphViz
+      -name: Introduction To Linux Kernel Lists
+      -name: Introduction To Sketch Based Interfac
+      -name: Introduction To Software Analysis And Testing
+      -name: Introduction To Software Architecture
+      -name: Introduction To Statistical Learning With Applications In R
+      -name: Introduction To The Kalman Filter
+      -name: Introduction To The Programming Language Occam
+      -name: Introduction To Wavelets In Image Processing Slides
+      -name: Inversion Detection In Text Document Images
+      -name: In Place RSync File Synchronization For Mobile And Wireless Devices
+      -name: Iterative Modulo Scheduling An Algorith
+    -name: J
+    -items: 
+      -name: JavaScript Bible 5th Edition Quick Refer
+      -name: JavaScript Instrumentation In Practice
+      -name: JavaServer Pages Syntax Version 1.2
+      -name: JDBC 3.0 Specification
+      -name: Job Control
+      -name: Joost Orientation Skew Detection IJDAR10
+      -name: JSynoPSys – A Scenario Based Testing Tool
+      -name: Just Enough Software Test Automation
+    -name: K
+    -items: 
+      -name: Kaspersky Lab Whitepaper Regin Platform 
+      -name: Keeping It Too Simple How The Reductive
+      -name: Kernel Conjugate Gradient
+      -name: Keynote Address .QL For Source Code Ana
+      -name: Klocwork Next Generation Source Code Ana
+      -name: KNN Regression To Improve Statistical Feature Extraction For Text Retrieval
+      -name: Knowledge Acquisition Based On Rough Set
+      -name: Knowledge Based Approach To Network Se
+      -name: Knowledge Discovery in Data Warehouses
+      -name: Knowledge Representation With Ontologies
+      -name: Knowledge Rich Intelligent Agents For SO
+    -name: L
+    -items: 
+      -name: LANCET A Nifty Code Editing Tool
+      -name: Language And System Support For Concurre
+      -name: Language Implementation Patterns
+      -name: Language Independent, Open Vocabulary
+      -name: Language Independent Aspect Weaving
+      -name: Large Abstractions For Software Engineer
+      -name: Large Disparity Motion Layer Extraction
+      -name: Large Vocabulary Offline Handwriting Rec
+      -name: Lattice Based Sampling For Path Property
+      -name: Layered Architecture For Coordination
+      -name: Layout Analysis For Scanned PDF And Transformation To The
+      -name: Layout Based Information Retrieval from Document Images
+      -name: Lazy XML Processing
+      -name: Learning 3D Scene Structure From A Singl
+      -name: Learning Depth From Single Monocular Ima
+      -name: Learning Everywhere ML And Simulations
+      -name: Learning For Control From Multiple Demon
+      -name: Learning From 6,000 Projects Mining Mod
+      -name: Learning Integrated Symbolic And Continu
+      -name: Learning Omnidirectional Path Following
+      -name: Learning Vehicular Dynamcis, With Applic
+      -name: Learning Vehicular Dynamics, With Applic
+      -name: Learn PowerShell Too
+      -name: Learn PowerShell Toolmaking In A Month O
+      -name: Learn Windows PowerS
+      -name: Learn Windows PowerShell In A Month Of L
+      -name: Lectures On Computability Logic
+      -name: Lecture Notes On Monotone Frameworks And
+      -name: Lecture Notes On Static Analysis
+      -name: Leveraging Task Models For Team Intent I
+      -name: Lightweight Low Power Segmentation Bas
+      -name: Lightweight Source Model Extraction
+      -name: Limited Authority Adaptive Flight Contro
+      -name: Linear Programming And Language Processi
+      -name: Linking Analysis And Transformation Tools With Source Based Mappings
+      -name: Linux Command Reference
+      -name: Linux Device Drivers, Third Edition
+      -name: Linux Kernel Module Programming Guid
+      -name: Linux Loadable Kernel Module HOWTO
+      -name: LISA An Interactive Environment For Pro
+      -name: Literature Review Of Teamwork Models
+      -name: LLVM An Infrastructure For Multi Stage
+      -name: LLVM A Compilation Framework For Lifelo
+      -name: LLVM Compiler Framework And Infrastr
+      -name: Logical Modularity Of Programs
+      -name: Logicism Exact Pholosophy, Linguistics,
+      -name: Longitudinal Program Analysis
+      -name: Low Level Analysis Library For Archite
+      -name: Low Resolution Character Recognition By
+      -name: Machine Learning For Document Structure Recognition
+      -name: Maximum Security Hackers Guide To Protecting Your Internet Site And Network
+      -name: Modeling Paradigm For Integrated Modular Avionics Design
+      -name: Model Driven Testing With UML 2
+      -name: Multiscale Conditional Random Fields For Image Labeling
+      -name: Multi Column Deep Neural Networks For Image Classification
+    -name: M
+    -items: 
+      -name: Machine Learning, Neural & Statistical C
+      -name: Make3D Learning 3D Scene Structure From
+      -name: Making Slicing Practical The Final Mile
+      -name: Making The Probabilistic Multi Hypothesi
+      -name: Mamdani-type Inference in Fuzzy Signature Based Rule Bases
+      -name: Mamdani Type Fuzzy Logic Controller
+      -name: Maneuver Based Motion Planning For Nonli
+      -name: Market Based Framework For Tightly Cou
+      -name: Market Based Framework For Tightly Coupl
+      -name: Mathematical Models Of Helicopter Flight Dymancis
+      -name: Mathematical Model And Simulation For A Helicopter With Tail Rotor
+      -name: Mathematics
+      -name: MathML 2.0 WD
+      -name: MatrixNav Pitch Stabilization And Retur
+      -name: Maximum Security. A Hacker's Guide To Pr
+      -name: Measuring The Quality Of Quality Measures
+      -name: Meditations Of First Philosophy
+      -name: Metacognition In SNePS
+      -name: Metaphysics
+      -name: MetaUML Manual 0.2.5
+      -name: MetaUML Tutorial, Reference And Test Sui
+      -name: Meta Programming In Groovy
+      -name: Methodologies And Tools For Intelligent
+      -name: Methods For Localization And Mapping Usi
+      -name: Method For Adapting A Program Analysis
+      -name: Method Of User Customizable GUI Generation
+      -name: Metrics Based Approach To Technical Do
+      -name: Metrics For Sampling Based Motion Planni
+      -name: Microcontroller Systems For A UAV
+      -name: Microservices vs Service-Oriented Software
+      -name: Mind Design II Philosophy, Psychology,
+      -name: Mock Object Creation For Test Factoring
+      -name: Model-Based Testing from UML Models
+      -name: Model-based Testing Using an Implicit State Model
+      -name: Modeling And Control Of A Small Autonomo
+      -name: Modeling And Identification Of A Small U
+      -name: Modeling And Navigation Of Large Informa
+      -name: Modeling And Simulartion For Small Auton
+      -name: Modeling And Simulation For Small Autono
+      -name: Model And A Tool For Event Based Aspec
+      -name: Model Based Book Dewarping Method Usin
+      -name: Model Based Composition Of Embedded Soft
+      -name: Model Checking Large Networks Protocol I
+      -name: Model Driven Approach For Business Processes And Test Cases
+      -name: Model Driven Engineering
+      -name: Model For Spectra Based Software Diagn
+      -name: Modern Compiler Design
+      -name: Modular Framework For Fast Prototyping
+      -name: Modular Pluggable Analysis
+      -name: Modular Static Program Analysis
+      -name: Monads As A Theoretical Foundation For A
+      -name: Monad Transformers And Modular Interpret
+      -name: Monocular SLAM Supported Object Recognition
+      -name: Most Valuable Player A Robot Device Ser
+      -name: Motion Planning Algorithms For General C
+      -name: Motion Planning And Obstacle Avoidance F
+      -name: Motion Planning Approach To Protein Fo
+      -name: Motion Planning For Legged And Humanoid
+      -name: Motion Planning For Manipulators With Ma
+      -name: Motion Planning From Digital Actors To
+      -name: Motion Planning In Dynamic Environments
+      -name: Motion Planning With Probabilistic Roadm
+      -name: Motion Primitives For Robotic Flight Con
+      -name: Motion Silences Awareness Of Visual Chan
+      -name: MS Update Management Protocol
+      -name: MS Windows Server Update Services Protocols Overview
+      -name: MS Windows Update Services Client Server Protocol
+      -name: Multiagent Systems A Modern Approach T
+      -name: Multiagent Systems A Survey From A Mach
+      -name: Multiphase Level Set Framework For Ima
+      -name: Multiregion Image Segmentation By Parametric Kernel Graph Cuts
+      -name: Multisensor Navigation System
+      -name: Multi Agent Architecture For Business
+      -name: Multi Agent Architecture Provides Smar
+      -name: Multi Paradigm Just In Time Compilation
+      -name: Multi Resolution Field D
+      -name: Multi Resolution Field D Star
+      -name: Multi Robot Cooperation Architecture
+      -name: Multi Robot Cooperation Architectures A
+      -name: Multi Robot Task Allocation Analyzing T
+      -name: Multi Robot Task Allocation Complexity
+      -name: Multi Sensor Navigation System For An Au
+      -name: Multi UAV Collaborative Sensor Managemen
+      -name: Mutator Pattern
+      -name: My Neighbors Humble Little Ruby Book
+      -name: M Space Feature Representation For S
+    -name: N
+    -items: 
+      -name: NAMP
+      -name: NASA Advanced Concepts Flight Simula
+      -name: Navigation System For A Helicopter UAV
+      -name: NEETS Module 01 Introduction To Matter
+      -name: NEETS Module 02 Introduction To Altern
+      -name: NEETS Module 03 Introduction To Circui
+      -name: NEETS Module 04 Introduction To Electr
+      -name: NEETS Module 05 Introduction To Genera
+      -name: NEETS Module 06 Introduction To Electr
+      -name: NEETS Module 07 Introduction To Solid
+      -name: NEETS Module 08 Introduction To Amplif
+      -name: NEETS Module 09 Introduction To Wave G
+      -name: NEETS Module 10 Introduction To Wave P
+      -name: NEETS Module 11 Microwave Principles
+      -name: NEETS Module 12 Modulation
+      -name: NEETS Module 13 Introduction To Number
+      -name: NEETS Module 14 Introduction To Microe
+      -name: NEETS Module 15 Principles Of Synchros
+      -name: NEETS Module 16 Introduction To Test E
+      -name: NEETS Module 17 Radio Frequency Commun
+      -name: NEETS Module 18 Radar Principles
+      -name: NEETS Module 19 The Technician's Handb
+      -name: NEETS Module 20 Master Glossary
+      -name: NEETS Module 21 Test Methods And Pract
+      -name: NEETS Module 22 Introduction To Digita
+      -name: NEETS Module 23 Magnetic Recording
+      -name: NEETS Module 24 Introduction To Fiber
+      -name: NEON Vectorizing Compiler Guide
+      -name: Neural Network Adaptive Control Of Syste
+      -name: Neural Network Augmented Kalman Filterin
+      -name: Neural Network Based Adaptive Control Fo
+      -name: Neural Network Controller For Minimizing
+      -name: New Nonlinear Guidance Logic For Traje
+      -name: Next Generation Reservoir Computing
+      -name: NFA Subset Construction
+      -name: Nonlinear Adaptive Flight Control Using
+      -name: Non Symmetrical Method Of Image Local
+      -name: Novel Architecture For Real Time Opera
+      -name: No More Zombies! High Fidelity Character
+      -name: Numeric Constructors
+      -name: NVIDIA CUDA Programming Guide
+    -name: O
+    -items: 
+      -name: Object Oriented Approach To Reinforce
+      -name: Observations And Measurement I Observa
+      -name: Obsidian GPU Programming In Haskel
+      -name: Obsidian GPU Programming In Haskell
+      -name: Offline Loop Investigation For Handwriting Analysis
+      -name: OMG SysML Specification
+      -name: OMNET Users Manual
+      -name: Online Configuration Of Software Visuali
+      -name: Online Payments Risk Management
+      -name: Ontology Based Search For Interactive Di
+      -name: Ontology Coverage Check Support for Evaluation in Ontology Engineering
+      -name: Ontology Model Based Static Analysis On
+      -name: Ontology Versioning In An Ontology Manag
+      -name: On Line And Off Line Handwriting Recogni
+      -name: On Line Cursive Handwriting Recognition
+      -name: On Line Trajectory Optimization Includin
+      -name: On Self Organization In MANETs
+      -name: On Sleep & Sleeplessness
+      -name: On The Evaluation Of Military Simulations
+      -name: On The Knowledge Required To Understand
+      -name: On The Message And Time Complexity Of A
+      -name: On Youth And Old Age, On Life And Death,
+      -name: OpenCAF
+      -name: Open Approach Towards The Benchmarkin
+      -name: Open Control Platform For Reconfigura
+      -name: Open Platform For Reconfigurable Cont
+      -name: Operating Systems Concepts Book Slides
+      -name: Optical Character Segmentation and Recognition
+      -name: Optimal 3d Guidance From 2d Source
+      -name: Optimal 3D Guidance From A 2D Vision Sou
+      -name: Optimal Tracking Controller Design For A
+      -name: Optimizations in XSLT
+      -name: Optimizing Connected Component Labeling Algorithms
+      -name: Oracle Architectural Components 1
+      -name: Oracle Architecture Overview
+      -name: Oracle Database Administration Workshop
+      -name: Oracle Database Administration Workshop 
+      -name: Orchestrating An Automated Test Lab
+      -name: Ouroboros Model
+      -name: Output Tracking Control Design Of A Heli
+      -name: Overview Of Abstract Interpretation A
+      -name: Overview Of BLOOM
+      -name: Overview Of Real Time Database System
+      -name: Overview Of Sensor Networks
+      -name: Overview Of Spatial Processing In Soa
+      -name: Overview Of Statistical Learning Theo
+      -name: Overview Of The Saturn Project
+    -name: P
+    -items: 
+      -name: Page Layout Analysis and Classification in Complex Scanned Document
+      -name: Panel Identification Of Concepts, Featu
+      -name: Parallel Simulation Of UAV Swarm Scenari
+      -name: Parallel Support For Source Code Analysi
+      -name: Parse Tree Annotations Meet Re Engineeri
+      -name: Parsing Techniques
+      -name: Parsing Techniques Practical Guide
+      -name: Parsing Technique For Sketch Recogniti
+      -name: Particle Swarm Optimization Neural Net
+      -name: Patch Management Automation for Enterprise Cloud
+      -name: Path Following Control For An Autonomous
+      -name: Path Planning In Dynamic Environments
+      -name: Patterns For Documenting Framework Customization
+      -name: Pattern Language For Extensible Program Representation
+      -name: Pearling Stroke Segmentation With Cruste
+      -name: People Over Process Key Challenges In A
+      -name: Performance Evaluation Of Declarative Me
+      -name: Performance Modeling Of A UAV System Wit
+      -name: Performance Modeling Tool For Polymorp
+      -name: Perpetual Self Aware Cognitive Agents
+      -name: Philosophers And Public Philosophy
+      -name: Philosophy 101
+      -name: Philosophy And Truth
+      -name: Philosophy Of Atheism
+      -name: Philosophy Of Cognitive Science
+      -name: Philosophy of Logical Analysis
+      -name: PHILOSOPHY OF MIND
+      -name: Philosophy Of Nietzsche
+      -name: Philosophy Of Right
+      -name: Pictures of Julia and Mandlebrot Sets
+      -name: Pixel Labeling Approach for Historical Digitized Books
+      -name: Planar Spline Trajectory Following For A
+      -name: Planning Algorithms
+      -name: Planning And Optimization Algorithms For
+      -name: Planning With Pinch Points
+      -name: PlantUML Language Reference Guide
+      -name: Plan Driven Fusion Shaping The Situation
+      -name: Plato.PDF
+      -name: Player Robot Server
+      -name: Player Stage Project Tools For Mult
+      -name: Pointer Analysis Haven't We Solved This
+      -name: Position Based Clustering Technique Fo
+      -name: Posix 1
+      -name: Posix 2
+      -name: Poster Abstract A Clustering Method Tha
+      -name: PowerShell Examples V4
+      -name: PowerShell ISE V4
+      -name: PowerShell LangRef V4
+      -name: Power Struggles Revisiting the RISC vs CISC Debate on Contemporary ARM and x86 Architectures
+      -name: Practical, Transparent Operating System
+      -name: Practical Artificial Intelligence Progra
+      -name: Practical Guide To GPL Compliance
+      -name: Practical Model Based Testing
+      -name: Practical Pattern Matching
+      -name: Pragmatic Techniques For Program Analysi
+      -name: Precise Analysis Of Java Programs Using
+      -name: Precise Identification Of Side Effect Fr
+      -name: Precise Interrupts
+      -name: Precise Method Method Interaction Base
+      -name: Prediction Driven Behavior Learning Predictions That Drive Fixed Responses
+      -name: Preemptive Strategies For Overcoming The
+      -name: Preliminary Proceedings Language Descriptions Tools And Applications 2009
+      -name: Preplanning For High Performance Autonom
+      -name: Pretty Printer For Every Occasion
+      -name: Principles And Practice Of Explainable Machine Learning
+      -name: Principles Of Philosophy
+      -name: Priority R Tree A Practically Iffic
+      -name: Problems of Philosophy
+      -name: Problem Frame Patterns
+      -name: Problem Of Space Layout In Architect
+      -name: Proceedings Language Descriptions Tools And Applications 2006
+      -name: Process Environment
+      -name: Programmable Parallel Accelerator For
+      -name: Programmer's Lexicon, Volume 1 The
+      -name: Programming From The Ground Up
+      -name: Programming Languages And Program Analys
+      -name: Programming Language Pragmatics 10 Fun
+      -name: Programming Language Theory Wikibook
+      -name: Programming With CUDA Slides
+      -name: Program Analysis By Formal Transformatio
+      -name: Program Comprehension And Software Reeng
+      -name: Program Comprehension In Multi Language
+      -name: Program Data Flow Analysis Procedure
+      -name: Program Flow Analysis Theory And Applic
+      -name: Program Sifting Select Property Related
+      -name: Program Slicing
+      -name: Program Slicing A Computer Aided Progra
+      -name: Program Slicing Extended
+      -name: Program Slicing Methods And Application
+      -name: Program Slicing Via FermaT Transformatio
+      -name: Properties Of Data Flow Frameworks
+      -name: Prospects And Possibilities For Ontology
+      -name: Putting Objects In Perspective
+    -name: Q
+    -items: 
+      -name: QNX Neutrino RTOS Optimizes Programmable
+      -name: Quadratic Evaluation Of Software Quality
+      -name: Quality Assurance Much More Than Testin
+      -name: Quantitative Evaluation Of Software Qual
+      -name: Query By Outlines A New Paradigm To Hel
+    -name: R
+    -items: 
+      -name: Rapid Construction Of Software Comprehen
+      -name: Rapid Interactive 3D Reconstruction From
+      -name: RASCAL A Domain Specific Language For S
+      -name: Rationalist Philosophy
+      -name: RCS A Cognitive Architecture For Intell
+      -name: Reactive And Deliberative Behavior Archi
+      -name: Reactive Robot Architecture With Plannin
+      -name: Real Time Compacting Garbage Collection
+      -name: Real Time FRP
+      -name: Real Time Helicopter Flight Control Mod
+      -name: Real Time Motion Planning For Agile Auto
+      -name: Real Time Motion Planning For A Robot Ar
+      -name: Real Time Motion Planning Of Multiple Ag
+      -name: Real Time Multi UAV Simulator
+      -name: Real Time Robot Motion Planning Using Ra
+      -name: Real Time Vision Based Relative Aircraft
+      -name: Real Time Visual Tracker By Stream Proce
+      -name: Recognizing Multi Stroke Symbols
+      -name: Recommended Practice For SRS
+      -name: Reconstruction of Software Component Architectures and Behavior Models Using Static and Dynamic Analysis
+      -name: Reconstruction Of Software Component Architectures And Behaviour Models Using Static And Dynamic Analysis
+      -name: Recovcring Software Architecture from Mu
+      -name: Recovery Of Writing Sequence Of Static I
+      -name: Reducing The Cost Of Branches
+      -name: Reducing Wasted Development Time Via Con
+      -name: Reengineering Large Scale Polylingual Sy
+      -name: Reengineering Large Scale Polylingual Sy Extended
+      -name: Refactoring Class Hierarchies With KABA
+      -name: Refactoring Improving The Design Of Exi
+      -name: Refactoring Support For Modularity Maint
+      -name: Refactoring Using Type Constraints
+      -name: RefaX A Refactoring Framework Based On
+      -name: Reference Architecture For Space Data Sy
+      -name: Reference Architecture For Web Browser
+      -name: Reference Architecture Primer
+      -name: Reference Architecture Primer Slides
+      -name: Refinement Based Program Analysis Tools
+      -name: Regular Expression Quick Reference V1.2
+      -name: Relaxed Matching Kernels For Robust Imag
+      -name: Religion Of The Samurai
+      -name: Remembrances Of Things Past
+      -name: Remote Agent To Boldly Go Where No AI S
+      -name: Replanning With RRTs
+      -name: Report On The Investigation Into Russian Interference In The 2016 Presidential Election
+      -name: Representation Independent Alias Analysi
+      -name: Representation Independent Program Analy
+      -name: Representing Semantically Analyzed Cpp
+      -name: Republic
+      -name: Requirements Analysis The Next Generati
+      -name: Requirements And Aesthetics
+      -name: Requirements Engineering Management Handbook
+      -name: Requirements Engineering Tools
+      -name: Requirement Specification Language For AADL
+      -name: Resolution Independent Skew and Orientation Detection for Document Images
+      -name: Restoring Warped Doc Images Via 3D Shape Modeling
+      -name: Results From A Large Scale Study Of Perf
+      -name: Results Of SEI Independent Research And
+      -name: Rethinking The Sense Plan Act Abstraction
+      -name: Reusable, Generic Program Analyses And T
+      -name: Reuse In Reverse Engineering
+      -name: Reverse Engineering, 1998. Proceedings
+      -name: Reverse Engineering Environment Framewor
+      -name: Reverse Engineering Through Formal Trans
+      -name: Review Of Efficient Points To Analysis F
+      -name: Review Of Mathematical Modeling Techniques For Rotocraft
+      -name: Revolution In Database Architecture
+      -name: Robot Motion Planning Integrating Planni
+      -name: Robot Motion Planning In Time Varying En
+      -name: Robot Path Planning An Object Oriented
+      -name: Robot Shape, Kinematics, And Dynamics In
+      -name: Robust Hybrid Control For Autonomous Veh
+      -name: Robust Hybrid Control For Autonomous Veh Thesis
+      -name: Robust Image Segmentation Using Active C
+      -name: Role Based Approach To Unmanned Team O
+      -name: Rotary Wing Final Experiments For The So
+      -name: Rotomotion Series 200 UAV Spec S
+      -name: Rotomotion SR20 VTOL UAV Spec Sheet
+      -name: Rotorcraft Aerodynamics Models For A Com
+      -name: RT Linux Based Flight Controller
+    -name: S
+    -items: 
+      -name: S1000D Issue 2.0
+      -name: S1000D Issue 2.3
+      -name: S1000D Issue 3.0
+      -name: S1000D Issue 4.0
+      -name: S1000D Issue 4.2
+      -name: S1000D Issue 5.0
+      -name: Safety Verification In Murphy Using Fault Tree Analysis
+      -name: Sampling Based Motion Planning Analysis
+      -name: SAVANT Project
+      -name: Scalable Content Addressable Network
+      -name: Scalable Programing Abstractions For XML
+      -name: Scalable Programming Abstractions To XML
+      -name: Scale Space Based Feature Point Detectio
+      -name: Scapegoat Trees
+      -name: Scheduling Algorithms For Multiprogrammi
+      -name: Scheduling Aperiodic Tasks In Dynamic Pr
+      -name: SCHEDULING TOOL AND ALGORITHM FOR INTEGR
+      -name: Schema Independent Database UI
+      -name: SCORE Agile Research Group Management
+      -name: SCRUM Checklists
+      -name: Secure Programming
+      -name: Securing Multi Agent Societies
+      -name: Seesoft A Tool For Visualizting Line O
+      -name: Segmentation Of Cursive Handwriting
+      -name: Self Awareness For Vehicle Safety And Mi
+      -name: Self Configuring Ad Hoc Networks For Unm
+      -name: Semantics Of Abstract Program Slicin
+      -name: Semantics Of The Unify Composition Mecha
+      -name: Semantic Future For AI
+      -name: Semi Proving Integrated Method
+      -name: Sensor Model Language XML Ba
+      -name: Separation And Information Hiding
+      -name: Sequent Calculi And Abstract Machines
+      -name: Service Orientation And Systems Of Syste
+      -name: Service Oriented Database Architecture
+      -name: Set Constraint Based Program Analysis A
+      -name: Seven Deadly Sins Of Slow Software Build
+      -name: Shared Situation Awareness For Army Mann
+      -name: Short Introduction To The Lambda Calcu
+      -name: Simple and Effective Approach for Border Noise Removal from Document Images
+      -name: Simple and Efficient Skew Detection Algorithm via Text Row Algorithm
+      -name: Simplified Design Flow For Embeded Syste
+      -name: Simplified Rotor System Mathematical Model
+      -name: Simulation And Development Environment F
+      -name: Simulation Of A Soar Based Autonomous Mi
+      -name: Simulation Test Bed For Coordination O
+      -name: Six Degree Of Freedom Adaptive Flight
+      -name: Size of Graphs that Admit Polylin
+      -name: Sketched Symbol Recognition With A Laten
+      -name: Sketching And Gestures
+      -name: SketchREAD A Multi Domain Sketch Recogni
+      -name: SketchUML The Design Of A Sketch Based
+      -name: Sketch Recognition Interface That Reco
+      -name: Skew And Slant Correction For Document Images Using Gradien Direction
+      -name: Slicing The SCAM Mug A Case Study In Sem
+      -name: Small Codes And Large Image Databases Fo
+      -name: Smooth Morphing Of Handwritten Text
+      -name: Soar Cognitive Architecture
+      -name: Software Analysis APIs Of Datrix
+      -name: Software Architecture An Executive Over
+      -name: Software Architecture For Autonomous U
+      -name: Software Architecture Patterns
+      -name: Software Build Systems Principles And E
+      -name: Software Comprehension Integrating Pro
+      -name: Software Design And Architecture The Once And Future Focus Of Software Engineering
+      -name: Software Engineering Body Of Knowledge
+      -name: Software For Model Helicopter Flight Con
+      -name: Software Inspections
+      -name: Software Interoperability Principles An
+      -name: Software Module Clustering As A Multi Ob
+      -name: Software Negligence And Testing Coverage
+      -name: Software Pipelining An Effective Schedu
+      -name: Software Process For QA
+      -name: Software Product Qualities
+      -name: Software Quality Prediction Models Compa
+      -name: Software Reengineering Based On Concept
+      -name: Software Static Analysis Reliability
+      -name: Software Testibility
+      -name: Software Testing
+      -name: Software Testing Research Achievements, Challenges, Dreams
+      -name: Software Tool For Hybrid Control
+      -name: Software Unit Test Coverage And Adequacy
+      -name: Software Visualization In The Desert Env
+      -name: Software Vulnerabilities In Java
+      -name: Solution Adaptive Structured Unstructu
+      -name: Solving Motion Planning Problems By Iter
+      -name: Some Assembly Required Program Analysi
+      -name: Some Shortcomings Of OCL, The Object Con
+      -name: Some Wells Never Dry
+      -name: Source Code Analysis A Road Map
+      -name: Source Code Analysis Laboratory
+      -name: Source To Source Compiler For Generati
+      -name: Space Efficient Data Structures For Lattices
+      -name: Space Indexed Dynamic Programming Learn
+      -name: Spatial Data Standards And GIS Interoper
+      -name: Spatial Language Processing For Assistive Robots With Deep Chunking And Semantic Grammars
+      -name: Specifications, Programs, And Total Corr
+      -name: Specifications From Source Code Alchem
+      -name: Specification Based Test Generation With TGV
+      -name: Specifying Gestures By Example
+      -name: Spectral Rounding And Image Segmentation
+      -name: Speculative Analysis Exploring Future S
+      -name: Speculative Identification Of Merge Conf
+      -name: SQuAVisiT A Software Quality Assessment
+      -name: State Estimation Of An Autonomous Helicopter Using Kalman Filtering
+      -name: State Sharing In A Hybrid Neuro Markovia
+      -name: Static Program Analysis using Abstract Interpretation
+      -name: Static Analysis Analysis Of Models, Dat
+      -name: Static Analysis For Inference Of Explici
+      -name: Static Analysis Of XSLT Programs
+      -name: Static And Dynamic Analysis Synergy And
+      -name: Static And Dynamic Analysis Synergy And Duality
+      -name: Static And Dynamic Program Analysis Slides
+      -name: Static And Metaprogramming Patterns
+      -name: Static Estimation Of Test Coverage
+      -name: Static Slicing And Parametric Polymorphi
+      -name: Statistical Learning Theory Models, Con
+      -name: Statistics Of Natural Image Characterist
+      -name: Staying Alive Longer Autonomous Robot R
+      -name: Stereo Vision System for Top View
+      -name: Stopless A Real Time Garbase Collector
+      -name: Strategy And Tactics DreamWeaver’s Thoug
+      -name: Streak Detection in Mottled and Noisy Images
+      -name: STREAMS Programming Guide
+      -name: Structural Mixtures For Statistical Layout Analysis
+      -name: Structured Communication Centered Progra
+      -name: Structured Demonstration Of Program Co
+      -name: Structure Of A GCC Front End
+      -name: Study Of Branch Prediction Strategies
+      -name: Study Of Self Organization Mechanism I
+      -name: Study On Connected Components Labeling Algorithms Using GPUs
+      -name: Successful Evolution Of Software Systems
+      -name: SUDS Infrstruction For Bug Detection Tools
+      -name: Supporting Feature Level Software Mainte
+      -name: Supporting Many To One Communication In
+      -name: Supporting Source Code Difference Analys
+      -name: Supporting the Automatic Test Case and Oracle Generation Using System Models
+      -name: Survey Of Cognitive Architecture
+      -name: Survey Of Cognitive Radio Architectures
+      -name: Survey Of Commercial & Open Source Unm
+      -name: Survey Of Coverage Based Testing Tools
+      -name: Survey Of Model DrivenTestingTechniques
+      -name: Survey Of Program Slicing Techniques
+      -name: Survey Of Static Program Analysis Tech
+      -name: Survey Of Static Software Analysis Too
+      -name: Survey Of The SpiNNaker Project A Mas
+      -name: Survey On Goal Driven Architectures
+      -name: Survey On Sensor Networks
+      -name: SwarMAV A Swarm Of Miniature Aerial Veh
+      -name: Symbolic Message Sequence Charts
+      -name: SysML Tutorial
+      -name: Systematic Design Of Program Analysis Fr
+      -name: Systematic Design Of Program Analysis Frameworks
+      -name: Systems Engineering Brochure
+      -name: Systems Engineering Capability Assessmen
+      -name: Systems Engineering Handbook 3.2.2
+      -name: Systems Engineering Leading Indicators G
+      -name: Systems Engineering Measurement Primer
+      -name: Systems Modeling Language
+      -name: System And Language For Building Syste
+      -name: System And Language For Building System Specific Static Analysis
+      -name: System For Automatic Recognition Of Ha
+      -name: System Integration And Operation Of A Re
+      -name: S TOPLESS A Real Time Garbage Collector
+    -name: T
+    -items: 
+      -name: Tail Recursive Semantics For Stack Ins
+      -name: Task Assignment For A Physical Agent Tea
+      -name: Task Constrained Motion Planning In Robo
+      -name: Task Encoding, Motion Planning And Intel
+      -name: Task Planning And Control For A Multi Ua
+      -name: Task Structured Probabilistic I O Automa
+      -name: Taxonomy And Terminology Of Adversarial ML
+      -name: Taxonomy Of Architectural Syle Usage
+      -name: Taxonomy Of Operational Cyber Security
+      -name: Taxonomy Of Test Oracles
+      -name: Technical Measurement
+      -name: Technical Overview Of The Common Languag
+      -name: Techniques For Static Handwriting Trajec
+      -name: Technique for Transparently Empowering Classical Compiler
+      -name: Template Meta Programming For Haskell
+      -name: Temporal Sketch Recognition In Intersper
+      -name: Term Transformers A New Approach To Sta
+      -name: Tests The Architect's Best Friend
+      -name: Test Models and Coverage Criteria for Automatic Model-Based Test Generation with UML State Machines
+      -name: Test Oracles Slides
+      -name: Text Entry Performance Of State Of The A
+      -name: Text Line Detection In Document Images T
+      -name: Theoretical Computer Science Cheat Sheet
+      -name: Theory For Comparing Robot Systems
+      -name: Theory Of Self Reproducing Automata
+      -name: THE PHILOSOPHY OF HISTORY
+      -name: Threat Aware Clustering In Wireless Sens
+      -name: Times A Tool For Modeling And Analysis
+      -name: Tomographic Reconstruction Of Gated Data Acquisition
+      -name: Tools For The Efficient Generation Of Ha
+      -name: Toposes, Triples And Theories
+      -name: Towards A Generic Architecture For Rever
+      -name: Towards A New Cognitive Hourglass Unifo
+      -name: Towards A Programming Language Ontology
+      -name: Towards A Taxonomy Of Software Evolution
+      -name: Towards Clustering Algorithms In Wireles
+      -name: Towards Model Driven Testing
+      -name: Towards The Unified Visualization Archit
+      -name: Toward A Framework For Modeling Space Sy
+      -name: Toward A Theory Of Complex And Cognitive
+      -name: Toward Cognitive Robotics
+      -name: Toward The Unified Visualization Archite
+      -name: Trace Based Program Analysis
+      -name: Trajectory Generation Methods
+      -name: Trajectory Primal Sketch A Multi Sc
+      -name: Trajectory Tracking Control Design For A
+      -name: Transforming High Level Tasks To Low Lev
+      -name: Tree Based Algorithm For Construction Robots
+      -name: Trends In Software Verification
+      -name: Turbo Recognition An Approach To Decoding Page Layout
+      -name: Tutorial On Planning Graph Based Reach
+      -name: Two Cost Stroke Segment Grouping Mechani
+      -name: Two Executable Mobility Design Patterns Mfold And Mmap
+      -name: Two Geometric Algorithms for Layout Analysis
+      -name: TxLinux Using And Managing Hardware Tra
+      -name: Type Based Analysis And Applications
+    -name: U
+    -items: 
+      -name: UML 2.0 Infrastructure
+      -name: Understanding A System's Architecture
+      -name: Understanding Chief Data Officer
+      -name: Understanding The Causes Of Packet Deliv
+      -name: Understanding The Diagnostic Subsystem F
+      -name: Universal Discrete Denoising Known Chan
+      -name: University Of Texas At Austin Air Sy
+      -name: Unix Philosophy And Culture
+      -name: Unmanned Aircraft Systems Roadmap 2005 2
+      -name: Untangling the Web Guide to Internet Research
+      -name: Using Dependence Graphs As A Support To
+      -name: Using Diagrams To Access A Case Library
+      -name: Using Graphics Devices In Reverse GPU B
+      -name: Using Interpolation To Improve Path Plan
+      -name: Using Pre-Oracled Data in Model-Based Testing
+      -name: Using Programmer Written Compiler Extens
+      -name: Using Static Analysis To Find Bugs
+    -name: V
+    -items: 
+      -name: Validation Of A Standard And Metric Bas
+      -name: Validation Of A Standard And Metric Base
+      -name: Value Object
+      -name: Variable KD Tree Algorithms For Spatial
+      -name: VEC Virtual Energy Counters
+      -name: Veldt
+      -name: Version Control With Subversion
+      -name: Virtual Memory Management In The VAX VMS
+      -name: Virtual Reality Modeling Language
+      -name: Virtual Time Round Robin An O Propor
+      -name: Vision Based Altitude And Pitch Estimati
+      -name: Vision Based Navigation For An Autonomou
+      -name: Vision Based Navigation For UAV Helicopt
+      -name: Vision Based Obstacle Avoidance For UAVs
+      -name: Vision Based Target Tracking With Adapti
+      -name: Vision For A UAV Helicopter
+      -name: Vision Only Aircraft Flight Control
+      -name: Vision Only Aircraft Flight Control Meth
+      -name: Visualizing The Performance Of Higher Or
+      -name: Visualizing Threads, Transactions And Ta
+      -name: Visually Supporting Source Code Changes
+      -name: Visual Analogy Approach To Source Case Retrieval In Robot Learning From Observation
+      -name: Visual Approach To Sketched Symbol Rec
+      -name: Visual Similarity Based Document Layout Analysis
+      -name: Visual Syntactic Text Formatting Theoretical Basis And Empirical Evidence For Impact On Human Reading
+      -name: VizzAnalyzer A Reverse Engineering Fra
+      -name: Vizzanalyzer Handbook
+      -name: VSJ Standard Edition 3.3 Reference Manua
+    -name: W
+    -items: 
+      -name: Wavelet Analysis For Image Processing
+      -name: Web Map Context Documents
+      -name: Weighted Combination of Text and Image Classifiers for User Gender
+      -name: What Types Of Defects Are Discovered In Code Reviews
+      -name: Who Are To Be The New Intellectuals
+      -name: Why Source Code Analysis And Manipulatio
+      -name: Wireless Embedded Systems Sensor Networ
+      -name: Wireless Mesh Network Simulation Framewo
+      -name: Wireshark Developer's Guide 35006 For
+      -name: Wittgenstein's Lectures On Philosophy
+      -name: Wittgenstein's Philosophy Of Logic
+      -name: Workspace Sampling For Probabilistic Pat
+      -name: World as I See It
+      -name: Wrong Path Instruction Prefetching
+    -name: X
+    -items: 
+      -name: XCDF a Cononical Structured Document Format
+      -name: XML Syntax Quick Reference
+      -name: XQuery Tutorial
+      -name: XSI IPC
+      -name: XSLT And XPath Optimization
+    -name: Y
+    -items: 
+      -name: You Can't Manage What You Don't Measure
+    -name: Z
+    -items: 
+      -name: Zebu Language Based Approach For Network Protocol MEssage Processing
+      -name: Zoning And Metaclasses For Character Rec
+      -name: Z Book
+      -name: Z ISO Standard Specification
+      -name: Z Reference Manual

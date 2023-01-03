@@ -19,6 +19,7 @@ import org.github.arosecra.brooke.jobs.BrookeJobStep.JobFolder;
 import org.github.arosecra.brooke.jobs.ConvertToWebp;
 import org.github.arosecra.brooke.jobs.CreateCbtThumbnail;
 import org.github.arosecra.brooke.jobs.Deskew;
+import org.github.arosecra.brooke.jobs.ExtractMkvDetails;
 import org.github.arosecra.brooke.jobs.ExtractPDFs;
 import org.github.arosecra.brooke.jobs.Itemize;
 import org.github.arosecra.brooke.jobs.LightNovelRename;
@@ -40,6 +41,7 @@ public class BrookePipelineApplication {
 		JOBS.put("DESKEW", new Deskew());
 		JOBS.put("CONVERT_TO_WEBP", new ConvertToWebp());
 		JOBS.put("CONVERT_TO_WEBP_RAW", new ConvertToWebp("_RAW.tar"));
+		JOBS.put("EXTRACT_MKV_DETAILS", new ExtractMkvDetails());
 		
 		JOBS.put("ITEMIZE_PDF_FOLDER", new Itemize("pdf"));
 		JOBS.put("ITEMIZE_MKV_FOLDER", new Itemize("mkv"));

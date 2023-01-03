@@ -1,0 +1,352 @@
+remoteDirectory: \\\\drobo5n\\public\\Scans\\NonFiction Repository
+localDirectory: D:\\Library\\NonFiction Repository
+itemExtension: cbt
+excludeExtensions: 
+  - tar
+  - pdf
+  - 7z
+openType: book
+pipelineSteps: 
+  - ITEMIZE PDF FOLDER
+  - EXTRACT BOOK PDF
+  - CREATE CBT THUMBNAIL
+  - DESKEW
+  - CONVERT TO WEBP
+
+categories
+
+  - name: A. General Works
+    items: 
+  
+      -name: Websters Pocket Quotation Dictionary
+  
+  - name: B. Philosophy, Psychology, and Religion
+    items: 
+  
+      -name: Artists Way
+      -name: Book of Five Rings
+      -name: Death of Expertise
+      -name: Emotion Machine
+      -name: Ethics In an Age of Technology
+      -name: Ethics and On the Improvement of Understanding
+      -name: God Delusion
+      -name: Gods Debris
+      -name: How To Build a Robot Army
+      -name: How To Survive a Robot Uprising
+      -name: Human Enhancement
+      -name: I Am a Strange Loop
+      -name: Image
+      -name: Investigation of the Laws of Thought
+      -name: Liars and Outliers
+      -name: Mythology
+      -name: Napalm and Silly Putty
+      -name: Neuropsychology
+      -name: Only Astrology Book Youll Ever Need
+      -name: Philosophy of Sailing
+      -name: Power of Birthdays, Stars, and Numbers
+      -name: Questions That Matter
+      -name: Quiet
+      -name: Semantic Information Processing
+      -name: Simulacra and Simulation
+      -name: Society of Mind
+      -name: Superintelligence
+      -name: Tao Te Ching
+      -name: Theodore Roosevelt 01 Rise of Theodore Roosevelt
+      -name: Theodore Roosevelt 02 Theodore Rex
+      -name: Theodore Roosevelt 03 Colonel Roosevelt
+      -name: Thus Spoke Zarathustra
+      -name: Treatise of Human Nature
+      -name: Twilight of the Idols and the Anti Christ
+      -name: Understanding Power the Indispensible Chomsky
+      -name: Why I Am Not a Christian
+      -name: Wooden On Leadership
+      -name: Zen and the Motorcycle Guide To Maintenance
+  
+  
+  - name: C. Auxiliary Sciences of History
+    items: 
+  
+      -name: Against All Enemies
+      -name: All the Presidents Men
+      -name: Autobiography of Martin Luther King Jr
+      -name: Bag Man
+      -name: Blowout
+      -name: Bush at War
+      -name: Cleopatras Nose
+      -name: Fear
+      -name: Final Days
+      -name: First Principles
+      -name: Just for Fun
+      -name: Peril
+      -name: Plan of Attack
+      -name: Rage
+      -name: State of Denial
+      -name: Testament of Hope
+      -name: Truman and the Fight For Western Civilization
+      -name: War Within
+  
+  - name: D. World History
+    items: 
+  
+      -name: Creators
+      -name: Discoverers
+      -name: Inside the Vicious Heart
+      -name: Seekers
+      -name: Society and Technological Change
+  
+  
+  - name: E. American History
+    items: 
+  
+      -name: Americans 01 Colonial Experience
+      -name: Americans 02 National Experience
+      -name: Americans 03 Democratic Experience
+      -name: Technology In America
+  
+  
+  - name: H. Social Sciences
+    items: 
+  
+      -name: Business Research Methods
+      -name: Compensation
+      -name: Conservative Parties and the Birth of Democracy
+      -name: First 90 Days
+      -name: Foundations of Financial Management
+      -name: How Democracies Die
+      -name: Price of Inequality
+  
+  - name: P. Language
+    items: 
+  
+      -name: Chicago Manual of Style
+      -name: Easy Japanese
+  
+  - name: Q. Science
+    items: 
+  
+      -name: 3d Game Engine Architecture
+      -name: 3d Game Engine Design
+      -name: 97 Things Every Programmer Should Know
+      -name: 97 Things Every Software Architect Should Know
+      -name: Accelerate
+      -name: Acquisition of Strategic Knowledge
+      -name: Advanced Compiler Design and Implementation
+      -name: Advanced Data Structures
+      -name: Advanced Programming in the Unix Environment
+      -name: Algorithm Design Manual
+      -name: Analysis Patterns
+      -name: Angularjs Up and Running
+      -name: Angularjs Web Application Development Cookbook
+      -name: Ant in Action
+      -name: Applied Statistics for Engineers and Scientists
+      -name: Architectures for Intelligence
+      -name: Art of Computer Programming 1
+      -name: Art of Computer Programming 2
+      -name: Art of Computer Programming 3
+      -name: Art of Computer Programming 4a
+      -name: Art of R Programming
+      -name: Art of Software Testing
+      -name: Art of Software Testing V3
+      -name: Artificial Intelligence
+      -name: Artificial Intelligence Structures and Strategies
+      -name: Assembly Language for Intel Based Computers
+      -name: Beautiful Architecture
+      -name: Beautiful Code
+      -name: Beautiful Teams
+      -name: Beautiful Visualization
+      -name: Beyond Software Architecture
+      -name: Biology
+      -name: Blackboard Architectures and Applications
+      -name: C Pocket Reference
+      -name: C Programming Language
+      -name: C Sharp 4 In a Nutshell
+      -name: Calculus
+      -name: Cathedral and the Bazaar
+      -name: Clean Code
+      -name: Code Complete
+      -name: Compiler Design Handbook
+      -name: Compilers Principles Techniques and Tools
+      -name: Computational Intelligence
+      -name: Computationally Intelligent Hybrid Systems
+      -name: Computer Networks
+      -name: Computing Concepts with Java Essentials
+      -name: Concrete Mathematics
+      -name: Continuous Architecture In Practice
+      -name: Continuous Delivery
+      -name: Cpp Programming Language
+      -name: Crafting Interpreters
+      -name: Cuda By Example
+      -name: Data Flow Analysis
+      -name: Data Sketches
+      -name: Data Structures and Other Objects Using Java
+      -name: Deep Learning Illustrative
+      -name: Definitive Antlr Reference
+      -name: Definitive Guide To the Xen Hypervisor
+      -name: Design Concepts In Programming Languages
+      -name: Design Patterns
+      -name: Digital Image Processing
+      -name: Discrete Math Reference Cards
+      -name: Distributed Systems Principles and Paradigms
+      -name: Documenting Software Architectures
+      -name: Elasticsearch Definitive Guide
+      -name: Engineering a Compiler
+      -name: Engineering of Software
+      -name: Enterprise Integration Patterns
+      -name: Essential Linux Device Drivers
+      -name: Estimating Software Costs
+      -name: Ethics and Computing
+      -name: Evaluating Software Architectures
+      -name: Facts and Fallacies of Software Engineering
+      -name: Foundations of Artificial Intelligence
+      -name: Foundations of Game Engine Development 1
+      -name: Foundations of Game Engine Development 2
+      -name: Foundations of Multidimensional and Metric Data Structures
+      -name: Foundations of Statistics
+      -name: Fundamentals of Artificial Neural Networks
+      -name: Fundamentals of Database Systems
+      -name: Game Engine Architecture
+      -name: Game Physics
+      -name: Game Programming Patterns
+      -name: Godels Theorem
+      -name: Go Programming Language
+      -name: Groovy Recipes
+      -name: Growing Object Oriented Software Guided By Tests
+      -name: Guide To Using Linux
+      -name: Handbook of Data Structures and Applications
+      -name: Haskell Road To Logic Maths and Programming
+      -name: How Google Tests Software
+      -name: Ideas that Created the Future
+      -name: Implementation Patterns
+      -name: Inside Microsoft Office Sharepoint Server 2007
+      -name: Inside Microsoft Windows Sharepoint Services 3 0
+      -name: Intelligent Control Systems Using Computational Intelligence Techniques
+      -name: Intelligent Techniques and Tools for Novel System Architectures
+      -name: Introduction To Algoritms
+      -name: Introduction To Artificial Intelligence
+      -name: Introduction To the Languages and the Theory of Computation
+      -name: Javascript Definitive Guide
+      -name: Just Enough Software Architecture
+      -name: Just for Fun
+      -name: Knowledge Representation and Reasoning
+      -name: Language Implementation Patterns
+      -name: Lean Architecture
+      -name: Learn You a Haskell for Great Good
+      -name: Learning Angularjs
+      -name: Learning Opencv
+      -name: Linux Administration Handbook
+      -name: Linux Kernel Development
+      -name: Linux Kernel Programming
+      -name: Little Schemer
+      -name: Logic Programming Paradigm
+      -name: Logical Approach To Discrete Math
+      -name: Machine Learning an Algorithm Perspective
+      -name: Machine Learning an Artificial Intelligence Approach
+      -name: Machine Learning with R
+      -name: Machine Vision
+      -name: Machine Vision Theory Algorithms Practicalities
+      -name: Making Software
+      -name: Mastering Apache Camel
+      -name: Mathematics of Digital Images
+      -name: Maven Definitive Guide
+      -name: Mechanics of Flight
+      -name: Minimalist Mobile Robotics
+      -name: Multiscale Optimization Methods and Applications
+      -name: Multiscale Optimization Methods and Applications
+      -name: Mythical Man Month
+      -name: Operating System Concepts 7
+      -name: Operating System Concepts 8
+      -name: Optimizing Compilers for Modern Architectures
+      -name: Oracle Architect Exam Guide
+      -name: Oracle Master Architect Practice Guide
+      -name: Parsing Techniques
+      -name: Pattern Languages of Program Design 1
+      -name: Pattern Languages of Program Design 2
+      -name: Pattern Languages of Program Design 3
+      -name: Pattern Languages of Program Design 4
+      -name: Pattern Languages of Program Design 5
+      -name: Pattern Recognition
+      -name: Peopleware
+      -name: Perceptrons
+      -name: Perl Pocket Reference
+      -name: Philosophy of Software Design
+      -name: Physically Based Rendering
+      -name: Pragmatic Programmer
+      -name: Pragmatic Programmer Quick Reference Guide
+      -name: Principles of Program Analysis
+      -name: Probabilistic Reasoning In Multiagent Systems
+      -name: Probability and Statistical Inference
+      -name: Probability and Statistics
+      -name: Probalistic Graphical Models
+      -name: Productive Programmer
+      -name: Program Flow Analysis
+      -name: Programming Clojure
+      -name: Programming Erlang
+      -name: Programming Groovy
+      -name: Programming Language Pragmatics
+      -name: Programming Languages Principles and Paradigms
+      -name: Programming Perl
+      -name: Programming Python 3
+      -name: Programming Ruby 1 9
+      -name: Programming Scala
+      -name: Programming with Posix Threads
+      -name: Qualitative Spatial Reasoning with Topological Information
+      -name: Rapid Development
+      -name: Readings In Agents
+      -name: Real Time Collision Detection
+      -name: Real World Haskell
+      -name: Regular Expressions Pocket Reference
+      -name: Semantic Information Processing
+      -name: Service Oriented Architecture
+      -name: Software Architecture In Practice
+      -name: Software Product Lines
+      -name: Software Testing Craftsmans Approach
+      -name: Software Visualization
+      -name: Speech and Language Processing
+      -name: Sql Cookbook
+      -name: Statistics In Plain English
+      -name: Structure and Interpretation of Computer Programs
+      -name: Structured Computer Organization
+      -name: Structured Document Image Analysis
+      -name: Swarm Intelligence
+      -name: Test Driven Development By Example
+      -name: Twelve Essential Skills for Software Architects
+      -name: Twos Company Threes Complexity
+      -name: Uml Language Reference Manual
+      -name: Uml User Guide
+      -name: Understanding the Linux Kernel
+      -name: Version Control with Git
+      -name: Vi Editor Pocket Reference
+      -name: Visual Display of Quantitative Information
+      -name: Windows Internals Part 1
+      -name: Windows Internals Part 2
+      -name: Windows Powershell Cookbook
+      -name: Wix 3 6 Developers Guide To Windows Installer Xml
+      -name: Wix Cookbook
+      -name: Xquery From the Experts
+      -name: Xquery the Xml Query Language
+      -name: Xsl Formatting Objects
+      -name: Xslt and Xpath
+      -name: Xunit Test Patterns
+  
+  
+  - name: T. Technology
+    items: 
+  
+      -name: Applied Control Theory
+      -name: Computationally Intelligent Hybrid Systems
+      -name: Control Theory
+      -name: Flight Stability and Automatic Control
+      -name: How To Avoid a Climate Disaster
+      -name: Intelligent Control Systems Using Computational Intelligence Techniques
+      -name: Introduction To Helicopter and Tiltrotor Flight Simulation
+      -name: Mechanics of Flight
+      -name: Minimalist Mobile Robotics
+      -name: Third Industrial Revolution
+      -name: Toyota Production System
+  
+  - name: U. Military Science
+    items: 
+      -name: Book of Five Rings
+      -name: Masters of War
+      -name: Masters of War Maps
+  

@@ -1,0 +1,385 @@
+name: Fiction
+remoteDirectory: \\\\drobo5n\\public\\Scans\\Fiction Repository
+localDirectory: D:\\Library\\Fiction Repository
+itemExtension: cbt
+excludeExtensions:
+  - tar
+  - pdf
+  - 7z
+openType: book
+autoGenerateAlphaCategories: false
+pipelineSteps:
+  - ITEMIZE PDF FOLDER
+  - EXTRACT BOOK PDF
+  - CREATE CBT THUMBNAIL
+  - DESKEW
+  - CONVERT TO WEBP
+categories:
+  - name: Alastair Reynolds
+    items:
+      - name: Absolution Gap
+      - name: Revelation Space
+      - name: Redemption Ark
+  - name: Andy Weir
+    items:
+      - name: Artemis
+      - name: Martian
+      - name: Project Hail Mary
+  - name: Anne Rice
+    items:
+      - name: Blood Canticle
+      - name: Blood and Gold
+      - name: Feast of All Saints
+      - name: Interview with the Vampire
+      - name: Memnoch the Devil
+      - name: Mummy
+      - name: Queen of the Damned
+      - name: Tale of the Body Thief
+      - name: Vampire Armand
+      - name: Vampire Lestat
+      - name: Vittorio the Vampire
+  - name: Bandon Sanderson
+    items:
+      - name: Hero of Ages
+      - name: Mistborn
+      - name: Way of Kings
+      - name: Well of Ascension
+      - name: Alloy of Law
+      - name: Bands of Mourning
+      - name: Oathbringer
+      - name: Shadows of Self
+      - name: Skyward
+      - name: Starsight
+      - name: Words of Radiance
+      - name: Rhythm of War
+  - name: Brent Weeks
+    items:
+      - name: Beyond the Shadows
+      - name: Black Prism
+      - name: Shadows Edge
+      - name: Way of Shadows
+  - name: C. S. Friedman
+    items:
+      - name: Black Sun Rising
+      - name: Crown of Shadows
+      - name: Dreamwalker
+      - name: Feast of Souls
+      - name: Legacy of Kings
+      - name: Madness Season
+      - name: When True Night Falls
+      - name: Wings of Wrath
+  - name: C. J. Cherryh
+    items:
+      - name: Faded Sun Trilogy
+      - name: Emergence
+      - name: Tracker
+  - name: Carol Berg
+    items:
+      - name: Breath and Bone
+      - name: Daughter of Ancients
+      - name: Flesh and Spirit
+      - name: Gaurdians of the Keep
+      - name: Restoration
+      - name: Revelation
+      - name: Son of Avonar
+      - name: Song of the Beast
+      - name: Soul Weaver
+      - name: Transformation
+  - name: Christopher Rucchio
+    items:
+      - name: Empire of Silence
+      - name: Howling Dark
+      - name: Demon in White
+  - name: David Drake
+    items:
+      - name: Goddess of the Ice Realm
+      - name: Lord of the Isles
+      - name: Mistress of the Catacombs
+      - name: Queen of Demons
+      - name: Servant of the Dragon
+  - name: Dean Koontz
+    items:
+      - name: Fear Nothing
+      - name: One Door Away From Heaven
+      - name: Seize the Night
+      - name: Tick Tock
+  - name: Dennis E. Taylor
+    items:
+      - name: All These Worlds
+      - name: For We are Many
+      - name: Heavens River
+      - name: We are Legion We are Bob
+  - name: Eddings
+    items:
+      - name: Crystal Gorge
+      - name: Elder Gods
+      - name: Redemption of Althalus
+      - name: Reginas Song
+      - name: Treasured One
+      - name: Younger Gods
+  - name: H. P. Lovecraft
+    items:
+      - name: Best of H P Lovecraft
+      - name: Dreams of Terror and Death
+      - name: Transition of H P Lovecraft
+  - name: Hemingway
+    items:
+      - name: For Whom the Bell Tolls
+  - name: Herbert
+    items:
+      - name: Battle of Corrin
+      - name: Butlerian Jihad
+      - name: Chapterhouse Dune
+      - name: Children of Dune
+      - name: Dune
+      - name: Dune Messiah
+      - name: God Emperor of Dune
+      - name: House Atreides
+      - name: House Corrino
+      - name: House Harkonnen
+      - name: Hunters of Dune
+      - name: Machine Crusade
+      - name: Paul of Dune
+      - name: Sandworms of Dune
+  - name: Isaac Asimov
+    items:
+      - name: I Robot
+      - name: Caves of Steel
+      - name: Naked Sun
+      - name: Robots of Dawn
+      - name: End of Eternity
+      - name: Foundation
+      - name: Foundation and Empire
+      - name: Second Foundation
+      - name: Foundations Edge
+      - name: Foundation and Earth
+      - name: Prelude to Foundation
+      - name: Forward the Foundation
+  - name: James S. A. Corey
+    items:
+      - name: Leviathan Wakes
+      - name: Calibans War
+      - name: Abbaddons Gate
+      - name: Cibola Burn
+      - name: Nemesis Games
+      - name: Babylons Ashes
+      - name: Persepolis Rising
+      - name: Tiamats Wrath
+      - name: Leviathan Falls
+      - name: Memorys Legion
+  - name: Kevin Hearne
+    items:
+      - name: Hammered
+      - name: Hexed
+      - name: Hounded
+      - name: Tricked
+  - name: Michael J. Sullivan
+    items:
+      - name: Heir of Novron
+      - name: Rise of Empire
+      - name: Theft of Swords
+  - name: Orson Scott Card
+    items:
+      - name: Children of the Mind
+      - name: Enders Game
+      - name: Speaker for the Dead
+      - name: Xenocide
+  - name: Patrick Rothfuss
+    items:
+      - name: Name of the Wind
+      - name: Slow Regard of Silent Things
+      - name: Wise Mans Fear
+  - name: Peter Brett
+      - name: Daylight War
+      - name: Desert Spear
+      - name: Skull Throne
+      - name: Warded Man
+      - name: Core
+  - name: Robert Jordan
+    items:
+      - name: Crossroads of Twilight
+      - name: Crown of Swords
+      - name: Dragon Reborn
+      - name: Eye of the World
+      - name: Fires of Heaven
+      - name: Gathering Storm
+      - name: Great Hunt
+      - name: Knife of Dreams
+      - name: Lord of Chaos
+      - name: Memory of Light
+      - name: New Spring
+      - name: Path of Daggers
+      - name: Shadow Rising
+      - name: Towers of Midnight
+      - name: Winters Heart
+  - name: Robert Ludlum
+    items:
+      - name: Bourne Identity
+      - name: Bourne Supremacy
+      - name: Bourne Ultimatum
+      - name: Scorpio Illusion
+  - name: Scott Lynch
+    items:
+      - name: Lies of Locke Lamora
+      - name: Red Seas Under Red Skies
+      - name: Republic of Thieves
+  - name: Stephen King
+    items:
+      - name: 11 11 63
+      - name: Bag of Bones
+      - name: Christine
+      - name: Cujo
+      - name: Dark Half
+      - name: Dark Tower 01 the Gunslinger
+      - name: Dark Tower 01 the Gunslinger Revised
+      - name: Dark Tower 03 the Wastelands
+      - name: Dark Tower 04 Wizard and Glass
+      - name: Dark Tower 05 the Wolves of the Calla
+      - name: Dark Tower 06 Song of Susannah
+      - name: Dark Tower 07 the Dark Tower
+      - name: Dead Zone
+      - name: Dreamcatcher
+      - name: Four Past Midnight
+      - name: Geralds Game
+      - name: Girl Who Loved Tom Gordon
+      - name: Green Mile 1
+      - name: Green Mile 2
+      - name: Green Mile 3
+      - name: Green Mile 4
+      - name: Green Mile 5
+      - name: Green Mile 6
+      - name: Hearts In Atlantis
+      - name: Insomnia
+      - name: Institute
+      - name: It
+      - name: Misery
+      - name: Needful Things
+      - name: Night Shift
+      - name: Rose Madder
+      - name: Salems Lot
+      - name: Stand
+      - name: Stand Complete and Uncut
+      - name: Talisman
+      - name: Thinner
+      - name: Tommyknockers
+  - name: Suzanne Collins
+    items:
+      - name: Catching Fire
+      - name: Hunger Games
+      - name: Mockingjay
+  - name: Terry Goodkind
+    items:
+      - name: Blood of the Fold
+      - name: Chainfire
+      - name: Confessor
+      - name: Deaths Mistress
+      - name: Faith of the Fallen
+      - name: First Confessor
+      - name: Girl In the Moon
+      - name: Law of Nines
+      - name: Naked Empire
+      - name: Omen Machine
+      - name: Phantom
+      - name: Severed Souls
+      - name: Shroud of Eternity
+      - name: Siege of Stone
+      - name: Soul of the Fire
+      - name: Stone of Tears
+      - name: Temple of the Winds
+      - name: Third Kingdom
+      - name: Warheart
+      - name: Wizards First Rule
+  - name: Thieves World
+    items:
+      - name: Aftermath
+      - name: Blood Ties
+      - name: Dead of Winter
+      - name: Face of Chaos
+      - name: Multitude of Monsters
+      - name: Shadows of Sanctuary
+      - name: Soul of the City
+      - name: Stealers Sky
+      - name: Storm Season
+      - name: Tales From the Vulgar Unicorn
+      - name: Thieves World
+      - name: Uneasy Alliances
+      - name: Wings of Omen
+  - name: Tom Clancy
+    items:
+      - name: Red Storm Rising
+      - name: Jack Ryan
+        seriesSeparator: true
+      - name: Cardinal of the Kremlin
+      - name: Clear and Present Danger
+      - name: Debt of Honor
+      - name: Executive Orders
+      - name: Bear and the Dragon
+      - name: John Clark
+        seriesSeparator: true
+      - name: Without Remorse
+      - name: Rainbow Six
+  - name: Unassigned
+    items: 
+      - name: Angel Fire East
+      - name: Bastard King
+      - name: Black Company
+      - name: Black Cross
+      - name: Catcher In the Rye
+      - name: Connecticut Yankee In King Arthurs Court
+      - name: Count of Monte Cristo
+      - name: Day of the Jackal
+      - name: Deadhouse Gates
+      - name: Devils Armor
+      - name: Eaters of the Dead
+      - name: Engines of God
+      - name: Eyes of God
+      - name: Farseer Assassins Apprentice
+      - name: Fellowship of the Ring
+      - name: Godwars
+      - name: Golden Compass
+      - name: Great Short Works of Edgar Allen Poe
+      - name: Hobbit
+      - name: I Am Legend
+      - name: Illustrated Sherlock Holmes Treasury
+      - name: Inferno
+      - name: Into the Darkness
+      - name: Knight of the Word
+      - name: Last Stormlord
+      - name: Legends 1
+      - name: Legends 2
+      - name: Les Miserables
+      - name: Lord of the Flies
+      - name: Nine Stories
+      - name: Odyssey
+      - name: One Hundred Years of Solitude
+      - name: Relic
+      - name: Rosencrantz and Guildenstern Are Dead
+      - name: Running with the Demon
+      - name: Seveneves
+      - name: Silence In Heaven
+      - name: Sound and the Fury
+      - name: Sword of Angels
+      - name: Tau Zero
+      - name: Tomorrow and Tomorrow
+      - name: Ultimate Hitchnikers Guide
+      - name: Wastelands 01
+      - name: Wastelands 02
+      - name: Way of the Wolf
+      - name: World War Z
+  - name: Ursula K. LeGuin
+    items:
+      - name: Changing Planes
+      - name: Telling
+      - name: Left Hand of Darkness
+      - name: Earthsea Cycle
+        seriesSeparator: true
+      - name: Wizard of Earthsea
+      - name: Tombs of Atuan
+      - name: Farthest Shore
+      - name: Tehanu
+      - name: Tales from Earthsea
+      - name: Other Wind
+  - name: Winston Groom
+	items:
+	  - name: Forest Gump
+	  - name: Gump and Co

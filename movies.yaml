@@ -1,0 +1,368 @@
+name: Movies
+remoteDirectory: \\\\drobo5n2\\public\\Movies
+localDirectory: D:\\Library\\Movie Repository
+itemExtension: mkv
+excludeExtensions:
+  - mp4
+  - mkv
+  - tar
+  - pdf
+openType: video
+pipelineSteps:
+  - ITEMIZE MKV FOLDER
+  - EXTRACT SLEEVE PDF
+  - CREATE MOVIE THUMBNAIL
+  - EXTRACT MKV DETAILS
+
+categories:
+  - name: Action
+    items:
+      - name: 1917
+      - name: 300
+      - name: Alita Battle Angel
+      - name: Azumi
+      - name: Babylon A D
+      - name: Boondock Saints 01
+      - name: Boondock Saints 02 All Saints Day
+      - name: Bourne 01 The Bourne Identity
+      - name: Bourne 02 The Bourne Supremacy
+      - name: Bourne 03 The Bourne Ultimatum
+      - name: Bourne 04 The Bourne Legacy
+      - name: Bourne 05 Jason Bourne
+      - name: Braveheart
+      - name: Bruce Lee The Invincible
+      - name: Clash of the Titans
+      - name: Crank 01
+      - name: Crank 02
+      - name: Crouching Tiger Hidden Dragon
+      - name: Crow Salvation
+      - name: Day of the Jackal
+      - name: Die Hard 01
+      - name: Die Hard 02 Die Harder
+      - name: Die Hard 03 With a Vengeance
+      - name: Die Hard 04 Live Free or Die Hard
+      - name: Die Hard 05 A Good Day to Die Hard
+      - name: Elysium
+      - name: Expendables 01
+      - name: Expendables 02
+      - name: Expendables 03
+      - name: Fearless
+      - name: Fightclub
+      - name: Fletch
+      - name: Free State of Jones
+      - name: GI Joe 01 Rise of Cobra
+      - name: GI Joe 02 Retaliation
+      - name: Gladiator
+      - name: Gone in 60 Seconds
+      - name: Highlander 1
+      - name: Highlander 2
+      - name: Highlander Endgame
+      - name: Hitman
+      - name: Homefront
+      - name: Jack Ryan Shadow Recruit
+      - name: Jackal
+      - name: James Bond 24 Quantum of Solace
+      - name: James Bond 25 Skyfall
+      - name: James Bond 26 Spectre
+      - name: James Bond 27 No Time to Die
+      - name: John Wick 02
+      - name: Jurassic Park
+      - name: Kingdom
+      - name: Last Man Standing
+      - name: Lock Stock and Two Smoking Barrells
+      - name: Leon the Professional
+      - name: Matrix 01
+      - name: Matrix 02 Reloaded
+      - name: Matrix 03 Revolutions
+      - name: Midway
+      - name: Monuments Men
+      - name: Mummy
+      - name: News of the World
+      - name: No Country for Old Men
+      - name: Out of Sight
+      - name: Out of Time
+      - name: Pirates of the Carribean 02 Dead Mans Chest
+      - name: Pirates of the Carribean 03 At Worlds End
+      - name: Pitch Black
+      - name: Predator 01
+      - name: Prometheus
+      - name: Rambo
+      - name: Repo Men
+      - name: Safe
+      - name: Scorpion King
+      - name: Seven Swords
+      - name: Sherlock Holmes 01
+      - name: Sherlock Holmes 02 A Game of Shadows
+      - name: Sicario 01
+      - name: Sicario 02 Day of the Soldado
+      - name: Sin City 01
+      - name: Sin City 02 A Dame to Kill For
+      - name: Snatch
+      - name: Surrogates
+      - name: Taken 01
+      - name: Taken 02
+      - name: Taken 03
+      - name: Terminator 01
+      - name: Tombstone
+      - name: Training Day
+      - name: Transformers 03
+      - name: Transporter 01
+      - name: Transporter 02
+      - name: Transporter 03
+      - name: Transporter 04 Refueled
+      - name: Underworld 01
+      - name: Underworld 02 Awakening
+      - name: Underworld 03 Evolution
+      - name: War
+      - name: Wild Card
+      - name: Wrath of Man
+      - name: Young Guns 01
+      - name: Young Guns 02
+  - name: Animated
+    items:
+      - name: Final Fantasy VII Advent Children
+      - name: Family Guy Blue Harvest
+      - name: Family Guy Its a Trap
+      - name: Family Guy Partial Terms of Endearment
+      - name: Futurama Beast with a Billion Backs
+      - name: Futurama Into the Wild Green Yonder
+      - name: Happy Feet
+      - name: How to Train Your Dragon
+      - name: Ice Age 3
+      - name: Kubo and the Two Strings
+      - name: Lion King
+      - name: Minions 1
+      - name: Raya and the Last Dragon
+      - name: Simpsons
+      - name: Team America World Police
+      - name: Up
+      - name: Wall E
+  - name: Comedy
+    items:
+      - name: Ace Ventura
+      - name: Airplane
+      - name: Austin Powers
+      - name: Barton Fink
+      - name: Beverly Hills Cop
+      - name: Beverly Hills Ninja
+      - name: Big Lebowski
+      - name: Blazing Saddles
+      - name: Blues Brothers
+      - name: Burn After Reading
+      - name: Burbs
+      - name: Clerks 01
+      - name: Clerks 02
+      - name: Dodgeball
+      - name: Dogma
+      - name: Dolittle
+      - name: Dragnet
+      - name: Eddie Izzard Glorious
+      - name: Eddy Izzard Definite Article
+      - name: Fargo
+      - name: Fletch
+      - name: Gabriel Iglesias Live from Hawaii
+      - name: Going Berserk
+      - name: Good Morning Vietnam
+      - name: Great Outdoors
+      - name: Hail Ceasar
+      - name: Happy Gilmore
+      - name: High Anxiety
+      - name: History of the World Part 1
+      - name: Hitchhikers Guide to the Galaxy
+      - name: Hot Shots
+      - name: Jerk
+      - name: Liar Liar
+      - name: Kung Fu Hustle
+      - name: Mallrats
+      - name: Me Myself and Irene
+      - name: Millers Crossing
+      - name: Money Pit
+      - name: Monty Python and the Holy Grail
+      - name: Naked Gun
+      - name: O Brother Where Art Thou
+      - name: Office Space
+      - name: Pain and Gain
+      - name: Pink Panther 02
+      - name: Quick Change
+      - name: Raising Arizona
+      - name: Robin Hood Men in Tights
+      - name: Rush Hour 01
+      - name: Rush Hour 02
+      - name: Rush Hour 03
+      - name: Shaun of the Dead
+      - name: Silent Movie
+      - name: Spaceballs
+      - name: Super Troopers 1
+      - name: Super Troopers 2
+      - name: To Be Or Not To Be
+      - name: Twelve Chairs
+      - name: Uncle Buck
+      - name: Young Frankenstein
+  - name: Documentary
+    items:
+      - name: Apollo 11
+      - name: Brooklyn Bridge
+      - name: Civil War 01
+      - name: Civil War 02
+      - name: Congress
+      - name: Dustbowl
+      - name: Empire of the Air
+      - name: Fog of War
+      - name: Frank Lloyd Wright
+      - name: Horatio's Drive
+      - name: Huey Long
+      - name: Ken Burns Hemingway
+      - name: Lewis and Clark
+      - name: Mark Twain
+      - name: Men Who Built America
+      - name: National Parks
+      - name: Not For Ourselves Alone
+      - name: Prohibition
+      - name: Roosevelts 01
+      - name: Roosevelts 02
+      - name: Shakers
+      - name: Statue of Liberty
+      - name: Thomas Hart Benton
+      - name: Thomas Jefferson
+      - name: Unforgivable Blackness - Rise and Fall of Jack Johnson
+      - name: Vietnam 01
+      - name: Vietnam 02
+      - name: World War II 01
+      - name: World War II 02
+  - name: Drama
+    items:
+      - name: 127 Hours
+      - name: Ad Astra
+      - name: American Beauty
+      - name: American History X
+      - name: Apollo 13
+      - name: Avatar
+      - name: Beautiful Day in the Neighborhood
+      - name: Castaway
+      - name: Edge of Darkness
+      - name: Forest Gump
+      - name: Free Solo
+      - name: Godfather 01
+      - name: Good Will Hunting
+      - name: HANNA
+      - name: Hackers
+      - name: Inception
+      - name: Interstellar
+      - name: Life of Pi
+      - name: Martian
+      - name: Memoirs of a Geisha
+      - name: Patch Adams
+      - name: Pi
+      - name: Post
+      - name: Requeim for a Dream
+      - name: Shawshank Redemption
+      - name: Unknown
+      - name: V for Vendetta
+      - name: Walking Tall
+      - name: What Dreams May Come
+  - name: Fantasy
+    items:
+  - name: Foreign
+    items:
+      - name: City of God
+      - name: Oldboy (KO)
+      - name: Zatoichi
+  - name: Heist
+    items:
+      - name: Bank Job
+      - name: Heat
+      - name: Italian Job
+      - name: Mechanic 01
+      - name: Mechanic 02
+      - name: Oceans 11 01 11
+      - name: Oceans 11 02 12
+      - name: Oceans 11 03 Oceans 13
+      - name: Oceans 11 04 Oceans 8
+      - name: Parker
+      - name: Saint
+      - name: Swordfish
+      - name: Three Kings
+      - name: Usual Suspects
+  - name: Music
+    items:
+      - name: Metallica S And M 01
+      - name: Metallica S And M 02
+  - name: Sci Fi
+    items:
+      - name: GATTACA
+      - name: Fifth Element
+      - name: Ghost in the Shell
+      - name: Johnny Mnemonic
+      - name: Lord of the Rings 1 Fellowship of the Ring
+      - name: Lord of the Rings 2 Two Towers
+      - name: Lord of the Rings 3 Return of the King
+      - name: Star Wars 01 Phantom Menace
+      - name: Star Wars 02 Attack of the Clones
+      - name: Star Wars 03 Revenge of the Sith
+      - name: Star Wars 04 New Hope
+      - name: Star Wars 05 Empire Strikes Back
+      - name: Star Wars 06 Return of the Jedi
+      - name: Star Wars 07 Force Awakens
+      - name: Star Wars 08 Last Jedi
+      - name: Star Wars 09 Rise of Skywalker
+  - name: Super Hero DC
+    items:
+      - name: Aquaman
+      - name: Batman 01 Batman Begins
+      - name: Batman 02 Dark Knight
+      - name: Batman 03 The Dark Knight Rises
+      - name: Joker
+      - name: Wonder Woman 01
+      - name: Wonder Woman 02 1984
+  - name: Super Hero Marvel
+    items:
+      - name: Amazing Spider Man 01
+      - name: Antman 01
+      - name: Antman 02 Ant Man and the Wasp
+      - name: Avengers 01
+      - name: Avengers 02 Age of Ultron
+      - name: Avengers 03 Infinity War
+      - name: Avengers 04 Endgame
+      - name: Black Panther 01
+      - name: Black Widow
+      - name: Captain America 01 The First Avenger
+      - name: Captain America 02 The Winter Soldier
+      - name: Captain America 03 Civil War
+      - name: Captain Marvel 01
+      - name: Deadpool 01
+      - name: Deadpool 02
+      - name: Doctor Strange 01
+      - name: Doctor Strange 02 Multiverse of Madness
+      - name: Eternals
+      - name: Guardians of the Galaxy 01
+      - name: Guardians of the Galaxy 02
+      - name: Hulk
+      - name: Iron Man 01
+      - name: Iron Man 02
+      - name: Iron Man 03
+      - name: Punisher EC
+      - name: Punisher War Zone
+      - name: Shang Chi
+      - name: Spider Man MCU 01 Homecoming
+      - name: Spider Man MCU 02 Far From Home
+      - name: Spider Man MCU 03 No Way Home
+      - name: Spiderman
+      - name: Thor 01
+      - name: Thor 02 The Dark World
+      - name: Thor 03 Ragnarok
+      - name: Thor 04 Love and Thunder
+  - name: Super Hero Misc
+    items:
+      - name: Blade
+      - name: Sucker Punch
+      - name: Watchmen
+      - name: X Men Apocalypse
+
+  - name: Zombie
+    items:
+      - name: 28 Days Later
+      - name: 28 Weeks Later
+      - name: Resident Evil
+      - name: World War Z
+      - name: Zombieland 01
+      - name: Zombieland 02 Double Tap
