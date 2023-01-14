@@ -1,5 +1,6 @@
-remoteDirectory: \\\\drobo5n\\public\\Scans\\NonFiction Repository
-localDirectory: D:\\Library\\NonFiction Repository
+name: NonFiction
+remoteDirectory: \\drobo5n\public\Scans\NonFiction_Repository
+localDirectory: D:\Library\NonFiction_Repository
 itemExtension: cbt
 excludeExtensions: 
   - tar
@@ -7,346 +8,321 @@ excludeExtensions:
   - 7z
 openType: book
 pipelineSteps: 
-  - ITEMIZE PDF FOLDER
-  - EXTRACT BOOK PDF
-  - CREATE CBT THUMBNAIL
+  - ITEMIZE_PDF_FOLDER
+  - EXTRACT_BOOK_PDF
+  - CREATE_CBT_THUMBNAIL
   - DESKEW
-  - CONVERT TO WEBP
-
-categories
-
-  - name: A. General Works
-    items: 
-  
-      -name: Websters Pocket Quotation Dictionary
-  
-  - name: B. Philosophy, Psychology, and Religion
-    items: 
-  
-      -name: Artists Way
-      -name: Book of Five Rings
-      -name: Death of Expertise
-      -name: Emotion Machine
-      -name: Ethics In an Age of Technology
-      -name: Ethics and On the Improvement of Understanding
-      -name: God Delusion
-      -name: Gods Debris
-      -name: How To Build a Robot Army
-      -name: How To Survive a Robot Uprising
-      -name: Human Enhancement
-      -name: I Am a Strange Loop
-      -name: Image
-      -name: Investigation of the Laws of Thought
-      -name: Liars and Outliers
-      -name: Mythology
-      -name: Napalm and Silly Putty
-      -name: Neuropsychology
-      -name: Only Astrology Book Youll Ever Need
-      -name: Philosophy of Sailing
-      -name: Power of Birthdays, Stars, and Numbers
-      -name: Questions That Matter
-      -name: Quiet
-      -name: Semantic Information Processing
-      -name: Simulacra and Simulation
-      -name: Society of Mind
-      -name: Superintelligence
-      -name: Tao Te Ching
-      -name: Theodore Roosevelt 01 Rise of Theodore Roosevelt
-      -name: Theodore Roosevelt 02 Theodore Rex
-      -name: Theodore Roosevelt 03 Colonel Roosevelt
-      -name: Thus Spoke Zarathustra
-      -name: Treatise of Human Nature
-      -name: Twilight of the Idols and the Anti Christ
-      -name: Understanding Power the Indispensible Chomsky
-      -name: Why I Am Not a Christian
-      -name: Wooden On Leadership
-      -name: Zen and the Motorcycle Guide To Maintenance
-  
-  
-  - name: C. Auxiliary Sciences of History
-    items: 
-  
-      -name: Against All Enemies
-      -name: All the Presidents Men
-      -name: Autobiography of Martin Luther King Jr
-      -name: Bag Man
-      -name: Blowout
-      -name: Bush at War
-      -name: Cleopatras Nose
-      -name: Fear
-      -name: Final Days
-      -name: First Principles
-      -name: Just for Fun
-      -name: Peril
-      -name: Plan of Attack
-      -name: Rage
-      -name: State of Denial
-      -name: Testament of Hope
-      -name: Truman and the Fight For Western Civilization
-      -name: War Within
-  
-  - name: D. World History
-    items: 
-  
-      -name: Creators
-      -name: Discoverers
-      -name: Inside the Vicious Heart
-      -name: Seekers
-      -name: Society and Technological Change
-  
-  
-  - name: E. American History
-    items: 
-  
-      -name: Americans 01 Colonial Experience
-      -name: Americans 02 National Experience
-      -name: Americans 03 Democratic Experience
-      -name: Technology In America
-  
-  
-  - name: H. Social Sciences
-    items: 
-  
-      -name: Business Research Methods
-      -name: Compensation
-      -name: Conservative Parties and the Birth of Democracy
-      -name: First 90 Days
-      -name: Foundations of Financial Management
-      -name: How Democracies Die
-      -name: Price of Inequality
-  
-  - name: P. Language
-    items: 
-  
-      -name: Chicago Manual of Style
-      -name: Easy Japanese
-  
-  - name: Q. Science
-    items: 
-  
-      -name: 3d Game Engine Architecture
-      -name: 3d Game Engine Design
-      -name: 97 Things Every Programmer Should Know
-      -name: 97 Things Every Software Architect Should Know
-      -name: Accelerate
-      -name: Acquisition of Strategic Knowledge
-      -name: Advanced Compiler Design and Implementation
-      -name: Advanced Data Structures
-      -name: Advanced Programming in the Unix Environment
-      -name: Algorithm Design Manual
-      -name: Analysis Patterns
-      -name: Angularjs Up and Running
-      -name: Angularjs Web Application Development Cookbook
-      -name: Ant in Action
-      -name: Applied Statistics for Engineers and Scientists
-      -name: Architectures for Intelligence
-      -name: Art of Computer Programming 1
-      -name: Art of Computer Programming 2
-      -name: Art of Computer Programming 3
-      -name: Art of Computer Programming 4a
-      -name: Art of R Programming
-      -name: Art of Software Testing
-      -name: Art of Software Testing V3
-      -name: Artificial Intelligence
-      -name: Artificial Intelligence Structures and Strategies
-      -name: Assembly Language for Intel Based Computers
-      -name: Beautiful Architecture
-      -name: Beautiful Code
-      -name: Beautiful Teams
-      -name: Beautiful Visualization
-      -name: Beyond Software Architecture
-      -name: Biology
-      -name: Blackboard Architectures and Applications
-      -name: C Pocket Reference
-      -name: C Programming Language
-      -name: C Sharp 4 In a Nutshell
-      -name: Calculus
-      -name: Cathedral and the Bazaar
-      -name: Clean Code
-      -name: Code Complete
-      -name: Compiler Design Handbook
-      -name: Compilers Principles Techniques and Tools
-      -name: Computational Intelligence
-      -name: Computationally Intelligent Hybrid Systems
-      -name: Computer Networks
-      -name: Computing Concepts with Java Essentials
-      -name: Concrete Mathematics
-      -name: Continuous Architecture In Practice
-      -name: Continuous Delivery
-      -name: Cpp Programming Language
-      -name: Crafting Interpreters
-      -name: Cuda By Example
-      -name: Data Flow Analysis
-      -name: Data Sketches
-      -name: Data Structures and Other Objects Using Java
-      -name: Deep Learning Illustrative
-      -name: Definitive Antlr Reference
-      -name: Definitive Guide To the Xen Hypervisor
-      -name: Design Concepts In Programming Languages
-      -name: Design Patterns
-      -name: Digital Image Processing
-      -name: Discrete Math Reference Cards
-      -name: Distributed Systems Principles and Paradigms
-      -name: Documenting Software Architectures
-      -name: Elasticsearch Definitive Guide
-      -name: Engineering a Compiler
-      -name: Engineering of Software
-      -name: Enterprise Integration Patterns
-      -name: Essential Linux Device Drivers
-      -name: Estimating Software Costs
-      -name: Ethics and Computing
-      -name: Evaluating Software Architectures
-      -name: Facts and Fallacies of Software Engineering
-      -name: Foundations of Artificial Intelligence
-      -name: Foundations of Game Engine Development 1
-      -name: Foundations of Game Engine Development 2
-      -name: Foundations of Multidimensional and Metric Data Structures
-      -name: Foundations of Statistics
-      -name: Fundamentals of Artificial Neural Networks
-      -name: Fundamentals of Database Systems
-      -name: Game Engine Architecture
-      -name: Game Physics
-      -name: Game Programming Patterns
-      -name: Godels Theorem
-      -name: Go Programming Language
-      -name: Groovy Recipes
-      -name: Growing Object Oriented Software Guided By Tests
-      -name: Guide To Using Linux
-      -name: Handbook of Data Structures and Applications
-      -name: Haskell Road To Logic Maths and Programming
-      -name: How Google Tests Software
-      -name: Ideas that Created the Future
-      -name: Implementation Patterns
-      -name: Inside Microsoft Office Sharepoint Server 2007
-      -name: Inside Microsoft Windows Sharepoint Services 3 0
-      -name: Intelligent Control Systems Using Computational Intelligence Techniques
-      -name: Intelligent Techniques and Tools for Novel System Architectures
-      -name: Introduction To Algoritms
-      -name: Introduction To Artificial Intelligence
-      -name: Introduction To the Languages and the Theory of Computation
-      -name: Javascript Definitive Guide
-      -name: Just Enough Software Architecture
-      -name: Just for Fun
-      -name: Knowledge Representation and Reasoning
-      -name: Language Implementation Patterns
-      -name: Lean Architecture
-      -name: Learn You a Haskell for Great Good
-      -name: Learning Angularjs
-      -name: Learning Opencv
-      -name: Linux Administration Handbook
-      -name: Linux Kernel Development
-      -name: Linux Kernel Programming
-      -name: Little Schemer
-      -name: Logic Programming Paradigm
-      -name: Logical Approach To Discrete Math
-      -name: Machine Learning an Algorithm Perspective
-      -name: Machine Learning an Artificial Intelligence Approach
-      -name: Machine Learning with R
-      -name: Machine Vision
-      -name: Machine Vision Theory Algorithms Practicalities
-      -name: Making Software
-      -name: Mastering Apache Camel
-      -name: Mathematics of Digital Images
-      -name: Maven Definitive Guide
-      -name: Mechanics of Flight
-      -name: Minimalist Mobile Robotics
-      -name: Multiscale Optimization Methods and Applications
-      -name: Multiscale Optimization Methods and Applications
-      -name: Mythical Man Month
-      -name: Operating System Concepts 7
-      -name: Operating System Concepts 8
-      -name: Optimizing Compilers for Modern Architectures
-      -name: Oracle Architect Exam Guide
-      -name: Oracle Master Architect Practice Guide
-      -name: Parsing Techniques
-      -name: Pattern Languages of Program Design 1
-      -name: Pattern Languages of Program Design 2
-      -name: Pattern Languages of Program Design 3
-      -name: Pattern Languages of Program Design 4
-      -name: Pattern Languages of Program Design 5
-      -name: Pattern Recognition
-      -name: Peopleware
-      -name: Perceptrons
-      -name: Perl Pocket Reference
-      -name: Philosophy of Software Design
-      -name: Physically Based Rendering
-      -name: Pragmatic Programmer
-      -name: Pragmatic Programmer Quick Reference Guide
-      -name: Principles of Program Analysis
-      -name: Probabilistic Reasoning In Multiagent Systems
-      -name: Probability and Statistical Inference
-      -name: Probability and Statistics
-      -name: Probalistic Graphical Models
-      -name: Productive Programmer
-      -name: Program Flow Analysis
-      -name: Programming Clojure
-      -name: Programming Erlang
-      -name: Programming Groovy
-      -name: Programming Language Pragmatics
-      -name: Programming Languages Principles and Paradigms
-      -name: Programming Perl
-      -name: Programming Python 3
-      -name: Programming Ruby 1 9
-      -name: Programming Scala
-      -name: Programming with Posix Threads
-      -name: Qualitative Spatial Reasoning with Topological Information
-      -name: Rapid Development
-      -name: Readings In Agents
-      -name: Real Time Collision Detection
-      -name: Real World Haskell
-      -name: Regular Expressions Pocket Reference
-      -name: Semantic Information Processing
-      -name: Service Oriented Architecture
-      -name: Software Architecture In Practice
-      -name: Software Product Lines
-      -name: Software Testing Craftsmans Approach
-      -name: Software Visualization
-      -name: Speech and Language Processing
-      -name: Sql Cookbook
-      -name: Statistics In Plain English
-      -name: Structure and Interpretation of Computer Programs
-      -name: Structured Computer Organization
-      -name: Structured Document Image Analysis
-      -name: Swarm Intelligence
-      -name: Test Driven Development By Example
-      -name: Twelve Essential Skills for Software Architects
-      -name: Twos Company Threes Complexity
-      -name: Uml Language Reference Manual
-      -name: Uml User Guide
-      -name: Understanding the Linux Kernel
-      -name: Version Control with Git
-      -name: Vi Editor Pocket Reference
-      -name: Visual Display of Quantitative Information
-      -name: Windows Internals Part 1
-      -name: Windows Internals Part 2
-      -name: Windows Powershell Cookbook
-      -name: Wix 3 6 Developers Guide To Windows Installer Xml
-      -name: Wix Cookbook
-      -name: Xquery From the Experts
-      -name: Xquery the Xml Query Language
-      -name: Xsl Formatting Objects
-      -name: Xslt and Xpath
-      -name: Xunit Test Patterns
-  
-  
-  - name: T. Technology
-    items: 
-  
-      -name: Applied Control Theory
-      -name: Computationally Intelligent Hybrid Systems
-      -name: Control Theory
-      -name: Flight Stability and Automatic Control
-      -name: How To Avoid a Climate Disaster
-      -name: Intelligent Control Systems Using Computational Intelligence Techniques
-      -name: Introduction To Helicopter and Tiltrotor Flight Simulation
-      -name: Mechanics of Flight
-      -name: Minimalist Mobile Robotics
-      -name: Third Industrial Revolution
-      -name: Toyota Production System
-  
-  - name: U. Military Science
-    items: 
-      -name: Book of Five Rings
-      -name: Masters of War
-      -name: Masters of War Maps
-  
+  - CONVERT_TO_WEBP
+categories:
+  - name: A.General Works
+    items:
+      - name: Websters_Pocket_Quotation_Dictionary
+  - name: B.Philosophy, Psychology, and Religion
+    items:
+      - name: Artists_Way
+      - name: Book_of_Five_Rings
+      - name: Death_of_Expertise
+      - name: Emotion_Machine
+      - name: Ethics_In_an_Age_of_Technology
+      - name: Ethics_and_On_the_Improvement_of_Understanding
+      - name: God_Delusion
+      - name: Gods_Debris
+      - name: How_To_Build_a_Robot_Army
+      - name: How_To_Survive_a_Robot_Uprising
+      - name: Human_Enhancement
+      - name: I_Am_a_Strange_Loop
+      - name: Image
+      - name: Investigation_of_the_Laws_of_Thought
+      - name: Liars_and_Outliers
+      - name: Mythology
+      - name: Napalm_and_Silly_Putty
+      - name: Neuropsychology
+      - name: Only_Astrology_Book_Youll_Ever_Need
+      - name: Philosophy_of_Sailing
+      - name: Power_of_Birthdays,_Stars,_and_Numbers
+      - name: Questions_That_Matter
+      - name: Quiet
+      - name: Semantic_Information_Processing
+      - name: Simulacra_and_Simulation
+      - name: Society_of_Mind
+      - name: Superintelligence
+      - name: Tao_Te_Ching
+      - name: Theodore_Roosevelt_01_Rise_of_Theodore_Roosevelt
+      - name: Theodore_Roosevelt_02_Theodore_Rex
+      - name: Theodore_Roosevelt_03_Colonel_Roosevelt
+      - name: Thus_Spoke_Zarathustra
+      - name: Treatise_of_Human_Nature
+      - name: Twilight_of_the_Idols_and_the_Anti_Christ
+      - name: Understanding_Power_the_Indispensible_Chomsky
+      - name: Why_I_Am_Not_a_Christian
+      - name: Wooden_On_Leadership
+      - name: Zen_and_the_Motorcycle_Guide_To_Maintenance
+  - name: C.Auxiliary Sciences of History
+    items:
+      - name: Against_All_Enemies
+      - name: All_the_Presidents_Men
+      - name: Autobiography_of_Martin_Luther_King_Jr
+      - name: Bag_Man
+      - name: Blowout
+      - name: Bush_at_War
+      - name: Cleopatras_Nose
+      - name: Fear
+      - name: Final_Days
+      - name: First_Principles
+      - name: Just_for_Fun
+      - name: Peril
+      - name: Plan_of_Attack
+      - name: Rage
+      - name: State_of_Denial
+      - name: Testament_of_Hope
+      - name: Truman_and_the_Fight_For_Western_Civilization
+      - name: War_Within
+  - name: D.World History
+    items:
+      - name: Creators
+      - name: Discoverers
+      - name: Inside_the_Vicious_Heart
+      - name: Seekers
+      - name: Society_and_Technological_Change
+  - name: E.American History
+    items:
+      - name: Americans_01_Colonial_Experience
+      - name: Americans_02_National_Experience
+      - name: Americans_03_Democratic_Experience
+      - name: Technology_In_America
+  - name: H.Social Sciences
+    items:
+      - name: Business_Research_Methods
+      - name: Compensation
+      - name: Conservative_Parties_and_the_Birth_of_Democracy
+      - name: First_90_Days
+      - name: Foundations_of_Financial_Management
+      - name: How_Democracies_Die
+      - name: Price_of_Inequality
+  - name: P.Language
+    items:
+      - name: Chicago_Manual_of_Style
+      - name: Easy_Japanese
+  - name: Q.Science
+    items:
+      - name: 3d_Game_Engine_Architecture
+      - name: 3d_Game_Engine_Design
+      - name: 97_Things_Every_Programmer_Should_Know
+      - name: 97_Things_Every_Software_Architect_Should_Know
+      - name: Accelerate
+      - name: Acquisition_of_Strategic_Knowledge
+      - name: Advanced_Compiler_Design_and_Implementation
+      - name: Advanced_Data_Structures
+      - name: Advanced_Programming_in_the_Unix_Environment
+      - name: Algorithm_Design_Manual
+      - name: Analysis_Patterns
+      - name: Angularjs_Up_and_Running
+      - name: Angularjs_Web_Application_Development_Cookbook
+      - name: Ant_in_Action
+      - name: Applied_Statistics_for_Engineers_and_Scientists
+      - name: Architectures_for_Intelligence
+      - name: Art_of_Computer_Programming_1
+      - name: Art_of_Computer_Programming_2
+      - name: Art_of_Computer_Programming_3
+      - name: Art_of_Computer_Programming_4a
+      - name: Art_of_R_Programming
+      - name: Art_of_Software_Testing
+      - name: Art_of_Software_Testing_V3
+      - name: Artificial_Intelligence
+      - name: Artificial_Intelligence_Structures_and_Strategies
+      - name: Assembly_Language_for_Intel_Based_Computers
+      - name: Beautiful_Architecture
+      - name: Beautiful_Code
+      - name: Beautiful_Teams
+      - name: Beautiful_Visualization
+      - name: Beyond_Software_Architecture
+      - name: Biology
+      - name: Blackboard_Architectures_and_Applications
+      - name: C_Pocket_Reference
+      - name: C_Programming_Language
+      - name: C_Sharp_4_In_a_Nutshell
+      - name: Calculus
+      - name: Cathedral_and_the_Bazaar
+      - name: Clean_Code
+      - name: Code_Complete
+      - name: Compiler_Design_Handbook
+      - name: Compilers_Principles_Techniques_and_Tools
+      - name: Computational_Intelligence
+      - name: Computationally_Intelligent_Hybrid_Systems
+      - name: Computer_Networks
+      - name: Computing_Concepts_with_Java_Essentials
+      - name: Concrete_Mathematics
+      - name: Continuous_Architecture_In_Practice
+      - name: Continuous_Delivery
+      - name: Cpp_Programming_Language
+      - name: Crafting_Interpreters
+      - name: Cuda_By_Example
+      - name: Data_Flow_Analysis
+      - name: Data_Sketches
+      - name: Data_Structures_and_Other_Objects_Using_Java
+      - name: Deep_Learning_Illustrative
+      - name: Definitive_Antlr_Reference
+      - name: Definitive_Guide_To_the_Xen_Hypervisor
+      - name: Design_Concepts_In_Programming_Languages
+      - name: Design_Patterns
+      - name: Digital_Image_Processing
+      - name: Discrete_Math_Reference_Cards
+      - name: Distributed_Systems_Principles_and_Paradigms
+      - name: Documenting_Software_Architectures
+      - name: Elasticsearch_Definitive_Guide
+      - name: Engineering_a_Compiler
+      - name: Engineering_of_Software
+      - name: Enterprise_Integration_Patterns
+      - name: Essential_Linux_Device_Drivers
+      - name: Estimating_Software_Costs
+      - name: Ethics_and_Computing
+      - name: Evaluating_Software_Architectures
+      - name: Facts_and_Fallacies_of_Software_Engineering
+      - name: Foundations_of_Artificial_Intelligence
+      - name: Foundations_of_Game_Engine_Development_1
+      - name: Foundations_of_Game_Engine_Development_2
+      - name: Foundations_of_Multidimensional_and_Metric_Data_Structures
+      - name: Foundations_of_Statistics
+      - name: Fundamentals_of_Artificial_Neural_Networks
+      - name: Fundamentals_of_Database_Systems
+      - name: Game_Engine_Architecture
+      - name: Game_Physics
+      - name: Game_Programming_Patterns
+      - name: Godels_Theorem
+      - name: Go_Programming_Language
+      - name: Groovy_Recipes
+      - name: Growing_Object_Oriented_Software_Guided_By_Tests
+      - name: Guide_To_Using_Linux
+      - name: Handbook_of_Data_Structures_and_Applications
+      - name: Haskell_Road_To_Logic_Maths_and_Programming
+      - name: How_Google_Tests_Software
+      - name: Ideas_that_Created_the_Future
+      - name: Implementation_Patterns
+      - name: Inside_Microsoft_Office_Sharepoint_Server_2007
+      - name: Inside_Microsoft_Windows_Sharepoint_Services_3_0
+      - name: Intelligent_Control_Systems_Using_Computational_Intelligence_Techniques
+      - name: Intelligent_Techniques_and_Tools_for_Novel_System_Architectures
+      - name: Introduction_To_Algoritms
+      - name: Introduction_To_Artificial_Intelligence
+      - name: Introduction_To_the_Languages_and_the_Theory_of_Computation
+      - name: Javascript_Definitive_Guide
+      - name: Just_Enough_Software_Architecture
+      - name: Just_for_Fun
+      - name: Knowledge_Representation_and_Reasoning
+      - name: Language_Implementation_Patterns
+      - name: Lean_Architecture
+      - name: Learn_You_a_Haskell_for_Great_Good
+      - name: Learning_Angularjs
+      - name: Learning_Opencv
+      - name: Linux_Administration_Handbook
+      - name: Linux_Kernel_Development
+      - name: Linux_Kernel_Programming
+      - name: Little_Schemer
+      - name: Logic_Programming_Paradigm
+      - name: Logical_Approach_To_Discrete_Math
+      - name: Machine_Learning_an_Algorithm_Perspective
+      - name: Machine_Learning_an_Artificial_Intelligence_Approach
+      - name: Machine_Learning_with_R
+      - name: Machine_Vision
+      - name: Machine_Vision_Theory_Algorithms_Practicalities
+      - name: Making_Software
+      - name: Mastering_Apache_Camel
+      - name: Mathematics_of_Digital_Images
+      - name: Maven_Definitive_Guide
+      - name: Mechanics_of_Flight
+      - name: Minimalist_Mobile_Robotics
+      - name: Multiscale_Optimization_Methods_and_Applications
+      - name: Multiscale_Optimization_Methods_and_Applications
+      - name: Mythical_Man_Month
+      - name: Operating_System_Concepts_7
+      - name: Operating_System_Concepts_8
+      - name: Optimizing_Compilers_for_Modern_Architectures
+      - name: Oracle_Architect_Exam_Guide
+      - name: Oracle_Master_Architect_Practice_Guide
+      - name: Parsing_Techniques
+      - name: Pattern_Languages_of_Program_Design_1
+      - name: Pattern_Languages_of_Program_Design_2
+      - name: Pattern_Languages_of_Program_Design_3
+      - name: Pattern_Languages_of_Program_Design_4
+      - name: Pattern_Languages_of_Program_Design_5
+      - name: Pattern_Recognition
+      - name: Peopleware
+      - name: Perceptrons
+      - name: Perl_Pocket_Reference
+      - name: Philosophy_of_Software_Design
+      - name: Physically_Based_Rendering
+      - name: Pragmatic_Programmer
+      - name: Pragmatic_Programmer_Quick_Reference_Guide
+      - name: Principles_of_Program_Analysis
+      - name: Probabilistic_Reasoning_In_Multiagent_Systems
+      - name: Probability_and_Statistical_Inference
+      - name: Probability_and_Statistics
+      - name: Probalistic_Graphical_Models
+      - name: Productive_Programmer
+      - name: Program_Flow_Analysis
+      - name: Programming_Clojure
+      - name: Programming_Erlang
+      - name: Programming_Groovy
+      - name: Programming_Language_Pragmatics
+      - name: Programming_Languages_Principles_and_Paradigms
+      - name: Programming_Perl
+      - name: Programming_Python_3
+      - name: Programming_Ruby_1_9
+      - name: Programming_Scala
+      - name: Programming_with_Posix_Threads
+      - name: Qualitative_Spatial_Reasoning_with_Topological_Information
+      - name: Rapid_Development
+      - name: Readings_In_Agents
+      - name: Real_Time_Collision_Detection
+      - name: Real_World_Haskell
+      - name: Regular_Expressions_Pocket_Reference
+      - name: Semantic_Information_Processing
+      - name: Service_Oriented_Architecture
+      - name: Software_Architecture_In_Practice
+      - name: Software_Product_Lines
+      - name: Software_Testing_Craftsmans_Approach
+      - name: Software_Visualization
+      - name: Speech_and_Language_Processing
+      - name: Sql_Cookbook
+      - name: Statistics_In_Plain_English
+      - name: Structure_and_Interpretation_of_Computer_Programs
+      - name: Structured_Computer_Organization
+      - name: Structured_Document_Image_Analysis
+      - name: Swarm_Intelligence
+      - name: Test_Driven_Development_By_Example
+      - name: Twelve_Essential_Skills_for_Software_Architects
+      - name: Twos_Company_Threes_Complexity
+      - name: Uml_Language_Reference_Manual
+      - name: Uml_User_Guide
+      - name: Understanding_the_Linux_Kernel
+      - name: Version_Control_with_Git
+      - name: Vi_Editor_Pocket_Reference
+      - name: Visual_Display_of_Quantitative_Information
+      - name: Windows_Internals_Part_1
+      - name: Windows_Internals_Part_2
+      - name: Windows_Powershell_Cookbook
+      - name: Wix_3_6_Developers_Guide_To_Windows_Installer_Xml
+      - name: Wix_Cookbook
+      - name: Xquery_From_the_Experts
+      - name: Xquery_the_Xml_Query_Language
+      - name: Xsl_Formatting_Objects
+      - name: Xslt_and_Xpath
+      - name: Xunit_Test_Patterns
+  - name: T.Technology
+    items:
+      - name: Applied_Control_Theory
+      - name: Computationally_Intelligent_Hybrid_Systems
+      - name: Control_Theory
+      - name: Flight_Stability_and_Automatic_Control
+      - name: How_To_Avoid_a_Climate_Disaster
+      - name: Intelligent_Control_Systems_Using_Computational_Intelligence_Techniques
+      - name: Introduction_To_Helicopter_and_Tiltrotor_Flight_Simulation
+      - name: Mechanics_of_Flight
+      - name: Minimalist_Mobile_Robotics
+      - name: Third_Industrial_Revolution
+      - name: Toyota_Production_System
+  - name: U.Military Science
+    items:
+      - name: Book_of_Five_Rings
+      - name: Masters_of_War
+      - name: Masters_of_War_Maps

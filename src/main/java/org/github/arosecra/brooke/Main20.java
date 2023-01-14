@@ -14,7 +14,19 @@ import org.github.arosecra.brooke.model.Library;
 import org.github.arosecra.brooke.model.ShelfItem;
 
 public class Main20 {
+	static final String categoryNameFormat   = "  - name: %s";
+	static final String categoryItemsFormat  = "    items:";
+	static final String shelfItemNameFormat  = "      - name: %s";
+	static final String shelfItemSeriesFormat= "        series: true";
+	static final String shelfItemCIsFormat   = "        childItems:";
+	static final String vlcOptionsFormat     = "        vlcOptions:";
+	static final String cIVlcOptionsSubFormat= "          subtitleTrack: %s";
+	static final String cIVlcOptionsAudFormat= "          audioTrack: %s";
+	static final String childItemNameFormat  = "          - name: %s";
+	
 	public static void main(String[] args) throws IOException {
+		
+		
 		Settings settings = new Settings();
 		
 		LibraryDao libraryDao = new LibraryDao();
@@ -29,11 +41,11 @@ public class Main20 {
 			lines.add("remoteDirectory: " + collection.getRemoteDirectory());
 			lines.add("localDirectory: " + collection.getLocalDirectory());
 			lines.add("itemExtension: " + collection.getItemExtension());
-			lines.add("excludeExtensions:");
+			lines.add("excludeExtensions: ");
 			for(String ext : collection.getExcludeExtensions().split(","))
 				lines.add("  - " + ext);
 			lines.add("openType: " + collection.getOpenType());
-			lines.add("pipelineSteps:");
+			lines.add("pipelineSteps: ");
 			for(String step : collection.getPipeline()) 
 				lines.add("  - " + step);
 			
@@ -45,11 +57,27 @@ public class Main20 {
 //					lines.add("  -name: " + cat.getName());
 					
 					for(Category cat : catalog.getCategories()) {
-						lines.add("    -name: " + cat.getName());
-						lines.add("    -items: ");
+						lines.add(String.format(categoryNameFormat, cat.getName()));
+						lines.add(categoryItemsFormat);
 						
 						for(ShelfItem si : cat.getItems()) {
-							lines.add("      -name: " + si.getName());
+							lines.add(String.format(shelfItemNameFormat, si.getName()));
+							
+							
+
+							checkAndGetVlcOptions(si, lines);
+							
+							if(!si.getChildItems().isEmpty()) {
+								//check if there are vlc options in the first item
+								
+								checkAndGetVlcOptions(si.getChildItems().get(0), lines);
+
+								lines.add(shelfItemSeriesFormat);
+								lines.add(shelfItemCIsFormat);
+								for(ShelfItem ci : si.getChildItems()) {
+									lines.add(String.format(childItemNameFormat, ci.getName()));
+								}
+							}
 						}
 					}
 				}
@@ -58,5 +86,24 @@ public class Main20 {
 			
 		}
 
+	}
+
+	private static void checkAndGetVlcOptions(ShelfItem shelfItem, List<String> lines) throws IOException {
+		// TODO Auto-generated method stub
+		File vlcOptionsFile = new File(shelfItem.getFolder(), "vlcOptions.txt");
+		
+		if(vlcOptionsFile.exists()) {
+			List<String> vlcOptions = FileUtils.readLines(vlcOptionsFile);
+			
+			lines.add(vlcOptionsFormat);
+			for(String vlcOption : vlcOptions) {
+				String value = vlcOption.substring(vlcOption.indexOf('=')+1);
+				if(vlcOption.startsWith(":sub"))
+					lines.add(String.format(cIVlcOptionsSubFormat,value));
+				else
+					lines.add(String.format(cIVlcOptionsAudFormat,value));
+					
+			}
+		}
 	}
 }

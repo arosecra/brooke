@@ -1,613 +1,5144 @@
 name: Anime
-remoteDirectory: \\\\drobo5n2\\public\\Anime
-localDirectory: D:\\Library\\Anime Repository
+remoteDirectory: \\drobo5n2\public\Anime
+localDirectory: D:\Library\Anime_Repository
 itemExtension: mkv
-excludeExtensions:
+excludeExtensions: 
   - mp4
-  - pdf
   - tar
+  - pdf
 openType: video
-autoGenerateAlphaCategories: false
-pipelineSteps:
-  - ITEMIZE MKV FOLDER
-  - EXTRACT SLEEVE PDF
-  - CREATE MOVIE THUMBNAIL
-  - CREATE LARGE MOVIE THUMBNAIL
-
+pipelineSteps: 
+  - ITEMIZE_MP4_FOLDER
+  - ITEMIZE_MKV_FOLDER
+  - EXTRACT_SLEEVE_PDF
+  - CREATE_MOVIE_THUMBNAIL
+  - CREATE_LARGE_MOVIE_THUMBNAIL
+  - EXTRACT_MKV_DETAILS
 categories:
   - name: 0
-    items: 
-      - name: 5 Centimeters Per Second
+    items:
+      - name: 5_Centimeters_Per_Second
         vlcOptions:
-          audioTrack: 1
           subtitleTrack: 4
-      - name: 7 Seeds 01
-      - name: 7 Seeds 02
+          audioTrack: 1
+      - name: 7_Seeds_01
+        series: true
+        childItems:
+          - name: 7_Seeds_01
+          - name: 7_Seeds_02
+          - name: 7_Seeds_03
+          - name: 7_Seeds_04
+          - name: 7_Seeds_05
+          - name: 7_Seeds_06
+          - name: 7_Seeds_07
+          - name: 7_Seeds_08
+          - name: 7_Seeds_09
+          - name: 7_Seeds_10
+          - name: 7_Seeds_11
+          - name: 7_Seeds_12
+      - name: 7_Seeds_02
+        series: true
+        childItems:
+          - name: 7_Seeds_13
+          - name: 7_Seeds_14
+          - name: 7_Seeds_15
+          - name: 7_Seeds_16
+          - name: 7_Seeds_17
+          - name: 7_Seeds_18
+          - name: 7_Seeds_19
+          - name: 7_Seeds_20
+          - name: 7_Seeds_21
+          - name: 7_Seeds_22
+          - name: 7_Seeds_23
+          - name: 7_Seeds_24
   - name: A
-    items: 
-      - name: Ajin 01
-      - name: Ajin 02
-      - name: Akashic Records
-      - name: Angel Beats
-      - name: Appleseed XIII 02 Duranos and Tartaros
-      - name: Appleseed XIII 03 Alpha
+    items:
+      - name: Ajin_01
+        series: true
+        childItems:
+          - name: Ajin_01
+          - name: Ajin_02
+          - name: Ajin_03
+          - name: Ajin_04
+          - name: Ajin_05
+          - name: Ajin_06
+          - name: Ajin_07
+          - name: Ajin_08
+          - name: Ajin_09
+          - name: Ajin_10
+          - name: Ajin_11
+          - name: Ajin_12
+          - name: Ajin_13
+      - name: Ajin_02
+        series: true
+        childItems:
+          - name: Ajin_14
+          - name: Ajin_15
+          - name: Ajin_16
+          - name: Ajin_17
+          - name: Ajin_18
+          - name: Ajin_19
+          - name: Ajin_20
+          - name: Ajin_21
+          - name: Ajin_22
+          - name: Ajin_23
+          - name: Ajin_24
+          - name: Ajin_25
+          - name: Ajin_26
+          - name: Ajin_27
+          - name: Ajin_28
+          - name: Ajin_29
+          - name: Ajin_30
+      - name: Akashic_Records
+        series: true
+        childItems:
+          - name: Akashic_Records_01
+          - name: Akashic_Records_02
+          - name: Akashic_Records_03
+          - name: Akashic_Records_04
+          - name: Akashic_Records_05
+          - name: Akashic_Records_06
+          - name: Akashic_Records_07
+          - name: Akashic_Records_08
+          - name: Akashic_Records_09
+          - name: Akashic_Records_10
+          - name: Akashic_Records_11
+          - name: Akashic_Records_12
+      - name: Akira
+      - name: Angel_Beats
+        series: true
+        childItems:
+          - name: Angel_Beats_01
+          - name: Angel_Beats_02
+          - name: Angel_Beats_03
+          - name: Angel_Beats_04
+          - name: Angel_Beats_05
+          - name: Angel_Beats_06
+          - name: Angel_Beats_07
+          - name: Angel_Beats_08
+          - name: Angel_Beats_09
+          - name: Angel_Beats_10
+          - name: Angel_Beats_11
+          - name: Angel_Beats_12
+          - name: Angel_Beats_13
+          - name: Angel_Beats_14
+      - name: Appleseed_XIII_02_Duranos_and_Tartaros
+        series: true
+        childItems:
+          - name: Appleseed_Duranos
+          - name: Appleseed_Tartaros
+      - name: Appleseed_XIII_03_Alpha
       - name: Armitage
-      - name: Astra Lost in Space
-      - name: Azumanga Daioh 01
-      - name: Azumanga Daioh 02
-      - name: Azumanga Daioh 03
-      - name: Azumanga Daioh 04
-      - name: Azumanga Daioh 05
+      - name: Astra_Lost_in_Space
+        series: true
+        childItems:
+          - name: Astra_Lost_In_Space_01
+          - name: Astra_Lost_In_Space_02
+          - name: Astra_Lost_In_Space_03
+          - name: Astra_Lost_In_Space_04
+          - name: Astra_Lost_In_Space_05
+          - name: Astra_Lost_In_Space_06
+          - name: Astra_Lost_In_Space_07
+          - name: Astra_Lost_In_Space_08
+          - name: Astra_Lost_In_Space_09
+          - name: Astra_Lost_In_Space_10
+          - name: Astra_Lost_In_Space_11
+          - name: Astra_Lost_In_Space_12
+      - name: Azumanga_Daioh_01
+        series: true
+        childItems:
+          - name: Azumanga_Daioh_01
+          - name: Azumanga_Daioh_02
+          - name: Azumanga_Daioh_03
+          - name: Azumanga_Daioh_04
+          - name: Azumanga_Daioh_05
+      - name: Azumanga_Daioh_02
+        series: true
+        childItems:
+          - name: Azumanga_Daioh_06
+          - name: Azumanga_Daioh_07
+          - name: Azumanga_Daioh_08
+          - name: Azumanga_Daioh_09
+      - name: Azumanga_Daioh_03
+        series: true
+        childItems:
+          - name: Azumanga_Daioh_10
+          - name: Azumanga_Daioh_11
+          - name: Azumanga_Daioh_12
+          - name: Azumanga_Daioh_13
+          - name: Azumanga_Daioh_14
+      - name: Azumanga_Daioh_04
+        series: true
+        childItems:
+          - name: Azumanga_Daioh_15
+          - name: Azumanga_Daioh_16
+          - name: Azumanga_Daioh_17
+          - name: Azumanga_Daioh_18
+          - name: Azumanga_Daioh_19
+      - name: Azumanga_Daioh_05
+        series: true
+        childItems:
+          - name: Azumanga_Daioh_20
+          - name: Azumanga_Daioh_21
+          - name: Azumanga_Daioh_22
+          - name: Azumanga_Daioh_23
+          - name: Azumanga_Daioh_24
+          - name: Azumanga_Daioh_25
+          - name: Azumanga_Daioh_26
   - name: B
-    items: 
+    items:
       - name: Baccano
-      - name: Banished from the Heros Party
+        series: true
+        childItems:
+          - name: Baccano_01
+          - name: Baccano_02
+          - name: Baccano_03
+          - name: Baccano_04
+          - name: Baccano_05
+          - name: Baccano_06
+          - name: Baccano_07
+          - name: Baccano_08
+          - name: Baccano_09
+          - name: Baccano_10
+          - name: Baccano_11
+          - name: Baccano_12
+          - name: Baccano_13
+          - name: Baccano_14
+          - name: Baccano_15
+          - name: Baccano_16
+      - name: Banished_from_the_Heros_Party
+        series: true
+        childItems:
+          - name: Banished_from_the_Heros_Party_01
+          - name: Banished_from_the_Heros_Party_02
+          - name: Banished_from_the_Heros_Party_03
+          - name: Banished_from_the_Heros_Party_04
+          - name: Banished_from_the_Heros_Party_05
+          - name: Banished_from_the_Heros_Party_06
+          - name: Banished_from_the_Heros_Party_07
+          - name: Banished_from_the_Heros_Party_08
+          - name: Banished_from_the_Heros_Party_09
+          - name: Banished_from_the_Heros_Party_10
+          - name: Banished_from_the_Heros_Party_11
+          - name: Banished_from_the_Heros_Party_12
+          - name: Banished_from_the_Heros_Party_13
       - name: Belle
-      - name: Ben To
-      - name: Berserk 01
-      - name: Berserk 02
-      - name: Berserk 03
-      - name: Berserk 04
-      - name: Beyond the Boundary 01
-      - name: Beyond the Boundary 02
-      - name: Black Cat
-      - name: Black Lagoon 01
-      - name: Black Lagoon 02
-      - name: Black Lagoon Robertas Blood
+      - name: Ben_To
+        series: true
+        childItems:
+          - name: Ben_To_01
+          - name: Ben_To_02
+          - name: Ben_To_03
+          - name: Ben_To_04
+          - name: Ben_To_05
+          - name: Ben_To_06
+          - name: Ben_To_07
+          - name: Ben_To_08
+          - name: Ben_To_09
+          - name: Ben_To_10
+          - name: Ben_To_11
+          - name: Ben_To_12
+      - name: Berserk_01
+        series: true
+        childItems:
+          - name: Berserk_01
+          - name: Berserk_02
+          - name: Berserk_03
+          - name: Berserk_04
+          - name: Berserk_05
+      - name: Berserk_02
+        series: true
+        childItems:
+          - name: Berserk_06
+          - name: Berserk_07
+          - name: Berserk_08
+          - name: Berserk_09
+      - name: Berserk_03
+        series: true
+        childItems:
+          - name: Berserk_10
+          - name: Berserk_11
+          - name: Berserk_12
+          - name: Berserk_13
+      - name: Berserk_04
+        series: true
+        childItems:
+          - name: Berserk_14
+          - name: Berserk_15
+          - name: Berserk_16
+          - name: Berserk_17
+      - name: Berserk_05
+        series: true
+        childItems:
+          - name: Berserk_18
+          - name: Berserk_19
+          - name: Berserk_20
+          - name: Berserk_21
+      - name: Berserk_06
+        series: true
+        childItems:
+          - name: Berserk_22
+          - name: Berserk_23
+          - name: Berserk_24
+          - name: Berserk_25
+      - name: Beyond_the_Boundary_01
+        series: true
+        childItems:
+          - name: Beyond_the_Boundary_01
+          - name: Beyond_the_Boundary_02
+          - name: Beyond_the_Boundary_03
+          - name: Beyond_the_Boundary_04
+          - name: Beyond_the_Boundary_05
+          - name: Beyond_the_Boundary_06
+          - name: Beyond_the_Boundary_07
+          - name: Beyond_the_Boundary_08
+          - name: Beyond_the_Boundary_09
+          - name: Beyond_the_Boundary_10
+          - name: Beyond_the_Boundary_11
+          - name: Beyond_the_Boundary_12
+      - name: Beyond_the_Boundary_02
+        series: true
+        childItems:
+          - name: Beyond_the_Boundary_OVA_1
+          - name: Beyond_the_Boundary_OVA_2
+      - name: Black_Cat
+        series: true
+        childItems:
+          - name: Black_Cat_01
+          - name: Black_Cat_02
+          - name: Black_Cat_03
+          - name: Black_Cat_04
+          - name: Black_Cat_05
+          - name: Black_Cat_06
+          - name: Black_Cat_07
+          - name: Black_Cat_08
+          - name: Black_Cat_09
+          - name: Black_Cat_10
+          - name: Black_Cat_11
+          - name: Black_Cat_12
+          - name: Black_Cat_13
+          - name: Black_Cat_14
+          - name: Black_Cat_15
+          - name: Black_Cat_16
+          - name: Black_Cat_17
+          - name: Black_Cat_18
+          - name: Black_Cat_19
+          - name: Black_Cat_20
+          - name: Black_Cat_21
+          - name: Black_Cat_22
+          - name: Black_Cat_23
+          - name: Black_Cat_24
+      - name: Black_Lagoon_01
+        series: true
+        childItems:
+          - name: Black_Lagoon_01
+          - name: Black_Lagoon_02
+          - name: Black_Lagoon_03
+          - name: Black_Lagoon_04
+          - name: Black_Lagoon_05
+          - name: Black_Lagoon_06
+          - name: Black_Lagoon_07
+          - name: Black_Lagoon_08
+          - name: Black_Lagoon_09
+          - name: Black_Lagoon_10
+          - name: Black_Lagoon_11
+          - name: Black_Lagoon_12
+      - name: Black_Lagoon_02
+        series: true
+        childItems:
+          - name: Black_Lagoon_13
+          - name: Black_Lagoon_14
+          - name: Black_Lagoon_15
+          - name: Black_Lagoon_16
+          - name: Black_Lagoon_17
+          - name: Black_Lagoon_18
+          - name: Black_Lagoon_19
+          - name: Black_Lagoon_20
+          - name: Black_Lagoon_21
+          - name: Black_Lagoon_22
+          - name: Black_Lagoon_23
+          - name: Black_Lagoon_24
+      - name: Black_Lagoon_Robertas_Blood
       - name: Blame!
       - name: Bofuri
         series: true
-        brookeOptions:
-          reverseOrder: false
-        vlcOptions:
-          audioTrack: 3
-          subtitleTrack: 4
         childItems:
-          - name: Bofuri 01
-            vlcOptions:
-              audioTrack: 3
-              subtitleTrack: 4
-      - name: Boogie Pop Phantom 01
-      - name: Boogie Pop Phantom 02
-      - name: Boogie Pop Phantom 03
-      - name: Boogie Pop Phantom 04
-      - name: Book of Bantora 01
-      - name: Book of Bantora 02
-      - name: Boy and the Beast
-      - name: Bunny Drop
-      - name: Bunny Drop Live Action
+          - name: Bofuri_01
+          - name: Bofuri_02
+          - name: Bofuri_03
+          - name: Bofuri_04
+          - name: Bofuri_05
+          - name: Bofuri_06
+          - name: Bofuri_07
+          - name: Bofuri_08
+          - name: Bofuri_09
+          - name: Bofuri_10
+          - name: Bofuri_11
+          - name: Bofuri_12
+      - name: Boogie_Pop_Phantom_01
+        series: true
+        childItems:
+          - name: Boogie_Pop_Phantom_01
+          - name: Boogie_Pop_Phantom_02
+          - name: Boogie_Pop_Phantom_03
+      - name: Boogie_Pop_Phantom_02
+        series: true
+        childItems:
+          - name: Boogie_Pop_Phantom_04
+          - name: Boogie_Pop_Phantom_05
+          - name: Boogie_Pop_Phantom_06
+      - name: Boogie_Pop_Phantom_03
+        series: true
+        childItems:
+          - name: Boogie_Pop_Phantom_07
+          - name: Boogie_Pop_Phantom_08
+          - name: Boogie_Pop_Phantom_09
+      - name: Boogie_Pop_Phantom_04
+        series: true
+        childItems:
+          - name: Boogie_Pop_Phantom_10
+          - name: Boogie_Pop_Phantom_11
+          - name: Boogie_Pop_Phantom_12
+      - name: Book_of_Bantora_01
+        series: true
+        childItems:
+          - name: Book_of_Bantora_01
+          - name: Book_of_Bantora_02
+          - name: Book_of_Bantora_03
+          - name: Book_of_Bantora_04
+          - name: Book_of_Bantora_05
+          - name: Book_of_Bantora_06
+          - name: Book_of_Bantora_07
+          - name: Book_of_Bantora_08
+          - name: Book_of_Bantora_10
+          - name: Book_of_Bantora_11
+          - name: Book_of_Bantora_12
+          - name: Book_of_Bantora_13
+          - name: Book_of_Bantora_14
+      - name: Book_of_Bantora_02
+        series: true
+        childItems:
+          - name: Book_of_Bantora_15
+          - name: Book_of_Bantora_16
+          - name: Book_of_Bantora_17
+          - name: Book_of_Bantora_18
+          - name: Book_of_Bantora_19
+          - name: Book_of_Bantora_20
+          - name: Book_of_Bantora_21
+          - name: Book_of_Bantora_22
+          - name: Book_of_Bantora_23
+          - name: Book_of_Bantora_24
+          - name: Book_of_Bantora_25
+          - name: Book_of_Bantora_26
+          - name: Book_of_Bantora_27
+      - name: Boy_and_the_Beast
+      - name: Bunny_Drop
+        series: true
+        childItems:
+          - name: Bunny_Drop_01
+          - name: Bunny_Drop_02
+          - name: Bunny_Drop_03
+          - name: Bunny_Drop_04
+          - name: Bunny_Drop_05
+          - name: Bunny_Drop_06
+          - name: Bunny_Drop_07
+          - name: Bunny_Drop_08
+          - name: Bunny_Drop_09
+          - name: Bunny_Drop_10
+          - name: Bunny_Drop_11
+      - name: Bunny_Drop_Live_Action
   - name: C
     items:
-      - name: C Control
-      - name: Castle in the Sky
-      - name: Cat Returns
-      - name: Chaos Head 01
-      - name: Chaos Head 02
-      - name: Children who Chase Lost Voices
-      - name: Chrome Shelled Regios 01
-      - name: Chrome Shelled Regios 02
-      - name: Chrome Shelled Regios 03
-      - name: Chrome Shelled Regios 04
-      - name: Clockwork Planet
-      - name: Code Geass 01 01
-      - name: Code Geass 01 02
-      - name: Code Geass 01 03
-      - name: Code Geass 01 04
-      - name: Code Geass 01 05
-      - name: Code Geass 01 06
-      - name: Code Geass 02 01
-      - name: Code Geass 02 02
-      - name: Code Geass 02 03
-      - name: Code Geass 02 04
-      - name: Code Geass 03
-      - name: Code Geass 04 Resurrection
-      - name: Code Geass 05 Akito
+      - name: C_Control
+        series: true
+        childItems:
+          - name: C_Control_01
+          - name: C_Control_02
+          - name: C_Control_03
+          - name: C_Control_04
+          - name: C_Control_05
+          - name: C_Control_06
+          - name: C_Control_07
+          - name: C_Control_08
+          - name: C_Control_09
+          - name: C_Control_10
+          - name: C_Control_11
+      - name: Castle_in_the_Sky
+      - name: Cat_Returns
+      - name: Chaos_Head_01
+        series: true
+        childItems:
+          - name: Chaos_Head_01_01
+          - name: Chaos_Head_01_02
+          - name: Chaos_Head_01_03
+          - name: Chaos_Head_01_04
+          - name: Chaos_Head_01_05
+          - name: Chaos_Head_01_06
+          - name: Chaos_Head_01_07
+          - name: Chaos_Head_01_08
+          - name: Chaos_Head_01_09
+          - name: Chaos_Head_01_10
+          - name: Chaos_Head_01_11
+          - name: Chaos_Head_01_12
+      - name: Chaos_Head_02
+        series: true
+        childItems:
+          - name: Chaos_Head_02_01
+          - name: Chaos_Head_02_02
+          - name: Chaos_Head_02_03
+          - name: Chaos_Head_02_04
+          - name: Chaos_Head_02_05
+          - name: Chaos_Head_02_06
+          - name: Chaos_Head_02_07
+          - name: Chaos_Head_02_08
+      - name: Children_who_Chase_Lost_Voices
+      - name: Chrome_Shelled_Regios_01
+        series: true
+        childItems:
+          - name: Chrome_Shelled_Regios_01
+          - name: Chrome_Shelled_Regios_02
+          - name: Chrome_Shelled_Regios_03
+          - name: Chrome_Shelled_Regios_04
+          - name: Chrome_Shelled_Regios_05
+          - name: Chrome_Shelled_Regios_06
+      - name: Chrome_Shelled_Regios_02
+        series: true
+        childItems:
+          - name: Chrome_Shelled_Regios_07
+          - name: Chrome_Shelled_Regios_08
+          - name: Chrome_Shelled_Regios_09
+          - name: Chrome_Shelled_Regios_10
+          - name: Chrome_Shelled_Regios_11
+          - name: Chrome_Shelled_Regios_12
+      - name: Chrome_Shelled_Regios_03
+        series: true
+        childItems:
+          - name: Chrome_Shelled_Regios_13
+          - name: Chrome_Shelled_Regios_14
+          - name: Chrome_Shelled_Regios_15
+          - name: Chrome_Shelled_Regios_16
+          - name: Chrome_Shelled_Regios_17
+          - name: Chrome_Shelled_Regios_18
+      - name: Chrome_Shelled_Regios_04
+        series: true
+        childItems:
+          - name: Chrome_Shelled_Regios_19
+          - name: Chrome_Shelled_Regios_20
+          - name: Chrome_Shelled_Regios_21
+          - name: Chrome_Shelled_Regios_22
+          - name: Chrome_Shelled_Regios_23
+          - name: Chrome_Shelled_Regios_24
+      - name: Clockwork_Planet
+        series: true
+        childItems:
+          - name: Clockwork_Planet_01
+          - name: Clockwork_Planet_02
+          - name: Clockwork_Planet_03
+          - name: Clockwork_Planet_04
+          - name: Clockwork_Planet_05
+          - name: Clockwork_Planet_06
+          - name: Clockwork_Planet_07
+          - name: Clockwork_Planet_08
+          - name: Clockwork_Planet_09
+          - name: Clockwork_Planet_10
+          - name: Clockwork_Planet_11
+          - name: Clockwork_Planet_12
+      - name: Code_Geass_01_01
+        series: true
+        childItems:
+          - name: Code_Geass_1_01
+          - name: Code_Geass_1_02
+          - name: Code_Geass_1_03
+          - name: Code_Geass_1_04
+          - name: Code_Geass_1_05
+      - name: Code_Geass_01_02
+        series: true
+        childItems:
+          - name: Code_Geass_1_06
+          - name: Code_Geass_1_07
+          - name: Code_Geass_1_08
+          - name: Code_Geass_1_09
+      - name: Code_Geass_01_03
+        series: true
+        childItems:
+          - name: Code_Geass_1_10
+          - name: Code_Geass_1_11
+          - name: Code_Geass_1_12
+          - name: Code_Geass_1_13
+      - name: Code_Geass_01_04
+        series: true
+        childItems:
+          - name: Code_Geass_1_14
+          - name: Code_Geass_1_15
+          - name: Code_Geass_1_16
+          - name: Code_Geass_1_17
+      - name: Code_Geass_01_05
+        series: true
+        childItems:
+          - name: Code_Geass_1_18
+          - name: Code_Geass_1_19
+          - name: Code_Geass_1_20
+          - name: Code_Geass_1_21
+      - name: Code_Geass_01_06
+        series: true
+        childItems:
+          - name: Code_Geass_1_22
+          - name: Code_Geass_1_23
+          - name: Code_Geass_1_24
+          - name: Code_Geass_1_25
+      - name: Code_Geass_02_01
+        series: true
+        childItems:
+          - name: Code_Geass_2_01
+          - name: Code_Geass_2_02
+          - name: Code_Geass_2_03
+          - name: Code_Geass_2_04
+          - name: Code_Geass_2_05
+          - name: Code_Geass_2_06
+          - name: Code_Geass_2_07
+      - name: Code_Geass_02_02
+        series: true
+        childItems:
+          - name: Code_Geass_2_08
+          - name: Code_Geass_2_09
+          - name: Code_Geass_2_10
+          - name: Code_Geass_2_11
+          - name: Code_Geass_2_12
+          - name: Code_Geass_2_13
+      - name: Code_Geass_02_03
+        series: true
+        childItems:
+          - name: Code_Geass_2_14
+          - name: Code_Geass_2_15
+          - name: Code_Geass_2_16
+          - name: Code_Geass_2_17
+          - name: Code_Geass_2_18
+          - name: Code_Geass_2_19
+      - name: Code_Geass_02_04
+        series: true
+        childItems:
+          - name: Code_Geass_2_20
+          - name: Code_Geass_2_21
+          - name: Code_Geass_2_22
+          - name: Code_Geass_2_23
+          - name: Code_Geass_2_24
+          - name: Code_Geass_2_25
+      - name: Code_Geass_03
+        series: true
+        childItems:
+          - name: Code_Geass_01
+          - name: Code_Geass_02
+          - name: Code_Geass_03
+      - name: Code_Geass_04_Resurrection
+      - name: Code_Geass_05_Akito
+        series: true
+        childItems:
+          - name: Code_Geass_Akito_01
+          - name: Code_Geass_Akito_02
+          - name: Code_Geass_Akito_03
+          - name: Code_Geass_Akito_04
+          - name: Code_Geass_Akito_05
       - name: Colorful
       - name: Coppelion
-      - name: Cowboy Bebop
+        series: true
+        childItems:
+          - name: Coppelion_01
+          - name: Coppelion_02
+          - name: Coppelion_03
+          - name: Coppelion_04
+          - name: Coppelion_05
+          - name: Coppelion_06
+          - name: Coppelion_07
+          - name: Coppelion_08
+          - name: Coppelion_09
+          - name: Coppelion_10
+          - name: Coppelion_11
+          - name: Coppelion_12
+          - name: Coppelion_13
+      - name: Cowboy_Bebop
+        series: true
+        childItems:
+          - name: Cowboy_Bebop_01
+          - name: Cowboy_Bebop_02
+          - name: Cowboy_Bebop_03
+          - name: Cowboy_Bebop_04
+          - name: Cowboy_Bebop_05
+          - name: Cowboy_Bebop_06
+          - name: Cowboy_Bebop_07
+          - name: Cowboy_Bebop_08
+          - name: Cowboy_Bebop_09
+          - name: Cowboy_Bebop_10
+          - name: Cowboy_Bebop_11
+          - name: Cowboy_Bebop_12
+          - name: Cowboy_Bebop_13
+          - name: Cowboy_Bebop_14
+          - name: Cowboy_Bebop_15
+          - name: Cowboy_Bebop_16
+          - name: Cowboy_Bebop_17
+          - name: Cowboy_Bebop_18
+          - name: Cowboy_Bebop_19
+          - name: Cowboy_Bebop_20
+          - name: Cowboy_Bebop_21
+          - name: Cowboy_Bebop_22
+          - name: Cowboy_Bebop_23
+          - name: Cowboy_Bebop_24
+          - name: Cowboy_Bebop_25
+          - name: Cowboy_Bebop_26
   - name: D
-    items: 
-      - name: Dan Machi 01
-      - name: Dan Machi 02
-      - name: Dan Machi 03
-      - name: Dan Machi 04
-      - name: Dan Machi 05
-      - name: Dan Machi Arrow of Orion
-      - name: Darker than Black 01
-      - name: Darker than Black 02
-      - name: Darling in the Fraxx 01
-      - name: Darling in the Fraxx 02
-      - name: Demon King Daimao
-      - name: Desert Punk
-      - name: Devil is a Part Timer
-      - name: Dot Hack Liminality
-      - name: Dot Hack SIGN
+    items:
+      - name: Dan_Machi_01
+        series: true
+        childItems:
+          - name: Dan_Machi_01_01
+          - name: Dan_Machi_01_02
+          - name: Dan_Machi_01_03
+          - name: Dan_Machi_01_04
+          - name: Dan_Machi_01_05
+          - name: Dan_Machi_01_06
+          - name: Dan_Machi_01_07
+          - name: Dan_Machi_01_08
+          - name: Dan_Machi_01_09
+          - name: Dan_Machi_01_10
+          - name: Dan_Machi_01_11
+          - name: Dan_Machi_01_12
+          - name: Dan_Machi_01_13
+      - name: Dan_Machi_02
+        series: true
+        childItems:
+          - name: Dan_Machi_02_01
+          - name: Dan_Machi_02_02
+          - name: Dan_Machi_02_03
+          - name: Dan_Machi_02_04
+          - name: Dan_Machi_02_05
+          - name: Dan_Machi_02_06
+          - name: Dan_Machi_02_07
+          - name: Dan_Machi_02_08
+          - name: Dan_Machi_02_09
+          - name: Dan_Machi_02_10
+          - name: Dan_Machi_02_11
+          - name: Dan_Machi_02_12
+          - name: Dan_Machi_02_13
+      - name: Dan_Machi_03
+      - name: Dan_Machi_04
+        series: true
+        childItems:
+          - name: Dan_Machi_On_the_Side_Orario_01
+          - name: Dan_Machi_On_the_Side_Orario_02
+          - name: Dan_Machi_On_the_Side_Orario_03
+          - name: Dan_Machi_On_the_Side_Orario_04
+          - name: Dan_Machi_On_the_Side_Orario_05
+          - name: Dan_Machi_On_the_Side_Orario_06
+          - name: Dan_Machi_On_the_Side_Orario_07
+          - name: Dan_Machi_On_the_Side_Orario_08
+          - name: Dan_Machi_On_the_Side_Orario_09
+          - name: Dan_Machi_On_the_Side_Orario_10
+          - name: Dan_Machi_On_the_Side_Orario_11
+          - name: Dan_Machi_On_the_Side_Orario_12
+      - name: Dan_Machi_05
+        series: true
+        childItems:
+          - name: Dan_Machi_05_01
+          - name: Dan_Machi_05_02
+          - name: Dan_Machi_05_03
+          - name: Dan_Machi_05_04
+          - name: Dan_Machi_05_05
+          - name: Dan_Machi_05_06
+          - name: Dan_Machi_05_07
+          - name: Dan_Machi_05_08
+          - name: Dan_Machi_05_09
+          - name: Dan_Machi_05_10
+          - name: Dan_Machi_05_11
+          - name: Dan_Machi_05_12
+          - name: Dan_Machi_05_13
+      - name: Dan_Machi_Arrow_of_Orion
+      - name: Darker_than_Black_01
+        series: true
+        childItems:
+          - name: Darker_than_Black_1_01
+          - name: Darker_than_Black_1_02
+          - name: Darker_than_Black_1_03
+          - name: Darker_than_Black_1_04
+          - name: Darker_than_Black_1_05
+          - name: Darker_than_Black_1_06
+          - name: Darker_than_Black_1_07
+          - name: Darker_than_Black_1_08
+          - name: Darker_than_Black_1_09
+          - name: Darker_than_Black_1_10
+          - name: Darker_than_Black_1_11
+          - name: Darker_than_Black_1_12
+          - name: Darker_than_Black_1_13
+          - name: Darker_than_Black_1_14
+          - name: Darker_than_Black_1_15
+          - name: Darker_than_Black_1_16
+          - name: Darker_than_Black_1_17
+          - name: Darker_than_Black_1_18
+          - name: Darker_than_Black_1_19
+          - name: Darker_than_Black_1_20
+          - name: Darker_than_Black_1_21
+          - name: Darker_than_Black_1_22
+          - name: Darker_than_Black_1_23
+          - name: Darker_than_Black_1_24
+          - name: Darker_than_Black_1_25
+          - name: Darker_than_Black_1_26
+      - name: Darker_than_Black_02
+        series: true
+        childItems:
+          - name: Darker_than_Black_2_01
+          - name: Darker_than_Black_2_02
+          - name: Darker_than_Black_2_03
+          - name: Darker_than_Black_2_04
+          - name: Darker_than_Black_2_05
+          - name: Darker_than_Black_2_06
+          - name: Darker_than_Black_2_07
+          - name: Darker_than_Black_2_08
+          - name: Darker_than_Black_2_09
+          - name: Darker_than_Black_2_10
+          - name: Darker_than_Black_2_11
+          - name: Darker_than_Black_2_12
+          - name: Darker_than_Black_2_13
+          - name: Darker_than_Black_2_14
+          - name: Darker_than_Black_2_15
+          - name: Darker_than_Black_2_16
+      - name: Darling_in_the_Fraxx_01
+        series: true
+        childItems:
+          - name: Darling_In_The_Franxx_01_01
+          - name: Darling_In_The_Franxx_01_02
+          - name: Darling_In_The_Franxx_01_03
+          - name: Darling_In_The_Franxx_01_04
+          - name: Darling_In_The_Franxx_01_05
+          - name: Darling_In_The_Franxx_01_06
+          - name: Darling_In_The_Franxx_01_07
+          - name: Darling_In_The_Franxx_01_08
+          - name: Darling_In_The_Franxx_01_09
+          - name: Darling_In_The_Franxx_01_10
+          - name: Darling_In_The_Franxx_01_11
+          - name: Darling_In_The_Franxx_01_12
+      - name: Darling_in_the_Fraxx_02
+        series: true
+        childItems:
+          - name: Darling_In_The_Franxx_02_01
+          - name: Darling_In_The_Franxx_02_02
+          - name: Darling_In_The_Franxx_02_03
+          - name: Darling_In_The_Franxx_02_04
+          - name: Darling_In_The_Franxx_02_05
+          - name: Darling_In_The_Franxx_02_06
+          - name: Darling_In_The_Franxx_02_07
+          - name: Darling_In_The_Franxx_02_08
+          - name: Darling_In_The_Franxx_02_09
+          - name: Darling_In_The_Franxx_02_10
+          - name: Darling_In_The_Franxx_02_11
+          - name: Darling_In_The_Franxx_02_12
+      - name: Demon_King_Daimao
+        series: true
+        childItems:
+          - name: Demon_King_Daimao_01
+          - name: Demon_King_Daimao_02
+          - name: Demon_King_Daimao_03
+          - name: Demon_King_Daimao_04
+          - name: Demon_King_Daimao_05
+          - name: Demon_King_Daimao_06
+          - name: Demon_King_Daimao_07
+          - name: Demon_King_Daimao_08
+          - name: Demon_King_Daimao_09
+          - name: Demon_King_Daimao_10
+          - name: Demon_King_Daimao_11
+          - name: Demon_King_Daimao_12
+          - name: Demon_King_Daimao_13
+      - name: Desert_Punk
+        series: true
+        childItems:
+          - name: Desert_Punk_01
+          - name: Desert_Punk_02
+          - name: Desert_Punk_03
+          - name: Desert_Punk_04
+          - name: Desert_Punk_05
+          - name: Desert_Punk_06
+          - name: Desert_Punk_07
+          - name: Desert_Punk_08
+          - name: Desert_Punk_09
+          - name: Desert_Punk_10
+          - name: Desert_Punk_11
+          - name: Desert_Punk_12
+          - name: Desert_Punk_13
+          - name: Desert_Punk_14
+          - name: Desert_Punk_15
+          - name: Desert_Punk_16
+          - name: Desert_Punk_17
+          - name: Desert_Punk_18
+          - name: Desert_Punk_19
+          - name: Desert_Punk_20
+          - name: Desert_Punk_21
+          - name: Desert_Punk_22
+          - name: Desert_Punk_23
+          - name: Desert_Punk_24
+      - name: Devil_is_a_Part_Timer
+        series: true
+        childItems:
+          - name: Devil_is_a_Part_Timer_01
+          - name: Devil_is_a_Part_Timer_02
+          - name: Devil_is_a_Part_Timer_03
+          - name: Devil_is_a_Part_Timer_04
+          - name: Devil_is_a_Part_Timer_05
+          - name: Devil_is_a_Part_Timer_06
+          - name: Devil_is_a_Part_Timer_07
+          - name: Devil_is_a_Part_Timer_08
+          - name: Devil_is_a_Part_Timer_09
+          - name: Devil_is_a_Part_Timer_10
+          - name: Devil_is_a_Part_Timer_11
+          - name: Devil_is_a_Part_Timer_12
+          - name: Devil_is_a_Part_Timer_13
+          - name: Devil_is_a_Part_Timer_14
+      - name: Dot_Hack_Liminality
+        series: true
+        childItems:
+          - name: Dot_Hack_Liminality_01
+          - name: Dot_Hack_Liminality_02
+          - name: Dot_Hack_Liminality_03
+      - name: Dot_Hack_SIGN
+        series: true
+        childItems:
+          - name: Dot_Hack_SIGN_01
+          - name: Dot_Hack_SIGN_02
+          - name: Dot_Hack_SIGN_03
+          - name: Dot_Hack_SIGN_04
+          - name: Dot_Hack_SIGN_05
+          - name: Dot_Hack_SIGN_06
+          - name: Dot_Hack_SIGN_07
+          - name: Dot_Hack_SIGN_08
+          - name: Dot_Hack_SIGN_09
+          - name: Dot_Hack_SIGN_10
+          - name: Dot_Hack_SIGN_11
+          - name: Dot_Hack_SIGN_12
+          - name: Dot_Hack_SIGN_13
+          - name: Dot_Hack_SIGN_14
+          - name: Dot_Hack_SIGN_15
+          - name: Dot_Hack_SIGN_16
+          - name: Dot_Hack_SIGN_17
+          - name: Dot_Hack_SIGN_18
+          - name: Dot_Hack_SIGN_19
+          - name: Dot_Hack_SIGN_20
+          - name: Dot_Hack_SIGN_21
+          - name: Dot_Hack_SIGN_22
+          - name: Dot_Hack_SIGN_23
+          - name: Dot_Hack_SIGN_24
+          - name: Dot_Hack_SIGN_25
+          - name: Dot_Hack_SIGN_26
+          - name: Dot_Hack_SIGN_27
   - name: E
     items:
-      - name: Eden of the East 01
-      - name: Eden of the East 02 King of Eden
-      - name: Eden of the East 03 Paradise Lost
-      - name: Elfen Lied 01
-      - name: Elfen Lied 02
-      - name: Elfen Lied 03
-      - name: Ergo Proxy 01
-      - name: Ergo Proxy 02
-      - name: Ergo Proxy 03
-      - name: Ergo Proxy 04
-      - name: Ergo Proxy 05
-      - name: Ergo Proxy 06
-      - name: Excel Saga
+      - name: Eden_of_the_East_01
+        series: true
+        childItems:
+          - name: Eden_of_the_East_01_01
+          - name: Eden_of_the_East_01_02
+          - name: Eden_of_the_East_01_03
+          - name: Eden_of_the_East_01_04
+          - name: Eden_of_the_East_01_05
+          - name: Eden_of_the_East_01_06
+          - name: Eden_of_the_East_01_07
+          - name: Eden_of_the_East_01_08
+          - name: Eden_of_the_East_01_09
+          - name: Eden_of_the_East_01_10
+          - name: Eden_of_the_East_01_11
+      - name: Eden_of_the_East_02_King_of_Eden
+      - name: Eden_of_the_East_03_Paradise_Lost
+      - name: Elfen_Lied_01
+        series: true
+        childItems:
+          - name: Elfen_Lied_01
+          - name: Elfen_Lied_02
+          - name: Elfen_Lied_03
+          - name: Elfen_Lied_04
+          - name: Elfen_Lied_05
+      - name: Elfen_Lied_02
+        series: true
+        childItems:
+          - name: Elfen_Lied_06
+          - name: Elfen_Lied_07
+          - name: Elfen_Lied_08
+          - name: Elfen_Lied_09
+      - name: Elfen_Lied_03
+        series: true
+        childItems:
+          - name: Elfen_Lied_10
+          - name: Elfen_Lied_11
+          - name: Elfen_Lied_12
+          - name: Elfen_Lied_13
+      - name: Ergo_Proxy_01
+        series: true
+        childItems:
+          - name: Ergo_Proxy_01
+          - name: Ergo_Proxy_02
+          - name: Ergo_Proxy_03
+          - name: Ergo_Proxy_04
+      - name: Ergo_Proxy_02
+        series: true
+        childItems:
+          - name: Ergo_Proxy_05
+          - name: Ergo_Proxy_06
+          - name: Ergo_Proxy_07
+          - name: Ergo_Proxy_08
+      - name: Ergo_Proxy_03
+        series: true
+        childItems:
+          - name: Ergo_Proxy_09
+          - name: Ergo_Proxy_10
+          - name: Ergo_Proxy_11
+          - name: Ergo_Proxy_12
+      - name: Ergo_Proxy_04
+        series: true
+        childItems:
+          - name: Ergo_Proxy_13
+          - name: Ergo_Proxy_14
+          - name: Ergo_Proxy_15
+          - name: Ergo_Proxy_16
+      - name: Ergo_Proxy_05
+        series: true
+        childItems:
+          - name: Ergo_Proxy_17
+          - name: Ergo_Proxy_18
+          - name: Ergo_Proxy_19
+          - name: Ergo_Proxy_20
+      - name: Ergo_Proxy_06
+        series: true
+        childItems:
+          - name: Ergo_Proxy_21
+          - name: Ergo_Proxy_22
+          - name: Ergo_Proxy_23
+      - name: Excel_Saga
+        series: true
+        childItems:
+          - name: Excel_Saga_01
+          - name: Excel_Saga_02
+          - name: Excel_Saga_03
+          - name: Excel_Saga_04
+          - name: Excel_Saga_05
+          - name: Excel_Saga_06
+          - name: Excel_Saga_07
+          - name: Excel_Saga_08
+          - name: Excel_Saga_09
+          - name: Excel_Saga_10
+          - name: Excel_Saga_11
+          - name: Excel_Saga_12
+          - name: Excel_Saga_13
+          - name: Excel_Saga_14
+          - name: Excel_Saga_15
+          - name: Excel_Saga_16
+          - name: Excel_Saga_17
+          - name: Excel_Saga_18
+          - name: Excel_Saga_19
+          - name: Excel_Saga_20
+          - name: Excel_Saga_21
+          - name: Excel_Saga_22
+          - name: Excel_Saga_23
+          - name: Excel_Saga_24
+          - name: Excel_Saga_25
+          - name: Excel_Saga_26
   - name: F
     items:
       - name: Fireworks
-      - name: Flag 01
-      - name: Flag 02
-      - name: Flag 03
-      - name: Flag 04
+      - name: Flag_01
+        series: true
+        childItems:
+          - name: Flag_01
+          - name: Flag_02
+          - name: Flag_03
+          - name: Flag_04
+      - name: Flag_02
+        series: true
+        childItems:
+          - name: Flag_05
+          - name: Flag_06
+          - name: Flag_07
+      - name: Flag_03
+        series: true
+        childItems:
+          - name: Flag_08
+          - name: Flag_09
+          - name: Flag_10
+      - name: Flag_04
+        series: true
+        childItems:
+          - name: Flag_11
+          - name: Flag_12
+          - name: Flag_13
       - name: Fractal
-      - name: From Up on Poppy Hill
-      - name: Full Metal Panic 01
-      - name: Full Metal Panic 02 Fumoffu 01
-      - name: Full Metal Panic 02 Fumoffu 02
-      - name: Full Metal Panic 02 Fumoffu 03
-      - name: Full Metal Panic 03 Second Raid 01
-      - name: Full Metal Panic 03 Second Raid 02
-      - name: Full Metal Panic 03 Second Raid 03
-      - name: Full Metal Panic 03 Second Raid 04
-      - name: Full Metal Panic 04 Invisible Victory
+        series: true
+        childItems:
+          - name: Fractal_01
+          - name: Fractal_02
+          - name: Fractal_03
+          - name: Fractal_04
+          - name: Fractal_05
+          - name: Fractal_06
+          - name: Fractal_07
+          - name: Fractal_08
+          - name: Fractal_09
+          - name: Fractal_10
+          - name: Fractal_11
+      - name: From_Up_on_Poppy_Hill
+      - name: Full_Metal_Panic_01
+        series: true
+        childItems:
+          - name: Full_Metal_Panic_01_01
+          - name: Full_Metal_Panic_01_02
+          - name: Full_Metal_Panic_01_03
+          - name: Full_Metal_Panic_01_04
+          - name: Full_Metal_Panic_01_05
+          - name: Full_Metal_Panic_01_06
+          - name: Full_Metal_Panic_01_07
+          - name: Full_Metal_Panic_01_08
+          - name: Full_Metal_Panic_01_09
+          - name: Full_Metal_Panic_01_10
+          - name: Full_Metal_Panic_01_11
+          - name: Full_Metal_Panic_01_12
+          - name: Full_Metal_Panic_01_13
+          - name: Full_Metal_Panic_01_14
+          - name: Full_Metal_Panic_01_15
+          - name: Full_Metal_Panic_01_16
+          - name: Full_Metal_Panic_01_17
+          - name: Full_Metal_Panic_01_18
+          - name: Full_Metal_Panic_01_19
+          - name: Full_Metal_Panic_01_20
+          - name: Full_Metal_Panic_01_21
+          - name: Full_Metal_Panic_01_22
+          - name: Full_Metal_Panic_01_23
+          - name: Full_Metal_Panic_01_24
+      - name: Full_Metal_Panic_02_Fumoffu_01
+        series: true
+        childItems:
+          - name: Full_Metal_Panic_02_Fumoffu_01
+          - name: Full_Metal_Panic_02_Fumoffu_02
+          - name: Full_Metal_Panic_02_Fumoffu_03
+          - name: Full_Metal_Panic_02_Fumoffu_04
+      - name: Full_Metal_Panic_02_Fumoffu_02
+        series: true
+        childItems:
+          - name: Full_Metal_Panic_02_Fumoffu_05
+          - name: Full_Metal_Panic_02_Fumoffu_06
+          - name: Full_Metal_Panic_02_Fumoffu_07
+          - name: Full_Metal_Panic_02_Fumoffu_08
+      - name: Full_Metal_Panic_02_Fumoffu_03
+        series: true
+        childItems:
+          - name: Full_Metal_Panic_02_Fumoffu_09
+          - name: Full_Metal_Panic_02_Fumoffu_10
+          - name: Full_Metal_Panic_02_Fumoffu_11
+          - name: Full_Metal_Panic_02_Fumoffu_12
+      - name: Full_Metal_Panic_03_Second_Raid_01
+        series: true
+        childItems:
+          - name: Full_Metal_Panic_03_Second_Raid_01
+          - name: Full_Metal_Panic_03_Second_Raid_02
+          - name: Full_Metal_Panic_03_Second_Raid_03
+          - name: Full_Metal_Panic_03_Second_Raid_04
+      - name: Full_Metal_Panic_03_Second_Raid_02
+        series: true
+        childItems:
+          - name: Full_Metal_Panic_03_Second_Raid_05
+          - name: Full_Metal_Panic_03_Second_Raid_06
+          - name: Full_Metal_Panic_03_Second_Raid_07
+      - name: Full_Metal_Panic_03_Second_Raid_03
+        series: true
+        childItems:
+          - name: Full_Metal_Panic_03_Second_Raid_08
+          - name: Full_Metal_Panic_03_Second_Raid_09
+          - name: Full_Metal_Panic_03_Second_Raid_10
+      - name: Full_Metal_Panic_03_Second_Raid_04
+        series: true
+        childItems:
+          - name: Full_Metal_Panic_03_Second_Raid_11
+          - name: Full_Metal_Panic_03_Second_Raid_12
+          - name: Full_Metal_Panic_03_Second_Raid_13
+      - name: Full_Metal_Panic_04_Invisible_Victory
+        series: true
+        childItems:
+          - name: Full_Metal_Panic_04_Invisible_Victory_01
+          - name: Full_Metal_Panic_04_Invisible_Victory_02
+          - name: Full_Metal_Panic_04_Invisible_Victory_03
+          - name: Full_Metal_Panic_04_Invisible_Victory_04
+          - name: Full_Metal_Panic_04_Invisible_Victory_05
+          - name: Full_Metal_Panic_04_Invisible_Victory_06
+          - name: Full_Metal_Panic_04_Invisible_Victory_07
+          - name: Full_Metal_Panic_04_Invisible_Victory_08
+          - name: Full_Metal_Panic_04_Invisible_Victory_09
+          - name: Full_Metal_Panic_04_Invisible_Victory_10
+          - name: Full_Metal_Panic_04_Invisible_Victory_11
+          - name: Full_Metal_Panic_04_Invisible_Victory_12
       - name: Fuuka
-  - name: Fairy Tail
+        series: true
+        childItems:
+          - name: Fuuka_01
+          - name: Fuuka_02
+          - name: Fuuka_03
+          - name: Fuuka_04
+          - name: Fuuka_05
+          - name: Fuuka_06
+          - name: Fuuka_07
+          - name: Fuuka_08
+          - name: Fuuka_09
+          - name: Fuuka_10
+          - name: Fuuka_11
+          - name: Fuuka_12
+  - name: Fairy_Tail
     items:
-      - name: Fairy Tail 001 012
-      - name: Fairy Tail 013 024
-      - name: Fairy Tail 025 036
-      - name: Fairy Tail 037 048
-      - name: Fairy Tail 049 060
-      - name: Fairy Tail 061 072
-      - name: Fairy Tail 073 084
-      - name: Fairy Tail 085 096
-      - name: Fairy Tail 097 108
-      - name: Fairy Tail 109 120
-      - name: Fairy Tail 121 131
-      - name: Fairy Tail 132 142
-      - name: Fairy Tail 143 153
-      - name: Fairy Tail 154 164
-      - name: Fairy tail 165 175
-      - name: Fairy Tail 176 187
-      - name: Fairy Tail 188 199
-      - name: Fairy Tail 200 212
-      - name: Fairy Tail 213 226
-      - name: Fairy Tail 227 239
-      - name: Fairy Tail 240 252
-      - name: Fairy Tail 253 265
-      - name: Fairy Tail Zero
-      - name: Fairy Tail 278 290
-      - name: Fairy Tail 291 303
-      - name: Fairy Tail 304 316
-      - name: Fairy Tail 317 328
-      - name: Fairy Tail Dragon Cry
-      - name: Fairy Tail The Phoenix Priestess
+      - name: Fairy_Tail_001_012
+        series: true
+        childItems:
+          - name: Fairy_Tail_001
+          - name: Fairy_Tail_002
+          - name: Fairy_Tail_003
+          - name: Fairy_Tail_004
+          - name: Fairy_Tail_005
+          - name: Fairy_Tail_006
+          - name: Fairy_Tail_007
+          - name: Fairy_Tail_008
+          - name: Fairy_Tail_009
+          - name: Fairy_Tail_010
+          - name: Fairy_Tail_011
+          - name: Fairy_Tail_012
+      - name: Fairy_Tail_013_024
+        series: true
+        childItems:
+          - name: Fairy_Tail_013
+          - name: Fairy_Tail_014
+          - name: Fairy_Tail_015
+          - name: Fairy_Tail_016
+          - name: Fairy_Tail_017
+          - name: Fairy_Tail_018
+          - name: Fairy_Tail_019
+          - name: Fairy_Tail_020
+          - name: Fairy_Tail_021
+          - name: Fairy_Tail_022
+          - name: Fairy_Tail_023
+          - name: Fairy_Tail_024
+      - name: Fairy_Tail_025_036
+        series: true
+        childItems:
+          - name: Fairy_Tail_025
+          - name: Fairy_Tail_026
+          - name: Fairy_Tail_027
+          - name: Fairy_Tail_028
+          - name: Fairy_Tail_029
+          - name: Fairy_Tail_030
+          - name: Fairy_Tail_031
+          - name: Fairy_Tail_032
+          - name: Fairy_Tail_033
+          - name: Fairy_Tail_034
+          - name: Fairy_Tail_035
+          - name: Fairy_Tail_036
+      - name: Fairy_Tail_037_048
+        series: true
+        childItems:
+          - name: Fairy_Tail_037
+          - name: Fairy_Tail_038
+          - name: Fairy_Tail_039
+          - name: Fairy_Tail_040
+          - name: Fairy_Tail_041
+          - name: Fairy_Tail_042
+          - name: Fairy_Tail_043
+          - name: Fairy_Tail_044
+          - name: Fairy_Tail_045
+          - name: Fairy_Tail_046
+          - name: Fairy_Tail_047
+          - name: Fairy_Tail_048
+      - name: Fairy_Tail_049_060
+        series: true
+        childItems:
+          - name: Fairy_Tail_049
+          - name: Fairy_Tail_050
+          - name: Fairy_Tail_051
+          - name: Fairy_Tail_052
+          - name: Fairy_Tail_053
+          - name: Fairy_Tail_054
+          - name: Fairy_Tail_055
+          - name: Fairy_Tail_056
+          - name: Fairy_Tail_057
+          - name: Fairy_Tail_058
+          - name: Fairy_Tail_059
+          - name: Fairy_Tail_060
+      - name: Fairy_Tail_061_072
+        series: true
+        childItems:
+          - name: Fairy_Tail_061
+          - name: Fairy_Tail_062
+          - name: Fairy_Tail_063
+          - name: Fairy_Tail_064
+          - name: Fairy_Tail_065
+          - name: Fairy_Tail_066
+          - name: Fairy_Tail_067
+          - name: Fairy_Tail_068
+          - name: Fairy_Tail_069
+          - name: Fairy_Tail_070
+          - name: Fairy_Tail_071
+          - name: Fairy_Tail_072
+      - name: Fairy_Tail_073_084
+        series: true
+        childItems:
+          - name: Fairy_Tail_073
+          - name: Fairy_Tail_074
+          - name: Fairy_Tail_075
+          - name: Fairy_Tail_076
+          - name: Fairy_Tail_077
+          - name: Fairy_Tail_078
+          - name: Fairy_Tail_079
+          - name: Fairy_Tail_080
+          - name: Fairy_Tail_081
+          - name: Fairy_Tail_082
+          - name: Fairy_Tail_083
+          - name: Fairy_Tail_084
+      - name: Fairy_Tail_085_096
+        series: true
+        childItems:
+          - name: Fairy_Tail_085
+          - name: Fairy_Tail_086
+          - name: Fairy_Tail_087
+          - name: Fairy_Tail_088
+          - name: Fairy_Tail_089
+          - name: Fairy_Tail_090
+          - name: Fairy_Tail_091
+          - name: Fairy_Tail_092
+          - name: Fairy_Tail_093
+          - name: Fairy_Tail_094
+          - name: Fairy_Tail_095
+          - name: Fairy_Tail_096
+      - name: Fairy_Tail_097_108
+        series: true
+        childItems:
+          - name: Fairy_Tail_097
+          - name: Fairy_Tail_098
+          - name: Fairy_Tail_099
+          - name: Fairy_Tail_100
+          - name: Fairy_Tail_101
+          - name: Fairy_Tail_102
+          - name: Fairy_Tail_103
+          - name: Fairy_Tail_104
+          - name: Fairy_Tail_105
+          - name: Fairy_Tail_106
+          - name: Fairy_Tail_107
+          - name: Fairy_Tail_108
+      - name: Fairy_Tail_109_120
+        series: true
+        childItems:
+          - name: Fairy_Tail_109
+          - name: Fairy_Tail_110
+          - name: Fairy_Tail_111
+          - name: Fairy_Tail_112
+          - name: Fairy_Tail_113
+          - name: Fairy_Tail_114
+          - name: Fairy_Tail_115
+          - name: Fairy_Tail_116
+          - name: Fairy_Tail_117
+          - name: Fairy_Tail_118
+          - name: Fairy_Tail_119
+          - name: Fairy_Tail_120
+      - name: Fairy_Tail_121_131
+        series: true
+        childItems:
+          - name: Fairy_Tail_121
+          - name: Fairy_Tail_122
+          - name: Fairy_Tail_123
+          - name: Fairy_Tail_124
+          - name: Fairy_Tail_125
+          - name: Fairy_Tail_126
+          - name: Fairy_Tail_127
+          - name: Fairy_Tail_128
+          - name: Fairy_Tail_129
+          - name: Fairy_Tail_130
+          - name: Fairy_Tail_131
+      - name: Fairy_Tail_132_142
+        series: true
+        childItems:
+          - name: Fairy_Tail_132
+          - name: Fairy_Tail_133
+          - name: Fairy_Tail_134
+          - name: Fairy_Tail_135
+          - name: Fairy_Tail_136
+          - name: Fairy_Tail_137
+          - name: Fairy_Tail_138
+          - name: Fairy_Tail_139
+          - name: Fairy_Tail_140
+          - name: Fairy_Tail_141
+          - name: Fairy_Tail_142
+      - name: Fairy_Tail_143_153
+        series: true
+        childItems:
+          - name: Fairy_Tail_143
+          - name: Fairy_Tail_144
+          - name: Fairy_Tail_145
+          - name: Fairy_Tail_146
+          - name: Fairy_Tail_147
+          - name: Fairy_Tail_148
+          - name: Fairy_Tail_149
+          - name: Fairy_Tail_150
+          - name: Fairy_Tail_151
+          - name: Fairy_Tail_152
+          - name: Fairy_Tail_153
+      - name: Fairy_Tail_154_164
+        series: true
+        childItems:
+          - name: Fairy_Tail_154
+          - name: Fairy_Tail_155
+          - name: Fairy_Tail_156
+          - name: Fairy_Tail_157
+          - name: Fairy_Tail_158
+          - name: Fairy_Tail_159
+          - name: Fairy_Tail_160
+          - name: Fairy_Tail_161
+          - name: Fairy_Tail_162
+          - name: Fairy_Tail_163
+          - name: Fairy_Tail_164
+      - name: Fairy_tail_165_175
+        series: true
+        childItems:
+          - name: Fairy_Tail_165
+          - name: Fairy_Tail_166
+          - name: Fairy_Tail_167
+          - name: Fairy_Tail_168
+          - name: Fairy_Tail_169
+          - name: Fairy_Tail_170
+          - name: Fairy_Tail_171
+          - name: Fairy_Tail_172
+          - name: Fairy_Tail_173
+          - name: Fairy_Tail_174
+          - name: Fairy_Tail_175
+      - name: Fairy_Tail_176_187
+        series: true
+        childItems:
+          - name: Fairy_Tail_176
+          - name: Fairy_Tail_177
+          - name: Fairy_Tail_178
+          - name: Fairy_Tail_179
+          - name: Fairy_Tail_180
+          - name: Fairy_Tail_181
+          - name: Fairy_Tail_182
+          - name: Fairy_Tail_183
+          - name: Fairy_Tail_184
+          - name: Fairy_Tail_185
+          - name: Fairy_Tail_186
+          - name: Fairy_Tail_187
+      - name: Fairy_Tail_188_199
+        series: true
+        childItems:
+          - name: Fairy_Tail_188
+          - name: Fairy_Tail_189
+          - name: Fairy_Tail_190
+          - name: Fairy_Tail_191
+          - name: Fairy_Tail_192
+          - name: Fairy_Tail_193
+          - name: Fairy_Tail_194
+          - name: Fairy_Tail_195
+          - name: Fairy_Tail_196
+          - name: Fairy_Tail_197
+          - name: Fairy_Tail_198
+          - name: Fairy_Tail_199
+      - name: Fairy_Tail_200_212
+        series: true
+        childItems:
+          - name: Fairy_Tail_200
+          - name: Fairy_Tail_201
+          - name: Fairy_Tail_202
+          - name: Fairy_Tail_203
+          - name: Fairy_Tail_204
+          - name: Fairy_Tail_205
+          - name: Fairy_Tail_206
+          - name: Fairy_Tail_207
+          - name: Fairy_Tail_208
+          - name: Fairy_Tail_209
+          - name: Fairy_Tail_210
+          - name: Fairy_Tail_211
+          - name: Fairy_Tail_212
+      - name: Fairy_Tail_213_226
+        series: true
+        childItems:
+          - name: Fairy_Tail_213
+          - name: Fairy_Tail_214
+          - name: Fairy_Tail_215
+          - name: Fairy_Tail_216
+          - name: Fairy_Tail_217
+          - name: Fairy_Tail_218
+          - name: Fairy_Tail_219
+          - name: Fairy_Tail_220
+          - name: Fairy_Tail_221
+          - name: Fairy_Tail_222
+          - name: Fairy_Tail_223
+          - name: Fairy_Tail_224
+          - name: Fairy_Tail_225
+          - name: Fairy_Tail_226
+      - name: Fairy_Tail_227_239
+        series: true
+        childItems:
+          - name: Fairy_Tail_227
+          - name: Fairy_Tail_228
+          - name: Fairy_Tail_229
+          - name: Fairy_Tail_230
+          - name: Fairy_Tail_231
+          - name: Fairy_Tail_232
+          - name: Fairy_Tail_233
+          - name: Fairy_Tail_234
+          - name: Fairy_Tail_235
+          - name: Fairy_Tail_236
+          - name: Fairy_Tail_237
+          - name: Fairy_Tail_238
+          - name: Fairy_Tail_239
+      - name: Fairy_Tail_240_252
+        series: true
+        childItems:
+          - name: Fairy_Tail_240
+          - name: Fairy_Tail_241
+          - name: Fairy_Tail_242
+          - name: Fairy_Tail_243
+          - name: Fairy_Tail_244
+          - name: Fairy_Tail_245
+          - name: Fairy_Tail_246
+          - name: Fairy_Tail_247
+          - name: Fairy_Tail_248
+          - name: Fairy_Tail_249
+          - name: Fairy_Tail_250
+          - name: Fairy_Tail_251
+          - name: Fairy_Tail_252
+      - name: Fairy_Tail_253_265
+        series: true
+        childItems:
+          - name: Fairy_Tail_253
+          - name: Fairy_Tail_254
+          - name: Fairy_Tail_255
+          - name: Fairy_Tail_256
+          - name: Fairy_Tail_257
+          - name: Fairy_Tail_258
+          - name: Fairy_Tail_259
+          - name: Fairy_Tail_260
+          - name: Fairy_Tail_261
+          - name: Fairy_Tail_262
+          - name: Fairy_Tail_263
+          - name: Fairy_Tail_264
+          - name: Fairy_Tail_265
+      - name: Fairy_Tail_Zero
+        series: true
+        childItems:
+          - name: Fairy_Tail_Zero_01
+          - name: Fairy_Tail_Zero_02
+          - name: Fairy_Tail_Zero_03
+          - name: Fairy_Tail_Zero_04
+          - name: Fairy_Tail_Zero_05
+          - name: Fairy_Tail_Zero_06
+          - name: Fairy_Tail_Zero_07
+          - name: Fairy_Tail_Zero_08
+          - name: Fairy_Tail_Zero_09
+          - name: Fairy_Tail_Zero_10
+          - name: Fairy_Tail_Zero_11
+          - name: Fairy_Tail_Zero_12
+      - name: Fairy_Tail_278_290
+        series: true
+        childItems:
+          - name: Fairy_Tail_285
+          - name: Fairy_Tail_286
+          - name: Fairy_Tail_287
+          - name: Fairy_Tail_288
+          - name: Fairy_Tail_289
+          - name: Fairy_Tail_290
+      - name: Fairy_Tail_291_303
+        series: true
+        childItems:
+          - name: Fairy_Tail_291
+          - name: Fairy_Tail_292
+          - name: Fairy_Tail_293
+          - name: Fairy_Tail_294
+          - name: Fairy_Tail_295
+          - name: Fairy_Tail_296
+          - name: Fairy_Tail_297
+          - name: Fairy_Tail_298
+          - name: Fairy_Tail_299
+          - name: Fairy_Tail_300
+          - name: Fairy_Tail_301
+          - name: Fairy_Tail_302
+          - name: Fairy_Tail_303
+      - name: Fairy_Tail_304_316
+        series: true
+        childItems:
+          - name: Fairy_Tail_304
+          - name: Fairy_Tail_305
+          - name: Fairy_Tail_306
+          - name: Fairy_Tail_307
+          - name: Fairy_Tail_308
+          - name: Fairy_Tail_309
+          - name: Fairy_Tail_310
+          - name: Fairy_Tail_311
+          - name: Fairy_Tail_312
+          - name: Fairy_Tail_313
+          - name: Fairy_Tail_314
+          - name: Fairy_Tail_315
+          - name: Fairy_Tail_316
+      - name: Fairy_Tail_317_328
+        series: true
+        childItems:
+          - name: Fairy_Tail_317
+          - name: Fairy_Tail_318
+          - name: Fairy_Tail_319
+          - name: Fairy_Tail_320
+          - name: Fairy_Tail_321
+          - name: Fairy_Tail_322
+          - name: Fairy_Tail_323
+          - name: Fairy_Tail_324
+          - name: Fairy_Tail_325
+          - name: Fairy_Tail_326
+          - name: Fairy_Tail_327
+          - name: Fairy_Tail_328
+      - name: Fairy_Tail_Dragon_Cry
+      - name: Fairy_Tail_The_Phoenix_Priestess
   - name: G
-    items: 
-      - name: Gankutsuou Count of Monte Cristo 01
-      - name: Gankutsuou Count of Monte Cristo 02
-      - name: Gankutsuou Count of Monte Cristo 03
-      - name: Gankutsuou Count of Monte Cristo 04
-      - name: Gankutsuou Count of Monte Cristo 05
-      - name: Gankutsuou Count of Monte Cristo 06
-      - name: Garden of Words
-      - name: Gargantia
-      - name: Get Backers
-      - name: Gintama 01
-      - name: Gintama 02
-      - name: Gintama 03
-      - name: Gintama 04
-      - name: Gintama The Movie
-      - name: Girl Who Leapt Through Time
-      - name: Glass Fleet 01
-      - name: Glass Fleet 02
-      - name: Grave of Fireflies
-      - name: Grimgar
-  - name: Ghost in the Shell
     items:
-      - name: Ghost in the Shell 01
-      - name: Ghost in the Shell 01 2.0
-      - name: Ghost in the Shell 02 Innocence
-      - name: Ghost in the Shell 03 Solid State Society
-      - name: Ghost in the Shell 04 The New Movie
-      - name: Ghost in the Shell Arise 01
-      - name: Ghost in the Shell Arise 02
-      - name: Ghost in the Shell Arise 03
-      - name: Ghost in the Shell Arise 04
-      - name: Ghost in the Shell SAC 01 01
-      - name: Ghost in the Shell SAC 01 02
-      - name: Ghost in the Shell SAC 01 03
-      - name: Ghost in the Shell SAC 01 04
-      - name: Ghost in the Shell SAC 01 05
-      - name: Ghost in the Shell SAC 01 06
-      - name: Ghost in the Shell SAC 01 07
-      - name: Ghost in the Shell SAC 01 OVA The Laughing Man
-      - name: Ghost in the Shell SAC 02 01
-      - name: Ghost in the Shell SAC 02 02
-      - name: Ghost in the Shell SAC 02 03
-      - name: Ghost in the Shell SAC 02 04
-      - name: Ghost in the Shell SAC 02 05
-      - name: Ghost in the Shell SAC 02 06
-      - name: Ghost in the Shell SAC 02 07
-      - name: Ghost in the Shell SAC 02 OVA Individual Eleven
+      - name: Gankutsuou_Count_of_Monte_Cristo_01
+        series: true
+        childItems:
+          - name: Gankutsuou_Count_of_Monte_Cristo_01
+          - name: Gankutsuou_Count_of_Monte_Cristo_02
+          - name: Gankutsuou_Count_of_Monte_Cristo_03
+          - name: Gankutsuou_Count_of_Monte_Cristo_04
+      - name: Gankutsuou_Count_of_Monte_Cristo_02
+        series: true
+        childItems:
+          - name: Gankutsuou_Count_of_Monte_Cristo_05
+          - name: Gankutsuou_Count_of_Monte_Cristo_06
+          - name: Gankutsuou_Count_of_Monte_Cristo_07
+          - name: Gankutsuou_Count_of_Monte_Cristo_08
+      - name: Gankutsuou_Count_of_Monte_Cristo_03
+        series: true
+        childItems:
+          - name: Gankutsuou_Count_of_Monte_Cristo_09
+          - name: Gankutsuou_Count_of_Monte_Cristo_10
+          - name: Gankutsuou_Count_of_Monte_Cristo_11
+          - name: Gankutsuou_Count_of_Monte_Cristo_12
+      - name: Gankutsuou_Count_of_Monte_Cristo_04
+        series: true
+        childItems:
+          - name: Gankutsuou_Count_of_Monte_Cristo_13
+          - name: Gankutsuou_Count_of_Monte_Cristo_14
+          - name: Gankutsuou_Count_of_Monte_Cristo_15
+          - name: Gankutsuou_Count_of_Monte_Cristo_16
+      - name: Gankutsuou_Count_of_Monte_Cristo_05
+        series: true
+        childItems:
+          - name: Gankutsuou_Count_of_Monte_Cristo_17
+          - name: Gankutsuou_Count_of_Monte_Cristo_18
+          - name: Gankutsuou_Count_of_Monte_Cristo_19
+          - name: Gankutsuou_Count_of_Monte_Cristo_20
+      - name: Gankutsuou_Count_of_Monte_Cristo_06
+        series: true
+        childItems:
+          - name: Gankutsuou_Count_of_Monte_Cristo_21
+          - name: Gankutsuou_Count_of_Monte_Cristo_22
+          - name: Gankutsuou_Count_of_Monte_Cristo_23
+          - name: Gankutsuou_Count_of_Monte_Cristo_24
+      - name: Garden_of_Words
+      - name: Gargantia
+        series: true
+        childItems:
+          - name: Gargantia_01
+          - name: Gargantia_02
+          - name: Gargantia_03
+          - name: Gargantia_04
+          - name: Gargantia_05
+          - name: Gargantia_06
+          - name: Gargantia_07
+          - name: Gargantia_08
+          - name: Gargantia_09
+          - name: Gargantia_10
+          - name: Gargantia_11
+          - name: Gargantia_12
+          - name: Gargantia_13
+      - name: Get_Backers
+        series: true
+        childItems:
+          - name: Get_Backers_01
+          - name: Get_Backers_02
+          - name: Get_Backers_03
+          - name: Get_Backers_04
+          - name: Get_Backers_05
+          - name: Get_Backers_06
+          - name: Get_Backers_07
+          - name: Get_Backers_08
+          - name: Get_Backers_09
+          - name: Get_Backers_10
+          - name: Get_Backers_11
+          - name: Get_Backers_12
+          - name: Get_Backers_13
+          - name: Get_Backers_14
+          - name: Get_Backers_15
+          - name: Get_Backers_16
+          - name: Get_Backers_17
+          - name: Get_Backers_18
+          - name: Get_Backers_19
+          - name: Get_Backers_20
+          - name: Get_Backers_21
+          - name: Get_Backers_22
+          - name: Get_Backers_23
+          - name: Get_Backers_24
+          - name: Get_Backers_25
+          - name: Get_Backers_26
+          - name: Get_Backers_27
+          - name: Get_Backers_28
+          - name: Get_Backers_29
+          - name: Get_Backers_30
+          - name: Get_Backers_31
+          - name: Get_Backers_32
+          - name: Get_Backers_33
+          - name: Get_Backers_34
+          - name: Get_Backers_35
+          - name: Get_Backers_36
+          - name: Get_Backers_37
+          - name: Get_Backers_38
+          - name: Get_Backers_39
+          - name: Get_Backers_40
+          - name: Get_Backers_41
+          - name: Get_Backers_42
+          - name: Get_Backers_43
+          - name: Get_Backers_44
+          - name: Get_Backers_45
+          - name: Get_Backers_46
+          - name: Get_Backers_47
+          - name: Get_Backers_48
+          - name: Get_Backers_49
+      - name: Gintama_01
+        series: true
+        childItems:
+          - name: Gintama_01
+          - name: Gintama_02
+          - name: Gintama_03
+          - name: Gintama_04
+          - name: Gintama_05
+          - name: Gintama_06
+          - name: Gintama_07
+          - name: Gintama_08
+          - name: Gintama_09
+          - name: Gintama_10
+          - name: Gintama_11
+          - name: Gintama_12
+          - name: Gintama_13
+      - name: Gintama_02
+        series: true
+        childItems:
+          - name: Gintama_14
+          - name: Gintama_15
+          - name: Gintama_16
+          - name: Gintama_17
+          - name: Gintama_18
+          - name: Gintama_19
+          - name: Gintama_20
+          - name: Gintama_21
+          - name: Gintama_22
+          - name: Gintama_23
+          - name: Gintama_24
+          - name: Gintama_25
+          - name: Gintama_26
+      - name: Gintama_03
+        series: true
+        childItems:
+          - name: Gintama_27
+          - name: Gintama_28
+          - name: Gintama_29
+          - name: Gintama_30
+          - name: Gintama_31
+          - name: Gintama_32
+          - name: Gintama_33
+          - name: Gintama_34
+          - name: Gintama_35
+          - name: Gintama_36
+          - name: Gintama_37
+          - name: Gintama_38
+          - name: Gintama_39
+      - name: Gintama_04
+        series: true
+        childItems:
+          - name: Gintama_40
+          - name: Gintama_41
+          - name: Gintama_42
+          - name: Gintama_43
+          - name: Gintama_44
+          - name: Gintama_45
+          - name: Gintama_46
+          - name: Gintama_47
+          - name: Gintama_48
+          - name: Gintama_49
+          - name: Gintama_50
+      - name: Gintama_The_Movie
+      - name: Girl_Who_Leapt_Through_Time
+      - name: Glass_Fleet_01
+        series: true
+        childItems:
+          - name: Glass_Fleet_01
+          - name: Glass_Fleet_02
+          - name: Glass_Fleet_03
+          - name: Glass_Fleet_04
+          - name: Glass_Fleet_06
+          - name: Glass_Fleet_07
+          - name: Glass_Fleet_08
+          - name: Glass_Fleet_09
+          - name: Glass_Fleet_10
+          - name: Glass_Fleet_11
+          - name: Glass_Fleet_12
+          - name: Glass_Fleet_13
+          - name: Glass_Fleet_14
+      - name: Glass_Fleet_02
+        series: true
+        childItems:
+          - name: Glass_Fleet_15
+          - name: Glass_Fleet_16
+          - name: Glass_Fleet_17
+          - name: Glass_Fleet_18
+          - name: Glass_Fleet_19
+          - name: Glass_Fleet_20
+          - name: Glass_Fleet_21
+          - name: Glass_Fleet_22
+          - name: Glass_Fleet_23
+          - name: Glass_Fleet_24
+          - name: Glass_Fleet_25
+          - name: Glass_Fleet_26
+          - name: Glass_Fleet_27
+      - name: Grave_of_Fireflies
+      - name: Grimgar
+        series: true
+        childItems:
+          - name: Grimgar_01
+          - name: Grimgar_02
+          - name: Grimgar_03
+          - name: Grimgar_04
+          - name: Grimgar_05
+          - name: Grimgar_06
+          - name: Grimgar_07
+          - name: Grimgar_08
+          - name: Grimgar_09
+          - name: Grimgar_10
+          - name: Grimgar_11
+          - name: Grimgar_12
+  - name: Ghost_in_the_Shell
+    items:
+      - name: Ghost_in_the_Shell_01
+      - name: Ghost_in_the_Shell_01_2.0
+      - name: Ghost_in_the_Shell_02_Innocence
+      - name: Ghost_in_the_Shell_03_Solid_State_Society
+      - name: Ghost_in_the_Shell_04_The_New_Movie
+      - name: Ghost_in_the_Shell_Arise_01
+      - name: Ghost_in_the_Shell_Arise_02
+      - name: Ghost_in_the_Shell_Arise_03
+      - name: Ghost_in_the_Shell_Arise_04
+      - name: Ghost_in_the_Shell_SAC_01_01
+        series: true
+        childItems:
+          - name: Ghost_in_the_Shell_SAC_01_01
+          - name: Ghost_in_the_Shell_SAC_01_02
+          - name: Ghost_in_the_Shell_SAC_01_03
+          - name: Ghost_in_the_Shell_SAC_01_04
+      - name: Ghost_in_the_Shell_SAC_01_02
+        series: true
+        childItems:
+          - name: Ghost_in_the_Shell_SAC_01_05
+          - name: Ghost_in_the_Shell_SAC_01_06
+          - name: Ghost_in_the_Shell_SAC_01_07
+          - name: Ghost_in_the_Shell_SAC_01_08
+      - name: Ghost_in_the_Shell_SAC_01_03
+        series: true
+        childItems:
+          - name: Ghost_in_the_Shell_SAC_01_09
+          - name: Ghost_in_the_Shell_SAC_01_10
+          - name: Ghost_in_the_Shell_SAC_01_11
+          - name: Ghost_in_the_Shell_SAC_01_12
+      - name: Ghost_in_the_Shell_SAC_01_04
+        series: true
+        childItems:
+          - name: Ghost_in_the_Shell_SAC_01_13
+          - name: Ghost_in_the_Shell_SAC_01_14
+          - name: Ghost_in_the_Shell_SAC_01_15
+          - name: Ghost_in_the_Shell_SAC_01_16
+      - name: Ghost_in_the_Shell_SAC_01_05
+        series: true
+        childItems:
+          - name: Ghost_in_the_Shell_SAC_01_17
+          - name: Ghost_in_the_Shell_SAC_01_18
+          - name: Ghost_in_the_Shell_SAC_01_19
+          - name: Ghost_in_the_Shell_SAC_01_20
+      - name: Ghost_in_the_Shell_SAC_01_06
+        series: true
+        childItems:
+          - name: Ghost_in_the_Shell_SAC_01_21
+          - name: Ghost_in_the_Shell_SAC_01_22
+          - name: Ghost_in_the_Shell_SAC_01_23
+      - name: Ghost_in_the_Shell_SAC_01_07
+        series: true
+        childItems:
+          - name: Ghost_in_the_Shell_SAC_01_24
+          - name: Ghost_in_the_Shell_SAC_01_25
+          - name: Ghost_in_the_Shell_SAC_01_26
+      - name: Ghost_in_the_Shell_SAC_01_OVA_The_Laughing_Man
+      - name: Ghost_in_the_Shell_SAC_02_01
+        series: true
+        childItems:
+          - name: Ghost_in_the_Shell_SAC_02_01
+          - name: Ghost_in_the_Shell_SAC_02_02
+          - name: Ghost_in_the_Shell_SAC_02_03
+          - name: Ghost_in_the_Shell_SAC_02_04
+      - name: Ghost_in_the_Shell_SAC_02_02
+        series: true
+        childItems:
+          - name: Ghost_in_the_Shell_SAC_02_05
+          - name: Ghost_in_the_Shell_SAC_02_06
+          - name: Ghost_in_the_Shell_SAC_02_07
+          - name: Ghost_in_the_Shell_SAC_02_08
+      - name: Ghost_in_the_Shell_SAC_02_03
+        series: true
+        childItems:
+          - name: Ghost_in_the_Shell_SAC_02_09
+          - name: Ghost_in_the_Shell_SAC_02_10
+          - name: Ghost_in_the_Shell_SAC_02_11
+          - name: Ghost_in_the_Shell_SAC_02_12
+      - name: Ghost_in_the_Shell_SAC_02_04
+        series: true
+        childItems:
+          - name: Ghost_in_the_Shell_SAC_02_13
+          - name: Ghost_in_the_Shell_SAC_02_14
+          - name: Ghost_in_the_Shell_SAC_02_15
+          - name: Ghost_in_the_Shell_SAC_02_16
+      - name: Ghost_in_the_Shell_SAC_02_05
+        series: true
+        childItems:
+          - name: Ghost_in_the_Shell_SAC_02_17
+          - name: Ghost_in_the_Shell_SAC_02_18
+          - name: Ghost_in_the_Shell_SAC_02_19
+          - name: Ghost_in_the_Shell_SAC_02_20
+      - name: Ghost_in_the_Shell_SAC_02_06
+        series: true
+        childItems:
+          - name: Ghost_in_the_Shell_SAC_02_21
+          - name: Ghost_in_the_Shell_SAC_02_22
+          - name: Ghost_in_the_Shell_SAC_02_23
+      - name: Ghost_in_the_Shell_SAC_02_07
+        series: true
+        childItems:
+          - name: Ghost_in_the_Shell_SAC_02_24
+          - name: Ghost_in_the_Shell_SAC_02_25
+          - name: Ghost_in_the_Shell_SAC_02_26
+      - name: Ghost_in_the_Shell_SAC_02_OVA_Individual_Eleven
   - name: Gundam
-    items: 
-      - name: Gundam Iron Blooded Orphens 01
-      - name: Gundam Iron Blooded Orphens 02
-      - name: Gundam OO 01
-      - name: Gundam OO 02
-      - name: Gundam OO 03
-      - name: Gundam OO 04
-      - name: Gundam OO A Wakening of the Trailblazer
-      - name: Gundam SEED 01 01
-      - name: Gundam SEED 01 02
-      - name: Gundam SEED 01 03
-      - name: Gundam SEED 01 04
-      - name: Gundam SEED 01 05
-      - name: Gundam SEED 01 06
-      - name: Gundam SEED 01 07
-      - name: Gundam SEED 01 08
-      - name: Gundam SEED 01 09
-      - name: Gundam SEED 01 10
-      - name: Gundam SEED 02 01
-      - name: Gundam SEED 02 02
-      - name: Gundam SEED 02 03
-      - name: Gundam SEED 02 04
-      - name: Gundam SEED 02 05
-      - name: Gundam SEED 02 06
-      - name: Gundam SEED 02 07
-      - name: Gundam SEED 02 08
-      - name: Gundam SEED 02 09
-      - name: Gundam SEED 02 10
-      - name: Gundam SEED 02 11
-      - name: Gundam SEED 02 12
-      - name: Gundam SEED Destiny Final Plus
-      - name: Gundam SEED The Rumbling Sky
-      - name: Gundam Wing 01
-      - name: Gundam Wing 02
-      - name: Gundam Wing Endless Waltz
+    items:
+      - name: Gundam_Iron_Blooded_Orphens_01
+        series: true
+        childItems:
+          - name: Gundam_Iron_Blooded_Orphens_01_01
+          - name: Gundam_Iron_Blooded_Orphens_01_02
+          - name: Gundam_Iron_Blooded_Orphens_01_03
+          - name: Gundam_Iron_Blooded_Orphens_01_04
+          - name: Gundam_Iron_Blooded_Orphens_01_05
+          - name: Gundam_Iron_Blooded_Orphens_01_06
+          - name: Gundam_Iron_Blooded_Orphens_01_07
+          - name: Gundam_Iron_Blooded_Orphens_01_08
+          - name: Gundam_Iron_Blooded_Orphens_01_09
+          - name: Gundam_Iron_Blooded_Orphens_01_10
+          - name: Gundam_Iron_Blooded_Orphens_01_11
+          - name: Gundam_Iron_Blooded_Orphens_01_12
+          - name: Gundam_Iron_Blooded_Orphens_01_13
+          - name: Gundam_Iron_Blooded_Orphens_01_14
+          - name: Gundam_Iron_Blooded_Orphens_01_15
+          - name: Gundam_Iron_Blooded_Orphens_01_16
+          - name: Gundam_Iron_Blooded_Orphens_01_17
+          - name: Gundam_Iron_Blooded_Orphens_01_18
+          - name: Gundam_Iron_Blooded_Orphens_01_19
+          - name: Gundam_Iron_Blooded_Orphens_01_20
+          - name: Gundam_Iron_Blooded_Orphens_01_21
+          - name: Gundam_Iron_Blooded_Orphens_01_22
+          - name: Gundam_Iron_Blooded_Orphens_01_23
+          - name: Gundam_Iron_Blooded_Orphens_01_24
+          - name: Gundam_Iron_Blooded_Orphens_01_25
+      - name: Gundam_Iron_Blooded_Orphens_02
+        series: true
+        childItems:
+          - name: Gundam_Iron_Blooded_Orphens_02_01
+          - name: Gundam_Iron_Blooded_Orphens_02_02
+          - name: Gundam_Iron_Blooded_Orphens_02_03
+          - name: Gundam_Iron_Blooded_Orphens_02_04
+          - name: Gundam_Iron_Blooded_Orphens_02_05
+          - name: Gundam_Iron_Blooded_Orphens_02_06
+          - name: Gundam_Iron_Blooded_Orphens_02_07
+          - name: Gundam_Iron_Blooded_Orphens_02_08
+          - name: Gundam_Iron_Blooded_Orphens_02_09
+          - name: Gundam_Iron_Blooded_Orphens_02_10
+          - name: Gundam_Iron_Blooded_Orphens_02_11
+          - name: Gundam_Iron_Blooded_Orphens_02_12
+          - name: Gundam_Iron_Blooded_Orphens_02_13
+          - name: Gundam_Iron_Blooded_Orphens_02_14
+          - name: Gundam_Iron_Blooded_Orphens_02_15
+          - name: Gundam_Iron_Blooded_Orphens_02_16
+          - name: Gundam_Iron_Blooded_Orphens_02_17
+          - name: Gundam_Iron_Blooded_Orphens_02_18
+          - name: Gundam_Iron_Blooded_Orphens_02_19
+          - name: Gundam_Iron_Blooded_Orphens_02_20
+          - name: Gundam_Iron_Blooded_Orphens_02_21
+          - name: Gundam_Iron_Blooded_Orphens_02_22
+          - name: Gundam_Iron_Blooded_Orphens_02_23
+          - name: Gundam_Iron_Blooded_Orphens_02_24
+          - name: Gundam_Iron_Blooded_Orphens_02_25
+      - name: Gundam_OO_01
+        series: true
+        childItems:
+          - name: Gundam_OO_01_01
+          - name: Gundam_OO_01_02
+          - name: Gundam_OO_01_03
+          - name: Gundam_OO_01_04
+          - name: Gundam_OO_01_05
+          - name: Gundam_OO_01_06
+          - name: Gundam_OO_01_07
+          - name: Gundam_OO_01_08
+          - name: Gundam_OO_01_09
+      - name: Gundam_OO_02
+        series: true
+        childItems:
+          - name: Gundam_OO_01_10
+          - name: Gundam_OO_01_11
+          - name: Gundam_OO_01_12
+          - name: Gundam_OO_01_13
+          - name: Gundam_OO_01_14
+          - name: Gundam_OO_01_15
+          - name: Gundam_OO_01_16
+          - name: Gundam_OO_01_17
+      - name: Gundam_OO_03
+        series: true
+        childItems:
+          - name: Gundam_OO_01_18
+          - name: Gundam_OO_01_19
+          - name: Gundam_OO_01_20
+          - name: Gundam_OO_01_21
+          - name: Gundam_OO_01_22
+          - name: Gundam_OO_01_23
+          - name: Gundam_OO_01_24
+          - name: Gundam_OO_01_25
+      - name: Gundam_OO_04
+        series: true
+        childItems:
+          - name: Gundam_OO_02_01
+          - name: Gundam_OO_02_02
+          - name: Gundam_OO_02_03
+          - name: Gundam_OO_02_04
+          - name: Gundam_OO_02_05
+          - name: Gundam_OO_02_06
+          - name: Gundam_OO_02_07
+          - name: Gundam_OO_02_08
+          - name: Gundam_OO_02_09
+          - name: Gundam_OO_02_10
+          - name: Gundam_OO_02_11
+          - name: Gundam_OO_02_12
+          - name: Gundam_OO_02_13
+          - name: Gundam_OO_02_14
+          - name: Gundam_OO_02_15
+          - name: Gundam_OO_02_16
+          - name: Gundam_OO_02_17
+          - name: Gundam_OO_02_18
+          - name: Gundam_OO_02_19
+          - name: Gundam_OO_02_20
+          - name: Gundam_OO_02_21
+          - name: Gundam_OO_02_22
+          - name: Gundam_OO_02_23
+          - name: Gundam_OO_02_24
+          - name: Gundam_OO_02_25
+      - name: Gundam_OO_A_Wakening_of_the_Trailblazer
+      - name: Gundam_SEED_01_01
+        series: true
+        childItems:
+          - name: Gundam_SEED_01
+          - name: Gundam_SEED_02
+          - name: Gundam_SEED_03
+          - name: Gundam_SEED_04
+          - name: Gundam_SEED_05
+      - name: Gundam_SEED_01_02
+        series: true
+        childItems:
+          - name: Gundam_SEED_06
+          - name: Gundam_SEED_07
+          - name: Gundam_SEED_08
+          - name: Gundam_SEED_09
+          - name: Gundam_SEED_10
+      - name: Gundam_SEED_01_03
+        series: true
+        childItems:
+          - name: Gundam_SEED_11
+          - name: Gundam_SEED_12
+          - name: Gundam_SEED_13
+          - name: Gundam_SEED_14
+          - name: Gundam_SEED_15
+      - name: Gundam_SEED_01_04
+        series: true
+        childItems:
+          - name: Gundam_SEED_16
+          - name: Gundam_SEED_17
+          - name: Gundam_SEED_18
+          - name: Gundam_SEED_19
+          - name: Gundam_SEED_20
+      - name: Gundam_SEED_01_05
+        series: true
+        childItems:
+          - name: Gundam_SEED_21
+          - name: Gundam_SEED_22
+          - name: Gundam_SEED_23
+          - name: Gundam_SEED_24
+          - name: Gundam_SEED_25
+      - name: Gundam_SEED_01_06
+        series: true
+        childItems:
+          - name: Gundam_SEED_26
+          - name: Gundam_SEED_27
+          - name: Gundam_SEED_28
+          - name: Gundam_SEED_29
+          - name: Gundam_SEED_30
+      - name: Gundam_SEED_01_07
+        series: true
+        childItems:
+          - name: Gundam_SEED_31
+          - name: Gundam_SEED_32
+          - name: Gundam_SEED_33
+          - name: Gundam_SEED_34
+          - name: Gundam_SEED_35
+      - name: Gundam_SEED_01_08
+        series: true
+        childItems:
+          - name: Gundam_SEED_36
+          - name: Gundam_SEED_37
+          - name: Gundam_SEED_38
+          - name: Gundam_SEED_39
+          - name: Gundam_SEED_40
+      - name: Gundam_SEED_01_09
+        series: true
+        childItems:
+          - name: Gundam_SEED_41
+          - name: Gundam_SEED_42
+          - name: Gundam_SEED_43
+          - name: Gundam_SEED_44
+          - name: Gundam_SEED_45
+      - name: Gundam_SEED_01_10
+        series: true
+        childItems:
+          - name: Gundam_SEED_46
+          - name: Gundam_SEED_47
+          - name: Gundam_SEED_48
+          - name: Gundam_SEED_49
+          - name: Gundam_SEED_50
+      - name: Gundam_SEED_02_01
+        series: true
+        childItems:
+          - name: Gundam_SEED_02_01
+          - name: Gundam_SEED_02_02
+          - name: Gundam_SEED_02_03
+          - name: Gundam_SEED_02_04
+          - name: Gundam_SEED_02_05
+      - name: Gundam_SEED_02_02
+        series: true
+        childItems:
+          - name: Gundam_SEED_02_06
+          - name: Gundam_SEED_02_07
+          - name: Gundam_SEED_02_08
+          - name: Gundam_SEED_02_09
+          - name: Gundam_SEED_02_10
+      - name: Gundam_SEED_02_03
+        series: true
+        childItems:
+          - name: Gundam_SEED_02_11
+          - name: Gundam_SEED_02_12
+          - name: Gundam_SEED_02_13
+          - name: Gundam_SEED_02_14
+      - name: Gundam_SEED_02_04
+        series: true
+        childItems:
+          - name: Gundam_SEED_02_15
+          - name: Gundam_SEED_02_16
+          - name: Gundam_SEED_02_17
+          - name: Gundam_SEED_02_18
+      - name: Gundam_SEED_02_05
+        series: true
+        childItems:
+          - name: Gundam_SEED_02_19
+          - name: Gundam_SEED_02_20
+          - name: Gundam_SEED_02_21
+          - name: Gundam_SEED_02_22
+      - name: Gundam_SEED_02_06
+        series: true
+        childItems:
+          - name: Gundam_SEED_02_23
+          - name: Gundam_SEED_02_24
+          - name: Gundam_SEED_02_25
+          - name: Gundam_SEED_02_26
+      - name: Gundam_SEED_02_07
+        series: true
+        childItems:
+          - name: Gundam_SEED_02_27
+          - name: Gundam_SEED_02_28
+          - name: Gundam_SEED_02_29
+          - name: Gundam_SEED_02_30
+      - name: Gundam_SEED_02_08
+        series: true
+        childItems:
+          - name: Gundam_SEED_02_31
+          - name: Gundam_SEED_02_32
+          - name: Gundam_SEED_02_33
+          - name: Gundam_SEED_02_34
+      - name: Gundam_SEED_02_09
+        series: true
+        childItems:
+          - name: Gundam_SEED_02_35
+          - name: Gundam_SEED_02_36
+          - name: Gundam_SEED_02_37
+          - name: Gundam_SEED_02_38
+      - name: Gundam_SEED_02_10
+        series: true
+        childItems:
+          - name: Gundam_SEED_02_39
+          - name: Gundam_SEED_02_40
+          - name: Gundam_SEED_02_41
+          - name: Gundam_SEED_02_42
+      - name: Gundam_SEED_02_11
+        series: true
+        childItems:
+          - name: Gundam_SEED_02_43
+          - name: Gundam_SEED_02_44
+          - name: Gundam_SEED_02_45
+          - name: Gundam_SEED_02_46
+      - name: Gundam_SEED_02_12
+        series: true
+        childItems:
+          - name: Gundam_SEED_02_47
+          - name: Gundam_SEED_02_48
+          - name: Gundam_SEED_02_49
+          - name: Gundam_SEED_02_50
+      - name: Gundam_SEED_Destiny_Final_Plus
+      - name: Gundam_SEED_The_Rumbling_Sky
+      - name: Gundam_Wing_01
+        series: true
+        childItems:
+          - name: Gundam_Wing_01
+          - name: Gundam_Wing_02
+          - name: Gundam_Wing_03
+          - name: Gundam_Wing_04
+          - name: Gundam_Wing_05
+          - name: Gundam_Wing_06
+          - name: Gundam_Wing_07
+          - name: Gundam_Wing_08
+          - name: Gundam_Wing_09
+          - name: Gundam_Wing_10
+          - name: Gundam_Wing_11
+          - name: Gundam_Wing_12
+          - name: Gundam_Wing_13
+          - name: Gundam_Wing_14
+          - name: Gundam_Wing_15
+          - name: Gundam_Wing_16
+          - name: Gundam_Wing_17
+          - name: Gundam_Wing_18
+          - name: Gundam_Wing_19
+          - name: Gundam_Wing_20
+          - name: Gundam_Wing_21
+          - name: Gundam_Wing_22
+          - name: Gundam_Wing_23
+          - name: Gundam_Wing_24
+          - name: Gundam_Wing_25
+      - name: Gundam_Wing_02
+        series: true
+        childItems:
+          - name: Gundam_Wing_26
+          - name: Gundam_Wing_27
+          - name: Gundam_Wing_28
+          - name: Gundam_Wing_29
+          - name: Gundam_Wing_30
+          - name: Gundam_Wing_31
+          - name: Gundam_Wing_32
+          - name: Gundam_Wing_33
+          - name: Gundam_Wing_34
+          - name: Gundam_Wing_35
+          - name: Gundam_Wing_36
+          - name: Gundam_Wing_37
+          - name: Gundam_Wing_38
+          - name: Gundam_Wing_39
+          - name: Gundam_Wing_40
+          - name: Gundam_Wing_41
+          - name: Gundam_Wing_42
+          - name: Gundam_Wing_43
+          - name: Gundam_Wing_44
+          - name: Gundam_Wing_45
+          - name: Gundam_Wing_46
+          - name: Gundam_Wing_47
+          - name: Gundam_Wing_48
+          - name: Gundam_Wing_49
+      - name: Gundam_Wing_Endless_Waltz
   - name: H
     items:
-      - name: Haganai 01
-      - name: Haganai 02
-      - name: Haibane Renmei
-      - name: Haikyuu 01
-      - name: Haikyuu 02
-      - name: Haikyuu 03
+      - name: Haganai_01
+        series: true
+        childItems:
+          - name: Haganai_01_01
+          - name: Haganai_01_02
+          - name: Haganai_01_03
+          - name: Haganai_01_04
+          - name: Haganai_01_05
+          - name: Haganai_01_06
+          - name: Haganai_01_07
+          - name: Haganai_01_08
+          - name: Haganai_01_09
+          - name: Haganai_01_10
+          - name: Haganai_01_11
+          - name: Haganai_01_12
+          - name: Haganai_01_13
+      - name: Haganai_02
+        series: true
+        childItems:
+          - name: Haganai_02_Next_01
+          - name: Haganai_02_Next_02
+          - name: Haganai_02_Next_03
+          - name: Haganai_02_Next_04
+          - name: Haganai_02_Next_05
+          - name: Haganai_02_Next_06
+          - name: Haganai_02_Next_07
+          - name: Haganai_02_Next_08
+          - name: Haganai_02_Next_09
+          - name: Haganai_02_Next_10
+          - name: Haganai_02_Next_11
+          - name: Haganai_02_Next_12
+      - name: Haibane_Renmei
+        series: true
+        childItems:
+          - name: Haibane_Renmei_01
+          - name: Haibane_Renmei_02
+          - name: Haibane_Renmei_03
+          - name: Haibane_Renmei_04
+          - name: Haibane_Renmei_05
+          - name: Haibane_Renmei_06
+          - name: Haibane_Renmei_07
+          - name: Haibane_Renmei_08
+          - name: Haibane_Renmei_09
+          - name: Haibane_Renmei_10
+          - name: Haibane_Renmei_11
+          - name: Haibane_Renmei_12
+          - name: Haibane_Renmei_13
+      - name: Haikyuu_01
+        series: true
+        childItems:
+          - name: Haikyuu_01_01
+          - name: Haikyuu_01_02
+          - name: Haikyuu_01_03
+          - name: Haikyuu_01_04
+          - name: Haikyuu_01_05
+          - name: Haikyuu_01_06
+          - name: Haikyuu_01_07
+          - name: Haikyuu_01_08
+          - name: Haikyuu_01_09
+          - name: Haikyuu_01_10
+          - name: Haikyuu_01_11
+          - name: Haikyuu_01_12
+          - name: Haikyuu_01_13
+          - name: Haikyuu_01_14
+          - name: Haikyuu_01_15
+          - name: Haikyuu_01_16
+          - name: Haikyuu_01_17
+          - name: Haikyuu_01_18
+          - name: Haikyuu_01_19
+          - name: Haikyuu_01_20
+          - name: Haikyuu_01_21
+          - name: Haikyuu_01_22
+          - name: Haikyuu_01_23
+          - name: Haikyuu_01_24
+          - name: Haikyuu_01_25
+      - name: Haikyuu_02
+        series: true
+        childItems:
+          - name: Haikyuu_02_01
+          - name: Haikyuu_02_02
+          - name: Haikyuu_02_03
+          - name: Haikyuu_02_04
+          - name: Haikyuu_02_05
+          - name: Haikyuu_02_06
+          - name: Haikyuu_02_07
+          - name: Haikyuu_02_08
+          - name: Haikyuu_02_09
+          - name: Haikyuu_02_10
+          - name: Haikyuu_02_11
+          - name: Haikyuu_02_12
+          - name: Haikyuu_02_13
+          - name: Haikyuu_02_14
+          - name: Haikyuu_02_15
+          - name: Haikyuu_02_16
+          - name: Haikyuu_02_17
+          - name: Haikyuu_02_18
+          - name: Haikyuu_02_19
+          - name: Haikyuu_02_20
+          - name: Haikyuu_02_21
+          - name: Haikyuu_02_22
+          - name: Haikyuu_02_23
+          - name: Haikyuu_02_24
+          - name: Haikyuu_02_25
+      - name: Haikyuu_03
+        series: true
+        childItems:
+          - name: Haikyuu_03_01
+          - name: Haikyuu_03_02
+          - name: Haikyuu_03_03
+          - name: Haikyuu_03_04
+          - name: Haikyuu_03_05
+          - name: Haikyuu_03_06
+          - name: Haikyuu_03_07
+          - name: Haikyuu_03_08
+          - name: Haikyuu_03_09
+          - name: Haikyuu_03_10
       - name: Hal
-      - name: Hello World
-      - name: Hellsing 01 01
-      - name: Hellsing 01 02
-      - name: Hellsing 01 03
-      - name: Hellsing 01 04
-      - name: High School of the Dead
+      - name: Hello_World
+      - name: Hellsing_01_01
+        series: true
+        childItems:
+          - name: Hellsing_01
+          - name: Hellsing_02
+          - name: Hellsing_03
+      - name: Hellsing_01_02
+        series: true
+        childItems:
+          - name: Hellsing_04
+          - name: Hellsing_05
+          - name: Hellsing_06
+      - name: Hellsing_01_03
+        series: true
+        childItems:
+          - name: Hellsing_07
+          - name: Hellsing_08
+          - name: Hellsing_09
+      - name: Hellsing_01_04
+        series: true
+        childItems:
+          - name: Hellsing_10
+          - name: Hellsing_11
+          - name: Hellsing_12
+          - name: Hellsing_13
+      - name: High_School_of_the_Dead
+        series: true
+        childItems:
+          - name: High_School_of_the_Dead_01
+          - name: High_School_of_the_Dead_02
+          - name: High_School_of_the_Dead_03
+          - name: High_School_of_the_Dead_04
+          - name: High_School_of_the_Dead_05
+          - name: High_School_of_the_Dead_06
+          - name: High_School_of_the_Dead_07
+          - name: High_School_of_the_Dead_08
+          - name: High_School_of_the_Dead_09
+          - name: High_School_of_the_Dead_10
+          - name: High_School_of_the_Dead_11
+          - name: High_School_of_the_Dead_12
       - name: Hinamatsuri
-      - name: Howls Moving Castle
-      - name: Humanity has Declined
+        series: true
+        childItems:
+          - name: Hinamatsuri_01
+          - name: Hinamatsuri_02
+          - name: Hinamatsuri_03
+          - name: Hinamatsuri_04
+          - name: Hinamatsuri_05
+          - name: Hinamatsuri_06
+          - name: Hinamatsuri_07
+          - name: Hinamatsuri_08
+          - name: Hinamatsuri_09
+          - name: Hinamatsuri_10
+          - name: Hinamatsuri_11
+      - name: How_a_Realist_Hero_Rebuilt_the_Kingdom_01
+        series: true
+        childItems:
+          - name: How_a_Realist_Hero_Rebuilt_the_Kingdom_01_01
+          - name: How_a_Realist_Hero_Rebuilt_the_Kingdom_01_02
+          - name: How_a_Realist_Hero_Rebuilt_the_Kingdom_01_03
+          - name: How_a_Realist_Hero_Rebuilt_the_Kingdom_01_04
+          - name: How_a_Realist_Hero_Rebuilt_the_Kingdom_01_05
+          - name: How_a_Realist_Hero_Rebuilt_the_Kingdom_01_06
+          - name: How_a_Realist_Hero_Rebuilt_the_Kingdom_01_07
+          - name: How_a_Realist_Hero_Rebuilt_the_Kingdom_01_08
+          - name: How_a_Realist_Hero_Rebuilt_the_Kingdom_01_09
+          - name: How_a_Realist_Hero_Rebuilt_the_Kingdom_01_10
+          - name: How_a_Realist_Hero_Rebuilt_the_Kingdom_01_11
+          - name: How_a_Realist_Hero_Rebuilt_the_Kingdom_01_12
+          - name: How_a_Realist_Hero_Rebuilt_the_Kingdom_01_13
+      - name: How_a_Realist_Hero_Rebuilt_the_Kingdom_02
+        series: true
+        childItems:
+          - name: How_a_Realist_Hero_Rebuilt_the_Kingdom_02_01
+          - name: How_a_Realist_Hero_Rebuilt_the_Kingdom_02_02
+          - name: How_a_Realist_Hero_Rebuilt_the_Kingdom_02_03
+          - name: How_a_Realist_Hero_Rebuilt_the_Kingdom_02_04
+          - name: How_a_Realist_Hero_Rebuilt_the_Kingdom_02_05
+          - name: How_a_Realist_Hero_Rebuilt_the_Kingdom_02_06
+          - name: How_a_Realist_Hero_Rebuilt_the_Kingdom_02_07
+          - name: How_a_Realist_Hero_Rebuilt_the_Kingdom_02_08
+          - name: How_a_Realist_Hero_Rebuilt_the_Kingdom_02_09
+          - name: How_a_Realist_Hero_Rebuilt_the_Kingdom_02_10
+          - name: How_a_Realist_Hero_Rebuilt_the_Kingdom_02_11
+          - name: How_a_Realist_Hero_Rebuilt_the_Kingdom_02_12
+          - name: How_a_Realist_Hero_Rebuilt_the_Kingdom_02_13
+      - name: Howls_Moving_Castle
+      - name: Humanity_has_Declined
+        series: true
+        childItems:
+          - name: Humanity_has_Declined_01
+          - name: Humanity_has_Declined_02
+          - name: Humanity_has_Declined_03
+          - name: Humanity_has_Declined_04
+          - name: Humanity_has_Declined_05
+          - name: Humanity_has_Declined_06
+          - name: Humanity_has_Declined_07
+          - name: Humanity_has_Declined_08
+          - name: Humanity_has_Declined_09
+          - name: Humanity_has_Declined_10
+          - name: Humanity_has_Declined_11
+          - name: Humanity_has_Declined_12
   - name: I
-    items: 
-      - name: In This Corner of the World
-      - name: In Another World with My Smartphone
+    items:
+      - name: In_This_Corner_of_the_World
+      - name: In_Another_World_with_My_Smartphone
         vlcOptions:
-          audioTrack: 1
           subtitleTrack: 6
-      - name: Interviews with Monster Girls
+          audioTrack: 1
+        series: true
+        childItems:
+          - name: In_Another_World_with_My_Smartphone_01
+          - name: In_Another_World_with_My_Smartphone_02
+          - name: In_Another_World_with_My_Smartphone_03
+          - name: In_Another_World_with_My_Smartphone_04
+          - name: In_Another_World_with_My_Smartphone_05
+          - name: In_Another_World_with_My_Smartphone_06
+          - name: In_Another_World_with_My_Smartphone_07
+          - name: In_Another_World_with_My_Smartphone_08
+          - name: In_Another_World_with_My_Smartphone_09
+          - name: In_Another_World_with_My_Smartphone_10
+          - name: In_Another_World_with_My_Smartphone_11
+          - name: In_Another_World_with_My_Smartphone_12
+      - name: Interviews_with_Monster_Girls
+        series: true
+        childItems:
+          - name: Interviews_With_Monster_Girls_01
+          - name: Interviews_With_Monster_Girls_02
+          - name: Interviews_With_Monster_Girls_03
+          - name: Interviews_With_Monster_Girls_04
+          - name: Interviews_With_Monster_Girls_05
+          - name: Interviews_With_Monster_Girls_06
+          - name: Interviews_With_Monster_Girls_07
+          - name: Interviews_With_Monster_Girls_08
+          - name: Interviews_With_Monster_Girls_09
+          - name: Interviews_With_Monster_Girls_10
+          - name: Interviews_With_Monster_Girls_11
+          - name: Interviews_With_Monster_Girls_12
+          - name: Interviews_With_Monster_Girls_13
   - name: J
     items:
-      - name: Jormungand 01
-      - name: Jormungand 02
+      - name: Jormungand_01
+        series: true
+        childItems:
+          - name: Jormungand_01
+          - name: Jormungand_02
+          - name: Jormungand_03
+          - name: Jormungand_04
+          - name: Jormungand_05
+          - name: Jormungand_06
+          - name: Jormungand_07
+          - name: Jormungand_08
+          - name: Jormungand_09
+          - name: Jormungand_10
+          - name: Jormungand_11
+          - name: Jormungand_12
+      - name: Jormungand_02
+        series: true
+        childItems:
+          - name: Jormungand_13
+          - name: Jormungand_14
+          - name: Jormungand_15
+          - name: Jormungand_16
+          - name: Jormungand_17
+          - name: Jormungand_18
+          - name: Jormungand_19
+          - name: Jormungand_20
+          - name: Jormungand_21
+          - name: Jormungand_22
+          - name: Jormungand_23
+          - name: Jormungand_24
   - name: K
     items:
-      - name: K On 01
-      - name: K On 02
-      - name: K On 03
-      - name: Kai Doh Maru
-      - name: Kikis Delivery Service
-      - name: Kill Me Baby
-      - name: Kinos Journey 01
-      - name: Kinos Journey 02
-      - name: Kinos Journey 03
-      - name: Kinos Journey 04
-      - name: Kokoro Connect
+      - name: K_On_01
+        series: true
+        childItems:
+          - name: K_On_01_01
+          - name: K_On_01_02
+          - name: K_On_01_03
+          - name: K_On_01_04
+          - name: K_On_01_05
+          - name: K_On_01_06
+          - name: K_On_01_07
+          - name: K_On_01_08
+          - name: K_On_01_09
+          - name: K_On_01_10
+          - name: K_On_01_11
+          - name: K_On_01_12
+          - name: K_On_01_13
+          - name: K_On_01_14
+      - name: K_On_02
+        series: true
+        childItems:
+          - name: K_On_02_01
+          - name: K_On_02_02
+          - name: K_On_02_03
+          - name: K_On_02_04
+          - name: K_On_02_05
+          - name: K_On_02_06
+          - name: K_On_02_07
+          - name: K_On_02_08
+          - name: K_On_02_09
+          - name: K_On_02_10
+          - name: K_On_02_11
+          - name: K_On_02_12
+          - name: K_On_02_13
+      - name: K_On_03
+        series: true
+        childItems:
+          - name: K_On_02_14
+          - name: K_On_02_15
+          - name: K_On_02_16
+          - name: K_On_02_17
+          - name: K_On_02_18
+          - name: K_On_02_19
+          - name: K_On_02_20
+          - name: K_On_02_21
+          - name: K_On_02_22
+          - name: K_On_02_23
+          - name: K_On_02_24
+          - name: K_On_02_25
+          - name: K_On_02_26
+          - name: K_On_02_27
+      - name: Kai_Doh_Maru
+      - name: Kikis_Delivery_Service
+      - name: Kill_Me_Baby
+        series: true
+        childItems:
+          - name: Kill_Me_Baby_01
+          - name: Kill_Me_Baby_02
+          - name: Kill_Me_Baby_03
+          - name: Kill_Me_Baby_04
+          - name: Kill_Me_Baby_05
+          - name: Kill_Me_Baby_06
+          - name: Kill_Me_Baby_07
+          - name: Kill_Me_Baby_08
+          - name: Kill_Me_Baby_09
+          - name: Kill_Me_Baby_10
+          - name: Kill_Me_Baby_11
+          - name: Kill_Me_Baby_12
+          - name: Kill_Me_Baby_13
+      - name: Kinos_Journey_01
+        series: true
+        childItems:
+          - name: Kinos_Journey_01_01
+          - name: Kinos_Journey_01_02
+          - name: Kinos_Journey_01_03
+          - name: Kinos_Journey_01_04
+          - name: Kinos_Journey_01_05
+      - name: Kinos_Journey_02
+        series: true
+        childItems:
+          - name: Kinos_Journey_01_06
+          - name: Kinos_Journey_01_07
+          - name: Kinos_Journey_01_08
+          - name: Kinos_Journey_01_09
+      - name: Kinos_Journey_03
+        series: true
+        childItems:
+          - name: Kinos_Journey_01_10
+          - name: Kinos_Journey_01_11
+          - name: Kinos_Journey_01_12
+          - name: Kinos_Journey_01_13
+      - name: Kinos_Journey_04
+        series: true
+        childItems:
+          - name: Kinos_Journey_02_01
+          - name: Kinos_Journey_02_02
+          - name: Kinos_Journey_02_03
+          - name: Kinos_Journey_02_04
+          - name: Kinos_Journey_02_05
+          - name: Kinos_Journey_02_06
+          - name: Kinos_Journey_02_07
+          - name: Kinos_Journey_02_08
+          - name: Kinos_Journey_02_09
+          - name: Kinos_Journey_02_10
+          - name: Kinos_Journey_02_11
+          - name: Kinos_Journey_02_12
+      - name: Kokoro_Connect
         vlcOptions:
           subtitleTrack: 7
-      - name: Konosuba 01
-      - name: Konosuba 02
-      - name: Kore Wa Zombie Desu Ka 01
-      - name: Kore Wa Zombie Desu Ka 02
-      - name: Kurau 01
-      - name: Kurau 02
-      - name: Kurau 03
-      - name: Kurau 04
-      - name: Kurau 05
-      - name: Kurau 06
+        series: true
+        childItems:
+          - name: Kokoro_Connect_01
+          - name: Kokoro_Connect_02
+          - name: Kokoro_Connect_03
+          - name: Kokoro_Connect_04
+          - name: Kokoro_Connect_05
+          - name: Kokoro_Connect_06
+          - name: Kokoro_Connect_07
+          - name: Kokoro_Connect_08
+          - name: Kokoro_Connect_09
+          - name: Kokoro_Connect_10
+          - name: Kokoro_Connect_11
+          - name: Kokoro_Connect_12
+          - name: Kokoro_Connect_13
+          - name: Kokoro_Connect_14
+          - name: Kokoro_Connect_15
+          - name: Kokoro_Connect_16
+          - name: Kokoro_Connect_17
+      - name: Konosuba_01
+        series: true
+        childItems:
+          - name: Konosuba_01_01
+          - name: Konosuba_01_02
+          - name: Konosuba_01_03
+          - name: Konosuba_01_04
+          - name: Konosuba_01_05
+          - name: Konosuba_01_06
+          - name: Konosuba_01_07
+          - name: Konosuba_01_08
+          - name: Konosuba_01_09
+          - name: Konosuba_01_10
+          - name: Konosuba_01_11
+      - name: Konosuba_02
+        series: true
+        childItems:
+          - name: Konosuba_02_01
+          - name: Konosuba_02_02
+          - name: Konosuba_02_03
+          - name: Konosuba_02_04
+          - name: Konosuba_02_05
+          - name: Konosuba_02_06
+          - name: Konosuba_02_07
+          - name: Konosuba_02_08
+          - name: Konosuba_02_09
+          - name: Konosuba_02_10
+          - name: Konosuba_02_11
+      - name: Kore_Wa_Zombie_Desu_Ka_01
+        series: true
+        childItems:
+          - name: Kore_Wa_Zombie_Desu_Ka_01
+          - name: Kore_Wa_Zombie_Desu_Ka_02
+          - name: Kore_Wa_Zombie_Desu_Ka_03
+          - name: Kore_Wa_Zombie_Desu_Ka_04
+          - name: Kore_Wa_Zombie_Desu_Ka_05
+          - name: Kore_Wa_Zombie_Desu_Ka_06
+          - name: Kore_Wa_Zombie_Desu_Ka_07
+      - name: Kore_Wa_Zombie_Desu_Ka_02
+        series: true
+        childItems:
+          - name: Kore_Wa_Zombie_Desu_Ka_08
+          - name: Kore_Wa_Zombie_Desu_Ka_09
+          - name: Kore_Wa_Zombie_Desu_Ka_10
+          - name: Kore_Wa_Zombie_Desu_Ka_11
+          - name: Kore_Wa_Zombie_Desu_Ka_12
+          - name: Kore_Wa_Zombie_Desu_Ka_13
+      - name: Kurau_01
+        series: true
+        childItems:
+          - name: Kurau_01
+          - name: Kurau_02
+          - name: Kurau_03
+          - name: Kurau_04
+      - name: Kurau_02
+        series: true
+        childItems:
+          - name: Kurau_05
+          - name: Kurau_06
+          - name: Kurau_07
+          - name: Kurau_08
+      - name: Kurau_03
+        series: true
+        childItems:
+          - name: Kurau_09
+          - name: Kurau_10
+          - name: Kurau_11
+          - name: Kurau_12
+      - name: Kurau_04
+        series: true
+        childItems:
+          - name: Kurau_13
+          - name: Kurau_14
+          - name: Kurau_15
+          - name: Kurau_16
+      - name: Kurau_05
+        series: true
+        childItems:
+          - name: Kurau_17
+          - name: Kurau_18
+          - name: Kurau_19
+          - name: Kurau_20
+      - name: Kurau_06
+        series: true
+        childItems:
+          - name: Kurau_21
+          - name: Kurau_22
+          - name: Kurau_23
+          - name: Kurau_24
   - name: L
     items:
-      - name: Legend of the Legendary Heroes
-      - name: Liz and the Blue Bird
-      - name: Love Hina 01
-      - name: Love Hina 02
-  - name: Last Exile
-    items:
-      - name: Last Exile 01 01
-      - name: Last Exile 01 02
-      - name: Last Exile 01 03
-      - name: Last Exile 01 04
-      - name: Last Exile 01 05
-      - name: Last Exile 01 06
-      - name: Last Exile 01 07
-      - name: Last Exile 02 01
-      - name: Last Exile 02 02
-  - name: Log Horizon
-    items: 
-      - name: Log Horizon 01
-      - name: Log Horizon 02
-      - name: Log Horizon 03
-      - name: Log Horizon 04
-      - name: Log Horizon 05
+      - name: Last_Exile_01_01
+        series: true
+        childItems:
+          - name: Last_Exile_01_02
+          - name: Last_Exile_01_03
+          - name: Last_Exile_01_04
+      - name: Last_Exile_01_02
+        series: true
+        childItems:
+          - name: Last_Exile_01_05
+          - name: Last_Exile_01_06
+          - name: Last_Exile_01_07
+          - name: Last_Exile_01_08
+      - name: Last_Exile_01_03
+        series: true
+        childItems:
+          - name: Last_Exile_01_09
+          - name: Last_Exile_01_10
+          - name: Last_Exile_01_11
+          - name: Last_Exile_01_12
+      - name: Last_Exile_01_04
+        series: true
+        childItems:
+          - name: Last_Exile_01_13
+          - name: Last_Exile_01_14
+          - name: Last_Exile_01_15
+          - name: Last_Exile_01_16
+      - name: Last_Exile_01_05
+        series: true
+        childItems:
+          - name: Last_Exile_01_17
+          - name: Last_Exile_01_18
+          - name: Last_Exile_01_19
+          - name: Last_Exile_01_20
+      - name: Last_Exile_01_06
+        series: true
+        childItems:
+          - name: Last_Exile_01_21
+          - name: Last_Exile_01_22
+          - name: Last_Exile_01_23
+      - name: Last_Exile_01_07
+        series: true
+        childItems:
+          - name: Last_Exile_01_24
+          - name: Last_Exile_01_25
+          - name: Last_Exile_01_26
+      - name: Last_Exile_02_01
+        series: true
+        childItems:
+          - name: Last_Exile_02_02
+          - name: Last_Exile_02_03
+          - name: Last_Exile_02_04
+          - name: Last_Exile_02_05
+          - name: Last_Exile_02_06
+          - name: Last_Exile_02_07
+          - name: Last_Exile_02_08
+          - name: Last_Exile_02_09
+          - name: Last_Exile_02_10
+          - name: Last_Exile_02_11
+      - name: Last_Exile_02_02
+        series: true
+        childItems:
+          - name: Last_Exile_02_12
+          - name: Last_Exile_02_13
+          - name: Last_Exile_02_14
+          - name: Last_Exile_02_15
+          - name: Last_Exile_02_16
+          - name: Last_Exile_02_17
+          - name: Last_Exile_02_18
+          - name: Last_Exile_02_19
+          - name: Last_Exile_02_20
+          - name: Last_Exile_02_21
+          - name: Last_Exile_02_23
+          - name: Last_Exile_02_24
+      - name: Legend_of_the_Legendary_Heroes
+        series: true
+        childItems:
+          - name: Legend_of_the_Legendary_Heroes_01
+          - name: Legend_of_the_Legendary_Heroes_02
+          - name: Legend_of_the_Legendary_Heroes_03
+          - name: Legend_of_the_Legendary_Heroes_04
+          - name: Legend_of_the_Legendary_Heroes_05
+          - name: Legend_of_the_Legendary_Heroes_06
+          - name: Legend_of_the_Legendary_Heroes_07
+          - name: Legend_of_the_Legendary_Heroes_08
+          - name: Legend_of_the_Legendary_Heroes_09
+          - name: Legend_of_the_Legendary_Heroes_10
+          - name: Legend_of_the_Legendary_Heroes_11
+          - name: Legend_of_the_Legendary_Heroes_12
+          - name: Legend_of_the_Legendary_Heroes_13
+          - name: Legend_of_the_Legendary_Heroes_14
+          - name: Legend_of_the_Legendary_Heroes_15
+          - name: Legend_of_the_Legendary_Heroes_16
+          - name: Legend_of_the_Legendary_Heroes_17
+          - name: Legend_of_the_Legendary_Heroes_18
+          - name: Legend_of_the_Legendary_Heroes_19
+          - name: Legend_of_the_Legendary_Heroes_20
+          - name: Legend_of_the_Legendary_Heroes_21
+          - name: Legend_of_the_Legendary_Heroes_22
+          - name: Legend_of_the_Legendary_Heroes_23
+          - name: Legend_of_the_Legendary_Heroes_24
+          - name: Legend_of_the_Legendary_Heroes_25
+      - name: Liz_and_the_Blue_Bird
+      - name: Log_Horizon_01
+        series: true
+        childItems:
+          - name: Log_Horizon_01_01
+          - name: Log_Horizon_01_02
+          - name: Log_Horizon_01_03
+          - name: Log_Horizon_01_04
+          - name: Log_Horizon_01_05
+          - name: Log_Horizon_01_06
+          - name: Log_Horizon_01_07
+          - name: Log_Horizon_01_08
+          - name: Log_Horizon_01_09
+          - name: Log_Horizon_01_10
+          - name: Log_Horizon_01_11
+          - name: Log_Horizon_01_12
+          - name: Log_Horizon_01_13
+      - name: Log_Horizon_02
+        series: true
+        childItems:
+          - name: Log_Horizon_01_14
+          - name: Log_Horizon_01_15
+          - name: Log_Horizon_01_16
+          - name: Log_Horizon_01_17
+          - name: Log_Horizon_01_18
+          - name: Log_Horizon_01_19
+          - name: Log_Horizon_01_20
+          - name: Log_Horizon_01_21
+          - name: Log_Horizon_01_22
+          - name: Log_Horizon_01_23
+          - name: Log_Horizon_01_24
+          - name: Log_Horizon_01_25
+      - name: Log_Horizon_03
+        series: true
+        childItems:
+          - name: Log_Horizon_02_01
+          - name: Log_Horizon_02_02
+          - name: Log_Horizon_02_03
+          - name: Log_Horizon_02_04
+          - name: Log_Horizon_02_05
+          - name: Log_Horizon_02_06
+          - name: Log_Horizon_02_07
+          - name: Log_Horizon_02_08
+          - name: Log_Horizon_02_09
+          - name: Log_Horizon_02_10
+          - name: Log_Horizon_02_11
+          - name: Log_Horizon_02_12
+          - name: Log_Horizon_02_13
+      - name: Log_Horizon_04
+        series: true
+        childItems:
+          - name: Log_Horizon_02_14
+          - name: Log_Horizon_02_15
+          - name: Log_Horizon_02_16
+          - name: Log_Horizon_02_17
+          - name: Log_Horizon_02_18
+          - name: Log_Horizon_02_19
+          - name: Log_Horizon_02_20
+          - name: Log_Horizon_02_21
+          - name: Log_Horizon_02_22
+          - name: Log_Horizon_02_23
+          - name: Log_Horizon_02_24
+          - name: Log_Horizon_02_25
+      - name: Log_Horizon_05
         vlcOptions:
-          audioTrack: 1
           subtitleTrack: 6
+          audioTrack: 1
+        series: true
+        childItems:
+          - name: Log_Horizon_03_01
+          - name: Log_Horizon_03_02
+          - name: Log_Horizon_03_03
+          - name: Log_Horizon_03_04
+          - name: Log_Horizon_03_05
+          - name: Log_Horizon_03_06
+          - name: Log_Horizon_03_07
+          - name: Log_Horizon_03_08
+          - name: Log_Horizon_03_09
+          - name: Log_Horizon_03_10
+          - name: Log_Horizon_03_11
+          - name: Log_Horizon_03_12
+      - name: Love_Hina_01
+        series: true
+        childItems:
+          - name: Love_Hina_01
+          - name: Love_Hina_02
+          - name: Love_Hina_03
+          - name: Love_Hina_04
+          - name: Love_Hina_05
+          - name: Love_Hina_06
+          - name: Love_Hina_07
+          - name: Love_Hina_08
+          - name: Love_Hina_09
+          - name: Love_Hina_10
+          - name: Love_Hina_11
+          - name: Love_Hina_12
+          - name: Love_Hina_13
+      - name: Love_Hina_02
+        series: true
+        childItems:
+          - name: Love_Hina_14
+          - name: Love_Hina_15
+          - name: Love_Hina_16
+          - name: Love_Hina_17
+          - name: Love_Hina_18
+          - name: Love_Hina_19
+          - name: Love_Hina_20
+          - name: Love_Hina_21
+          - name: Love_Hina_22
+          - name: Love_Hina_23
+          - name: Love_Hina_24
+          - name: Love_Hina_25
   - name: M
     items:
-      - name: Maid Sama
-      - name: March Comes in Like a Lion 01
-      - name: March Comes in Like a Lion 02
-      - name: Mary and the Witchs Flower
+      - name: Maid_Sama
+        series: true
+        childItems:
+          - name: Maid_Sama_01
+          - name: Maid_Sama_02
+          - name: Maid_Sama_03
+          - name: Maid_Sama_04
+          - name: Maid_Sama_05
+          - name: Maid_Sama_06
+          - name: Maid_Sama_07
+          - name: Maid_Sama_08
+          - name: Maid_Sama_09
+          - name: Maid_Sama_10
+          - name: Maid_Sama_11
+          - name: Maid_Sama_12
+          - name: Maid_Sama_13
+          - name: Maid_Sama_14
+          - name: Maid_Sama_15
+          - name: Maid_Sama_16
+          - name: Maid_Sama_17
+          - name: Maid_Sama_18
+          - name: Maid_Sama_19
+          - name: Maid_Sama_20
+          - name: Maid_Sama_21
+          - name: Maid_Sama_22
+          - name: Maid_Sama_23
+          - name: Maid_Sama_24
+          - name: Maid_Sama_25
+          - name: Maid_Sama_26
+      - name: March_Comes_in_Like_a_Lion_01
+        series: true
+        childItems:
+          - name: March_Comes_in_Like_a_Lion_01
+          - name: March_Comes_in_Like_a_Lion_02
+          - name: March_Comes_in_Like_a_Lion_03
+          - name: March_Comes_in_Like_a_Lion_04
+          - name: March_Comes_in_Like_a_Lion_05
+          - name: March_Comes_in_Like_a_Lion_06
+          - name: March_Comes_in_Like_a_Lion_07
+          - name: March_Comes_in_Like_a_Lion_08
+          - name: March_Comes_in_Like_a_Lion_09
+          - name: March_Comes_in_Like_a_Lion_10
+          - name: March_Comes_in_Like_a_Lion_11
+          - name: March_Comes_in_Like_a_Lion_12
+      - name: March_Comes_in_Like_a_Lion_02
+        series: true
+        childItems:
+          - name: March_Comes_in_Like_a_Lion_13
+          - name: March_Comes_in_Like_a_Lion_14
+          - name: March_Comes_in_Like_a_Lion_15
+          - name: March_Comes_in_Like_a_Lion_16
+          - name: March_Comes_in_Like_a_Lion_17
+          - name: March_Comes_in_Like_a_Lion_18
+          - name: March_Comes_in_Like_a_Lion_19
+          - name: March_Comes_in_Like_a_Lion_20
+          - name: March_Comes_in_Like_a_Lion_21
+          - name: March_Comes_in_Like_a_Lion_22
+          - name: March_Comes_in_Like_a_Lion_23
+      - name: Mary_and_the_Witchs_Flower
       - name: Mayou
+        series: true
+        childItems:
+          - name: Mayou_01
+          - name: Mayou_02
+          - name: Mayou_03
+          - name: Mayou_04
+          - name: Mayou_05
+          - name: Mayou_06
+          - name: Mayou_07
+          - name: Mayou_08
+          - name: Mayou_09
+          - name: Mayou_10
+          - name: Mayou_11
+          - name: Mayou_12
       - name: Metropolis
       - name: Mirai
-      - name: Miss Hokusai
-      - name: Miss Kobayashi
-      - name: Mitsuboshi Colors
+      - name: Miss_Hokusai
+      - name: Miss_Kobayashi
+        series: true
+        childItems:
+          - name: Miss_Kobayashi_01
+          - name: Miss_Kobayashi_02
+          - name: Miss_Kobayashi_03
+          - name: Miss_Kobayashi_04
+          - name: Miss_Kobayashi_05
+          - name: Miss_Kobayashi_06
+          - name: Miss_Kobayashi_07
+          - name: Miss_Kobayashi_08
+          - name: Miss_Kobayashi_09
+          - name: Miss_Kobayashi_10
+          - name: Miss_Kobayashi_11
+          - name: Miss_Kobayashi_12
+          - name: Miss_Kobayashi_13
+          - name: Miss_Kobayashi_OVA_1
+      - name: Mitsuboshi_Colors
+        series: true
+        childItems:
+          - name: Mitsuboshi_Colors_01
+          - name: Mitsuboshi_Colors_02
+          - name: Mitsuboshi_Colors_03
+          - name: Mitsuboshi_Colors_04
+          - name: Mitsuboshi_Colors_05
+          - name: Mitsuboshi_Colors_06
+          - name: Mitsuboshi_Colors_07
+          - name: Mitsuboshi_Colors_08
+          - name: Mitsuboshi_Colors_09
+          - name: Mitsuboshi_Colors_10
+          - name: Mitsuboshi_Colors_11
+          - name: Mitsuboshi_Colors_12
       - name: Moribito
-      - name: My Neighbor Totoro
+        series: true
+        childItems:
+          - name: Moribito_01
+          - name: Moribito_02
+          - name: Moribito_03
+          - name: Moribito_04
+          - name: Moribito_05
+          - name: Moribito_06
+          - name: Moribito_07
+          - name: Moribito_08
+          - name: Moribito_09
+          - name: Moribito_10
+          - name: Moribito_11
+          - name: Moribito_12
+          - name: Moribito_13
+          - name: Moribito_14
+          - name: Moribito_15
+          - name: Moribito_16
+          - name: Moribito_17
+          - name: Moribito_18
+          - name: Moribito_19
+          - name: Moribito_20
+          - name: Moribito_21
+          - name: Moribito_22
+          - name: Moribito_23
+          - name: Moribito_24
+          - name: Moribito_25
+          - name: Moribito_26
+      - name: My_Neighbor_Totoro
   - name: Monogatari
     items:
-      - name: Monogatari 01 Bakemonogatari 01
-      - name: Monogatari 01 Bakemonogatari 02
-      - name: Monogatari 01 Bakemonogatari 03
-      - name: Monogatari 02 Nisemonogatari 01
-      - name: Monogatari 02 Nisemonogatari 02
-      - name: Monogatari 02 Nisemonogatari 03
-      - name: Monogatari 03 Nekomonogatari Black
-      - name: Monogatari 04 Nekomonogatari White
-      - name: Monogatari 05 Kabukimonogatari
-      - name: Monogatari 06 Hanamonogatari
-      - name: Monogatari 07 Otorimonogatari
-      - name: Monogatari 08 Onimonogatari
-      - name: Monogatari 09 Koimonogatari
-      - name: Monogatari 10 Tsukimonogatari
-      - name: Monogatari 11 Owarimonogatari 01
-      - name: Monogatari 11 Owarimonogatari 02
-      - name: Monogatari 11 Owarimonogatari 03
-      - name: Monogatari 12 Kizumonogatari 01
-      - name: Monogatari 12 Kizumonogatari 02
-      - name: Monogatari 12 Kizumonogatari 03
-      - name: Monogatari 13 Koyomimonogatar
+      - name: Monogatari_01_Bakemonogatari_01
+        series: true
+        childItems:
+          - name: Monogatari_01_Bakemonogatari_02
+          - name: Monogatari_01_Bakemonogatari_03
+          - name: Monogatari_01_Bakemonogatari_04
+          - name: Monogatari_01_Bakemonogatari_05
+      - name: Monogatari_01_Bakemonogatari_02
+        series: true
+        childItems:
+          - name: Monogatari_01_Bakemonogatari_06
+          - name: Monogatari_01_Bakemonogatari_07
+          - name: Monogatari_01_Bakemonogatari_08
+          - name: Monogatari_01_Bakemonogatari_09
+          - name: Monogatari_01_Bakemonogatari_10
+      - name: Monogatari_01_Bakemonogatari_03
+        series: true
+        childItems:
+          - name: Monogatari_01_Bakemonogatari_11
+          - name: Monogatari_01_Bakemonogatari_12
+          - name: Monogatari_01_Bakemonogatari_13
+          - name: Monogatari_01_Bakemonogatari_14
+          - name: Monogatari_01_Bakemonogatari_15
+      - name: Monogatari_02_Nisemonogatari_01
+        series: true
+        childItems:
+          - name: Monogatari_02_Nisemonogatari_02
+          - name: Monogatari_02_Nisemonogatari_03
+          - name: Monogatari_02_Nisemonogatari_04
+      - name: Monogatari_02_Nisemonogatari_02
+        series: true
+        childItems:
+          - name: Monogatari_02_Nisemonogatari_05
+          - name: Monogatari_02_Nisemonogatari_06
+          - name: Monogatari_02_Nisemonogatari_07
+          - name: Monogatari_02_Nisemonogatari_08
+      - name: Monogatari_02_Nisemonogatari_03
+        series: true
+        childItems:
+          - name: Monogatari_02_Nisemonogatari_09
+          - name: Monogatari_02_Nisemonogatari_10
+          - name: Monogatari_02_Nisemonogatari_11
+      - name: Monogatari_03_Nekomonogatari_Black
+        series: true
+        childItems:
+          - name: Monogatari_03_Nekomonogatari_Black_01
+          - name: Monogatari_03_Nekomonogatari_Black_02
+          - name: Monogatari_03_Nekomonogatari_Black_03
+          - name: Monogatari_03_Nekomonogatari_Black_04
+      - name: Monogatari_04_Nekomonogatari_White
+        series: true
+        childItems:
+          - name: Monogatari_04_Nekomonogatari_White_01
+          - name: Monogatari_04_Nekomonogatari_White_02
+          - name: Monogatari_04_Nekomonogatari_White_03
+          - name: Monogatari_04_Nekomonogatari_White_04
+          - name: Monogatari_04_Nekomonogatari_White_05
+      - name: Monogatari_05_Kabukimonogatari
+        series: true
+        childItems:
+          - name: Monogatari_05_Kabukimonogatari_01
+          - name: Monogatari_05_Kabukimonogatari_02
+          - name: Monogatari_05_Kabukimonogatari_03
+          - name: Monogatari_05_Kabukimonogatari_04
+      - name: Monogatari_06_Hanamonogatari
+        series: true
+        childItems:
+          - name: Monogatari_06_Hanamonogatari_01
+          - name: Monogatari_06_Hanamonogatari_02
+          - name: Monogatari_06_Hanamonogatari_03
+          - name: Monogatari_06_Hanamonogatari_04
+          - name: Monogatari_06_Hanamonogatari_05
+      - name: Monogatari_07_Otorimonogatari
+        series: true
+        childItems:
+          - name: Monogatari_07_Otorimonogatari_01
+          - name: Monogatari_07_Otorimonogatari_02
+          - name: Monogatari_07_Otorimonogatari_03
+          - name: Monogatari_07_Otorimonogatari_04
+      - name: Monogatari_08_Onimonogatari
+        series: true
+        childItems:
+          - name: Monogatari_08_Onimonogatari_01
+          - name: Monogatari_08_Onimonogatari_02
+          - name: Monogatari_08_Onimonogatari_03
+          - name: Monogatari_08_Onimonogatari_04
+      - name: Monogatari_09_Koimonogatari
+        series: true
+        childItems:
+          - name: Monogatari_09_Koimonogatari_01
+          - name: Monogatari_09_Koimonogatari_02
+          - name: Monogatari_09_Koimonogatari_03
+          - name: Monogatari_09_Koimonogatari_04
+          - name: Monogatari_09_Koimonogatari_05
+          - name: Monogatari_09_Koimonogatari_06
+      - name: Monogatari_10_Tsukimonogatari
+        series: true
+        childItems:
+          - name: Monogatari_10_Tsukimonogatari_01
+          - name: Monogatari_10_Tsukimonogatari_02
+          - name: Monogatari_10_Tsukimonogatari_03
+          - name: Monogatari_10_Tsukimonogatari_04
+      - name: Monogatari_11_Owarimonogatari_01
+        series: true
+        childItems:
+          - name: Monogatari_11_Owarimonogatari_01
+          - name: Monogatari_11_Owarimonogatari_02
+          - name: Monogatari_11_Owarimonogatari_03
+          - name: Monogatari_11_Owarimonogatari_04
+          - name: Monogatari_11_Owarimonogatari_05
+          - name: Monogatari_11_Owarimonogatari_06
+          - name: Monogatari_11_Owarimonogatari_07
+      - name: Monogatari_11_Owarimonogatari_02
+        series: true
+        childItems:
+          - name: Monogatari_11_Owarimonogatari_08
+          - name: Monogatari_11_Owarimonogatari_09
+          - name: Monogatari_11_Owarimonogatari_10
+          - name: Monogatari_11_Owarimonogatari_11
+          - name: Monogatari_11_Owarimonogatari_12
+          - name: Monogatari_11_Owarimonogatari_13
+          - name: Monogatari_11_Owarimonogatari_14
+      - name: Monogatari_11_Owarimonogatari_03
+        series: true
+        childItems:
+          - name: Monogatari_11_Owarimonogatari_15
+          - name: Monogatari_11_Owarimonogatari_16
+          - name: Monogatari_11_Owarimonogatari_17
+          - name: Monogatari_11_Owarimonogatari_18
+          - name: Monogatari_11_Owarimonogatari_19
+          - name: Monogatari_11_Owarimonogatari_20
+      - name: Monogatari_12_Kizumonogatari_01
+      - name: Monogatari_12_Kizumonogatari_02
+      - name: Monogatari_12_Kizumonogatari_03
+      - name: Monogatari_13_Koyomimonogatar
+        series: true
+        childItems:
+          - name: Monogatari_13_Koyomimonogatari_01
+          - name: Monogatari_13_Koyomimonogatari_02
+          - name: Monogatari_13_Koyomimonogatari_03
+          - name: Monogatari_13_Koyomimonogatari_04
+          - name: Monogatari_13_Koyomimonogatari_05
+          - name: Monogatari_13_Koyomimonogatari_06
+          - name: Monogatari_13_Koyomimonogatari_07
+          - name: Monogatari_13_Koyomimonogatari_08
+          - name: Monogatari_13_Koyomimonogatari_09
+          - name: Monogatari_13_Koyomimonogatari_10
+          - name: Monogatari_13_Koyomimonogatari_11
+          - name: Monogatari_13_Koyomimonogatari_12
   - name: N
     items:
-      - name: Nausicaa of the Valley of the Wind
+      - name: Nausicaa_of_the_Valley_of_the_Wind
       - name: Negima
+        series: true
+        childItems:
+          - name: Negima_01
+          - name: Negima_02
+          - name: Negima_03
+          - name: Negima_04
+          - name: Negima_05
+          - name: Negima_06
+          - name: Negima_07
+          - name: Negima_08
+          - name: Negima_09
+          - name: Negima_10
+          - name: Negima_11
+          - name: Negima_12
+          - name: Negima_13
+          - name: Negima_14
+          - name: Negima_15
+          - name: Negima_16
+          - name: Negima_17
+          - name: Negima_18
+          - name: Negima_19
+          - name: Negima_20
+          - name: Negima_21
+          - name: Negima_22
+          - name: Negima_23
+          - name: Negima_24
+          - name: Negima_25
+          - name: Negima_26
       - name: Nichijou
+        series: true
+        childItems:
+          - name: Nichijou_01
+          - name: Nichijou_02
+          - name: Nichijou_03
+          - name: Nichijou_04
+          - name: Nichijou_05
+          - name: Nichijou_06
+          - name: Nichijou_07
+          - name: Nichijou_08
+          - name: Nichijou_09
+          - name: Nichijou_10
+          - name: Nichijou_11
+          - name: Nichijou_12
+          - name: Nichijou_13
+          - name: Nichijou_14
+          - name: Nichijou_15
+          - name: Nichijou_16
+          - name: Nichijou_17
+          - name: Nichijou_18
+          - name: Nichijou_19
+          - name: Nichijou_20
+          - name: Nichijou_21
+          - name: Nichijou_22
+          - name: Nichijou_23
+          - name: Nichijou_24
+          - name: Nichijou_25
+          - name: Nichijou_26
+          - name: Nichijou_27
       - name: Nisekoi
-      - name: Noir 01
-      - name: Noir 02
-      - name: Noir 03
-      - name: Noir 04
-      - name: Noir 05
-      - name: Noir 06
-      - name: Noir 07
+        series: true
+        childItems:
+          - name: Nisekoi_01
+          - name: Nisekoi_02
+          - name: Nisekoi_03
+          - name: Nisekoi_04
+          - name: Nisekoi_05
+          - name: Nisekoi_06
+          - name: Nisekoi_07
+          - name: Nisekoi_08
+          - name: Nisekoi_09
+          - name: Nisekoi_10
+          - name: Nisekoi_11
+          - name: Nisekoi_12
+          - name: Nisekoi_13
+          - name: Nisekoi_14
+          - name: Nisekoi_15
+          - name: Nisekoi_16
+          - name: Nisekoi_17
+          - name: Nisekoi_18
+          - name: Nisekoi_19
+          - name: Nisekoi_20
+          - name: Nisekoi_21
+          - name: Nisekoi_22
+          - name: Nisekoi_23
+          - name: Nisekoi_24
+          - name: Nisekoi_25
+          - name: Nisekoi_26
+          - name: Nisekoi_27
+          - name: Nisekoi_28
+          - name: Nisekoi_29
+          - name: Nisekoi_30
+          - name: Nisekoi_31
+          - name: Nisekoi_32
+          - name: Nisekoi_OVA1
+          - name: Nisekoi_OVA2
+          - name: Nisekoi_OVA3
+      - name: Noir_01
+        series: true
+        childItems:
+          - name: Noir_01
+          - name: Noir_02
+          - name: Noir_03
+          - name: Noir_04
+          - name: Noir_05
+      - name: Noir_02
+        series: true
+        childItems:
+          - name: Noir_06
+          - name: Noir_07
+          - name: Noir_08
+          - name: Noir_09
+      - name: Noir_03
+        series: true
+        childItems:
+          - name: Noir_10
+          - name: Noir_11
+          - name: Noir_12
+      - name: Noir_04
+        series: true
+        childItems:
+          - name: Noir_13
+          - name: Noir_14
+          - name: Noir_15
+          - name: Noir_16
+      - name: Noir_05
+        series: true
+        childItems:
+          - name: Noir_17
+          - name: Noir_18
+          - name: Noir_19
+      - name: Noir_06
+        series: true
+        childItems:
+          - name: Noir_20
+          - name: Noir_21
+          - name: Noir_22
+          - name: Noir_23
+      - name: Noir_07
+        series: true
+        childItems:
+          - name: Noir_24
+          - name: Noir_25
+          - name: Noir_26
   - name: O
-    items: 
-      - name: Okkos Inn
-      - name: Only Yesterday
-      - name: Ore Monogatari
+    items:
+      - name: Okkos_Inn
+      - name: Only_Yesterday
+      - name: Ore_Monogatari
+        series: true
+        childItems:
+          - name: Ore_Monogatari_01
+          - name: Ore_Monogatari_02
+          - name: Ore_Monogatari_03
+          - name: Ore_Monogatari_04
+          - name: Ore_Monogatari_05
+          - name: Ore_Monogatari_06
+          - name: Ore_Monogatari_07
+          - name: Ore_Monogatari_08
+          - name: Ore_Monogatari_09
+          - name: Ore_Monogatari_10
+          - name: Ore_Monogatari_11
+          - name: Ore_Monogatari_12
+          - name: Ore_Monogatari_13
+          - name: Ore_Monogatari_14
+          - name: Ore_Monogatari_15
+          - name: Ore_Monogatari_16
+          - name: Ore_Monogatari_17
+          - name: Ore_Monogatari_18
+          - name: Ore_Monogatari_19
+          - name: Ore_Monogatari_20
+          - name: Ore_Monogatari_21
+          - name: Ore_Monogatari_22
+          - name: Ore_Monogatari_23
+          - name: Ore_Monogatari_24
       - name: Origin
-      - name: Outlaw Star
+      - name: Outlaw_Star
+        series: true
+        childItems:
+          - name: Outlaw_Star_01
+          - name: Outlaw_Star_02
+          - name: Outlaw_Star_03
+          - name: Outlaw_Star_04
+          - name: Outlaw_Star_05
+          - name: Outlaw_Star_06
+          - name: Outlaw_Star_07
+          - name: Outlaw_Star_08
+          - name: Outlaw_Star_09
+          - name: Outlaw_Star_10
+          - name: Outlaw_Star_11
+          - name: Outlaw_Star_12
+          - name: Outlaw_Star_13
+          - name: Outlaw_Star_14
+          - name: Outlaw_Star_15
+          - name: Outlaw_Star_16
+          - name: Outlaw_Star_17
+          - name: Outlaw_Star_18
+          - name: Outlaw_Star_19
+          - name: Outlaw_Star_20
+          - name: Outlaw_Star_21
+          - name: Outlaw_Star_22
+          - name: Outlaw_Star_23
+          - name: Outlaw_Star_24
+          - name: Outlaw_Star_25
+          - name: Outlaw_Star_26
   - name: P
     items:
       - name: Paprika
-      - name: Patema Inverted
-      - name: Penguin Highway
-      - name: Phantom 01
-      - name: Phantom 02
-      - name: Phantom 03
-      - name: Phantom 04
-      - name: Place Promised in our Early Days
-      - name: Pom Poko
+      - name: Patema_Inverted
+      - name: Penguin_Highway
+      - name: Phantom_01
+        series: true
+        childItems:
+          - name: Phantom_01
+          - name: Phantom_02
+          - name: Phantom_03
+          - name: Phantom_04
+          - name: Phantom_05
+          - name: Phantom_06
+          - name: Phantom_07
+      - name: Phantom_02
+        series: true
+        childItems:
+          - name: Phantom_08
+          - name: Phantom_09
+          - name: Phantom_10
+          - name: Phantom_11
+          - name: Phantom_12
+          - name: Phantom_13
+      - name: Phantom_03
+        series: true
+        childItems:
+          - name: Phantom_14
+          - name: Phantom_15
+          - name: Phantom_16
+          - name: Phantom_17
+          - name: Phantom_18
+          - name: Phantom_19
+          - name: Phantom_20
+      - name: Phantom_04
+        series: true
+        childItems:
+          - name: Phantom_21
+          - name: Phantom_22
+          - name: Phantom_23
+          - name: Phantom_24
+          - name: Phantom_25
+          - name: Phantom_26
+      - name: Place_Promised_in_our_Early_Days
+      - name: Pom_Poko
       - name: Ponyo
-      - name: Porco Rosso
-      - name: Princess Monoke
-      - name: Psycho Pass 01
-      - name: Psycho Pass 02
-      - name: Psycho Pass 03
+      - name: Porco_Rosso
+      - name: Princess_Monoke
+      - name: Psycho_Pass_01
+        series: true
+        childItems:
+          - name: Psycho_Pass_01
+          - name: Psycho_Pass_02
+          - name: Psycho_Pass_03
+          - name: Psycho_Pass_04
+          - name: Psycho_Pass_05
+          - name: Psycho_Pass_06
+          - name: Psycho_Pass_07
+          - name: Psycho_Pass_08
+          - name: Psycho_Pass_09
+          - name: Psycho_Pass_10
+          - name: Psycho_Pass_11
+          - name: Psycho_Pass_12
+          - name: Psycho_Pass_13
+          - name: Psycho_Pass_14
+          - name: Psycho_Pass_15
+          - name: Psycho_Pass_16
+          - name: Psycho_Pass_17
+          - name: Psycho_Pass_18
+          - name: Psycho_Pass_19
+          - name: Psycho_Pass_20
+          - name: Psycho_Pass_21
+          - name: Psycho_Pass_22
+      - name: Psycho_Pass_02
+        series: true
+        childItems:
+          - name: Psycho_Pass_23
+          - name: Psycho_Pass_24
+          - name: Psycho_Pass_25
+          - name: Psycho_Pass_26
+          - name: Psycho_Pass_27
+          - name: Psycho_Pass_28
+          - name: Psycho_Pass_29
+          - name: Psycho_Pass_30
+          - name: Psycho_Pass_31
+          - name: Psycho_Pass_32
+          - name: Psycho_Pass_33
+      - name: Psycho_Pass_03
   - name: R
-    items: 
-      - name: Read Or Die
-      - name: Ride Your Wave
-      - name: Robotech Shadow Chronicles
-      - name: Robotics Notes 01
-      - name: Robotics Notes 02
+    items:
+      - name: Read_Or_Die
+        series: true
+        childItems:
+          - name: Read_Or_Die_01
+          - name: Read_Or_Die_02
+          - name: Read_Or_Die_03
+      - name: Ride_Your_Wave
+      - name: Robotech_Shadow_Chronicles
+      - name: Robotics_Notes_01
+        series: true
+        childItems:
+          - name: Robotics_Notes_01
+          - name: Robotics_Notes_02
+          - name: Robotics_Notes_03
+          - name: Robotics_Notes_04
+          - name: Robotics_Notes_05
+          - name: Robotics_Notes_06
+          - name: Robotics_Notes_07
+          - name: Robotics_Notes_08
+          - name: Robotics_Notes_09
+          - name: Robotics_Notes_10
+          - name: Robotics_Notes_11
+      - name: Robotics_Notes_02
+        series: true
+        childItems:
+          - name: Robotics_Notes_12
+          - name: Robotics_Notes_13
+          - name: Robotics_Notes_14
+          - name: Robotics_Notes_15
+          - name: Robotics_Notes_16
+          - name: Robotics_Notes_17
+          - name: Robotics_Notes_18
+          - name: Robotics_Notes_19
+          - name: Robotics_Notes_20
+          - name: Robotics_Notes_21
+          - name: Robotics_Notes_22
   - name: S
     items:
-      - name: Sacred Blacksmith
-      - name: Saga Of Tanya The Evil
-      - name: Samurai 7
-      - name: Samurai Champloo 01
-      - name: Samurai Champloo 02
-      - name: Samurai Champloo 03
-      - name: Samurai Champloo 04
-      - name: Samurai Champloo 05
-      - name: Samurai Champloo 06
-      - name: Samurai Champloo 07
-      - name: Sands of Destruction
-      - name: Secret World of Arrietty
-      - name: Seikai 01 Crest of the Stars
-      - name: Seikai 02 Banner of the Stars
-      - name: Serial Experiments Lain
-      - name: Shangi La 01
-      - name: Shangi La 02
-      - name: Silent Voice
-      - name: Sky Crawlers
-      - name: Sound of the Sky 01
-      - name: Sound of the Sky 02
-      - name: Sound of the Sky 03
-      - name: Sound of the Sky 04
-      - name: Spice and Wolf 01
-      - name: Spice and Wolf 02
-      - name: Spirited Away
+      - name: Sacred_Blacksmith
+        series: true
+        childItems:
+          - name: Sacred_Blacksmith_01
+          - name: Sacred_Blacksmith_02
+          - name: Sacred_Blacksmith_03
+          - name: Sacred_Blacksmith_04
+          - name: Sacred_Blacksmith_05
+          - name: Sacred_Blacksmith_06
+          - name: Sacred_Blacksmith_07
+          - name: Sacred_Blacksmith_08
+          - name: Sacred_Blacksmith_09
+          - name: Sacred_Blacksmith_10
+          - name: Sacred_Blacksmith_11
+          - name: Sacred_Blacksmith_12
+      - name: Saga_Of_Tanya_The_Evil
+        series: true
+        childItems:
+          - name: Saga_Of_Tanya_The_Evil_01
+          - name: Saga_Of_Tanya_The_Evil_02
+          - name: Saga_Of_Tanya_The_Evil_03
+          - name: Saga_Of_Tanya_The_Evil_04
+          - name: Saga_Of_Tanya_The_Evil_05
+          - name: Saga_Of_Tanya_The_Evil_06
+          - name: Saga_Of_Tanya_The_Evil_07
+          - name: Saga_Of_Tanya_The_Evil_08
+          - name: Saga_Of_Tanya_The_Evil_09
+          - name: Saga_Of_Tanya_The_Evil_10
+          - name: Saga_Of_Tanya_The_Evil_11
+          - name: Saga_Of_Tanya_The_Evil_12
+      - name: Samurai_7
+        series: true
+        childItems:
+          - name: Samurai_7_01
+          - name: Samurai_7_02
+          - name: Samurai_7_03
+          - name: Samurai_7_04
+          - name: Samurai_7_05
+          - name: Samurai_7_06
+          - name: Samurai_7_07
+          - name: Samurai_7_08
+          - name: Samurai_7_09
+          - name: Samurai_7_10
+          - name: Samurai_7_11
+          - name: Samurai_7_12
+          - name: Samurai_7_13
+          - name: Samurai_7_14
+          - name: Samurai_7_15
+          - name: Samurai_7_16
+          - name: Samurai_7_17
+          - name: Samurai_7_18
+          - name: Samurai_7_19
+          - name: Samurai_7_20
+          - name: Samurai_7_21
+          - name: Samurai_7_22
+          - name: Samurai_7_23
+          - name: Samurai_7_24
+          - name: Samurai_7_25
+          - name: Samurai_7_26
+      - name: Samurai_Champloo_01
+        series: true
+        childItems:
+          - name: Samurai_Champloo_01
+          - name: Samurai_Champloo_02
+          - name: Samurai_Champloo_03
+          - name: Samurai_Champloo_04
+      - name: Samurai_Champloo_02
+        series: true
+        childItems:
+          - name: Samurai_Champloo_05
+          - name: Samurai_Champloo_06
+          - name: Samurai_Champloo_07
+          - name: Samurai_Champloo_08
+      - name: Samurai_Champloo_03
+        series: true
+        childItems:
+          - name: Samurai_Champloo_09
+          - name: Samurai_Champloo_10
+          - name: Samurai_Champloo_11
+          - name: Samurai_Champloo_12
+      - name: Samurai_Champloo_04
+        series: true
+        childItems:
+          - name: Samurai_Champloo_13
+          - name: Samurai_Champloo_14
+          - name: Samurai_Champloo_15
+          - name: Samurai_Champloo_16
+      - name: Samurai_Champloo_05
+        series: true
+        childItems:
+          - name: Samurai_Champloo_17
+          - name: Samurai_Champloo_18
+          - name: Samurai_Champloo_19
+          - name: Samurai_Champloo_20
+      - name: Samurai_Champloo_06
+        series: true
+        childItems:
+          - name: Samurai_Champloo_21
+          - name: Samurai_Champloo_22
+          - name: Samurai_Champloo_23
+      - name: Samurai_Champloo_07
+        series: true
+        childItems:
+          - name: Samurai_Champloo_24
+          - name: Samurai_Champloo_25
+          - name: Samurai_Champloo_26
+      - name: Sands_of_Destruction
+        series: true
+        childItems:
+          - name: Sands_of_Destruction_01
+          - name: Sands_of_Destruction_02
+          - name: Sands_of_Destruction_03
+          - name: Sands_of_Destruction_04
+          - name: Sands_of_Destruction_05
+          - name: Sands_of_Destruction_06
+          - name: Sands_of_Destruction_07
+          - name: Sands_of_Destruction_08
+          - name: Sands_of_Destruction_09
+          - name: Sands_of_Destruction_10
+          - name: Sands_of_Destruction_11
+          - name: Sands_of_Destruction_13
+          - name: Sands_of_Destruction_14
+      - name: Secret_World_of_Arrietty
+      - name: Seikai_01_Crest_of_the_Stars
+        series: true
+        childItems:
+          - name: Seikai_01_Crest_of_the_Stars_00
+          - name: Seikai_01_Crest_of_the_Stars_01
+          - name: Seikai_01_Crest_of_the_Stars_02
+          - name: Seikai_01_Crest_of_the_Stars_03
+          - name: Seikai_01_Crest_of_the_Stars_04
+          - name: Seikai_01_Crest_of_the_Stars_05
+          - name: Seikai_01_Crest_of_the_Stars_06
+          - name: Seikai_01_Crest_of_the_Stars_07
+          - name: Seikai_01_Crest_of_the_Stars_08
+          - name: Seikai_01_Crest_of_the_Stars_09
+          - name: Seikai_01_Crest_of_the_Stars_10
+          - name: Seikai_01_Crest_of_the_Stars_11
+          - name: Seikai_01_Crest_of_the_Stars_12
+          - name: Seikai_01_Crest_of_the_Stars_13
+      - name: Seikai_02_Banner_of_the_Stars
+        series: true
+        childItems:
+          - name: Seikai_02_Banner_of_the_Stars_01_01
+          - name: Seikai_02_Banner_of_the_Stars_01_02
+          - name: Seikai_02_Banner_of_the_Stars_01_03
+          - name: Seikai_02_Banner_of_the_Stars_01_04
+          - name: Seikai_02_Banner_of_the_Stars_01_05
+          - name: Seikai_02_Banner_of_the_Stars_01_06
+          - name: Seikai_02_Banner_of_the_Stars_01_07
+          - name: Seikai_02_Banner_of_the_Stars_01_08
+          - name: Seikai_02_Banner_of_the_Stars_01_09
+          - name: Seikai_02_Banner_of_the_Stars_01_10
+          - name: Seikai_02_Banner_of_the_Stars_01_11
+          - name: Seikai_02_Banner_of_the_Stars_01_12
+          - name: Seikai_02_Banner_of_the_Stars_01_13
+          - name: Seikai_02_Banner_of_the_Stars_02_01
+          - name: Seikai_02_Banner_of_the_Stars_02_02
+          - name: Seikai_02_Banner_of_the_Stars_02_03
+          - name: Seikai_02_Banner_of_the_Stars_02_04
+          - name: Seikai_02_Banner_of_the_Stars_02_05
+          - name: Seikai_02_Banner_of_the_Stars_02_06
+          - name: Seikai_02_Banner_of_the_Stars_02_07
+          - name: Seikai_02_Banner_of_the_Stars_02_08
+          - name: Seikai_02_Banner_of_the_Stars_02_09
+          - name: Seikai_02_Banner_of_the_Stars_02_10
+          - name: Seikai_02_Banner_of_the_Stars_03
+          - name: Seikai_02_Banner_of_the_Stars_04
+      - name: Serial_Experiments_Lain
+        series: true
+        childItems:
+          - name: Serial_Experiments_Lain_01
+          - name: Serial_Experiments_Lain_02
+          - name: Serial_Experiments_Lain_03
+          - name: Serial_Experiments_Lain_04
+          - name: Serial_Experiments_Lain_05
+          - name: Serial_Experiments_Lain_06
+          - name: Serial_Experiments_Lain_07
+          - name: Serial_Experiments_Lain_08
+          - name: Serial_Experiments_Lain_09
+          - name: Serial_Experiments_Lain_10
+          - name: Serial_Experiments_Lain_11
+          - name: Serial_Experiments_Lain_12
+          - name: Serial_Experiments_Lain_13
+      - name: Shangi_La_01
+        series: true
+        childItems:
+          - name: Shangri_La_01
+          - name: Shangri_La_02
+          - name: Shangri_La_03
+          - name: Shangri_La_04
+          - name: Shangri_La_05
+          - name: Shangri_La_06
+          - name: Shangri_La_07
+          - name: Shangri_La_08
+          - name: Shangri_La_09
+          - name: Shangri_La_10
+          - name: Shangri_La_11
+          - name: Shangri_La_12
+      - name: Shangi_La_02
+        series: true
+        childItems:
+          - name: Shangri_La_13
+          - name: Shangri_La_14
+          - name: Shangri_La_15
+          - name: Shangri_La_16
+          - name: Shangri_La_17
+          - name: Shangri_La_18
+          - name: Shangri_La_19
+          - name: Shangri_La_20
+          - name: Shangri_La_21
+          - name: Shangri_La_22
+          - name: Shangri_La_23
+          - name: Shangri_La_24
+      - name: Silent_Voice
+      - name: Sky_Crawlers
+      - name: Sound_of_the_Sky_01
+        series: true
+        childItems:
+          - name: Sound_of_the_Sky_01
+          - name: Sound_of_the_Sky_02
+      - name: Sound_of_the_Sky_02
+        series: true
+        childItems:
+          - name: Sound_of_the_Sky_03
+          - name: Sound_of_the_Sky_04
+          - name: Sound_of_the_Sky_05
+          - name: Sound_of_the_Sky_06
+      - name: Sound_of_the_Sky_03
+        series: true
+        childItems:
+          - name: Sound_of_the_Sky_07
+          - name: Sound_of_the_Sky_08
+          - name: Sound_of_the_Sky_09
+          - name: Sound_of_the_Sky_10
+      - name: Sound_of_the_Sky_04
+        series: true
+        childItems:
+          - name: Sound_of_the_Sky_11
+          - name: Sound_of_the_Sky_12
+          - name: Sound_of_the_Sky_13
+          - name: Sound_of_the_Sky_14
+      - name: Spice_and_Wolf_01
+        series: true
+        childItems:
+          - name: Spice_and_Wolf_01_01
+          - name: Spice_and_Wolf_01_02
+          - name: Spice_and_Wolf_01_03
+          - name: Spice_and_Wolf_01_04
+          - name: Spice_and_Wolf_01_05
+          - name: Spice_and_Wolf_01_06
+          - name: Spice_and_Wolf_01_07
+          - name: Spice_and_Wolf_01_08
+          - name: Spice_and_Wolf_01_09
+          - name: Spice_and_Wolf_01_10
+          - name: Spice_and_Wolf_01_11
+          - name: Spice_and_Wolf_01_12
+          - name: Spice_and_Wolf_01_13
+      - name: Spice_and_Wolf_02
+        series: true
+        childItems:
+          - name: Spice_and_Wolf_02_01
+          - name: Spice_and_Wolf_02_02
+          - name: Spice_and_Wolf_02_03
+          - name: Spice_and_Wolf_02_04
+          - name: Spice_and_Wolf_02_05
+          - name: Spice_and_Wolf_02_06
+          - name: Spice_and_Wolf_02_07
+          - name: Spice_and_Wolf_02_08
+          - name: Spice_and_Wolf_02_09
+          - name: Spice_and_Wolf_02_10
+          - name: Spice_and_Wolf_02_11
+          - name: Spice_and_Wolf_02_12
+          - name: Spice_and_Wolf_02_13
+      - name: Spirited_Away
       - name: Steamboy
-      - name: Steins;Gate 0 01
-      - name: Steins;Gate 0 02
-      - name: Steins;Gate 1 01
-      - name: Steins;Gate 1 02
-      - name: Steins Gate Movie
-      - name: Strike Witches
-      - name: Summer Wars
-      - name: Sword of the Stranger
+      - name: Steins;Gate_0_01
+        series: true
+        childItems:
+          - name: Steins;Gate_0_01
+          - name: Steins;Gate_0_02
+          - name: Steins;Gate_0_03
+          - name: Steins;Gate_0_04
+          - name: Steins;Gate_0_05
+          - name: Steins;Gate_0_06
+          - name: Steins;Gate_0_07
+          - name: Steins;Gate_0_08
+          - name: Steins;Gate_0_09
+          - name: Steins;Gate_0_10
+          - name: Steins;Gate_0_11
+          - name: Steins;Gate_0_12
+      - name: Steins;Gate_0_02
+        series: true
+        childItems:
+          - name: Steins;Gate_0_13
+          - name: Steins;Gate_0_14
+          - name: Steins;Gate_0_15
+          - name: Steins;Gate_0_16
+          - name: Steins;Gate_0_17
+          - name: Steins;Gate_0_18
+          - name: Steins;Gate_0_19
+          - name: Steins;Gate_0_20
+          - name: Steins;Gate_0_21
+          - name: Steins;Gate_0_22
+          - name: Steins;Gate_0_23
+          - name: Steins;Gate_0_24
+      - name: Steins;Gate_1_01
+        series: true
+        childItems:
+          - name: Steins;Gate_01
+          - name: Steins;Gate_02
+          - name: Steins;Gate_03
+          - name: Steins;Gate_04
+          - name: Steins;Gate_05
+          - name: Steins;Gate_06
+          - name: Steins;Gate_07
+          - name: Steins;Gate_08
+          - name: Steins;Gate_09
+          - name: Steins;Gate_10
+          - name: Steins;Gate_11
+          - name: Steins;Gate_12
+      - name: Steins;Gate_1_02
+        series: true
+        childItems:
+          - name: Steins;Gate_13
+          - name: Steins;Gate_14
+          - name: Steins;Gate_15
+          - name: Steins;Gate_16
+          - name: Steins;Gate_17
+          - name: Steins;Gate_18
+          - name: Steins;Gate_19
+          - name: Steins;Gate_20
+          - name: Steins;Gate_21
+          - name: Steins;Gate_22
+          - name: Steins;Gate_23
+          - name: Steins;Gate_24
+          - name: Steins;Gate_25
+      - name: Steins_Gate_Movie
+      - name: Strike_Witches
+        series: true
+        childItems:
+          - name: Strike_Witches_01
+          - name: Strike_Witches_02
+          - name: Strike_Witches_03
+          - name: Strike_Witches_04
+          - name: Strike_Witches_05
+          - name: Strike_Witches_06
+          - name: Strike_Witches_07
+          - name: Strike_Witches_08
+          - name: Strike_Witches_09
+          - name: Strike_Witches_10
+          - name: Strike_Witches_11
+          - name: Strike_Witches_12
+          - name: Strike_Witches_13
+      - name: Summer_Wars
+      - name: Sword_of_the_Stranger
   - name: Slayers
     items:
-      - name: Slayers 01
-      - name: Slayers 02 Next
-      - name: Slayers 03 Try
-      - name: Slayers 04 Book of Spells
-      - name: Slayers 05 Excellent
-      - name: Slayers 06 Perfect
-      - name: Slayers 07 Return
-      - name: Slayers 08 Great
-      - name: Slayers 09 Gorgeous
-      - name: Slayers 10 Premium
-      - name: Slayers 11 Revolution
-      - name: Slayers 12 Evolution R
-  - name: Sword Art Online
+      - name: Slayers_01
+        series: true
+        childItems:
+          - name: Slayers_01_01
+          - name: Slayers_01_02
+          - name: Slayers_01_03
+          - name: Slayers_01_04
+          - name: Slayers_01_05
+          - name: Slayers_01_06
+          - name: Slayers_01_07
+          - name: Slayers_01_08
+          - name: Slayers_01_09
+          - name: Slayers_01_10
+          - name: Slayers_01_11
+          - name: Slayers_01_12
+          - name: Slayers_01_13
+          - name: Slayers_01_14
+          - name: Slayers_01_15
+          - name: Slayers_01_16
+          - name: Slayers_01_17
+          - name: Slayers_01_18
+          - name: Slayers_01_19
+          - name: Slayers_01_20
+          - name: Slayers_01_21
+          - name: Slayers_01_22
+          - name: Slayers_01_23
+          - name: Slayers_01_24
+          - name: Slayers_01_25
+          - name: Slayers_01_26
+      - name: Slayers_02_Next
+        series: true
+        childItems:
+          - name: Slayers_02_Next_01
+          - name: Slayers_02_Next_02
+          - name: Slayers_02_Next_03
+          - name: Slayers_02_Next_04
+          - name: Slayers_02_Next_05
+          - name: Slayers_02_Next_06
+          - name: Slayers_02_Next_07
+          - name: Slayers_02_Next_08
+          - name: Slayers_02_Next_09
+          - name: Slayers_02_Next_10
+          - name: Slayers_02_Next_11
+          - name: Slayers_02_Next_12
+          - name: Slayers_02_Next_13
+          - name: Slayers_02_Next_14
+          - name: Slayers_02_Next_15
+          - name: Slayers_02_Next_16
+          - name: Slayers_02_Next_17
+          - name: Slayers_02_Next_18
+          - name: Slayers_02_Next_19
+          - name: Slayers_02_Next_20
+          - name: Slayers_02_Next_21
+          - name: Slayers_02_Next_22
+          - name: Slayers_02_Next_23
+          - name: Slayers_02_Next_24
+          - name: Slayers_02_Next_25
+          - name: Slayers_02_Next_26
+      - name: Slayers_03_Try
+        series: true
+        childItems:
+          - name: Slayers_03_Try_01
+          - name: Slayers_03_Try_02
+          - name: Slayers_03_Try_03
+          - name: Slayers_03_Try_04
+          - name: Slayers_03_Try_05
+          - name: Slayers_03_Try_06
+          - name: Slayers_03_Try_07
+          - name: Slayers_03_Try_08
+          - name: Slayers_03_Try_09
+          - name: Slayers_03_Try_10
+          - name: Slayers_03_Try_11
+          - name: Slayers_03_Try_12
+          - name: Slayers_03_Try_13
+          - name: Slayers_03_Try_14
+          - name: Slayers_03_Try_15
+          - name: Slayers_03_Try_16
+          - name: Slayers_03_Try_17
+          - name: Slayers_03_Try_18
+          - name: Slayers_03_Try_19
+          - name: Slayers_03_Try_20
+          - name: Slayers_03_Try_21
+          - name: Slayers_03_Try_22
+          - name: Slayers_03_Try_23
+          - name: Slayers_03_Try_24
+          - name: Slayers_03_Try_25
+          - name: Slayers_03_Try_26
+      - name: Slayers_04_Book_of_Spells
+        series: true
+        childItems:
+          - name: Slayers_04_Book_Of_Spells_01
+          - name: Slayers_04_Book_Of_Spells_02
+          - name: Slayers_04_Book_Of_Spells_03
+      - name: Slayers_05_Excellent
+        series: true
+        childItems:
+          - name: Slayers_05_Excellent_01
+          - name: Slayers_05_Excellent_02
+          - name: Slayers_05_Excellent_03
+      - name: Slayers_06_Perfect
+      - name: Slayers_07_Return
+      - name: Slayers_08_Great
+      - name: Slayers_09_Gorgeous
+      - name: Slayers_10_Premium
+      - name: Slayers_11_Revolution
+        series: true
+        childItems:
+          - name: Slayers_11_Revolution_01
+          - name: Slayers_11_Revolution_02
+          - name: Slayers_11_Revolution_03
+          - name: Slayers_11_Revolution_04
+          - name: Slayers_11_Revolution_05
+          - name: Slayers_11_Revolution_06
+          - name: Slayers_11_Revolution_07
+          - name: Slayers_11_Revolution_08
+          - name: Slayers_11_Revolution_09
+          - name: Slayers_11_Revolution_10
+          - name: Slayers_11_Revolution_11
+          - name: Slayers_11_Revolution_12
+          - name: Slayers_11_Revolution_13
+      - name: Slayers_12_Evolution_R
+        series: true
+        childItems:
+          - name: Slayers_12_Evolution_R_01
+          - name: Slayers_12_Evolution_R_02
+          - name: Slayers_12_Evolution_R_03
+          - name: Slayers_12_Evolution_R_04
+          - name: Slayers_12_Evolution_R_05
+          - name: Slayers_12_Evolution_R_06
+          - name: Slayers_12_Evolution_R_07
+          - name: Slayers_12_Evolution_R_08
+          - name: Slayers_12_Evolution_R_09
+          - name: Slayers_12_Evolution_R_10
+          - name: Slayers_12_Evolution_R_11
+          - name: Slayers_12_Evolution_R_12
+          - name: Slayers_12_Evolution_R_13
+  - name: Sword_Art_Online
     items:
-      - name: Sword Art Online 01
-      - name: Sword Art Online 02 01
-      - name: Sword Art Online 02 02
-      - name: Sword Art Online 02 03
-      - name: Sword Art Online 02 04
-      - name: Sword Art Online 03 01
-      - name: Sword Art Online 03 02
-      - name: Sword Art Online Extra Edition
-      - name: Sword Art Online Ordinal Scale
+      - name: Sword_Art_Online_01
+        series: true
+        childItems:
+          - name: Sword_Art_Online_01_01
+          - name: Sword_Art_Online_01_02
+          - name: Sword_Art_Online_01_03
+          - name: Sword_Art_Online_01_04
+          - name: Sword_Art_Online_01_05
+          - name: Sword_Art_Online_01_06
+          - name: Sword_Art_Online_01_07
+          - name: Sword_Art_Online_01_08
+          - name: Sword_Art_Online_01_09
+          - name: Sword_Art_Online_01_10
+          - name: Sword_Art_Online_01_11
+          - name: Sword_Art_Online_01_12
+          - name: Sword_Art_Online_01_13
+          - name: Sword_Art_Online_01_14
+          - name: Sword_Art_Online_01_15
+          - name: Sword_Art_Online_01_16
+          - name: Sword_Art_Online_01_17
+          - name: Sword_Art_Online_01_18
+          - name: Sword_Art_Online_01_19
+          - name: Sword_Art_Online_01_20
+          - name: Sword_Art_Online_01_22
+          - name: Sword_Art_Online_01_23
+          - name: Sword_Art_Online_01_24
+          - name: Sword_Art_Online_01_25
+          - name: Sword_Art_Online_01_26
+      - name: Sword_Art_Online_02_01
+        series: true
+        childItems:
+          - name: Sword_Art_Online_02_02
+          - name: Sword_Art_Online_02_03
+          - name: Sword_Art_Online_02_04
+          - name: Sword_Art_Online_02_05
+          - name: Sword_Art_Online_02_06
+          - name: Sword_Art_Online_02_07
+      - name: Sword_Art_Online_02_02
+        series: true
+        childItems:
+          - name: Sword_Art_Online_02_08
+          - name: Sword_Art_Online_02_09
+          - name: Sword_Art_Online_02_10
+          - name: Sword_Art_Online_02_11
+          - name: Sword_Art_Online_02_12
+          - name: Sword_Art_Online_02_13
+          - name: Sword_Art_Online_02_14
+          - name: Sword_Art_Online_02_15
+      - name: Sword_Art_Online_02_03
+        series: true
+        childItems:
+          - name: Sword_Art_Online_02_16
+          - name: Sword_Art_Online_02_17
+          - name: Sword_Art_Online_02_18
+      - name: Sword_Art_Online_02_04
+        series: true
+        childItems:
+          - name: Sword_Art_Online_02_19
+          - name: Sword_Art_Online_02_20
+          - name: Sword_Art_Online_02_21
+          - name: Sword_Art_Online_02_22
+          - name: Sword_Art_Online_02_23
+      - name: Sword_Art_Online_03_01
+        series: true
+        childItems:
+          - name: Sword_Art_Online_03_01
+          - name: Sword_Art_Online_03_02
+          - name: Sword_Art_Online_03_03
+          - name: Sword_Art_Online_03_04
+          - name: Sword_Art_Online_03_05
+          - name: Sword_Art_Online_03_06
+          - name: Sword_Art_Online_03_07
+          - name: Sword_Art_Online_03_08
+          - name: Sword_Art_Online_03_09
+          - name: Sword_Art_Online_03_10
+          - name: Sword_Art_Online_03_11
+          - name: Sword_Art_Online_03_12
+          - name: Sword_Art_Online_03_13
+      - name: Sword_Art_Online_03_02
+        series: true
+        childItems:
+          - name: Sword_Art_Online_03_14
+          - name: Sword_Art_Online_03_15
+          - name: Sword_Art_Online_03_16
+          - name: Sword_Art_Online_03_17
+          - name: Sword_Art_Online_03_18
+          - name: Sword_Art_Online_03_19
+          - name: Sword_Art_Online_03_20
+          - name: Sword_Art_Online_03_21
+          - name: Sword_Art_Online_03_22
+          - name: Sword_Art_Online_03_23
+          - name: Sword_Art_Online_03_24
+          - name: Sword_Art_Online_03_25
+      - name: Sword_Art_Online_Extra_Edition
+        vlcOptions:
+          subtitleTrack: 4
+          audioTrack: 2
+      - name: Sword_Art_Online_Ordinal_Scale
   - name: T
     items:
-      - name: Tale of Princess Kaguya
-      - name: Tenchi Muyou War on Geminar 01
-      - name: Tenchi Muyou War on Geminar 02
+      - name: Tale_of_Princess_Kaguya
+      - name: Tenchi_Muyou_War_on_Geminar_01
+        series: true
+        childItems:
+          - name: Tenchi_Muyou_War_on_Geminar_01
+          - name: Tenchi_Muyou_War_on_Geminar_02
+          - name: Tenchi_Muyou_War_on_Geminar_03
+          - name: Tenchi_Muyou_War_on_Geminar_04
+          - name: Tenchi_Muyou_War_on_Geminar_05
+          - name: Tenchi_Muyou_War_on_Geminar_06
+          - name: Tenchi_Muyou_War_on_Geminar_07
+      - name: Tenchi_Muyou_War_on_Geminar_02
+        series: true
+        childItems:
+          - name: Tenchi_Muyou_War_on_Geminar_08
+          - name: Tenchi_Muyou_War_on_Geminar_09
+          - name: Tenchi_Muyou_War_on_Geminar_10
+          - name: Tenchi_Muyou_War_on_Geminar_11
+          - name: Tenchi_Muyou_War_on_Geminar_12
+          - name: Tenchi_Muyou_War_on_Geminar_13
       - name: Texhnolyze
-      - name: That Time I Was Reincarnated As A Slime 01
+        series: true
+        childItems:
+          - name: Texhnolyze_01
+          - name: Texhnolyze_02
+          - name: Texhnolyze_03
+          - name: Texhnolyze_04
+          - name: Texhnolyze_05
+          - name: Texhnolyze_06
+          - name: Texhnolyze_07
+          - name: Texhnolyze_08
+          - name: Texhnolyze_09
+          - name: Texhnolyze_10
+          - name: Texhnolyze_11
+          - name: Texhnolyze_12
+          - name: Texhnolyze_13
+          - name: Texhnolyze_14
+          - name: Texhnolyze_15
+          - name: Texhnolyze_16
+          - name: Texhnolyze_17
+          - name: Texhnolyze_18
+          - name: Texhnolyze_19
+          - name: Texhnolyze_20
+          - name: Texhnolyze_21
+          - name: Texhnolyze_22
+      - name: That_Time_I_Was_Reincarnated_As_A_Slime_01
         vlcOptions:
-          audioTrack: 1
           subtitleTrack: 4
-      - name: That Time I Was Reincarnated As A Slime 02
-        vlcOptions:
           audioTrack: 1
+        series: true
+        childItems:
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_01
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_02
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_03
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_04
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_05
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_06
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_07
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_08
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_09
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_10
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_11
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_12
+      - name: That_Time_I_Was_Reincarnated_As_A_Slime_02
+        vlcOptions:
           subtitleTrack: 4
-      - name: That Time I Was Reincarnated As A Slime 03
-        vlcOptions:
           audioTrack: 1
-          subtitleTrack: 6
-      - name: That Time I Was Reincarnated As A Slime 04
+        series: true
+        childItems:
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_13
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_14
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_15
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_16
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_17
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_18
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_19
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_20
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_21
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_22
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_23
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_24
+      - name: That_Time_I_Was_Reincarnated_As_A_Slime_03
         vlcOptions:
+          subtitleTrack: 6
           audioTrack: 1
+        series: true
+        childItems:
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_25
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_26
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_27
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_28
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_29
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_30
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_31
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_32
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_33
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_34
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_35
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_35
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_36
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_36
+      - name: That_Time_I_Was_Reincarnated_As_A_Slime_04
+        vlcOptions:
           subtitleTrack: 6
-      - name: Those Who Hunt Elves 01
-      - name: Those Who Hunt Elves 02
-      - name: Those Who Hunt Elves 03
-      - name: Those Who Hunt Elves 04
-      - name: Time of Eve
-      - name: Toward the Terra 01
+          audioTrack: 1
+        series: true
+        childItems:
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_37
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_38
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_39
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_40
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_41
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_42
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_43
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_44
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_45
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_46
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_47
+          - name: That_Time_I_Was_Reincarnated_As_A_Slime_48
+      - name: Those_Who_Hunt_Elves_01
+        series: true
+        childItems:
+          - name: Those_Who_Hunt_Elves_01
+          - name: Those_Who_Hunt_Elves_02
+          - name: Those_Who_Hunt_Elves_03
+          - name: Those_Who_Hunt_Elves_04
+          - name: Those_Who_Hunt_Elves_05
+          - name: Those_Who_Hunt_Elves_06
+      - name: Those_Who_Hunt_Elves_02
+        series: true
+        childItems:
+          - name: Those_Who_Hunt_Elves_07
+          - name: Those_Who_Hunt_Elves_08
+          - name: Those_Who_Hunt_Elves_09
+          - name: Those_Who_Hunt_Elves_10
+          - name: Those_Who_Hunt_Elves_11
+          - name: Those_Who_Hunt_Elves_12
+      - name: Those_Who_Hunt_Elves_03
+        series: true
+        childItems:
+          - name: Those_Who_Hunt_Elves_13
+          - name: Those_Who_Hunt_Elves_14
+          - name: Those_Who_Hunt_Elves_15
+          - name: Those_Who_Hunt_Elves_16
+          - name: Those_Who_Hunt_Elves_17
+          - name: Those_Who_Hunt_Elves_18
+      - name: Those_Who_Hunt_Elves_04
+        series: true
+        childItems:
+          - name: Those_Who_Hunt_Elves_19
+          - name: Those_Who_Hunt_Elves_20
+          - name: Those_Who_Hunt_Elves_21
+          - name: Those_Who_Hunt_Elves_22
+          - name: Those_Who_Hunt_Elves_23
+          - name: Those_Who_Hunt_Elves_24
+      - name: Time_of_Eve
+      - name: Toward_the_Terra_01
         vlcOptions:
-          audioTrack: 2
           subtitleTrack: 3
-      - name: Toward the Terra 02
+          audioTrack: 2
+        series: true
+        childItems:
+          - name: Toward_the_Terra_01_01
+          - name: Toward_the_Terra_01_02
+          - name: Toward_the_Terra_01_03
+          - name: Toward_the_Terra_01_04
+      - name: Toward_the_Terra_02
         vlcOptions:
-          audioTrack: 2
           subtitleTrack: 3
-      - name: Toward the Terra 03
+          audioTrack: 2
+        series: true
+        childItems:
+          - name: Toward_the_Terra_02_01
+          - name: Toward_the_Terra_02_02
+          - name: Toward_the_Terra_02_03
+          - name: Toward_the_Terra_02_04
+      - name: Toward_the_Terra_03
         vlcOptions:
-          audioTrack: 2
           subtitleTrack: 3
-      - name: Toward the Terra 04
+          audioTrack: 2
+        series: true
+        childItems:
+          - name: Toward_the_Terra_03_01
+          - name: Toward_the_Terra_03_02
+          - name: Toward_the_Terra_03_03
+          - name: Toward_the_Terra_03_04
+      - name: Toward_the_Terra_04
         vlcOptions:
-          audioTrack: 2
           subtitleTrack: 3
-      - name: Toward the Terra 05
+          audioTrack: 2
+        series: true
+        childItems:
+          - name: Toward_the_Terra_04_01
+          - name: Toward_the_Terra_04_02
+          - name: Toward_the_Terra_04_03
+          - name: Toward_the_Terra_04_04
+      - name: Toward_the_Terra_05
         vlcOptions:
-          audioTrack: 2
           subtitleTrack: 3
-      - name: Toward the Terra 06
+          audioTrack: 2
+        series: true
+        childItems:
+          - name: Toward_the_Terra_05_01
+          - name: Toward_the_Terra_05_02
+          - name: Toward_the_Terra_05_03
+          - name: Toward_the_Terra_05_04
+      - name: Toward_the_Terra_06
         vlcOptions:
-          audioTrack: 2
           subtitleTrack: 3
-      - name: Toward the Terra 07
+          audioTrack: 2
+        series: true
+        childItems:
+          - name: Toward_the_Terra_06_01
+          - name: Toward_the_Terra_06_02
+          - name: Toward_the_Terra_06_03
+          - name: Toward_the_Terra_06_04
+      - name: Toward_the_Terra_07
         vlcOptions:
-          audioTrack: 2
           subtitleTrack: 3
-      - name: Tower Of Druaga
-      - name: To Loveru 01
-      - name: To Loveru 02
-      - name: Trigun 01
-      - name: Trigun 02
-      - name: Trigun Badlands Rumble
-      - name: Tsubasa 01
-      - name: Tsubasa 02
-      - name: Tsubasa 03
+          audioTrack: 2
+      - name: Tower_Of_Druaga
+        series: true
+        childItems:
+          - name: Tower_Of_Druaga_01
+          - name: Tower_Of_Druaga_02
+          - name: Tower_Of_Druaga_03
+          - name: Tower_Of_Druaga_04
+          - name: Tower_Of_Druaga_05
+          - name: Tower_Of_Druaga_06
+          - name: Tower_Of_Druaga_07
+          - name: Tower_Of_Druaga_08
+          - name: Tower_Of_Druaga_09
+          - name: Tower_Of_Druaga_10
+          - name: Tower_Of_Druaga_11
+          - name: Tower_Of_Druaga_12
+          - name: Tower_Of_Druaga_13
+          - name: Tower_Of_Druaga_14
+          - name: Tower_Of_Druaga_15
+          - name: Tower_Of_Druaga_16
+          - name: Tower_Of_Druaga_17
+          - name: Tower_Of_Druaga_18
+          - name: Tower_Of_Druaga_19
+          - name: Tower_Of_Druaga_20
+          - name: Tower_Of_Druaga_21
+          - name: Tower_Of_Druaga_22
+          - name: Tower_Of_Druaga_23
+          - name: Tower_Of_Druaga_24
+      - name: To_Loveru_01
+        series: true
+        childItems:
+          - name: To_Loveru_01_01
+          - name: To_Loveru_01_02
+          - name: To_Loveru_01_03
+          - name: To_Loveru_01_04
+          - name: To_Loveru_01_05
+          - name: To_Loveru_01_06
+          - name: To_Loveru_01_07
+          - name: To_Loveru_01_08
+          - name: To_Loveru_01_09
+          - name: To_Loveru_01_10
+          - name: To_Loveru_01_11
+          - name: To_Loveru_01_12
+          - name: To_Loveru_01_13
+          - name: To_Loveru_01_14
+          - name: To_Loveru_01_15
+          - name: To_Loveru_01_16
+          - name: To_Loveru_01_17
+          - name: To_Loveru_01_18
+          - name: To_Loveru_01_19
+          - name: To_Loveru_01_20
+          - name: To_Loveru_01_22
+          - name: To_Loveru_01_23
+          - name: To_Loveru_01_24
+          - name: To_Loveru_01_25
+          - name: To_Loveru_01_26
+      - name: To_Loveru_02
+        series: true
+        childItems:
+          - name: To_Loveru_02_01
+          - name: To_Loveru_02_02
+          - name: To_Loveru_02_03
+          - name: To_Loveru_02_04
+          - name: To_Loveru_02_05
+          - name: To_Loveru_02_06
+          - name: To_Loveru_02_07
+          - name: To_Loveru_02_08
+          - name: To_Loveru_02_09
+          - name: To_Loveru_02_10
+          - name: To_Loveru_02_11
+          - name: To_Loveru_02_12
+      - name: Trigun_01
+        series: true
+        childItems:
+          - name: Trigun_01
+          - name: Trigun_02
+          - name: Trigun_03
+          - name: Trigun_04
+          - name: Trigun_05
+          - name: Trigun_06
+          - name: Trigun_07
+          - name: Trigun_08
+          - name: Trigun_09
+          - name: Trigun_10
+          - name: Trigun_11
+          - name: Trigun_12
+          - name: Trigun_13
+      - name: Trigun_02
+        series: true
+        childItems:
+          - name: Trigun_14
+          - name: Trigun_15
+          - name: Trigun_16
+          - name: Trigun_17
+          - name: Trigun_18
+          - name: Trigun_19
+          - name: Trigun_20
+          - name: Trigun_21
+          - name: Trigun_22
+          - name: Trigun_23
+          - name: Trigun_24
+          - name: Trigun_25
+          - name: Trigun_26
+      - name: Trigun_Badlands_Rumble
+      - name: Tsubasa_01
+        series: true
+        childItems:
+          - name: Tsubasa_01_01
+          - name: Tsubasa_01_02
+          - name: Tsubasa_01_03
+          - name: Tsubasa_01_04
+          - name: Tsubasa_01_05
+          - name: Tsubasa_01_06
+          - name: Tsubasa_01_07
+          - name: Tsubasa_01_08
+          - name: Tsubasa_01_09
+          - name: Tsubasa_01_10
+          - name: Tsubasa_01_11
+          - name: Tsubasa_01_12
+          - name: Tsubasa_01_13
+          - name: Tsubasa_01_14
+          - name: Tsubasa_01_15
+          - name: Tsubasa_01_16
+          - name: Tsubasa_01_17
+          - name: Tsubasa_01_18
+          - name: Tsubasa_01_19
+          - name: Tsubasa_01_20
+          - name: Tsubasa_01_21
+          - name: Tsubasa_01_22
+          - name: Tsubasa_01_23
+          - name: Tsubasa_01_24
+          - name: Tsubasa_01_25
+          - name: Tsubasa_01_26
+      - name: Tsubasa_02
+        series: true
+        childItems:
+          - name: Tsubasa_02_01
+          - name: Tsubasa_02_02
+          - name: Tsubasa_02_03
+          - name: Tsubasa_02_04
+          - name: Tsubasa_02_05
+          - name: Tsubasa_02_06
+          - name: Tsubasa_02_07
+          - name: Tsubasa_02_08
+          - name: Tsubasa_02_09
+          - name: Tsubasa_02_10
+          - name: Tsubasa_02_11
+          - name: Tsubasa_02_12
+          - name: Tsubasa_02_13
+          - name: Tsubasa_02_14
+          - name: Tsubasa_02_15
+          - name: Tsubasa_02_16
+          - name: Tsubasa_02_17
+          - name: Tsubasa_02_18
+          - name: Tsubasa_02_19
+          - name: Tsubasa_02_20
+          - name: Tsubasa_02_21
+          - name: Tsubasa_02_22
+          - name: Tsubasa_02_23
+          - name: Tsubasa_02_24
+          - name: Tsubasa_02_25
+          - name: Tsubasa_02_26
+      - name: Tsubasa_03
+        series: true
+        childItems:
+          - name: Tsubasa_OVA_01
+          - name: Tsubasa_OVA_02
+          - name: Tsubasa_OVA_03
+          - name: Tsubasa_OVA_04
+          - name: Tsubasa_OVA_05
       - name: Tsukigakirei
-      - name: Twelve Kingdoms 01
-      - name: Twelve Kingdoms 02
-      - name: Twelve Kingdoms 03
-      - name: Twelve Kingdoms 04
-      - name: Twelve Kingdoms 05
-      - name: Twelve Kingdoms 06
-      - name: Twelve Kingdoms 07
-      - name: Twelve Kingdoms 08
-      - name: Twelve Kingdoms 09
-      - name: Twelve Kingdoms 10
+        series: true
+        childItems:
+          - name: Tsukigakirei_01
+          - name: Tsukigakirei_02
+          - name: Tsukigakirei_03
+          - name: Tsukigakirei_04
+          - name: Tsukigakirei_05
+          - name: Tsukigakirei_06
+          - name: Tsukigakirei_07
+          - name: Tsukigakirei_08
+          - name: Tsukigakirei_09
+          - name: Tsukigakirei_10
+          - name: Tsukigakirei_11
+          - name: Tsukigakirei_12
+      - name: Twelve_Kingdoms_01
+        series: true
+        childItems:
+          - name: Twelve_Kingdoms_01
+          - name: Twelve_Kingdoms_02
+          - name: Twelve_Kingdoms_03
+          - name: Twelve_Kingdoms_04
+          - name: Twelve_Kingdoms_05
+      - name: Twelve_Kingdoms_02
+        series: true
+        childItems:
+          - name: Twelve_Kingdoms_06
+          - name: Twelve_Kingdoms_07
+          - name: Twelve_Kingdoms_08
+          - name: Twelve_Kingdoms_09
+          - name: Twelve_Kingdoms_10
+      - name: Twelve_Kingdoms_03
+        series: true
+        childItems:
+          - name: Twelve_Kingdoms_11
+          - name: Twelve_Kingdoms_12
+          - name: Twelve_Kingdoms_13
+          - name: Twelve_Kingdoms_14
+          - name: Twelve_Kingdoms_15
+      - name: Twelve_Kingdoms_04
+        series: true
+        childItems:
+          - name: Twelve_Kingdoms_16
+          - name: Twelve_Kingdoms_17
+          - name: Twelve_Kingdoms_18
+          - name: Twelve_Kingdoms_19
+          - name: Twelve_Kingdoms_20
+      - name: Twelve_Kingdoms_05
+        series: true
+        childItems:
+          - name: Twelve_Kingdoms_21
+          - name: Twelve_Kingdoms_22
+          - name: Twelve_Kingdoms_23
+          - name: Twelve_Kingdoms_24
+          - name: Twelve_Kingdoms_25
+      - name: Twelve_Kingdoms_06
+        series: true
+        childItems:
+          - name: Twelve_Kingdoms_26
+          - name: Twelve_Kingdoms_27
+          - name: Twelve_Kingdoms_28
+          - name: Twelve_Kingdoms_29
+          - name: Twelve_Kingdoms_30
+      - name: Twelve_Kingdoms_07
+        series: true
+        childItems:
+          - name: Twelve_Kingdoms_31
+          - name: Twelve_Kingdoms_32
+          - name: Twelve_Kingdoms_33
+          - name: Twelve_Kingdoms_34
+          - name: Twelve_Kingdoms_35
+      - name: Twelve_Kingdoms_08
+        series: true
+        childItems:
+          - name: Twelve_Kingdoms_36
+          - name: Twelve_Kingdoms_37
+          - name: Twelve_Kingdoms_38
+          - name: Twelve_Kingdoms_39
+      - name: Twelve_Kingdoms_09
+        series: true
+        childItems:
+          - name: Twelve_Kingdoms_40
+          - name: Twelve_Kingdoms_41
+          - name: Twelve_Kingdoms_42
+      - name: Twelve_Kingdoms_10
+        series: true
+        childItems:
+          - name: Twelve_Kingdoms_43
+          - name: Twelve_Kingdoms_44
+          - name: Twelve_Kingdoms_45
   - name: Toaru
     items:
-      - name: Toaru Raildex 01 Index 01
-      - name: Toaru Raildex 01 Index 02
-      - name: Toaru Raildex 02 Railgun 01
-      - name: Toaru Raildex 02 Railgun 02
-      - name: Toaru Raildex 03 Index 02 01
-      - name: Toaru Raildex 03 Index 02 02
-      - name: Toaru Raildex 04 Railgun 02 01
-      - name: Toaru Raildex 04 Railgun 02 02
-      - name: Toaru Raildex 05 Index 03 01
-      - name: Toaru Raildex 05 Index 03 02
-      - name: Toaru Raildex 06 Accelerator 01
-      - name: Toaru Raildex 07 Railgun 03
-      - name: Toaru Raildex 08 Railgun 04
-      - name: Toaru Miracle of Endymion
-  - name: UVWXYZ
-    items: 
+      - name: Toaru_Raildex_01_Index_01
+        series: true
+        childItems:
+          - name: Toaru_Raildex_01_Index_01_01
+          - name: Toaru_Raildex_01_Index_01_02
+          - name: Toaru_Raildex_01_Index_01_03
+          - name: Toaru_Raildex_01_Index_01_04
+          - name: Toaru_Raildex_01_Index_01_05
+          - name: Toaru_Raildex_01_Index_01_06
+          - name: Toaru_Raildex_01_Index_01_07
+          - name: Toaru_Raildex_01_Index_01_08
+          - name: Toaru_Raildex_01_Index_01_09
+          - name: Toaru_Raildex_01_Index_01_10
+          - name: Toaru_Raildex_01_Index_01_11
+          - name: Toaru_Raildex_01_Index_01_12
+      - name: Toaru_Raildex_01_Index_02
+        series: true
+        childItems:
+          - name: Toaru_Raildex_01_Index_01_13
+          - name: Toaru_Raildex_01_Index_01_14
+          - name: Toaru_Raildex_01_Index_01_15
+          - name: Toaru_Raildex_01_Index_01_16
+          - name: Toaru_Raildex_01_Index_01_17
+          - name: Toaru_Raildex_01_Index_01_18
+          - name: Toaru_Raildex_01_Index_01_19
+          - name: Toaru_Raildex_01_Index_01_20
+          - name: Toaru_Raildex_01_Index_01_21
+          - name: Toaru_Raildex_01_Index_01_22
+          - name: Toaru_Raildex_01_Index_01_23
+          - name: Toaru_Raildex_01_Index_01_24
+      - name: Toaru_Raildex_02_Railgun_01
+        series: true
+        childItems:
+          - name: Toaru_Raildex_02_Railgun_01_01
+          - name: Toaru_Raildex_02_Railgun_01_02
+          - name: Toaru_Raildex_02_Railgun_01_03
+          - name: Toaru_Raildex_02_Railgun_01_04
+          - name: Toaru_Raildex_02_Railgun_01_05
+          - name: Toaru_Raildex_02_Railgun_01_06
+          - name: Toaru_Raildex_02_Railgun_01_07
+          - name: Toaru_Raildex_02_Railgun_01_08
+          - name: Toaru_Raildex_02_Railgun_01_09
+          - name: Toaru_Raildex_02_Railgun_01_10
+          - name: Toaru_Raildex_02_Railgun_01_11
+          - name: Toaru_Raildex_02_Railgun_01_12
+      - name: Toaru_Raildex_02_Railgun_02
+        series: true
+        childItems:
+          - name: Toaru_Raildex_02_Railgun_01_13
+          - name: Toaru_Raildex_02_Railgun_01_14
+          - name: Toaru_Raildex_02_Railgun_01_15
+          - name: Toaru_Raildex_02_Railgun_01_16
+          - name: Toaru_Raildex_02_Railgun_01_17
+          - name: Toaru_Raildex_02_Railgun_01_18
+          - name: Toaru_Raildex_02_Railgun_01_19
+          - name: Toaru_Raildex_02_Railgun_01_20
+          - name: Toaru_Raildex_02_Railgun_01_21
+          - name: Toaru_Raildex_02_Railgun_01_22
+          - name: Toaru_Raildex_02_Railgun_01_23
+          - name: Toaru_Raildex_02_Railgun_01_24
+      - name: Toaru_Raildex_03_Index_02_01
+        series: true
+        childItems:
+          - name: Toaru_Raildex_03_Index_02_02
+          - name: Toaru_Raildex_03_Index_02_03
+          - name: Toaru_Raildex_03_Index_02_04
+          - name: Toaru_Raildex_03_Index_02_05
+          - name: Toaru_Raildex_03_Index_02_06
+          - name: Toaru_Raildex_03_Index_02_07
+          - name: Toaru_Raildex_03_Index_02_08
+          - name: Toaru_Raildex_03_Index_02_09
+          - name: Toaru_Raildex_03_Index_02_10
+          - name: Toaru_Raildex_03_Index_02_11
+          - name: Toaru_Raildex_03_Index_02_12
+      - name: Toaru_Raildex_03_Index_02_02
+        series: true
+        childItems:
+          - name: Toaru_Raildex_03_Index_02_13
+          - name: Toaru_Raildex_03_Index_02_14
+          - name: Toaru_Raildex_03_Index_02_15
+          - name: Toaru_Raildex_03_Index_02_16
+          - name: Toaru_Raildex_03_Index_02_17
+          - name: Toaru_Raildex_03_Index_02_18
+          - name: Toaru_Raildex_03_Index_02_19
+          - name: Toaru_Raildex_03_Index_02_20
+          - name: Toaru_Raildex_03_Index_02_21
+          - name: Toaru_Raildex_03_Index_02_22
+          - name: Toaru_Raildex_03_Index_02_23
+      - name: Toaru_Raildex_04_Railgun_02_01
+        series: true
+        childItems:
+          - name: Toaru_Raildex_04_Railgun_02_02
+          - name: Toaru_Raildex_04_Railgun_02_03
+          - name: Toaru_Raildex_04_Railgun_02_04
+          - name: Toaru_Raildex_04_Railgun_02_05
+          - name: Toaru_Raildex_04_Railgun_02_06
+          - name: Toaru_Raildex_04_Railgun_02_07
+          - name: Toaru_Raildex_04_Railgun_02_08
+          - name: Toaru_Raildex_04_Railgun_02_09
+          - name: Toaru_Raildex_04_Railgun_02_10
+          - name: Toaru_Raildex_04_Railgun_02_11
+          - name: Toaru_Raildex_04_Railgun_02_12
+      - name: Toaru_Raildex_04_Railgun_02_02
+        series: true
+        childItems:
+          - name: Toaru_Raildex_04_Railgun_02_13
+          - name: Toaru_Raildex_04_Railgun_02_14
+          - name: Toaru_Raildex_04_Railgun_02_15
+          - name: Toaru_Raildex_04_Railgun_02_16
+          - name: Toaru_Raildex_04_Railgun_02_17
+          - name: Toaru_Raildex_04_Railgun_02_18
+          - name: Toaru_Raildex_04_Railgun_02_19
+          - name: Toaru_Raildex_04_Railgun_02_20
+          - name: Toaru_Raildex_04_Railgun_02_21
+          - name: Toaru_Raildex_04_Railgun_02_22
+          - name: Toaru_Raildex_04_Railgun_02_23
+          - name: Toaru_Raildex_04_Railgun_02_24
+      - name: Toaru_Raildex_05_Index_03_01
+        series: true
+        childItems:
+          - name: Toaru_Raildex_05_Index_03_02
+          - name: Toaru_Raildex_05_Index_03_03
+          - name: Toaru_Raildex_05_Index_03_04
+          - name: Toaru_Raildex_05_Index_03_05
+          - name: Toaru_Raildex_05_Index_03_06
+          - name: Toaru_Raildex_05_Index_03_07
+          - name: Toaru_Raildex_05_Index_03_08
+          - name: Toaru_Raildex_05_Index_03_09
+          - name: Toaru_Raildex_05_Index_03_10
+          - name: Toaru_Raildex_05_Index_03_11
+          - name: Toaru_Raildex_05_Index_03_12
+          - name: Toaru_Raildex_05_Index_03_13
+      - name: Toaru_Raildex_05_Index_03_02
+        series: true
+        childItems:
+          - name: Toaru_Raildex_05_Index_03_14
+          - name: Toaru_Raildex_05_Index_03_15
+          - name: Toaru_Raildex_05_Index_03_16
+          - name: Toaru_Raildex_05_Index_03_17
+          - name: Toaru_Raildex_05_Index_03_18
+          - name: Toaru_Raildex_05_Index_03_19
+          - name: Toaru_Raildex_05_Index_03_20
+          - name: Toaru_Raildex_05_Index_03_21
+          - name: Toaru_Raildex_05_Index_03_22
+          - name: Toaru_Raildex_05_Index_03_23
+          - name: Toaru_Raildex_05_Index_03_24
+          - name: Toaru_Raildex_05_Index_03_25
+          - name: Toaru_Raildex_05_Index_03_26
+      - name: Toaru_Raildex_06_Accelerator_01
+        series: true
+        childItems:
+          - name: Toaru_Raildex_06_Accelerator_01_01
+          - name: Toaru_Raildex_06_Accelerator_01_02
+          - name: Toaru_Raildex_06_Accelerator_01_03
+          - name: Toaru_Raildex_06_Accelerator_01_04
+          - name: Toaru_Raildex_06_Accelerator_01_05
+          - name: Toaru_Raildex_06_Accelerator_01_06
+          - name: Toaru_Raildex_06_Accelerator_01_07
+          - name: Toaru_Raildex_06_Accelerator_01_08
+          - name: Toaru_Raildex_06_Accelerator_01_09
+          - name: Toaru_Raildex_06_Accelerator_01_10
+          - name: Toaru_Raildex_06_Accelerator_01_11
+          - name: Toaru_Raildex_06_Accelerator_01_12
+      - name: Toaru_Raildex_07_Railgun_03
+        series: true
+        childItems:
+          - name: Toaru_Raildex_07_Railgun_03_01
+          - name: Toaru_Raildex_07_Railgun_03_02
+          - name: Toaru_Raildex_07_Railgun_03_03
+          - name: Toaru_Raildex_07_Railgun_03_04
+          - name: Toaru_Raildex_07_Railgun_03_05
+          - name: Toaru_Raildex_07_Railgun_03_06
+          - name: Toaru_Raildex_07_Railgun_03_07
+          - name: Toaru_Raildex_07_Railgun_03_08
+          - name: Toaru_Raildex_07_Railgun_03_09
+          - name: Toaru_Raildex_07_Railgun_03_10
+          - name: Toaru_Raildex_07_Railgun_03_11
+          - name: Toaru_Raildex_07_Railgun_03_12
+      - name: Toaru_Raildex_08_Railgun_04
+        series: true
+        childItems:
+          - name: Toaru_Raildex_08_Railgun_04_01
+          - name: Toaru_Raildex_08_Railgun_04_02
+          - name: Toaru_Raildex_08_Railgun_04_03
+          - name: Toaru_Raildex_08_Railgun_04_04
+          - name: Toaru_Raildex_08_Railgun_04_05
+          - name: Toaru_Raildex_08_Railgun_04_06
+          - name: Toaru_Raildex_08_Railgun_04_07
+          - name: Toaru_Raildex_08_Railgun_04_08
+          - name: Toaru_Raildex_08_Railgun_04_09
+          - name: Toaru_Raildex_08_Railgun_04_10
+          - name: Toaru_Raildex_08_Railgun_04_11
+          - name: Toaru_Raildex_08_Railgun_04_12
+          - name: Toaru_Raildex_08_Railgun_04_13
+      - name: Toaru_Miracle_of_Endymion
+  - name: U
+    items:
       - name: Utaware
-      - name: Violet Evergarden 01
-      - name: Violet Evergarden 02 Eternity and the Auto Memory Doll
-      - name: Voices of a Distant Star
-      - name: Weathering With You
-      - name: When Marnie was There
-      - name: Wind Rises
-      - name: Wisemans Grandchild
+        series: true
+        childItems:
+          - name: Utaware_01
+          - name: Utaware_02
+          - name: Utaware_03
+          - name: Utaware_04
+          - name: Utaware_05
+          - name: Utaware_06
+          - name: Utaware_07
+          - name: Utaware_08
+          - name: Utaware_09
+          - name: Utaware_10
+          - name: Utaware_11
+          - name: Utaware_12
+          - name: Utaware_13
+          - name: Utaware_14
+          - name: Utaware_15
+          - name: Utaware_16
+          - name: Utaware_17
+          - name: Utaware_18
+          - name: Utaware_19
+          - name: Utaware_20
+          - name: Utaware_21
+          - name: Utaware_22
+          - name: Utaware_23
+          - name: Utaware_24
+          - name: Utaware_25
+          - name: Utaware_26
+  - name: V
+    items:
+      - name: Violet_Evergarden_01
+        series: true
+        childItems:
+          - name: Violet_Evergarden_01_01
+          - name: Violet_Evergarden_01_02
+          - name: Violet_Evergarden_01_03
+          - name: Violet_Evergarden_01_04
+          - name: Violet_Evergarden_01_05
+          - name: Violet_Evergarden_01_06
+          - name: Violet_Evergarden_01_07
+          - name: Violet_Evergarden_01_08
+          - name: Violet_Evergarden_01_09
+          - name: Violet_Evergarden_01_10
+          - name: Violet_Evergarden_01_11
+          - name: Violet_Evergarden_01_12
+          - name: Violet_Evergarden_01_13
+      - name: Violet_Evergarden_02_Eternity_and_the_Auto_Memory_Doll
+      - name: Voices_of_a_Distant_Star
+  - name: W
+    items:
+      - name: Weathering_With_You
+      - name: When_Marnie_was_There
+      - name: Wind_Rises
+      - name: Wisemans_Grandchild
         vlcOptions:
-          audioTrack: 1
           subtitleTrack: 6
-      - name: Witch Hunter Robin
-      - name: Wolf's Rain 01
-      - name: Wolf's Rain 02
-      - name: Wolf Children
-      - name: World End
+          audioTrack: 1
+        series: true
+        childItems:
+          - name: Wisemans_Grandchild_01
+          - name: Wisemans_Grandchild_02
+          - name: Wisemans_Grandchild_03
+          - name: Wisemans_Grandchild_04
+          - name: Wisemans_Grandchild_05
+          - name: Wisemans_Grandchild_06
+          - name: Wisemans_Grandchild_07
+          - name: Wisemans_Grandchild_08
+          - name: Wisemans_Grandchild_09
+          - name: Wisemans_Grandchild_10
+          - name: Wisemans_Grandchild_11
+          - name: Wisemans_Grandchild_12
+      - name: Witch_Hunter_Robin
+        series: true
+        childItems:
+          - name: Witch_Hunter_Robin_01
+          - name: Witch_Hunter_Robin_02
+          - name: Witch_Hunter_Robin_03
+          - name: Witch_Hunter_Robin_04
+          - name: Witch_Hunter_Robin_05
+          - name: Witch_Hunter_Robin_06
+          - name: Witch_Hunter_Robin_07
+          - name: Witch_Hunter_Robin_08
+          - name: Witch_Hunter_Robin_09
+          - name: Witch_Hunter_Robin_10
+          - name: Witch_Hunter_Robin_11
+          - name: Witch_Hunter_Robin_12
+          - name: Witch_Hunter_Robin_13
+          - name: Witch_Hunter_Robin_14
+          - name: Witch_Hunter_Robin_15
+          - name: Witch_Hunter_Robin_16
+          - name: Witch_Hunter_Robin_17
+          - name: Witch_Hunter_Robin_18
+          - name: Witch_Hunter_Robin_19
+          - name: Witch_Hunter_Robin_20
+          - name: Witch_Hunter_Robin_21
+          - name: Witch_Hunter_Robin_22
+          - name: Witch_Hunter_Robin_23
+          - name: Witch_Hunter_Robin_25
+          - name: Witch_Hunter_Robin_26
+      - name: Wolf's_Rain_01
+        series: true
+        childItems:
+          - name: Wolf's_Rain_01
+          - name: Wolf's_Rain_02
+          - name: Wolf's_Rain_03
+          - name: Wolf's_Rain_04
+          - name: Wolf's_Rain_05
+          - name: Wolf's_Rain_06
+          - name: Wolf's_Rain_07
+          - name: Wolf's_Rain_08
+          - name: Wolf's_Rain_09
+          - name: Wolf's_Rain_10
+          - name: Wolf's_Rain_11
+          - name: Wolf's_Rain_12
+          - name: Wolf's_Rain_13
+          - name: Wolf's_Rain_14
+          - name: Wolf's_Rain_15
+          - name: Wolf's_Rain_16
+          - name: Wolf's_Rain_17
+          - name: Wolf's_Rain_18
+      - name: Wolf's_Rain_02
+        series: true
+        childItems:
+          - name: Wolf's_Rain_19
+          - name: Wolf's_Rain_20
+          - name: Wolf's_Rain_21
+          - name: Wolf's_Rain_22
+          - name: Wolf's_Rain_23
+          - name: Wolf's_Rain_24
+          - name: Wolf's_Rain_25
+          - name: Wolf's_Rain_26
+          - name: Wolf's_Rain_27
+          - name: Wolf's_Rain_28
+          - name: Wolf's_Rain_29
+          - name: Wolf's_Rain_30
+      - name: Wolf_Children
+      - name: World_End
+        series: true
+        childItems:
+          - name: World_End_01
+          - name: World_End_02
+          - name: World_End_03
+          - name: World_End_04
+          - name: World_End_05
+          - name: World_End_06
+          - name: World_End_07
+          - name: World_End_08
+          - name: World_End_09
+          - name: World_End_10
+          - name: World_End_11
+          - name: World_End_12
+  - name: X
+    items:
       - name: X
+        series: true
+        childItems:
+          - name: X_01
+          - name: X_02
+          - name: X_03
+          - name: X_04
+          - name: X_05
+          - name: X_06
+          - name: X_07
+          - name: X_08
+          - name: X_09
+          - name: X_10
+          - name: X_11
+          - name: X_12
+          - name: X_13
+          - name: X_14
+          - name: X_15
+          - name: X_16
+          - name: X_17
+          - name: X_18
+          - name: X_19
+          - name: X_20
+          - name: X_21
+          - name: X_22
+          - name: X_23
+          - name: X_24
+          - name: X_25
       - name: Xxxholic
-      - name: Your Lie in April 01
-      - name: Your Lie in April 02
-      - name: Your Lie in April Live Action
-      - name: Your Name
+        series: true
+        childItems:
+          - name: XXXHolic_01
+          - name: XXXHolic_02
+          - name: XXXHolic_03
+          - name: XXXHolic_04
+          - name: XXXHolic_05
+          - name: XXXHolic_06
+          - name: Xxxholic_07
+          - name: Xxxholic_08
+          - name: Xxxholic_09
+          - name: Xxxholic_10
+          - name: Xxxholic_11
+          - name: Xxxholic_12
+          - name: Xxxholic_13
+          - name: Xxxholic_14
+          - name: Xxxholic_15
+          - name: Xxxholic_16
+          - name: Xxxholic_17
+          - name: Xxxholic_18
+          - name: Xxxholic_19
+          - name: Xxxholic_20
+          - name: Xxxholic_21
+          - name: Xxxholic_22
+          - name: Xxxholic_23
+          - name: Xxxholic_24
+  - name: Y
+    items:
+      - name: Your_Lie_in_April_01
+        series: true
+        childItems:
+          - name: Your_Lie_in_April_01
+          - name: Your_Lie_in_April_02
+          - name: Your_Lie_in_April_03
+          - name: Your_Lie_in_April_04
+          - name: Your_Lie_in_April_05
+          - name: Your_Lie_in_April_06
+          - name: Your_Lie_in_April_07
+          - name: Your_Lie_in_April_08
+          - name: Your_Lie_in_April_09
+          - name: Your_Lie_in_April_10
+          - name: Your_Lie_in_April_11
+          - name: Your_Lie_in_April_12
+          - name: Your_Lie_in_April_13
+          - name: Your_Lie_in_April_14
+          - name: Your_Lie_in_April_15
+          - name: Your_Lie_in_April_16
+      - name: Your_Lie_in_April_02
+        series: true
+        childItems:
+          - name: Your_Lie_in_April_17
+          - name: Your_Lie_in_April_18
+          - name: Your_Lie_in_April_19
+          - name: Your_Lie_in_April_20
+          - name: Your_Lie_in_April_21
+          - name: Your_Lie_in_April_22
+          - name: Your_Lie_in_April_23
+          - name: Your_Lie_in_April_24
+          - name: Your_Lie_in_April_26
+          - name: Your_Lie_in_April_27
+          - name: Your_Lie_in_April_28
+          - name: Your_Lie_in_April_29
+          - name: Your_Lie_in_April_30
+          - name: Your_Lie_in_April_31
+          - name: Your_Lie_in_April_32
+          - name: Your_Lie_in_April_33
+      - name: Your_Lie_in_April_Live_Action
+      - name: Your_Name

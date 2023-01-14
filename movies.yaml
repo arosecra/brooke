@@ -1,368 +1,574 @@
 name: Movies
-remoteDirectory: \\\\drobo5n2\\public\\Movies
-localDirectory: D:\\Library\\Movie Repository
+remoteDirectory: \\drobo5n2\public\Movies
+localDirectory: D:\Library\Movie_Repository
 itemExtension: mkv
-excludeExtensions:
+excludeExtensions: 
   - mp4
   - mkv
   - tar
   - pdf
 openType: video
-pipelineSteps:
-  - ITEMIZE MKV FOLDER
-  - EXTRACT SLEEVE PDF
-  - CREATE MOVIE THUMBNAIL
-  - EXTRACT MKV DETAILS
-
+pipelineSteps: 
+  - ITEMIZE_MKV_FOLDER
+  - EXTRACT_SLEEVE_PDF
+  - CREATE_MOVIE_THUMBNAIL
+  - EXTRACT_MKV_DETAILS
 categories:
   - name: Action
     items:
       - name: 1917
       - name: 300
-      - name: Alita Battle Angel
+      - name: Alita_Battle_Angel
       - name: Azumi
-      - name: Babylon A D
-      - name: Boondock Saints 01
-      - name: Boondock Saints 02 All Saints Day
-      - name: Bourne 01 The Bourne Identity
-      - name: Bourne 02 The Bourne Supremacy
-      - name: Bourne 03 The Bourne Ultimatum
-      - name: Bourne 04 The Bourne Legacy
-      - name: Bourne 05 Jason Bourne
+      - name: Babylon_A_D
+      - name: Boondock_Saints_01
+      - name: Boondock_Saints_02_All_Saints_Day
+      - name: Bourne_01_The_Bourne_Identity
+      - name: Bourne_02_The_Bourne_Supremacy
+      - name: Bourne_03_The_Bourne_Ultimatum
+      - name: Bourne_04_The_Bourne_Legacy
+      - name: Bourne_05_Jason_Bourne
       - name: Braveheart
-      - name: Bruce Lee The Invincible
-      - name: Clash of the Titans
-      - name: Crank 01
-      - name: Crank 02
-      - name: Crouching Tiger Hidden Dragon
-      - name: Crow Salvation
-      - name: Day of the Jackal
-      - name: Die Hard 01
-      - name: Die Hard 02 Die Harder
-      - name: Die Hard 03 With a Vengeance
-      - name: Die Hard 04 Live Free or Die Hard
-      - name: Die Hard 05 A Good Day to Die Hard
+      - name: Bruce_Lee_The_Invincible
+      - name: Clash_of_the_Titans
+      - name: Crank_01
+      - name: Crank_02
+      - name: Crouching_Tiger_Hidden_Dragon
+      - name: Crow_Salvation
+      - name: Day_of_the_Jackal
+      - name: Die_Hard_01
+      - name: Die_Hard_02_Die_Harder
+      - name: Die_Hard_03_With_a_Vengeance
+      - name: Die_Hard_04_Live_Free_or_Die_Hard
+      - name: Die_Hard_05_A_Good_Day_to_Die_Hard
       - name: Elysium
-      - name: Expendables 01
-      - name: Expendables 02
-      - name: Expendables 03
+      - name: Expendables_01
+      - name: Expendables_02
+      - name: Expendables_03
       - name: Fearless
       - name: Fightclub
       - name: Fletch
-      - name: Free State of Jones
-      - name: GI Joe 01 Rise of Cobra
-      - name: GI Joe 02 Retaliation
+      - name: Free_State_of_Jones
+      - name: GI_Joe_01_Rise_of_Cobra
+      - name: GI_Joe_02_Retaliation
       - name: Gladiator
-      - name: Gone in 60 Seconds
-      - name: Highlander 1
-      - name: Highlander 2
-      - name: Highlander Endgame
+      - name: Gone_in_60_Seconds
+      - name: Highlander_1
+      - name: Highlander_2
+      - name: Highlander_Endgame
       - name: Hitman
       - name: Homefront
-      - name: Jack Ryan Shadow Recruit
+      - name: Jack_Ryan_Shadow_Recruit
       - name: Jackal
-      - name: James Bond 24 Quantum of Solace
-      - name: James Bond 25 Skyfall
-      - name: James Bond 26 Spectre
-      - name: James Bond 27 No Time to Die
-      - name: John Wick 02
-      - name: Jurassic Park
+      - name: James_Bond_24_Quantum_of_Solace
+      - name: James_Bond_25_Skyfall
+      - name: James_Bond_26_Spectre
+      - name: James_Bond_27_No_Time_to_Die
+      - name: John_Wick_02
+      - name: Jurassic_Park
+        series: true
+        childItems:
+          - name: Jurassic_Park_01
+          - name: Jurassic_Park_02
+          - name: Jurassic_Park_03
+          - name: Jurassic_Park_04
+          - name: Jurassic_Park_05
       - name: Kingdom
-      - name: Last Man Standing
-      - name: Lock Stock and Two Smoking Barrells
-      - name: Leon the Professional
-      - name: Matrix 01
-      - name: Matrix 02 Reloaded
-      - name: Matrix 03 Revolutions
+      - name: Last_Man_Standing
+      - name: Lock_Stock_and_Two_Smoking_Barrells
+      - name: Leon_the_Professional
+      - name: Matrix_01
+      - name: Matrix_02_Reloaded
+      - name: Matrix_03_Revolutions
       - name: Midway
-      - name: Monuments Men
+      - name: Monuments_Men
       - name: Mummy
-      - name: News of the World
-      - name: No Country for Old Men
-      - name: Out of Sight
-      - name: Out of Time
-      - name: Pirates of the Carribean 02 Dead Mans Chest
-      - name: Pirates of the Carribean 03 At Worlds End
-      - name: Pitch Black
-      - name: Predator 01
+        series: true
+        childItems:
+          - name: Mummy_01
+          - name: Mummy_02_The_Mummy_Returns
+          - name: Mummy_03_Tomb_Of_The_Dragon_Emperor
+      - name: News_of_the_World
+      - name: No_Country_for_Old_Men
+      - name: Out_of_Sight
+      - name: Out_of_Time
+      - name: Pirates_of_the_Carribean_02_Dead_Mans_Chest
+      - name: Pirates_of_the_Carribean_03_At_Worlds_End
+      - name: Pitch_Black
+      - name: Predator_01
       - name: Prometheus
       - name: Rambo
-      - name: Repo Men
+      - name: Repo_Men
       - name: Safe
-      - name: Scorpion King
-      - name: Seven Swords
-      - name: Sherlock Holmes 01
-      - name: Sherlock Holmes 02 A Game of Shadows
-      - name: Sicario 01
-      - name: Sicario 02 Day of the Soldado
-      - name: Sin City 01
-      - name: Sin City 02 A Dame to Kill For
+      - name: Scorpion_King
+        series: true
+        childItems:
+          - name: Scorpion_King_01
+          - name: Scorpion_King_02_Rise_of_a_Warrior
+          - name: Scorpion_King_03_Battle_for_Redemption
+          - name: Scorpion_King_04_Quest_for_Power
+      - name: Seven_Swords
+      - name: Sherlock_Holmes_01
+      - name: Sherlock_Holmes_02_A_Game_of_Shadows
+      - name: Sicario_01
+      - name: Sicario_02_Day_of_the_Soldado
+      - name: Sin_City_01
+      - name: Sin_City_02_A_Dame_to_Kill_For
       - name: Snatch
       - name: Surrogates
-      - name: Taken 01
-      - name: Taken 02
-      - name: Taken 03
-      - name: Terminator 01
+      - name: Taken_01
+      - name: Taken_02
+      - name: Taken_03
+      - name: Terminator_01
       - name: Tombstone
-      - name: Training Day
-      - name: Transformers 03
-      - name: Transporter 01
-      - name: Transporter 02
-      - name: Transporter 03
-      - name: Transporter 04 Refueled
-      - name: Underworld 01
-      - name: Underworld 02 Awakening
-      - name: Underworld 03 Evolution
+      - name: Training_Day
+      - name: Transformers_03
+      - name: Transporter_01
+      - name: Transporter_02
+      - name: Transporter_03
+      - name: Transporter_04_Refueled
+      - name: Underworld_01
+      - name: Underworld_02_Awakening
+      - name: Underworld_03_Evolution
       - name: War
-      - name: Wild Card
-      - name: Wrath of Man
-      - name: Young Guns 01
-      - name: Young Guns 02
+      - name: Wild_Card
+      - name: Wrath_of_Man
+      - name: Young_Guns_01
+      - name: Young_Guns_02
   - name: Animated
     items:
-      - name: Final Fantasy VII Advent Children
-      - name: Family Guy Blue Harvest
-      - name: Family Guy Its a Trap
-      - name: Family Guy Partial Terms of Endearment
-      - name: Futurama Beast with a Billion Backs
-      - name: Futurama Into the Wild Green Yonder
-      - name: Happy Feet
-      - name: How to Train Your Dragon
-      - name: Ice Age 3
-      - name: Kubo and the Two Strings
-      - name: Lion King
-      - name: Minions 1
-      - name: Raya and the Last Dragon
+      - name: Final_Fantasy_VII_Advent_Children
+      - name: Family_Guy_Blue_Harvest
+      - name: Family_Guy_Its_a_Trap
+      - name: Family_Guy_Partial_Terms_of_Endearment
+      - name: Futurama_Beast_with_a_Billion_Backs
+      - name: Futurama_Into_the_Wild_Green_Yonder
+      - name: Happy_Feet
+        series: true
+        childItems:
+          - name: Happy_Feet_1
+          - name: Happy_Feet_2
+      - name: How_to_Train_Your_Dragon
+        series: true
+        childItems:
+          - name: How_to_Train_Your_Dragon_01
+          - name: How_to_Train_Your_Dragon_02
+          - name: How_to_Train_Your_Dragon_03
+      - name: Ice_Age_3
+      - name: Kubo_and_the_Two_Strings
+      - name: Lion_King
+      - name: Minions_1
+      - name: Raya_and_the_Last_Dragon
       - name: Simpsons
-      - name: Team America World Police
+      - name: Team_America_World_Police
       - name: Up
-      - name: Wall E
+      - name: Wall_E
   - name: Comedy
     items:
-      - name: Ace Ventura
+      - name: Ace_Ventura
+        series: true
+        childItems:
+          - name: Ace_Ventura_01_Pet_Detective
+          - name: Ace_Ventura_02_When_Nature_Calls
       - name: Airplane
-      - name: Austin Powers
-      - name: Barton Fink
-      - name: Beverly Hills Cop
-      - name: Beverly Hills Ninja
-      - name: Big Lebowski
-      - name: Blazing Saddles
-      - name: Blues Brothers
-      - name: Burn After Reading
+      - name: Austin_Powers
+        series: true
+        childItems:
+          - name: Austin_Powers_01_International_Spy_of_Mystery
+          - name: Austin_Powers_02_The_Spy_Who_Shagged_Me
+          - name: Austin_Powers_03_Goldmember
+      - name: Barton_Fink
+      - name: Beverly_Hills_Cop
+        series: true
+        childItems:
+          - name: Beverly_Hills_Cop_01
+          - name: Beverly_Hills_Cop_02
+          - name: Beverly_Hills_Cop_03
+      - name: Beverly_Hills_Ninja
+      - name: Big_Lebowski
+      - name: Blazing_Saddles
+      - name: Blues_Brothers
+      - name: Burn_After_Reading
       - name: Burbs
-      - name: Clerks 01
-      - name: Clerks 02
+      - name: Clerks_01
+      - name: Clerks_02
       - name: Dodgeball
       - name: Dogma
       - name: Dolittle
       - name: Dragnet
-      - name: Eddie Izzard Glorious
-      - name: Eddy Izzard Definite Article
+      - name: Eddie_Izzard_Glorious
+      - name: Eddy_Izzard_Definite_Article
       - name: Fargo
       - name: Fletch
-      - name: Gabriel Iglesias Live from Hawaii
-      - name: Going Berserk
-      - name: Good Morning Vietnam
-      - name: Great Outdoors
-      - name: Hail Ceasar
-      - name: Happy Gilmore
-      - name: High Anxiety
-      - name: History of the World Part 1
-      - name: Hitchhikers Guide to the Galaxy
-      - name: Hot Shots
+      - name: Gabriel_Iglesias_Live_from_Hawaii
+      - name: Going_Berserk
+      - name: Good_Morning_Vietnam
+      - name: Great_Outdoors
+      - name: Hail_Ceasar
+      - name: Happy_Gilmore
+      - name: High_Anxiety
+      - name: History_of_the_World_Part_1
+      - name: Hitchhikers_Guide_to_the_Galaxy
+      - name: Hot_Shots
+        series: true
+        childItems:
+          - name: Hot_Shots_01
+          - name: Hot_Shots_02_Part_Deux
       - name: Jerk
-      - name: Liar Liar
-      - name: Kung Fu Hustle
+      - name: Liar_Liar
+      - name: Kung_Fu_Hustle
       - name: Mallrats
-      - name: Me Myself and Irene
-      - name: Millers Crossing
-      - name: Money Pit
-      - name: Monty Python and the Holy Grail
-      - name: Naked Gun
-      - name: O Brother Where Art Thou
-      - name: Office Space
-      - name: Pain and Gain
-      - name: Pink Panther 02
-      - name: Quick Change
-      - name: Raising Arizona
-      - name: Robin Hood Men in Tights
-      - name: Rush Hour 01
-      - name: Rush Hour 02
-      - name: Rush Hour 03
-      - name: Shaun of the Dead
-      - name: Silent Movie
+      - name: Me_Myself_and_Irene
+      - name: Millers_Crossing
+      - name: Money_Pit
+      - name: Monty_Python_and_the_Holy_Grail
+      - name: Naked_Gun
+        series: true
+        childItems:
+          - name: Naked_Gun_1
+          - name: Naked_Gun_2
+          - name: Naked_Gun_3
+      - name: O_Brother_Where_Art_Thou
+      - name: Office_Space
+      - name: Pain_and_Gain
+      - name: Pink_Panther_02
+      - name: Quick_Change
+      - name: Raising_Arizona
+      - name: Robin_Hood_Men_in_Tights
+      - name: Rush_Hour_01
+      - name: Rush_Hour_02
+      - name: Rush_Hour_03
+      - name: Shaun_of_the_Dead
+      - name: Silent_Movie
       - name: Spaceballs
-      - name: Super Troopers 1
-      - name: Super Troopers 2
-      - name: To Be Or Not To Be
-      - name: Twelve Chairs
-      - name: Uncle Buck
-      - name: Young Frankenstein
+      - name: Super_Troopers_1
+      - name: Super_Troopers_2
+      - name: To_Be_Or_Not_To_Be
+      - name: Twelve_Chairs
+      - name: Uncle_Buck
+      - name: Young_Frankenstein
   - name: Documentary
     items:
-      - name: Apollo 11
-      - name: Brooklyn Bridge
-      - name: Civil War 01
-      - name: Civil War 02
+      - name: Apollo_11
+      - name: Brooklyn_Bridge
+      - name: Civil_War_01
+        series: true
+        childItems:
+          - name: Civil_War_01_The_Cause
+          - name: Civil_War_02_A_Very_Bloody_Affair
+          - name: Civil_War_03_Forever_Free
+          - name: Civil_War_04_Simply_Murder
+          - name: Civil_War_05_The_Universe_of_Battle
+      - name: Civil_War_02
+        series: true
+        childItems:
+          - name: Civil_War_06_Valley_of_the_Shadow_of_Death
+          - name: Civil_War_07_Most_Hallowed_Ground
+          - name: Civil_War_08_War_is_All_Hell
+          - name: Civil_War_09_The_Better_Angels_of_Our_Nature
       - name: Congress
       - name: Dustbowl
-      - name: Empire of the Air
-      - name: Fog of War
-      - name: Frank Lloyd Wright
-      - name: Horatio's Drive
-      - name: Huey Long
-      - name: Ken Burns Hemingway
-      - name: Lewis and Clark
-      - name: Mark Twain
-      - name: Men Who Built America
-      - name: National Parks
-      - name: Not For Ourselves Alone
+        series: true
+        childItems:
+          - name: Dustbowl_01
+          - name: Dustbowl_02
+      - name: Empire_of_the_Air
+      - name: Fog_of_War
+      - name: Frank_Lloyd_Wright
+      - name: Horatio's_Drive
+      - name: Huey_Long
+      - name: Ken_Burns_Hemingway
+        series: true
+        childItems:
+          - name: Ken_Burns_Hemingway_01_The_Writer
+          - name: Ken_Burns_Hemingway_02
+          - name: Ken_Burns_Hemingway_03
+      - name: Lewis_and_Clark
+        series: true
+        childItems:
+          - name: Lewis_and_Clark_01
+          - name: Lewis_and_Clark_02
+      - name: Mark_Twain
+        series: true
+        childItems:
+          - name: Mark_Twain_01
+          - name: Mark_Twain_02
+      - name: Men_Who_Built_America
+        series: true
+        childItems:
+          - name: The_Men_Who_Built_America_01_A_New_War_is_Born
+          - name: The_Men_Who_Built_America_02_Oil_Strike
+          - name: The_Men_Who_Built_America_03_A_Rivalry_is_Born
+          - name: The_Men_Who_Built_America_04_Blood_is_Spilled
+          - name: The_Men_Who_Built_America_05_A_New_Rival_Emerges
+          - name: The_Men_Who_Built_America_06_Owning_it_All
+          - name: The_Men_Who_Built_America_07_Taking_the_White_House
+          - name: The_Men_Who_Built_America_08_The_New_Machine
+      - name: National_Parks
+        series: true
+        childItems:
+          - name: National_Parks_01_The_Scripture_of_Nature
+          - name: National_Parks_02_The_Last_Refuge
+          - name: National_Parks_03_The_Empire_of_Grandeur
+          - name: National_Parks_04_Going_Home
+          - name: National_Parks_05_Great_Nature
+          - name: National_Parks_06_Morning_of_Creation
+      - name: Not_For_Ourselves_Alone
       - name: Prohibition
-      - name: Roosevelts 01
-      - name: Roosevelts 02
+        series: true
+        childItems:
+          - name: Prohibition_01_A_Nation_of_Drunkards
+          - name: Prohibition_02_A_Nation_of_Scofflaws
+          - name: Prohibition_03_A_Nation_of_Hypocrites
+      - name: Roosevelts_01
+        series: true
+        childItems:
+          - name: Roosevelts_01_Get_Action_1858_to_1901
+          - name: Roosevelts_02_In_the_Arena_1901__to_1910
+          - name: Roosevelts_03_Fire_of_Life_1910_to_1919
+      - name: Roosevelts_02
+        series: true
+        childItems:
+          - name: Roosevelts_04_The_Storm_1920_to_1933
+          - name: Roosevelts_05_The_Rising_Road_1933_to_1939
+          - name: Roosevelts_06_The_Common_Cause_1939_to_1944
+          - name: Roosevelts_07_A_Strong_and_Active_Faith_1944_to_1962
       - name: Shakers
-      - name: Statue of Liberty
-      - name: Thomas Hart Benton
-      - name: Thomas Jefferson
-      - name: Unforgivable Blackness - Rise and Fall of Jack Johnson
-      - name: Vietnam 01
-      - name: Vietnam 02
-      - name: World War II 01
-      - name: World War II 02
+      - name: Statue_of_Liberty
+      - name: Thomas_Hart_Benton
+      - name: Thomas_Jefferson
+        series: true
+        childItems:
+          - name: Thomas_Jefferson_01
+          - name: Thomas_Jefferson_02
+      - name: Unforgivable_Blackness_-_Rise_and_Fall_of_Jack_Johnson
+        series: true
+        childItems:
+          - name: Unforgivable_Blackness_-_Rise_and_Fall_of_Jack_Johnson_01
+          - name: Unforgivable_Blackness_-_Rise_and_Fall_of_Jack_Johnson_02
+      - name: Vietnam_01
+        series: true
+        childItems:
+          - name: Vietnam_01_Deja_Vu
+          - name: Vietnam_02_Riding_the_Tiger
+          - name: Vietnam_03_The_River_Styx
+          - name: Vietnam_04_Resolve
+          - name: Vietnam_05_This_is_What_We_Do
+      - name: Vietnam_02
+        series: true
+        childItems:
+          - name: Vietnam_06_Things_Fall_Apart
+          - name: Vietnam_07_The_Veneer_of_Civilization
+          - name: Vietnam_08_The_History_of_the_World
+          - name: Vietnam_09_The_Vietnam_War
+          - name: Vietnam_10_The_Weight_of_Memory
+      - name: World_War_II_01
+        series: true
+        childItems:
+          - name: War_01_A_Necessary_War
+          - name: War_02_When_Things_Get_Tough
+          - name: War_03_A_Deadly_Calling
+          - name: War_04_Pride_of_our_Nation
+      - name: World_War_II_02
+        series: true
+        childItems:
+          - name: War_05_FUBAR
+          - name: War_06_The_Ghost_Front
+          - name: War_07_A_World_Without_War
   - name: Drama
     items:
-      - name: 127 Hours
-      - name: Ad Astra
-      - name: American Beauty
-      - name: American History X
-      - name: Apollo 13
+      - name: 127_Hours
+      - name: Ad_Astra
+      - name: American_Beauty
+      - name: American_History_X
+      - name: Apollo_13
       - name: Avatar
-      - name: Beautiful Day in the Neighborhood
+      - name: Beautiful_Day_in_the_Neighborhood
       - name: Castaway
-      - name: Edge of Darkness
-      - name: Forest Gump
-      - name: Free Solo
-      - name: Godfather 01
-      - name: Good Will Hunting
+      - name: Edge_of_Darkness
+      - name: Forest_Gump
+      - name: Free_Solo
+      - name: Godfather_01
+      - name: Good_Will_Hunting
       - name: HANNA
       - name: Hackers
       - name: Inception
       - name: Interstellar
-      - name: Life of Pi
+      - name: Life_of_Pi
       - name: Martian
-      - name: Memoirs of a Geisha
-      - name: Patch Adams
+      - name: Memoirs_of_a_Geisha
+      - name: Patch_Adams
       - name: Pi
       - name: Post
-      - name: Requeim for a Dream
-      - name: Shawshank Redemption
+      - name: Requeim_for_a_Dream
+      - name: Shawshank_Redemption
       - name: Unknown
-      - name: V for Vendetta
-      - name: Walking Tall
-      - name: What Dreams May Come
+      - name: V_for_Vendetta
+      - name: Walking_Tall
+      - name: What_Dreams_May_Come
   - name: Fantasy
     items:
   - name: Foreign
     items:
-      - name: City of God
-      - name: Oldboy (KO)
+      - name: City_of_God
+      - name: Oldboy_(KO)
       - name: Zatoichi
+        series: true
+        childItems:
+          - name: Zatoichi_01_The_Tale_of_Zatoichi
+          - name: Zatoichi_02_The_Tale_of_Zatoichi_Continues
+          - name: Zatoichi_03_New_Tale_of_Zatoichi
+          - name: Zatoichi_04_Zatoichi_the_Fugitive
+          - name: Zatoichi_05_Zatoichi_on_the_Road
+          - name: Zatoichi_06_Zatoichi_and_the_Chest_of_Gold
+          - name: Zatoichi_07_Zatoichis_Flashing_Sword
+          - name: Zatoichi_08_Fight_Zatoichi_Fight
+          - name: Zatoichi_09_Adventures_of_Zatoichi
+          - name: Zatoichi_10_Zatoichis_Revenge
+          - name: Zatoichi_11_Zatoichi_and_the_Doomed_Man
+          - name: Zatoichi_12_Zatoichi_and_the_Chess_Expert
+          - name: Zatoichi_13_Zatoichis_Vengeance
+          - name: Zatoichi_14_Zatoichis_Pilgrimage
+          - name: Zatoichi_15_Zatoichis_Cane_Sword
+          - name: Zatoichi_16_Zatoichi_the_Outlaw
+          - name: Zatoichi_17_Zatoichi_Challenged
+          - name: Zatoichi_18_Zatoichi_and_the_Fugitives
+          - name: Zatoichi_19_Samaritan_Zatoichi
+          - name: Zatoichi_20_Zatoichi_Meets_Yojimbo
+          - name: Zatoichi_21_Zatoichi_Goes_to_the_Fire_Festival
+          - name: Zatoichi_22_Zatoichi_Meets_the_One_Armed_Swordsman
+          - name: Zatoichi_23_Zatoichi_at_Large
+          - name: Zatoichi_24_Zatoichi_in_Desperation
+          - name: Zatoichi_25_Zatoichis_Conspiracy
   - name: Heist
     items:
-      - name: Bank Job
+      - name: Bank_Job
       - name: Heat
-      - name: Italian Job
-      - name: Mechanic 01
-      - name: Mechanic 02
-      - name: Oceans 11 01 11
-      - name: Oceans 11 02 12
-      - name: Oceans 11 03 Oceans 13
-      - name: Oceans 11 04 Oceans 8
+      - name: Italian_Job
+        series: true
+        childItems:
+          - name: Italian_Job_1969
+          - name: Italian_Job_2003
+      - name: Mechanic_01
+      - name: Mechanic_02
+      - name: Oceans_11_01_11
+      - name: Oceans_11_02_12
+      - name: Oceans_11_03_Oceans_13
+      - name: Oceans_11_04_Oceans_8
       - name: Parker
       - name: Saint
       - name: Swordfish
-      - name: Three Kings
-      - name: Usual Suspects
+      - name: Three_Kings
+      - name: Usual_Suspects
   - name: Music
     items:
-      - name: Metallica S And M 01
-      - name: Metallica S And M 02
-  - name: Sci Fi
+      - name: Metallica_S_And_M_01
+        series: true
+        childItems:
+          - name: Metallica_S_And_M_01_01
+          - name: Metallica_S_And_M_01_02
+      - name: Metallica_S_And_M_02
+  - name: Sci_Fi
     items:
       - name: GATTACA
-      - name: Fifth Element
-      - name: Ghost in the Shell
-      - name: Johnny Mnemonic
-      - name: Lord of the Rings 1 Fellowship of the Ring
-      - name: Lord of the Rings 2 Two Towers
-      - name: Lord of the Rings 3 Return of the King
-      - name: Star Wars 01 Phantom Menace
-      - name: Star Wars 02 Attack of the Clones
-      - name: Star Wars 03 Revenge of the Sith
-      - name: Star Wars 04 New Hope
-      - name: Star Wars 05 Empire Strikes Back
-      - name: Star Wars 06 Return of the Jedi
-      - name: Star Wars 07 Force Awakens
-      - name: Star Wars 08 Last Jedi
-      - name: Star Wars 09 Rise of Skywalker
-  - name: Super Hero DC
+      - name: Fifth_Element
+      - name: Ghost_in_the_Shell
+      - name: Johnny_Mnemonic
+      - name: Lord_of_the_Rings_1_Fellowship_of_the_Ring
+        series: true
+        childItems:
+          - name: Lord_of_the_Rings_1_Fellowship_of_the_Ring_1
+          - name: Lord_of_the_Rings_1_Fellowship_of_the_Ring_2
+      - name: Lord_of_the_Rings_2_Two_Towers
+        series: true
+        childItems:
+          - name: Lord_of_the_Rings_2_Two_Towers_1
+          - name: Lord_of_the_Rings_2_Two_Towers_2
+      - name: Lord_of_the_Rings_3_Return_of_the_King
+        series: true
+        childItems:
+          - name: Lord_of_the_Rings_3_Return_of_the_King_1
+          - name: Lord_of_the_Rings_3_Return_of_the_King_2
+      - name: Star_Wars_01_Phantom_Menace
+      - name: Star_Wars_02_Attack_of_the_Clones
+      - name: Star_Wars_03_Revenge_of_the_Sith
+      - name: Star_Wars_04_New_Hope
+      - name: Star_Wars_05_Empire_Strikes_Back
+      - name: Star_Wars_06_Return_of_the_Jedi
+      - name: Star_Wars_07_Force_Awakens
+      - name: Star_Wars_08_Last_Jedi
+      - name: Star_Wars_09_Rise_of_Skywalker
+  - name: SuperHeroDC
     items:
       - name: Aquaman
-      - name: Batman 01 Batman Begins
-      - name: Batman 02 Dark Knight
-      - name: Batman 03 The Dark Knight Rises
+      - name: Batman_01_Batman_Begins
+      - name: Batman_02_Dark_Knight
+      - name: Batman_03_The_Dark_Knight_Rises
       - name: Joker
-      - name: Wonder Woman 01
-      - name: Wonder Woman 02 1984
-  - name: Super Hero Marvel
+      - name: Wonder_Woman_01
+      - name: Wonder_Woman_02_1984
+  - name: SuperHeroMarvel
     items:
-      - name: Amazing Spider Man 01
-      - name: Antman 01
-      - name: Antman 02 Ant Man and the Wasp
-      - name: Avengers 01
-      - name: Avengers 02 Age of Ultron
-      - name: Avengers 03 Infinity War
-      - name: Avengers 04 Endgame
-      - name: Black Panther 01
-      - name: Black Widow
-      - name: Captain America 01 The First Avenger
-      - name: Captain America 02 The Winter Soldier
-      - name: Captain America 03 Civil War
-      - name: Captain Marvel 01
-      - name: Deadpool 01
-      - name: Deadpool 02
-      - name: Doctor Strange 01
-      - name: Doctor Strange 02 Multiverse of Madness
+      - name: Amazing_Spider_Man_01
+      - name: Antman_01
+      - name: Antman_02_Ant_Man_and_the_Wasp
+      - name: Avengers_01
+      - name: Avengers_02_Age_of_Ultron
+      - name: Avengers_03_Infinity_War
+      - name: Avengers_04_Endgame
+      - name: Black_Panther_01
+      - name: Black_Widow
+      - name: Captain_America_01_The_First_Avenger
+      - name: Captain_America_02_The_Winter_Soldier
+      - name: Captain_America_03_Civil_War
+      - name: Captain_Marvel_01
+      - name: Deadpool_01
+      - name: Deadpool_02
+      - name: Doctor_Strange_01
+      - name: Doctor_Strange_02_Multiverse_of_Madness
       - name: Eternals
-      - name: Guardians of the Galaxy 01
-      - name: Guardians of the Galaxy 02
+      - name: Guardians_of_the_Galaxy_01
+      - name: Guardians_of_the_Galaxy_02
       - name: Hulk
-      - name: Iron Man 01
-      - name: Iron Man 02
-      - name: Iron Man 03
-      - name: Punisher EC
-      - name: Punisher War Zone
-      - name: Shang Chi
-      - name: Spider Man MCU 01 Homecoming
-      - name: Spider Man MCU 02 Far From Home
-      - name: Spider Man MCU 03 No Way Home
+      - name: Iron_Man_01
+      - name: Iron_Man_02
+      - name: Iron_Man_03
+      - name: Punisher_EC
+      - name: Punisher_War_Zone
+      - name: Shang_Chi
+      - name: Spider_Man_MCU_01_Homecoming
+      - name: Spider_Man_MCU_02_Far_From_Home
+      - name: Spider_Man_MCU_03_No_Way_Home
       - name: Spiderman
-      - name: Thor 01
-      - name: Thor 02 The Dark World
-      - name: Thor 03 Ragnarok
-      - name: Thor 04 Love and Thunder
-  - name: Super Hero Misc
+      - name: Thor_01
+      - name: Thor_02_The_Dark_World
+      - name: Thor_03_Ragnarok
+      - name: Thor_04_Love_and_Thunder
+  - name: SuperHeroMisc
     items:
       - name: Blade
-      - name: Sucker Punch
+        series: true
+        childItems:
+          - name: Blade_01
+          - name: Blade_02
+          - name: Blade_03_Trinity
+          - name: Blade_House_of_Chthon
+      - name: Sucker_Punch
       - name: Watchmen
-      - name: X Men Apocalypse
-
+      - name: X_Men_Apocalypse
   - name: Zombie
     items:
-      - name: 28 Days Later
-      - name: 28 Weeks Later
-      - name: Resident Evil
-      - name: World War Z
-      - name: Zombieland 01
-      - name: Zombieland 02 Double Tap
+      - name: 28_Days_Later
+      - name: 28_Weeks_Later
+      - name: Resident_Evil
+        series: true
+        childItems:
+          - name: Resident_Evil_01
+          - name: Resident_Evil_02_Apocalypse
+          - name: Resident_Evil_03_Extinction
+          - name: Resident_Evil_04_Afterlife
+          - name: Resident_Evil_05_Retribution
+          - name: Resident_Evil_06_Final_Chapter
+      - name: World_War_Z
+      - name: Zombieland_01
+      - name: Zombieland_02_Double_Tap

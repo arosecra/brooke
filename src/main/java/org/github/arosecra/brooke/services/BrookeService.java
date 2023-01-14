@@ -55,11 +55,9 @@ public class BrookeService {
 	private LibraryDao libraryDao;
 	
 	private Library library;
-	
 
 	@Autowired
 	public void setLibraryDao(LibraryDao libraryDao) { this.libraryDao = libraryDao; }
-	
 	
 	@PostConstruct()
 	public void init() {
@@ -275,7 +273,6 @@ public class BrookeService {
 		}
 	}
 
-
 	public void cacheItem(String collectionName, String catalogName, String categoryName, String itemName, int index) throws IOException {
 		File cacheFolder = new File("D:\\Library\\Cache");
 		int numberCached = Try.listFilesSafe(cacheFolder).length;
@@ -302,11 +299,9 @@ public class BrookeService {
 		return cacheFile;
 	}
 
-
 	public void reloadLibrary() {
 		library = libraryDao.getLibrary();
 	}
-
 
 	public void openVLC(String collectionName, String catalogName, String categoryName, String itemName, int index) throws IOException {
 		// TODO Auto-generated method stub
@@ -347,8 +342,6 @@ public class BrookeService {
 		watch(process);
 	}
 	
-
-	
 	private static void watch(final Process process) {
 	    new Thread() {
 	        public void run() {
@@ -364,7 +357,6 @@ public class BrookeService {
 	        }
 	    }.start();
 	}
-
 
 	public void copyForTablet(String collectionName, String catalogName, String categoryName, String itemName) throws IOException {
 		File tempSsdFolder = new File("C:\\scans\\temp");

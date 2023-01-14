@@ -1,885 +1,883 @@
-name: Graphic Novels
-remoteDirectory: \\\\drobo5n\\public\\Scans\\Graphic Novels Repository
-localDirectory: D:\\Library\\Graphic Novels Repository
+name: Graphic_Novels
+remoteDirectory: \\drobo5n\public\Scans\Graphic_Novels_Repository
+localDirectory: D:\Library\Graphic_Novels_Repository
 itemExtension: cbt
-excludeExtensions:
+excludeExtensions: 
   - tar
   - pdf
 openType: book
-autoGenerateAlphaCategories: false
-pipelineSteps:
-  - ITEMIZE PDF FOLDER
-  - EXTRACT BOOK PDF
-  - CREATE CBT THUMBNAIL
-  - CONVERT TO WEBP RAW
-
+pipelineSteps: 
+  - ITEMIZE_PDF_FOLDER
+  - EXTRACT_BOOK_PDF
+  - CREATE_CBT_THUMBNAIL
+  - CONVERT_TO_WEBP_RAW
 categories:
   - name: Berserk
-    items: 
-      - name: Berserk 01
-      - name: Berserk 02
-      - name: Berserk 03
-      - name: Berserk 04
-      - name: Berserk 05
-      - name: Berserk 06
-      - name: Berserk 07
-      - name: Berserk 08
-      - name: Berserk 09
-      - name: Berserk 10
-      - name: Berserk 11
-      - name: Berserk 12
-      - name: Berserk 13
-      - name: Berserk 14
-      - name: Berserk 15
-      - name: Berserk 16
-      - name: Berserk 17
-      - name: Berserk 18
-      - name: Berserk 19
-      - name: Berserk 20
-      - name: Berserk 21
-      - name: Berserk 22
-      - name: Berserk 23
-      - name: Berserk 24
-      - name: Berserk 25
-      - name: Berserk 26
-      - name: Berserk 27
-      - name: Berserk 28
-      - name: Berserk 29
-      - name: Berserk 30
-      - name: Berserk 31
-      - name: Berserk 32
-      - name: Berserk 33
-      - name: Berserk 34
-      - name: Berserk 35
-      - name: Berserk 36
-      - name: Berserk 37
-  - name: Blade of the Immortal
-    items: 
-      - name: Blade of the Immortal 01
-      - name: Blade of the Immortal 02
-      - name: Blade of the Immortal 03
-      - name: Blade of the Immortal 04
-      - name: Blade of the Immortal 05
-      - name: Blade of the Immortal 06
-      - name: Blade of the Immortal 07
-      - name: Blade of the Immortal 08
-      - name: Blade of the Immortal 09
-      - name: Blade of the Immortal 10
-      - name: Blade of the Immortal 11
-      - name: Blade of the Immortal 12
-      - name: Blade of the Immortal 13
-      - name: Blade of the Immortal 14
-      - name: Blade of the Immortal 15
-      - name: Blade of the Immortal 16
-      - name: Blade of the Immortal 17
-      - name: Blade of the Immortal 18
-      - name: Blade of the Immortal 19
-      - name: Blade of the Immortal 20
-      - name: Blade of the Immortal 21
-      - name: Blade of the Immortal 22
-      - name: Blade of the Immortal 23
-      - name: Blade of the Immortal 24
-      - name: Blade of the Immortal 25
-      - name: Blade of the Immortal 26
-      - name: Blade of the Immortal 27
-      - name: Blade of the Immortal 28
-      - name: Blade of the Immortal 29
-      - name: Blade of the Immortal 30
-      - name: Blade of the Immortal 31
-  - name: Chronicles of the Cursed Sword
-    items: 
-      - name: Chronicles of the Cursed Sword 01
-      - name: Chronicles of the Cursed Sword 02
-      - name: Chronicles of the Cursed Sword 03
-      - name: Chronicles of the Cursed Sword 04
-      - name: Chronicles of the Cursed Sword 05
-      - name: Chronicles of the Cursed Sword 06
-      - name: Chronicles of the Cursed Sword 07
-      - name: Chronicles of the Cursed Sword 08
-      - name: Chronicles of the Cursed Sword 09
-      - name: Chronicles of the Cursed Sword 10
-      - name: Chronicles of the Cursed Sword 11
-      - name: Chronicles of the Cursed Sword 12
-      - name: Chronicles of the Cursed Sword 13
-      - name: Chronicles of the Cursed Sword 14
-      - name: Chronicles of the Cursed Sword 15
-      - name: Chronicles of the Cursed Sword 16
-      - name: Chronicles of the Cursed Sword 17
-      - name: Chronicles of the Cursed Sword 18
-      - name: Chronicles of the Cursed Sword 19
+    items:
+      - name: Berserk_01
+      - name: Berserk_02
+      - name: Berserk_03
+      - name: Berserk_04
+      - name: Berserk_05
+      - name: Berserk_06
+      - name: Berserk_07
+      - name: Berserk_08
+      - name: Berserk_09
+      - name: Berserk_10
+      - name: Berserk_11
+      - name: Berserk_12
+      - name: Berserk_13
+      - name: Berserk_14
+      - name: Berserk_15
+      - name: Berserk_16
+      - name: Berserk_17
+      - name: Berserk_18
+      - name: Berserk_19
+      - name: Berserk_20
+      - name: Berserk_21
+      - name: Berserk_22
+      - name: Berserk_23
+      - name: Berserk_24
+      - name: Berserk_25
+      - name: Berserk_26
+      - name: Berserk_27
+      - name: Berserk_28
+      - name: Berserk_29
+      - name: Berserk_30
+      - name: Berserk_31
+      - name: Berserk_32
+      - name: Berserk_33
+      - name: Berserk_34
+      - name: Berserk_35
+      - name: Berserk_36
+      - name: Berserk_37
+  - name: Blade_of_the_Immortal
+    items:
+      - name: Blade_of_the_Immortal_01
+      - name: Blade_of_the_Immortal_02
+      - name: Blade_of_the_Immortal_03
+      - name: Blade_of_the_Immortal_04
+      - name: Blade_of_the_Immortal_05
+      - name: Blade_of_the_Immortal_06
+      - name: Blade_of_the_Immortal_07
+      - name: Blade_of_the_Immortal_08
+      - name: Blade_of_the_Immortal_09
+      - name: Blade_of_the_Immortal_10
+      - name: Blade_of_the_Immortal_11
+      - name: Blade_of_the_Immortal_12
+      - name: Blade_of_the_Immortal_13
+      - name: Blade_of_the_Immortal_14
+      - name: Blade_of_the_Immortal_15
+      - name: Blade_of_the_Immortal_16
+      - name: Blade_of_the_Immortal_17
+      - name: Blade_of_the_Immortal_18
+      - name: Blade_of_the_Immortal_19
+      - name: Blade_of_the_Immortal_20
+      - name: Blade_of_the_Immortal_21
+      - name: Blade_of_the_Immortal_22
+      - name: Blade_of_the_Immortal_23
+      - name: Blade_of_the_Immortal_24
+      - name: Blade_of_the_Immortal_25
+      - name: Blade_of_the_Immortal_26
+      - name: Blade_of_the_Immortal_27
+      - name: Blade_of_the_Immortal_28
+      - name: Blade_of_the_Immortal_29
+      - name: Blade_of_the_Immortal_30
+      - name: Blade_of_the_Immortal_31
+  - name: Chronicles_of_the_Cursed_Sword
+    items:
+      - name: Chronicles_of_the_Cursed_Sword_01
+      - name: Chronicles_of_the_Cursed_Sword_02
+      - name: Chronicles_of_the_Cursed_Sword_03
+      - name: Chronicles_of_the_Cursed_Sword_04
+      - name: Chronicles_of_the_Cursed_Sword_05
+      - name: Chronicles_of_the_Cursed_Sword_06
+      - name: Chronicles_of_the_Cursed_Sword_07
+      - name: Chronicles_of_the_Cursed_Sword_08
+      - name: Chronicles_of_the_Cursed_Sword_09
+      - name: Chronicles_of_the_Cursed_Sword_10
+      - name: Chronicles_of_the_Cursed_Sword_11
+      - name: Chronicles_of_the_Cursed_Sword_12
+      - name: Chronicles_of_the_Cursed_Sword_13
+      - name: Chronicles_of_the_Cursed_Sword_14
+      - name: Chronicles_of_the_Cursed_Sword_15
+      - name: Chronicles_of_the_Cursed_Sword_16
+      - name: Chronicles_of_the_Cursed_Sword_17
+      - name: Chronicles_of_the_Cursed_Sword_18
+      - name: Chronicles_of_the_Cursed_Sword_19
   - name: Claymore
-    items: 
-      - name: Claymore 01
-      - name: Claymore 02
-      - name: Claymore 03
-      - name: Claymore 04
-      - name: Claymore 05
-      - name: Claymore 06
-      - name: Claymore 07
-      - name: Claymore 08
-      - name: Claymore 09
-      - name: Claymore 10
-  - name: Fairy Tail
-    items: 
-      - name: Fairy Tail 001
-      - name: Fairy Tail 002
-      - name: Fairy Tail 003
-      - name: Fairy Tail 004
-      - name: Fairy Tail 005
-      - name: Fairy Tail 006
-      - name: Fairy Tail 007
-      - name: Fairy Tail 008
-      - name: Fairy Tail 009
-      - name: Fairy Tail 010
-      - name: Fairy Tail 011
-      - name: Fairy Tail 012
-      - name: Fairy Tail 013
-      - name: Fairy Tail 014
-      - name: Fairy Tail 015
-      - name: Fairy Tail 016
-      - name: Fairy Tail 017
-      - name: Fairy Tail 018
-      - name: Fairy Tail 019
-      - name: Fairy Tail 020
-      - name: Fairy Tail 021
-      - name: Fairy Tail 022
-      - name: Fairy Tail 023
-      - name: Fairy Tail 024
-      - name: Fairy Tail 025
-      - name: Fairy Tail 026
-      - name: Fairy Tail 027
-      - name: Fairy Tail 028
-      - name: Fairy Tail 029
-      - name: Fairy Tail 030
-      - name: Fairy Tail 031
-      - name: Fairy Tail 032
-      - name: Fairy Tail 033
-      - name: Fairy Tail 034
-      - name: Fairy Tail 035
-      - name: Fairy Tail 036
-      - name: Fairy Tail 037
-      - name: Fairy Tail 038
-      - name: Fairy Tail 039
-      - name: Fairy Tail 040
-      - name: Fairy Tail 041
-      - name: Fairy Tail 042
-      - name: Fairy Tail 043
-      - name: Fairy Tail 044
-      - name: Fairy Tail 045
-      - name: Fairy Tail 046
-      - name: Fairy Tail 047
-      - name: Fairy Tail 048
-      - name: Fairy Tail 049
-      - name: Fairy Tail 050
-      - name: Fairy Tail 051
-      - name: Fairy Tail 052
-      - name: Fairy Tail 053
-      - name: Fairy Tail 054
-      - name: Fairy Tail 055
-      - name: Fairy Tail 056
-  - name: Fullmetal Panic
-    items: 
-      - name: Full Metal Panic 01
-      - name: Full Metal Panic 02
-      - name: Full Metal Panic 03
-      - name: Full Metal Panic 04
-      - name: Full Metal Panic 05
-      - name: Full Metal Panic 06
-      - name: Full Metal Panic 07
-      - name: Full Metal Panic 08
-      - name: Full Metal Panic 09
-      - name: Full Metal Panic Overload 1
-      - name: Full Metal Panic Overload 2
-      - name: Full Metal Panic Overload 3
-      - name: Full Metal Panic Overload 4
-  - name: Fushigi Yugi
-    items: 
-      - name: Fushigi Yugi 01
-      - name: Fushigi Yugi 02
-      - name: Fushigi Yugi 03
-      - name: Fushigi Yugi 04
-      - name: Fushigi Yugi 05
-      - name: Fushigi Yugi 06
-      - name: Fushigi Yugi 07
-      - name: Fushigi Yugi 09
-      - name: Fushigi Yugi 10
-      - name: Fushigi Yugi 11
-      - name: Fushigi Yugi 12
-      - name: Fushigi Yugi 13
-      - name: Fushigi Yugi 14
-      - name: Fushigi Yugi 15
-      - name: Fushigi Yugi 16
-      - name: Fushigi Yugi 17
-      - name: Fushigi Yugi 18
-  - name: Ghost in the Shell
-    items: 
-      - name: Ghost In the Shell 1
-      - name: Ghost In the Shell 1 5 Human-error Processor 1
-      - name: Ghost In the Shell 1 5 Human-error Processor 2
-      - name: Ghost In the Shell 1 5 Human-error Processor 3
-      - name: Ghost In the Shell 1 5 Human-error Processor 4
-      - name: Ghost In the Shell 1 5 Human-error Processor 5
-      - name: Ghost In the Shell 1 5 Human-error Processor 6
-      - name: Ghost In the Shell 1 5 Human-error Processor 7
-      - name: Ghost In the Shell Man-machine Interface 01
-      - name: Ghost In the Shell Man-machine Interface 02
-      - name: Ghost In the Shell Man-machine Interface 03
-      - name: Ghost In the Shell Man-machine Interface 04
-      - name: Ghost In the Shell Man-machine Interface 05
-      - name: Ghost In the Shell Man-machine Interface 06
-  - name: Gunslinger Girl
-    items: 
-      - name: Gunslinger Girl 01
-      - name: Gunslinger Girl 02
-      - name: Gunslinger Girl 03
-  - name: Lone Wolf
-    items: 
-      - name: Lone Wolf and Cub 01
-      - name: Lone Wolf and Cub 02
-      - name: Lone Wolf and Cub 03
-      - name: Lone Wolf and Cub 04
-      - name: Lone Wolf and Cub 05
-      - name: Lone Wolf and Cub 06
-      - name: Lone Wolf and Cub 07
-      - name: Lone Wolf and Cub 08
-      - name: Lone Wolf and Cub 09
-      - name: Lone Wolf and Cub 10
-      - name: Lone Wolf and Cub 11
-      - name: Lone Wolf and Cub 12
-      - name: Lone Wolf and Cub 13
-      - name: Lone Wolf and Cub 14
-      - name: Lone Wolf and Cub 15
-      - name: Lone Wolf and Cub 16
-      - name: Lone Wolf and Cub 17
-      - name: Lone Wolf and Cub 18
-      - name: Lone Wolf and Cub 19
-      - name: Lone Wolf and Cub 20
-      - name: Lone Wolf and Cub 21
-      - name: Lone Wolf and Cub 22
-      - name: Lone Wolf and Cub 23
-      - name: Lone Wolf and Cub 24
-      - name: Lone Wolf and Cub 25
-      - name: Lone Wolf and Cub 26
-      - name: Lone Wolf and Cub 27
-      - name: Lone Wolf and Cub 28
-  - name: Lone Wolf 2100
-    items: 
-      - name: Lone Wolf 2100 01
-      - name: Lone Wolf 2100 02
-      - name: Lone Wolf 2100 03
-      - name: Lone Wolf 2100 04
+    items:
+      - name: Claymore_01
+      - name: Claymore_02
+      - name: Claymore_03
+      - name: Claymore_04
+      - name: Claymore_05
+      - name: Claymore_06
+      - name: Claymore_07
+      - name: Claymore_08
+      - name: Claymore_09
+      - name: Claymore_10
+  - name: Fairy_Tail
+    items:
+      - name: Fairy_Tail_001
+      - name: Fairy_Tail_002
+      - name: Fairy_Tail_003
+      - name: Fairy_Tail_004
+      - name: Fairy_Tail_005
+      - name: Fairy_Tail_006
+      - name: Fairy_Tail_007
+      - name: Fairy_Tail_008
+      - name: Fairy_Tail_009
+      - name: Fairy_Tail_010
+      - name: Fairy_Tail_011
+      - name: Fairy_Tail_012
+      - name: Fairy_Tail_013
+      - name: Fairy_Tail_014
+      - name: Fairy_Tail_015
+      - name: Fairy_Tail_016
+      - name: Fairy_Tail_017
+      - name: Fairy_Tail_018
+      - name: Fairy_Tail_019
+      - name: Fairy_Tail_020
+      - name: Fairy_Tail_021
+      - name: Fairy_Tail_022
+      - name: Fairy_Tail_023
+      - name: Fairy_Tail_024
+      - name: Fairy_Tail_025
+      - name: Fairy_Tail_026
+      - name: Fairy_Tail_027
+      - name: Fairy_Tail_028
+      - name: Fairy_Tail_029
+      - name: Fairy_Tail_030
+      - name: Fairy_Tail_031
+      - name: Fairy_Tail_032
+      - name: Fairy_Tail_033
+      - name: Fairy_Tail_034
+      - name: Fairy_Tail_035
+      - name: Fairy_Tail_036
+      - name: Fairy_Tail_037
+      - name: Fairy_Tail_038
+      - name: Fairy_Tail_039
+      - name: Fairy_Tail_040
+      - name: Fairy_Tail_041
+      - name: Fairy_Tail_042
+      - name: Fairy_Tail_043
+      - name: Fairy_Tail_044
+      - name: Fairy_Tail_045
+      - name: Fairy_Tail_046
+      - name: Fairy_Tail_047
+      - name: Fairy_Tail_048
+      - name: Fairy_Tail_049
+      - name: Fairy_Tail_050
+      - name: Fairy_Tail_051
+      - name: Fairy_Tail_052
+      - name: Fairy_Tail_053
+      - name: Fairy_Tail_054
+      - name: Fairy_Tail_055
+      - name: Fairy_Tail_056
+  - name: Full_Metal_Panic
+    items:
+      - name: Full_Metal_Panic_01
+      - name: Full_Metal_Panic_02
+      - name: Full_Metal_Panic_03
+      - name: Full_Metal_Panic_04
+      - name: Full_Metal_Panic_05
+      - name: Full_Metal_Panic_06
+      - name: Full_Metal_Panic_07
+      - name: Full_Metal_Panic_08
+      - name: Full_Metal_Panic_09
+      - name: Full_Metal_Panic_Overload_1
+      - name: Full_Metal_Panic_Overload_2
+      - name: Full_Metal_Panic_Overload_3
+      - name: Full_Metal_Panic_Overload_4
+  - name: Fushigi_Yugi
+    items:
+      - name: Fushigi_Yugi_01
+      - name: Fushigi_Yugi_02
+      - name: Fushigi_Yugi_03
+      - name: Fushigi_Yugi_04
+      - name: Fushigi_Yugi_05
+      - name: Fushigi_Yugi_06
+      - name: Fushigi_Yugi_07
+      - name: Fushigi_Yugi_09
+      - name: Fushigi_Yugi_10
+      - name: Fushigi_Yugi_11
+      - name: Fushigi_Yugi_12
+      - name: Fushigi_Yugi_13
+      - name: Fushigi_Yugi_14
+      - name: Fushigi_Yugi_15
+      - name: Fushigi_Yugi_16
+      - name: Fushigi_Yugi_17
+      - name: Fushigi_Yugi_18
+  - name: Ghost_in_the_Shell
+    items:
+      - name: Ghost_In_the_Shell_1
+      - name: Ghost_In_the_Shell_1_5_Human-error_Processor_1
+      - name: Ghost_In_the_Shell_1_5_Human-error_Processor_2
+      - name: Ghost_In_the_Shell_1_5_Human-error_Processor_3
+      - name: Ghost_In_the_Shell_1_5_Human-error_Processor_4
+      - name: Ghost_In_the_Shell_1_5_Human-error_Processor_5
+      - name: Ghost_In_the_Shell_1_5_Human-error_Processor_6
+      - name: Ghost_In_the_Shell_1_5_Human-error_Processor_7
+      - name: Ghost_In_the_Shell_Man-machine_Interface_01
+      - name: Ghost_In_the_Shell_Man-machine_Interface_02
+      - name: Ghost_In_the_Shell_Man-machine_Interface_03
+      - name: Ghost_In_the_Shell_Man-machine_Interface_04
+      - name: Ghost_In_the_Shell_Man-machine_Interface_05
+      - name: Ghost_In_the_Shell_Man-machine_Interface_06
+  - name: Gunslinger_Girl
+    items:
+      - name: Gunslinger_Girl_01
+      - name: Gunslinger_Girl_02
+      - name: Gunslinger_Girl_03
+  - name: Lone_Wolf
+    items:
+      - name: Lone_Wolf_and_Cub_01
+      - name: Lone_Wolf_and_Cub_02
+      - name: Lone_Wolf_and_Cub_03
+      - name: Lone_Wolf_and_Cub_04
+      - name: Lone_Wolf_and_Cub_05
+      - name: Lone_Wolf_and_Cub_06
+      - name: Lone_Wolf_and_Cub_07
+      - name: Lone_Wolf_and_Cub_08
+      - name: Lone_Wolf_and_Cub_09
+      - name: Lone_Wolf_and_Cub_10
+      - name: Lone_Wolf_and_Cub_11
+      - name: Lone_Wolf_and_Cub_12
+      - name: Lone_Wolf_and_Cub_13
+      - name: Lone_Wolf_and_Cub_14
+      - name: Lone_Wolf_and_Cub_15
+      - name: Lone_Wolf_and_Cub_16
+      - name: Lone_Wolf_and_Cub_17
+      - name: Lone_Wolf_and_Cub_18
+      - name: Lone_Wolf_and_Cub_19
+      - name: Lone_Wolf_and_Cub_20
+      - name: Lone_Wolf_and_Cub_21
+      - name: Lone_Wolf_and_Cub_22
+      - name: Lone_Wolf_and_Cub_23
+      - name: Lone_Wolf_and_Cub_24
+      - name: Lone_Wolf_and_Cub_25
+      - name: Lone_Wolf_and_Cub_26
+      - name: Lone_Wolf_and_Cub_27
+      - name: Lone_Wolf_and_Cub_28
+  - name: Lone_Wolf_2100
+    items:
+      - name: Lone_Wolf_2100_01
+      - name: Lone_Wolf_2100_02
+      - name: Lone_Wolf_2100_03
+      - name: Lone_Wolf_2100_04
   - name: Naruto
-    items: 
-      - name: Naruto 01
-      - name: Naruto 02
-      - name: Naruto 03
-      - name: Naruto 04
-      - name: Naruto 05
-      - name: Naruto 06
-      - name: Naruto 07
-      - name: Naruto 08
-      - name: Naruto 09
-      - name: Naruto 10
-      - name: Naruto 11
-      - name: Naruto 12
-      - name: Naruto 13
-      - name: Naruto 14
-      - name: Naruto 15
-      - name: Naruto 16
-      - name: Naruto 17
-      - name: Naruto 18
-      - name: Naruto 19
-      - name: Naruto 20
-      - name: Naruto 21
-      - name: Naruto 22
-      - name: Naruto 23
-      - name: Naruto 24
-      - name: Naruto 25
-      - name: Naruto 26
-      - name: Naruto 27
-      - name: Naruto 28
-      - name: Naruto 29
-      - name: Naruto 30
-      - name: Naruto 31
-      - name: Naruto 32
-      - name: Naruto 33
-      - name: Naruto 34
-      - name: Naruto 35
-      - name: Naruto 36
-      - name: Naruto 37
-      - name: Naruto 38
-      - name: Naruto 39
-      - name: Naruto 40
-      - name: Naruto 41
-      - name: Naruto 42
-      - name: Naruto 43
-      - name: Naruto 44
-      - name: Naruto 45
-      - name: Naruto 46
-      - name: Naruto 47
-      - name: Naruto 48
-      - name: Naruto 49
-      - name: Naruto 50
-      - name: Naruto 51
-      - name: Naruto 52
-      - name: Naruto 53
-      - name: Naruto 54
-      - name: Naruto 55
-      - name: Naruto 56
-      - name: Naruto 57
-      - name: Naruto 58
-      - name: Naruto 59
-      - name: Naruto 60
-      - name: Naruto 61
-      - name: Naruto 62
-      - name: Naruto 63
-      - name: Naruto 64
-      - name: Naruto 65
-      - name: Naruto 66
-      - name: Naruto 67
-      - name: Naruto 68
-      - name: Naruto 69
-      - name: Naruto 70
-      - name: Naruto 71
-      - name: Naruto 72
+    items:
+      - name: Naruto_01
+      - name: Naruto_02
+      - name: Naruto_03
+      - name: Naruto_04
+      - name: Naruto_05
+      - name: Naruto_06
+      - name: Naruto_07
+      - name: Naruto_08
+      - name: Naruto_09
+      - name: Naruto_10
+      - name: Naruto_11
+      - name: Naruto_12
+      - name: Naruto_13
+      - name: Naruto_14
+      - name: Naruto_15
+      - name: Naruto_16
+      - name: Naruto_17
+      - name: Naruto_18
+      - name: Naruto_19
+      - name: Naruto_20
+      - name: Naruto_21
+      - name: Naruto_22
+      - name: Naruto_23
+      - name: Naruto_24
+      - name: Naruto_25
+      - name: Naruto_26
+      - name: Naruto_27
+      - name: Naruto_28
+      - name: Naruto_29
+      - name: Naruto_30
+      - name: Naruto_31
+      - name: Naruto_32
+      - name: Naruto_33
+      - name: Naruto_34
+      - name: Naruto_35
+      - name: Naruto_36
+      - name: Naruto_37
+      - name: Naruto_38
+      - name: Naruto_39
+      - name: Naruto_40
+      - name: Naruto_41
+      - name: Naruto_42
+      - name: Naruto_43
+      - name: Naruto_44
+      - name: Naruto_45
+      - name: Naruto_46
+      - name: Naruto_47
+      - name: Naruto_48
+      - name: Naruto_49
+      - name: Naruto_50
+      - name: Naruto_51
+      - name: Naruto_52
+      - name: Naruto_53
+      - name: Naruto_54
+      - name: Naruto_55
+      - name: Naruto_56
+      - name: Naruto_57
+      - name: Naruto_58
+      - name: Naruto_59
+      - name: Naruto_60
+      - name: Naruto_61
+      - name: Naruto_62
+      - name: Naruto_63
+      - name: Naruto_64
+      - name: Naruto_65
+      - name: Naruto_66
+      - name: Naruto_67
+      - name: Naruto_68
+      - name: Naruto_69
+      - name: Naruto_70
+      - name: Naruto_71
+      - name: Naruto_72
   - name: Negima
-    items: 
-      - name: Negima 01
-      - name: Negima 02
-      - name: Negima 03
-      - name: Negima 04
-      - name: Negima 05
-      - name: Negima 06
-      - name: Negima 07
-      - name: Negima 08
-      - name: Negima 09
-      - name: Negima 10
-      - name: Negima 11
-      - name: Negima 12
-      - name: Negima 13
-      - name: Negima 14
-      - name: Negima 15
-      - name: Negima 16
-      - name: Negima 17
-      - name: Negima 18
-      - name: Negima 19
-      - name: Negima 20
-      - name: Negima 21
-      - name: Negima 22
-      - name: Negima 23
-      - name: Negima 24
-      - name: Negima 25
-      - name: Negima 26
-      - name: Negima 27
-      - name: Negima 28
-      - name: Negima 29
-      - name: Negima 30
-      - name: Negima 31
-      - name: Negima 32
-      - name: Negima 33
-      - name: Negima 34
-      - name: Negima 35
-      - name: Negima 36
-      - name: Negima 37
-      - name: Negima 38
-  - name: One Piece
-    items: 
-      - name: One Piece 001
-      - name: One Piece 002
-      - name: One Piece 003
-      - name: One Piece 004
-      - name: One Piece 005
-      - name: One Piece 006
-      - name: One Piece 007
-      - name: One Piece 008
-      - name: One Piece 009
-      - name: One Piece 010
-      - name: One Piece 011
-      - name: One Piece 012
-      - name: One Piece 013
-      - name: One Piece 014
-      - name: One Piece 015
-      - name: One Piece 016
-      - name: One Piece 017
-      - name: One Piece 018
-      - name: One Piece 019
-      - name: One Piece 020
-      - name: One Piece 021
-      - name: One Piece 022
-      - name: One Piece 023
-      - name: One Piece 024
-      - name: One Piece 025
-      - name: One Piece 026
-      - name: One Piece 027
-      - name: One Piece 028
-      - name: One Piece 029
-      - name: One Piece 030
-      - name: One Piece 031
-      - name: One Piece 032
-      - name: One Piece 033
-      - name: One Piece 034
-      - name: One Piece 035
-      - name: One Piece 036
-      - name: One Piece 037
-      - name: One Piece 038
-      - name: One Piece 039
-      - name: One Piece 040
-      - name: One Piece 041
-      - name: One Piece 042
-      - name: One Piece 043
-      - name: One Piece 044
-      - name: One Piece 045
-      - name: One Piece 046
-      - name: One Piece 047
-      - name: One Piece 048
-      - name: One Piece 049
-      - name: One Piece 050
-      - name: One Piece 051
-      - name: One Piece 052
-      - name: One Piece 053
-      - name: One Piece 054
-      - name: One Piece 055
-      - name: One Piece 056
-      - name: One Piece 057
-      - name: One Piece 058
-      - name: One Piece 059
-      - name: One Piece 060
-      - name: One Piece 061
-      - name: One Piece 062
-      - name: One Piece 063
-      - name: One Piece 064
-      - name: One Piece 065
-      - name: One Piece 066
-      - name: One Piece 067
-      - name: One Piece 068
-      - name: One Piece 069
-      - name: One Piece 070
-      - name: One Piece 071
-      - name: One Piece 072
-      - name: One Piece 073
-      - name: One Piece 074
-      - name: One Piece 075
-      - name: One Piece 076
-      - name: One Piece 077
-      - name: One Piece 078
-      - name: One Piece 079
-      - name: One Piece 080
-  - name: Path of the Assassin
-    items: 
-      - name: Path of the Assassin 01
-      - name: Path of the Assassin 02
-      - name: Path of the Assassin 03
-      - name: Path of the Assassin 04
-      - name: Path of the Assassin 05
+    items:
+      - name: Negima_01
+      - name: Negima_02
+      - name: Negima_03
+      - name: Negima_04
+      - name: Negima_05
+      - name: Negima_06
+      - name: Negima_07
+      - name: Negima_08
+      - name: Negima_09
+      - name: Negima_10
+      - name: Negima_11
+      - name: Negima_12
+      - name: Negima_13
+      - name: Negima_14
+      - name: Negima_15
+      - name: Negima_16
+      - name: Negima_17
+      - name: Negima_18
+      - name: Negima_19
+      - name: Negima_20
+      - name: Negima_21
+      - name: Negima_22
+      - name: Negima_23
+      - name: Negima_24
+      - name: Negima_25
+      - name: Negima_26
+      - name: Negima_27
+      - name: Negima_28
+      - name: Negima_29
+      - name: Negima_30
+      - name: Negima_31
+      - name: Negima_32
+      - name: Negima_33
+      - name: Negima_34
+      - name: Negima_35
+      - name: Negima_36
+      - name: Negima_37
+      - name: Negima_38
+  - name: One_Piece
+    items:
+      - name: One_Piece_001
+      - name: One_Piece_002
+      - name: One_Piece_003
+      - name: One_Piece_004
+      - name: One_Piece_005
+      - name: One_Piece_006
+      - name: One_Piece_007
+      - name: One_Piece_008
+      - name: One_Piece_009
+      - name: One_Piece_010
+      - name: One_Piece_011
+      - name: One_Piece_012
+      - name: One_Piece_013
+      - name: One_Piece_014
+      - name: One_Piece_015
+      - name: One_Piece_016
+      - name: One_Piece_017
+      - name: One_Piece_018
+      - name: One_Piece_019
+      - name: One_Piece_020
+      - name: One_Piece_021
+      - name: One_Piece_022
+      - name: One_Piece_023
+      - name: One_Piece_024
+      - name: One_Piece_025
+      - name: One_Piece_026
+      - name: One_Piece_027
+      - name: One_Piece_028
+      - name: One_Piece_029
+      - name: One_Piece_030
+      - name: One_Piece_031
+      - name: One_Piece_032
+      - name: One_Piece_033
+      - name: One_Piece_034
+      - name: One_Piece_035
+      - name: One_Piece_036
+      - name: One_Piece_037
+      - name: One_Piece_038
+      - name: One_Piece_039
+      - name: One_Piece_040
+      - name: One_Piece_041
+      - name: One_Piece_042
+      - name: One_Piece_043
+      - name: One_Piece_044
+      - name: One_Piece_045
+      - name: One_Piece_046
+      - name: One_Piece_047
+      - name: One_Piece_048
+      - name: One_Piece_049
+      - name: One_Piece_050
+      - name: One_Piece_051
+      - name: One_Piece_052
+      - name: One_Piece_053
+      - name: One_Piece_054
+      - name: One_Piece_055
+      - name: One_Piece_056
+      - name: One_Piece_057
+      - name: One_Piece_058
+      - name: One_Piece_059
+      - name: One_Piece_060
+      - name: One_Piece_061
+      - name: One_Piece_062
+      - name: One_Piece_063
+      - name: One_Piece_064
+      - name: One_Piece_065
+      - name: One_Piece_066
+      - name: One_Piece_067
+      - name: One_Piece_068
+      - name: One_Piece_069
+      - name: One_Piece_070
+      - name: One_Piece_071
+      - name: One_Piece_072
+      - name: One_Piece_073
+      - name: One_Piece_074
+      - name: One_Piece_075
+      - name: One_Piece_076
+      - name: One_Piece_077
+      - name: One_Piece_078
+      - name: One_Piece_079
+      - name: One_Piece_080
+  - name: Path_of_the_Assassin
+    items:
+      - name: Path_of_the_Assassin_01
+      - name: Path_of_the_Assassin_02
+      - name: Path_of_the_Assassin_03
+      - name: Path_of_the_Assassin_04
+      - name: Path_of_the_Assassin_05
   - name: Planetes
-    items: 
-      - name: Planetes 1
-      - name: Planetes 2
+    items:
+      - name: Planetes_1
+      - name: Planetes_2
   - name: Ragnarok
-    items: 
-      - name: Ragnarok 01
-      - name: Ragnarok 02
-      - name: Ragnarok 03
-      - name: Ragnarok 04
-      - name: Ragnarok 05
-      - name: Ragnarok 06
-      - name: Ragnarok 07
-      - name: Ragnarok 08
-      - name: Ragnarok 09
-      - name: Ragnarok 10
-  - name: Rave Master
-    items: 
-      - name: Rave Master 01
-      - name: Rave Master 02
-      - name: Rave Master 03
-      - name: Rave Master 04
-      - name: Rave Master 05
-      - name: Rave Master 06
-      - name: Rave Master 07
-      - name: Rave Master 08
-      - name: Rave Master 09
-      - name: Rave Master 10
-      - name: Rave Master 11
-      - name: Rave Master 12
-      - name: Rave Master 13
-      - name: Rave Master 14
-      - name: Rave Master 15
-      - name: Rave Master 16
-      - name: Rave Master 17
-      - name: Rave Master 18
-      - name: Rave Master 19
-      - name: Rave Master 20
-      - name: Rave Master 21
-      - name: Rave Master 22
-      - name: Rave Master 23
-      - name: Rave Master 24
-      - name: Rave Master 25
-      - name: Rave Master 26
-      - name: Rave Master 27
-      - name: Rave Master 29
-      - name: Rave Master 30
-      - name: Rave Master 31
-      - name: Rave Master 32
-      - name: Rave Master 33
-      - name: Rave Master 34
-      - name: Rave Master 35
-  - name: Rurouni Kenshin
-    items: 
-      - name: Rurouni Kenshin 01
-      - name: Rurouni Kenshin 02
-      - name: Rurouni Kenshin 03
-      - name: Rurouni Kenshin 04
-      - name: Rurouni Kenshin 05
-      - name: Rurouni Kenshin 06
-      - name: Rurouni Kenshin 07
-      - name: Rurouni Kenshin 08
-      - name: Rurouni Kenshin 09
-      - name: Rurouni Kenshin 10
-      - name: Rurouni Kenshin 11
-      - name: Rurouni Kenshin 12
-      - name: Rurouni Kenshin 13
-      - name: Rurouni Kenshin 14
-      - name: Rurouni Kenshin 15
-      - name: Rurouni Kenshin 16
-      - name: Rurouni Kenshin 17
-      - name: Rurouni Kenshin 18
-      - name: Rurouni Kenshin 19
-      - name: Rurouni Kenshin 20
-      - name: Rurouni Kenshin 21
-      - name: Rurouni Kenshin 22
-      - name: Rurouni Kenshin 23
-      - name: Rurouni Kenshin 24
-      - name: Rurouni Kenshin 25
-      - name: Rurouni Kenshin 26
-      - name: Rurouni Kenshin 27
-      - name: Rurouni Kenshin 28
-  - name: Samurai Executioner
-    items: 
-      - name: Samurai Executioner 01
-      - name: Samurai Executioner 02
-      - name: Samurai Executioner 03
-      - name: Samurai Executioner 04
-      - name: Samurai Executioner 05
-      - name: Samurai Executioner 06
-      - name: Samurai Executioner 07
-      - name: Samurai Executioner 08
-      - name: Samurai Executioner 09
-      - name: Samurai Executioner 10
+    items:
+      - name: Ragnarok_01
+      - name: Ragnarok_02
+      - name: Ragnarok_03
+      - name: Ragnarok_04
+      - name: Ragnarok_05
+      - name: Ragnarok_06
+      - name: Ragnarok_07
+      - name: Ragnarok_08
+      - name: Ragnarok_09
+      - name: Ragnarok_10
+  - name: Rave_Master
+    items:
+      - name: Rave_Master_01
+      - name: Rave_Master_02
+      - name: Rave_Master_03
+      - name: Rave_Master_04
+      - name: Rave_Master_05
+      - name: Rave_Master_06
+      - name: Rave_Master_07
+      - name: Rave_Master_08
+      - name: Rave_Master_09
+      - name: Rave_Master_10
+      - name: Rave_Master_11
+      - name: Rave_Master_12
+      - name: Rave_Master_13
+      - name: Rave_Master_14
+      - name: Rave_Master_15
+      - name: Rave_Master_16
+      - name: Rave_Master_17
+      - name: Rave_Master_18
+      - name: Rave_Master_19
+      - name: Rave_Master_20
+      - name: Rave_Master_21
+      - name: Rave_Master_22
+      - name: Rave_Master_23
+      - name: Rave_Master_24
+      - name: Rave_Master_25
+      - name: Rave_Master_26
+      - name: Rave_Master_27
+      - name: Rave_Master_29
+      - name: Rave_Master_30
+      - name: Rave_Master_31
+      - name: Rave_Master_32
+      - name: Rave_Master_33
+      - name: Rave_Master_34
+      - name: Rave_Master_35
+  - name: Rurouni_Kenshin
+    items:
+      - name: Rurouni_Kenshin_01
+      - name: Rurouni_Kenshin_02
+      - name: Rurouni_Kenshin_03
+      - name: Rurouni_Kenshin_04
+      - name: Rurouni_Kenshin_05
+      - name: Rurouni_Kenshin_06
+      - name: Rurouni_Kenshin_07
+      - name: Rurouni_Kenshin_08
+      - name: Rurouni_Kenshin_09
+      - name: Rurouni_Kenshin_10
+      - name: Rurouni_Kenshin_11
+      - name: Rurouni_Kenshin_12
+      - name: Rurouni_Kenshin_13
+      - name: Rurouni_Kenshin_14
+      - name: Rurouni_Kenshin_15
+      - name: Rurouni_Kenshin_16
+      - name: Rurouni_Kenshin_17
+      - name: Rurouni_Kenshin_18
+      - name: Rurouni_Kenshin_19
+      - name: Rurouni_Kenshin_20
+      - name: Rurouni_Kenshin_21
+      - name: Rurouni_Kenshin_22
+      - name: Rurouni_Kenshin_23
+      - name: Rurouni_Kenshin_24
+      - name: Rurouni_Kenshin_25
+      - name: Rurouni_Kenshin_26
+      - name: Rurouni_Kenshin_27
+      - name: Rurouni_Kenshin_28
+  - name: Samurai_Executioner
+    items:
+      - name: Samurai_Executioner_01
+      - name: Samurai_Executioner_02
+      - name: Samurai_Executioner_03
+      - name: Samurai_Executioner_04
+      - name: Samurai_Executioner_05
+      - name: Samurai_Executioner_06
+      - name: Samurai_Executioner_07
+      - name: Samurai_Executioner_08
+      - name: Samurai_Executioner_09
+      - name: Samurai_Executioner_10
   - name: Seikai
-    items: 
-      - name: Seikai 01 Crest of the Stars
-      - name: Seikai 02 Banner of the Stars
-      - name: Seikai 03 Banner of the Stars II
-  - name: Sword Art Online Progressive
-    items: 
-      - name: Sword Art Online Progressive 001
+    items:
+      - name: Seikai_01_Crest_of_the_Stars
+      - name: Seikai_02_Banner_of_the_Stars
+      - name: Seikai_03_Banner_of_the_Stars_II
+  - name: Sword_Art_Online_Progressive
+    items:
+      - name: Sword_Art_Online_Progressive_001
   - name: Trigun
-    items: 
-      - name: Trigun 1
-      - name: Trigun 2
-  - name: Trigun Maximum
-    items: 
-      - name: Trigun Maximum 01
-      - name: Trigun Maximum 02
-      - name: Trigun Maximum 03
-      - name: Trigun Maximum 04
-      - name: Trigun Maximum 05
-      - name: Trigun Maximum 06
-      - name: Trigun Maximum 07
-      - name: Trigun Maximum 08
-      - name: Trigun Maximum 09
-      - name: Trigun Maximum 10
-      - name: Trigun Maximum 11
+    items:
+      - name: Trigun_1
+      - name: Trigun_2
+  - name: Trigun_Maximum
+    items:
+      - name: Trigun_Maximum_01
+      - name: Trigun_Maximum_02
+      - name: Trigun_Maximum_03
+      - name: Trigun_Maximum_04
+      - name: Trigun_Maximum_05
+      - name: Trigun_Maximum_06
+      - name: Trigun_Maximum_07
+      - name: Trigun_Maximum_08
+      - name: Trigun_Maximum_09
+      - name: Trigun_Maximum_10
+      - name: Trigun_Maximum_11
   - name: Tsubasa
-    items: 
-      - name: Tsubasa 001
-      - name: Tsubasa 002
-      - name: Tsubasa 003
-      - name: Tsubasa 004
-      - name: Tsubasa 005
-      - name: Tsubasa 006
-      - name: Tsubasa 007
-      - name: Tsubasa 008
-      - name: Tsubasa 009
-      - name: Tsubasa 010
-      - name: Tsubasa 011
-      - name: Tsubasa 012
-      - name: Tsubasa 013
-      - name: Tsubasa 014
-      - name: Tsubasa 015
-      - name: Tsubasa 016
-      - name: Tsubasa 017
-      - name: Tsubasa 018
-      - name: Tsubasa 019
-      - name: Tsubasa 020
-      - name: Tsubasa 021
-      - name: Tsubasa 022
-      - name: Tsubasa 023
-      - name: Tsubasa 024
-      - name: Tsubasa 025
-      - name: Tsubasa 026
-      - name: Tsubasa 027
-      - name: Tsubasa 028
-      - name: Tsubasa 029
-      - name: Tsubasa 030
-      - name: Tsubasa 031
-      - name: Tsubasa 032
-      - name: Tsubasa 033
-      - name: Tsubasa 034
-      - name: Tsubasa 035
-      - name: Tsubasa 036
-      - name: Tsubasa 037
-      - name: Tsubasa 038
-      - name: Tsubasa 039
-      - name: Tsubasa 040
-      - name: Tsubasa 041
-      - name: Tsubasa 042
-      - name: Tsubasa 043
-      - name: Tsubasa 044
-      - name: Tsubasa 045
-      - name: Tsubasa 046
-      - name: Tsubasa 047
-      - name: Tsubasa 048
-      - name: Tsubasa 049
-      - name: Tsubasa 050
-      - name: Tsubasa 051
-      - name: Tsubasa 052
-      - name: Tsubasa 053
-      - name: Tsubasa 054
-      - name: Tsubasa 055
-      - name: Tsubasa 056
-      - name: Tsubasa 057
-      - name: Tsubasa 058
-      - name: Tsubasa 059
-      - name: Tsubasa 060
-      - name: Tsubasa 061
-      - name: Tsubasa 062
-      - name: Tsubasa 063
-      - name: Tsubasa 064
-      - name: Tsubasa 065
-      - name: Tsubasa 066
-      - name: Tsubasa 067
-      - name: Tsubasa 068
-      - name: Tsubasa 069
-      - name: Tsubasa 070
-      - name: Tsubasa 071
-      - name: Tsubasa 072
-      - name: Tsubasa 073
-      - name: Tsubasa 074
-      - name: Tsubasa 075
-      - name: Tsubasa 076
-      - name: Tsubasa 077
-      - name: Tsubasa 078
-      - name: Tsubasa 079
-      - name: Tsubasa 080
-      - name: Tsubasa 081
-      - name: Tsubasa 082
-      - name: Tsubasa 083
-      - name: Tsubasa 084
-      - name: Tsubasa 085
-      - name: Tsubasa 086
-      - name: Tsubasa 087
-      - name: Tsubasa 088
-      - name: Tsubasa 089
-      - name: Tsubasa 090
-      - name: Tsubasa 091
-      - name: Tsubasa 092
-      - name: Tsubasa 093
-      - name: Tsubasa 094
-      - name: Tsubasa 095
-      - name: Tsubasa 096
-      - name: Tsubasa 097
-      - name: Tsubasa 098
-      - name: Tsubasa 099
-      - name: Tsubasa 100
-      - name: Tsubasa 101
-      - name: Tsubasa 102
-      - name: Tsubasa 103
-      - name: Tsubasa 104
-      - name: Tsubasa 105
-      - name: Tsubasa 106
-      - name: Tsubasa 107
-      - name: Tsubasa 108
-      - name: Tsubasa 109
-      - name: Tsubasa 110
-      - name: Tsubasa 111
-      - name: Tsubasa 112
-      - name: Tsubasa 113
-      - name: Tsubasa 114
-      - name: Tsubasa 115
-      - name: Tsubasa 116
-      - name: Tsubasa 117
-      - name: Tsubasa 118
-      - name: Tsubasa 119
-      - name: Tsubasa 120
-      - name: Tsubasa 121
-      - name: Tsubasa 122
-      - name: Tsubasa 123
-      - name: Tsubasa 124
-      - name: Tsubasa 125
-      - name: Tsubasa 126
-      - name: Tsubasa 127
-      - name: Tsubasa 128
-      - name: Tsubasa 129
-      - name: Tsubasa 130
-      - name: Tsubasa 131
-      - name: Tsubasa 132
-      - name: Tsubasa 133
-      - name: Tsubasa 134
-      - name: Tsubasa 135
-      - name: Tsubasa 136
-      - name: Tsubasa 137
-      - name: Tsubasa 138
-      - name: Tsubasa 139
-      - name: Tsubasa 140
-      - name: Tsubasa 141
-      - name: Tsubasa 142
-      - name: Tsubasa 143
-      - name: Tsubasa 144
-      - name: Tsubasa 145
-      - name: Tsubasa 146
-      - name: Tsubasa 147
-      - name: Tsubasa 148
-      - name: Tsubasa 149
-      - name: Tsubasa 150
-      - name: Tsubasa 151
-      - name: Tsubasa 152
-      - name: Tsubasa 153
-      - name: Tsubasa 154
-      - name: Tsubasa 155
-      - name: Tsubasa 156
-      - name: Tsubasa 157
-      - name: Tsubasa 158
-      - name: Tsubasa 159
-      - name: Tsubasa 160
-      - name: Tsubasa 161
-      - name: Tsubasa 162
-      - name: Tsubasa 163
-      - name: Tsubasa 164
-      - name: Tsubasa 165
-      - name: Tsubasa 166
-      - name: Tsubasa 167
-      - name: Tsubasa 168
-      - name: Tsubasa 169
-      - name: Tsubasa 170
-      - name: Tsubasa 171
-      - name: Tsubasa 172
-      - name: Tsubasa 173
-      - name: Tsubasa 174
-      - name: Tsubasa 175
-      - name: Tsubasa 176
-      - name: Tsubasa 177
-      - name: Tsubasa 178
-      - name: Tsubasa 179
-      - name: Tsubasa 180
-      - name: Tsubasa 181
-      - name: Tsubasa 182
-      - name: Tsubasa 183
-      - name: Tsubasa 184
-      - name: Tsubasa 185
-      - name: Tsubasa 186
-      - name: Tsubasa 187
-      - name: Tsubasa 188
-      - name: Tsubasa 189
-      - name: Tsubasa 190
-      - name: Tsubasa 191
-      - name: Tsubasa 192
-      - name: Tsubasa 193
-      - name: Tsubasa 194
-      - name: Tsubasa 195
-      - name: Tsubasa 196
-      - name: Tsubasa 197
-      - name: Tsubasa 198
-      - name: Tsubasa 199
-      - name: Tsubasa 200
-      - name: Tsubasa 201
-      - name: Tsubasa 202
-      - name: Tsubasa 203
-      - name: Tsubasa 204
-      - name: Tsubasa 205
-      - name: Tsubasa 206
-      - name: Tsubasa 207
-      - name: Tsubasa 208
-      - name: Tsubasa 209
-      - name: Tsubasa 210
-      - name: Tsubasa 211
-      - name: Tsubasa 212
-      - name: Tsubasa 213
-      - name: Tsubasa 214
-      - name: Tsubasa 215
-      - name: Tsubasa 216
-      - name: Tsubasa 217
-      - name: Tsubasa 218
-      - name: Tsubasa 219
-      - name: Tsubasa 220
-      - name: Tsubasa 221
-      - name: Tsubasa 222
-      - name: Tsubasa 223
-      - name: Tsubasa 224
-      - name: Tsubasa 225
-      - name: Tsubasa 226
-      - name: Tsubasa 227
-      - name: Tsubasa 228
-      - name: Tsubasa 229
-      - name: Tsubasa 230
-      - name: Tsubasa 231
-      - name: Tsubasa 232
-      - name: Tsubasa 233
-  - name: UQ Holder
-    items: 
-      - name: Uq Holder 01
-      - name: Uq Holder 02
-      - name: Uq Holder 03
-      - name: Uq Holder 04
-      - name: Uq Holder 05
-      - name: Uq Holder 06
-      - name: Uq Holder 07
-      - name: Uq Holder 08
+    items:
+      - name: Tsubasa_001
+      - name: Tsubasa_002
+      - name: Tsubasa_003
+      - name: Tsubasa_004
+      - name: Tsubasa_005
+      - name: Tsubasa_006
+      - name: Tsubasa_007
+      - name: Tsubasa_008
+      - name: Tsubasa_009
+      - name: Tsubasa_010
+      - name: Tsubasa_011
+      - name: Tsubasa_012
+      - name: Tsubasa_013
+      - name: Tsubasa_014
+      - name: Tsubasa_015
+      - name: Tsubasa_016
+      - name: Tsubasa_017
+      - name: Tsubasa_018
+      - name: Tsubasa_019
+      - name: Tsubasa_020
+      - name: Tsubasa_021
+      - name: Tsubasa_022
+      - name: Tsubasa_023
+      - name: Tsubasa_024
+      - name: Tsubasa_025
+      - name: Tsubasa_026
+      - name: Tsubasa_027
+      - name: Tsubasa_028
+      - name: Tsubasa_029
+      - name: Tsubasa_030
+      - name: Tsubasa_031
+      - name: Tsubasa_032
+      - name: Tsubasa_033
+      - name: Tsubasa_034
+      - name: Tsubasa_035
+      - name: Tsubasa_036
+      - name: Tsubasa_037
+      - name: Tsubasa_038
+      - name: Tsubasa_039
+      - name: Tsubasa_040
+      - name: Tsubasa_041
+      - name: Tsubasa_042
+      - name: Tsubasa_043
+      - name: Tsubasa_044
+      - name: Tsubasa_045
+      - name: Tsubasa_046
+      - name: Tsubasa_047
+      - name: Tsubasa_048
+      - name: Tsubasa_049
+      - name: Tsubasa_050
+      - name: Tsubasa_051
+      - name: Tsubasa_052
+      - name: Tsubasa_053
+      - name: Tsubasa_054
+      - name: Tsubasa_055
+      - name: Tsubasa_056
+      - name: Tsubasa_057
+      - name: Tsubasa_058
+      - name: Tsubasa_059
+      - name: Tsubasa_060
+      - name: Tsubasa_061
+      - name: Tsubasa_062
+      - name: Tsubasa_063
+      - name: Tsubasa_064
+      - name: Tsubasa_065
+      - name: Tsubasa_066
+      - name: Tsubasa_067
+      - name: Tsubasa_068
+      - name: Tsubasa_069
+      - name: Tsubasa_070
+      - name: Tsubasa_071
+      - name: Tsubasa_072
+      - name: Tsubasa_073
+      - name: Tsubasa_074
+      - name: Tsubasa_075
+      - name: Tsubasa_076
+      - name: Tsubasa_077
+      - name: Tsubasa_078
+      - name: Tsubasa_079
+      - name: Tsubasa_080
+      - name: Tsubasa_081
+      - name: Tsubasa_082
+      - name: Tsubasa_083
+      - name: Tsubasa_084
+      - name: Tsubasa_085
+      - name: Tsubasa_086
+      - name: Tsubasa_087
+      - name: Tsubasa_088
+      - name: Tsubasa_089
+      - name: Tsubasa_090
+      - name: Tsubasa_091
+      - name: Tsubasa_092
+      - name: Tsubasa_093
+      - name: Tsubasa_094
+      - name: Tsubasa_095
+      - name: Tsubasa_096
+      - name: Tsubasa_097
+      - name: Tsubasa_098
+      - name: Tsubasa_099
+      - name: Tsubasa_100
+      - name: Tsubasa_101
+      - name: Tsubasa_102
+      - name: Tsubasa_103
+      - name: Tsubasa_104
+      - name: Tsubasa_105
+      - name: Tsubasa_106
+      - name: Tsubasa_107
+      - name: Tsubasa_108
+      - name: Tsubasa_109
+      - name: Tsubasa_110
+      - name: Tsubasa_111
+      - name: Tsubasa_112
+      - name: Tsubasa_113
+      - name: Tsubasa_114
+      - name: Tsubasa_115
+      - name: Tsubasa_116
+      - name: Tsubasa_117
+      - name: Tsubasa_118
+      - name: Tsubasa_119
+      - name: Tsubasa_120
+      - name: Tsubasa_121
+      - name: Tsubasa_122
+      - name: Tsubasa_123
+      - name: Tsubasa_124
+      - name: Tsubasa_125
+      - name: Tsubasa_126
+      - name: Tsubasa_127
+      - name: Tsubasa_128
+      - name: Tsubasa_129
+      - name: Tsubasa_130
+      - name: Tsubasa_131
+      - name: Tsubasa_132
+      - name: Tsubasa_133
+      - name: Tsubasa_134
+      - name: Tsubasa_135
+      - name: Tsubasa_136
+      - name: Tsubasa_137
+      - name: Tsubasa_138
+      - name: Tsubasa_139
+      - name: Tsubasa_140
+      - name: Tsubasa_141
+      - name: Tsubasa_142
+      - name: Tsubasa_143
+      - name: Tsubasa_144
+      - name: Tsubasa_145
+      - name: Tsubasa_146
+      - name: Tsubasa_147
+      - name: Tsubasa_148
+      - name: Tsubasa_149
+      - name: Tsubasa_150
+      - name: Tsubasa_151
+      - name: Tsubasa_152
+      - name: Tsubasa_153
+      - name: Tsubasa_154
+      - name: Tsubasa_155
+      - name: Tsubasa_156
+      - name: Tsubasa_157
+      - name: Tsubasa_158
+      - name: Tsubasa_159
+      - name: Tsubasa_160
+      - name: Tsubasa_161
+      - name: Tsubasa_162
+      - name: Tsubasa_163
+      - name: Tsubasa_164
+      - name: Tsubasa_165
+      - name: Tsubasa_166
+      - name: Tsubasa_167
+      - name: Tsubasa_168
+      - name: Tsubasa_169
+      - name: Tsubasa_170
+      - name: Tsubasa_171
+      - name: Tsubasa_172
+      - name: Tsubasa_173
+      - name: Tsubasa_174
+      - name: Tsubasa_175
+      - name: Tsubasa_176
+      - name: Tsubasa_177
+      - name: Tsubasa_178
+      - name: Tsubasa_179
+      - name: Tsubasa_180
+      - name: Tsubasa_181
+      - name: Tsubasa_182
+      - name: Tsubasa_183
+      - name: Tsubasa_184
+      - name: Tsubasa_185
+      - name: Tsubasa_186
+      - name: Tsubasa_187
+      - name: Tsubasa_188
+      - name: Tsubasa_189
+      - name: Tsubasa_190
+      - name: Tsubasa_191
+      - name: Tsubasa_192
+      - name: Tsubasa_193
+      - name: Tsubasa_194
+      - name: Tsubasa_195
+      - name: Tsubasa_196
+      - name: Tsubasa_197
+      - name: Tsubasa_198
+      - name: Tsubasa_199
+      - name: Tsubasa_200
+      - name: Tsubasa_201
+      - name: Tsubasa_202
+      - name: Tsubasa_203
+      - name: Tsubasa_204
+      - name: Tsubasa_205
+      - name: Tsubasa_206
+      - name: Tsubasa_207
+      - name: Tsubasa_208
+      - name: Tsubasa_209
+      - name: Tsubasa_210
+      - name: Tsubasa_211
+      - name: Tsubasa_212
+      - name: Tsubasa_213
+      - name: Tsubasa_214
+      - name: Tsubasa_215
+      - name: Tsubasa_216
+      - name: Tsubasa_217
+      - name: Tsubasa_218
+      - name: Tsubasa_219
+      - name: Tsubasa_220
+      - name: Tsubasa_221
+      - name: Tsubasa_222
+      - name: Tsubasa_223
+      - name: Tsubasa_224
+      - name: Tsubasa_225
+      - name: Tsubasa_226
+      - name: Tsubasa_227
+      - name: Tsubasa_228
+      - name: Tsubasa_229
+      - name: Tsubasa_230
+      - name: Tsubasa_231
+      - name: Tsubasa_232
+      - name: Tsubasa_233
+  - name: Uq_Holder
+    items:
+      - name: Uq_Holder_01
+      - name: Uq_Holder_02
+      - name: Uq_Holder_03
+      - name: Uq_Holder_04
+      - name: Uq_Holder_05
+      - name: Uq_Holder_06
+      - name: Uq_Holder_07
+      - name: Uq_Holder_08
   - name: Vagabond
-    items: 
-      - name: Vagabond 01
-      - name: Vagabond 02
-      - name: Vagabond 03
-      - name: Vagabond 04
-      - name: Vagabond 05
-      - name: Vagabond 06
-      - name: Vagabond 07
-      - name: Vagabond 08
-      - name: Vagabond 09
-      - name: Vagabond 10
-      - name: Vagabond 11
-      - name: Vagabond 12
-      - name: Vagabond 13
-      - name: Vagabond 14
-      - name: Vagabond 15
-      - name: Vagabond 16
-      - name: Vagabond 17
-      - name: Vagabond 18
-      - name: Vagabond 19
-      - name: Vagabond 20
-      - name: Vagabond 21
-      - name: Vagabond 22
-      - name: Vagabond 23
-      - name: Vagabond 24
-      - name: Vagabond 25
-      - name: Vagabond 26
-      - name: Vagabond 27
-      - name: Vagabond 28
-      - name: Vagabond 29
-      - name: Vagabond 30
-      - name: Vagabond 31
-      - name: Vagabond 32
-      - name: Vagabond 33
-      - name: Vagabond 34
-      - name: Vagabond 35
-      - name: Vagabond 36
-      - name: Vagabond 37
+    items:
+      - name: Vagabond_01
+      - name: Vagabond_02
+      - name: Vagabond_03
+      - name: Vagabond_04
+      - name: Vagabond_05
+      - name: Vagabond_06
+      - name: Vagabond_07
+      - name: Vagabond_08
+      - name: Vagabond_09
+      - name: Vagabond_10
+      - name: Vagabond_11
+      - name: Vagabond_12
+      - name: Vagabond_13
+      - name: Vagabond_14
+      - name: Vagabond_15
+      - name: Vagabond_16
+      - name: Vagabond_17
+      - name: Vagabond_18
+      - name: Vagabond_19
+      - name: Vagabond_20
+      - name: Vagabond_21
+      - name: Vagabond_22
+      - name: Vagabond_23
+      - name: Vagabond_24
+      - name: Vagabond_25
+      - name: Vagabond_26
+      - name: Vagabond_27
+      - name: Vagabond_28
+      - name: Vagabond_29
+      - name: Vagabond_30
+      - name: Vagabond_31
+      - name: Vagabond_32
+      - name: Vagabond_33
+      - name: Vagabond_34
+      - name: Vagabond_35
+      - name: Vagabond_36
+      - name: Vagabond_37
   - name: Xxxholic
-    items: 
-      - name: Xxxholic 01
-      - name: Xxxholic 02
-      - name: Xxxholic 03
-      - name: Xxxholic 04
-      - name: Xxxholic 05
-      - name: Xxxholic 06
-Xxxholic 07
+    items:
+      - name: Xxxholic_01
+      - name: Xxxholic_02
+      - name: Xxxholic_03
+      - name: Xxxholic_04
+      - name: Xxxholic_05
+      - name: Xxxholic_06
+      - name: Xxxholic_07
