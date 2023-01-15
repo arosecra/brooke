@@ -7,16 +7,14 @@ import org.github.arosecra.brooke.model.api.BookDetailsApiModel;
 import org.github.arosecra.brooke.model.api.CategoryApiModel;
 import org.github.arosecra.brooke.model.api.CollectionApiModel;
 import org.github.arosecra.brooke.model.api.ItemApiModel;
+import org.github.arosecra.brooke.model2.JobDetails;
 import org.github.arosecra.brooke.services.BrookeRestService;
+import org.github.arosecra.brooke.task.CopyFileAsyncTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 
 @RestController
 public class BrookeRestController {
@@ -52,10 +50,13 @@ public class BrookeRestController {
 	}
 	
 	@GetMapping("/rest/cache/{collectionName}/{itemName}")
-	public boolean getSeries(
+	public JobDetails cacheItem(
 			@PathVariable("collectionName") String collectionName,
 			@PathVariable("itemName") String seriesName
 	) throws IOException {
+		
+		
+		
 		return this.brookeRestService.cacheItem(collectionName, seriesName);
 	}
 	
@@ -82,6 +83,22 @@ public class BrookeRestController {
 			@PathVariable("pageNumber") int pageNumber
 	) throws IOException {
 		return this.brookeRestService.getPage(collectionName, itemName, pageNumber);
+	}
+	
+	@Autowired
+	private CopyFileAsyncTask copyFileAsyncTask;
+	
+	@GetMapping("/rest/job-details/{jobNumber}")
+	public JobDetails getJobDetails(
+			@PathVariable("jobNumber") String jobNumber
+			) throws IOException {
+		
+		JobDetails jd = new JobDetails();
+		jd.setCurrent(this.copyFileAsyncTask.getCopied().get());
+		jd.setTotal(this.copyFileAsyncTask.getFilesize().get());
+		
+		return jd;
+//		return this.brookeRestService.getJobDetails(jobNumber);
 	}
 	
 	@GetMapping("/rest/book-details/{collectionName}/{itemName}")

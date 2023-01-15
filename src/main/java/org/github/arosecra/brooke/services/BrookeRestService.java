@@ -9,11 +9,13 @@ import javax.annotation.PostConstruct;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.github.arosecra.brooke.Settings;
+import org.github.arosecra.brooke.dao.JobDao;
 import org.github.arosecra.brooke.dao.LibraryDao2;
 import org.github.arosecra.brooke.model.api.BookDetailsApiModel;
 import org.github.arosecra.brooke.model.api.CategoryApiModel;
 import org.github.arosecra.brooke.model.api.CollectionApiModel;
 import org.github.arosecra.brooke.model.api.ItemApiModel;
+import org.github.arosecra.brooke.model2.JobDetails;
 import org.github.arosecra.brooke.model2.Library;
 import org.github.arosecra.brooke.model2.Shelf;
 import org.github.arosecra.brooke.model2.ShelfItem;
@@ -47,6 +49,9 @@ public class BrookeRestService {
 	
 	@Autowired
 	private FileCacheService fileCacheService;
+	
+	@Autowired
+	private JobDao jobDao;
 	
 	private LibraryDao2 libraryDao2;
 	
@@ -175,7 +180,7 @@ public class BrookeRestService {
 		}
 	}
 	
-	public boolean cacheItem(String collectionName, String itemName) throws IOException {
+	public JobDetails cacheItem(String collectionName, String itemName) throws IOException {
 		File remoteFile = null;
 		CollectionApiModel collection = this.getCollection(collectionName);
 		
@@ -187,8 +192,12 @@ public class BrookeRestService {
 			}
 		}
 		
-		fileCacheService.cacheRemoteFile(remoteFile);
-		return true;
+		long jobId = fileCacheService.cacheRemoteFile(remoteFile);
+		
+		JobDetails details = new JobDetails();
+//		details.setJobNumber(jobId);
+		details.setJobType("Caching");
+		return details;
 	}
 
 	public byte[] getPage(String collectionName, String itemName, int pageNumber) throws IOException {
@@ -231,6 +240,10 @@ public class BrookeRestService {
 		BookDetailsApiModel result = mapper.readValue(cbtDetailsFile, BookDetailsApiModel.class);
 		
 		return result;
+	}
+
+	public JobDetails getJobDetails(String jobNumber) {
+		return jobDao.getJobDetails(jobNumber);
 	}
 
 }
