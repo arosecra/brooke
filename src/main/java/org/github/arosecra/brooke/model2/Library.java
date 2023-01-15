@@ -2,6 +2,8 @@ package org.github.arosecra.brooke.model2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import org.github.arosecra.brooke.model.api.CollectionApiModel;
 
@@ -9,6 +11,8 @@ public class Library {
 	private List<CollectionApiModel> collections = new ArrayList<>();
 	private List<ItemCatalog> itemCatalogs = new ArrayList<>();
 	private List<Shelf> shelves = new ArrayList<>();
+	
+//	private Map<String, ItemLocation> itemLocations = new TreeMap<>();
 
 	public List<CollectionApiModel> getCollections() {
 		return collections;
@@ -33,4 +37,12 @@ public class Library {
 	public void setItemCatalogs(List<ItemCatalog> itemCatalogs) {
 		this.itemCatalogs = itemCatalogs;
 	}
+
+//	public Map<String, ItemLocation> getItemLocations() {
+//		return itemLocations;
+//	}
+//
+//	public void setItemLocations(Map<String, ItemLocation> itemLocations) {
+//		this.itemLocations = itemLocations;
+//	}
 }

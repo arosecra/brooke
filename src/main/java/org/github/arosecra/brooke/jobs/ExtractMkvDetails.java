@@ -20,10 +20,10 @@ public class ExtractMkvDetails implements BrookeJobStep {
 			GS_EXE,
 			
 			"-J",
-			file.getAbsolutePath(),
+			"\""+file.getAbsolutePath()+"\"",
 			
 			">",
-			outputFile.getAbsolutePath()
+			"\""+outputFile.getAbsolutePath()+"\""
 		};
 		
 		org.github.arosecra.brooke.util.CommandLine.run(args);

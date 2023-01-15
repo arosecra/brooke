@@ -52,6 +52,12 @@ public class BrookeService {
 	@Autowired
 	private Settings settings;
 	
+	@Autowired 
+	private TarService tarService;
+	
+	@Autowired 
+	private FileCacheService fileCacheService;
+	
 	private LibraryDao libraryDao;
 	
 	private Library library;
@@ -140,26 +146,7 @@ public class BrookeService {
 
 	public byte[] getPage(String collectionName, String categoryName, String itemName, int pageNumber) throws IOException {
 		File tar = getCachedFile(collectionName, collectionName, categoryName, itemName, 0);
-		return getPageFromTar(tar, pageNumber);
-	}
-	
-	private byte[] getPageFromTar(File file, int page) throws IOException {
-		int currentPage = 0;
-		byte[] result = new byte[0];
-		try (TarArchiveInputStream tarIn = new TarArchiveInputStream(
-				new BufferedInputStream(new FileInputStream(file)))) {
-			TarArchiveEntry entry;
-			while ((entry = (TarArchiveEntry) tarIn.getNextEntry()) != null) {
-				if (page == currentPage) {
-					ByteArrayOutputStream baos = new ByteArrayOutputStream();
-					IOUtils.copy(tarIn, baos);
-					result = baos.toByteArray();
-					System.out.println("Loading page " + currentPage + " from tarball");
-				}
-				currentPage++;
-			}
-		}
-		return result;
+		return tarService.getPageFromTar(tar, pageNumber);
 	}
 
 	public ShelfItem getItemByName(String collectionName, String catalogName, String categoryName, String itemName) {
@@ -274,19 +261,9 @@ public class BrookeService {
 	}
 
 	public void cacheItem(String collectionName, String catalogName, String categoryName, String itemName, int index) throws IOException {
-		File cacheFolder = new File("D:\\Library\\Cache");
-		int numberCached = Try.listFilesSafe(cacheFolder).length;
-		
-		if(numberCached > 10) {
-			do {
-				Try.listFilesSafe(cacheFolder)[0].delete();
-			} while (Try.listFilesSafe(new File("D:\\Library\\Cache")).length > 10);
-		}
 		File remoteFile = getRemoteFile(collectionName, catalogName, categoryName, itemName, index);
-		File cacheFile = new File(cacheFolder, remoteFile.getName());
-		FileUtil.copyFile(remoteFile, cacheFile);
-		
-	}	
+		fileCacheService.cacheRemoteFile(remoteFile);
+	}
 	
 	public boolean isCached(String collectionName, String catalogName, String categoryName, String itemName, int index) {
 		return getCachedFile(collectionName, catalogName, categoryName, itemName, index).exists();

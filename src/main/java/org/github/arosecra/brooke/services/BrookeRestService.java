@@ -10,6 +10,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.github.arosecra.brooke.Settings;
 import org.github.arosecra.brooke.dao.LibraryDao2;
+import org.github.arosecra.brooke.model.api.BookDetailsApiModel;
 import org.github.arosecra.brooke.model.api.CategoryApiModel;
 import org.github.arosecra.brooke.model.api.CollectionApiModel;
 import org.github.arosecra.brooke.model.api.ItemApiModel;
@@ -18,6 +19,11 @@ import org.github.arosecra.brooke.model2.Shelf;
 import org.github.arosecra.brooke.model2.ShelfItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 
 @Service
 public class BrookeRestService {
@@ -36,6 +42,12 @@ public class BrookeRestService {
 	@Autowired
 	private Settings settings;
 	
+	@Autowired
+	private TarService tarService;
+	
+	@Autowired
+	private FileCacheService fileCacheService;
+	
 	private LibraryDao2 libraryDao2;
 	
 	private Library library;
@@ -45,7 +57,7 @@ public class BrookeRestService {
 	
 	@PostConstruct()
 	public void init() {
-		library = libraryDao2.getLibrary();
+		library = libraryDao2.getLibrary(false);
 	}
 	
 
@@ -161,6 +173,64 @@ public class BrookeRestService {
 		} else {
 			return FileUtils.readFileToByteArray(thumbnailFile);
 		}
+	}
+	
+	public boolean cacheItem(String collectionName, String itemName) throws IOException {
+		File remoteFile = null;
+		CollectionApiModel collection = this.getCollection(collectionName);
+		
+		Shelf shelf = this.getShelf(collectionName.replaceAll(" ", "_"));
+		if(shelf != null) {
+			ShelfItem shelfItem = shelf.get(itemName.replaceAll(" ", "_"));
+			if(shelfItem != null) {
+				remoteFile = new File(shelfItem.getRemoteBaseDirectory(), shelfItem.getName() + "." + collection.getItemExtension());
+			}
+		}
+		
+		fileCacheService.cacheRemoteFile(remoteFile);
+		return true;
+	}
+
+	public byte[] getPage(String collectionName, String itemName, int pageNumber) throws IOException {
+		File tar = getCachedFile(collectionName, itemName);
+		return tarService.getPageFromTar(tar, pageNumber);
+	}
+	
+	private File getCachedFile(String collectionName, String itemName) {
+		File cacheFolder = new File("D:\\Library\\Cache");
+		CollectionApiModel collection = this.getCollection(collectionName);
+		
+		
+		File remoteFile = null;
+		Shelf shelf = this.getShelf(collectionName.replaceAll(" ", "_"));
+		if(shelf != null) {
+			ShelfItem shelfItem = shelf.get(itemName.replaceAll(" ", "_"));
+			if(shelfItem != null) {
+				remoteFile = new File(shelfItem.getRemoteBaseDirectory(), shelfItem.getName() + "." + collection.getItemExtension());
+			}
+		}
+		
+		
+		File cacheFile = new File(cacheFolder, remoteFile.getName());
+		return cacheFile;
+	}
+
+	public BookDetailsApiModel getBookDetails(String collectionName, String itemName) throws JsonParseException, JsonMappingException, IOException {
+		
+		File cbtDetailsFile = null;
+		
+		Shelf shelf = this.getShelf(collectionName.replaceAll(" ", "_"));
+		if(shelf != null) {
+			ShelfItem shelfItem = shelf.get(itemName.replaceAll(" ", "_"));
+			if(shelfItem != null) {
+				cbtDetailsFile = new File(shelfItem.getLocalBaseDirectory(), "cbtDetails.yaml");
+			}
+		}
+
+		ObjectMapper mapper = new YAMLMapper();
+		BookDetailsApiModel result = mapper.readValue(cbtDetailsFile, BookDetailsApiModel.class);
+		
+		return result;
 	}
 
 }

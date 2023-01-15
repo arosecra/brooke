@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Properties;
 
@@ -30,7 +32,16 @@ public class Try {
 	
 	public static File[] listFilesSafe(File file) {
 		if(file.listFiles() != null) {
-			return file.listFiles();
+			File[] results = file.listFiles();
+			Arrays.sort(results, new Comparator<File>() {
+
+				@Override
+				public int compare(File o1, File o2) {
+					return Long.compare(o1.lastModified(), o2.lastModified()); 
+				}
+				
+			});
+			return results;
 		} else {
 			return new File[] {};
 		}

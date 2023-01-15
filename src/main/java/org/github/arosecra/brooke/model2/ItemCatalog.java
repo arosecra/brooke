@@ -7,6 +7,9 @@ import org.github.arosecra.brooke.model.api.ItemApiModel;
 public class ItemCatalog extends TreeMap<String, ItemApiModel> {
 
 	private String name;
+	
+	
+	
 
 	public String getName() {
 		return name;
