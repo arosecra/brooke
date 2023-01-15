@@ -9,7 +9,6 @@ import org.github.arosecra.brooke.model.api.CollectionApiModel;
 import org.github.arosecra.brooke.model.api.ItemApiModel;
 import org.github.arosecra.brooke.model2.JobDetails;
 import org.github.arosecra.brooke.services.BrookeRestService;
-import org.github.arosecra.brooke.task.CopyFileAsyncTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,10 +53,8 @@ public class BrookeRestController {
 			@PathVariable("collectionName") String collectionName,
 			@PathVariable("itemName") String seriesName
 	) throws IOException {
-		
-		
-		
-		return this.brookeRestService.cacheItem(collectionName, seriesName);
+		JobDetails details = this.brookeRestService.cacheItem(collectionName, seriesName);
+		return details;
 	}
 	
 	@GetMapping(value="/rest/thumbnail/{collectionName}/{itemName}", produces = MediaType.IMAGE_PNG_VALUE)
@@ -85,20 +82,11 @@ public class BrookeRestController {
 		return this.brookeRestService.getPage(collectionName, itemName, pageNumber);
 	}
 	
-	@Autowired
-	private CopyFileAsyncTask copyFileAsyncTask;
-	
 	@GetMapping("/rest/job-details/{jobNumber}")
 	public JobDetails getJobDetails(
-			@PathVariable("jobNumber") String jobNumber
+			@PathVariable("jobNumber") long jobNumber
 			) throws IOException {
-		
-		JobDetails jd = new JobDetails();
-		jd.setCurrent(this.copyFileAsyncTask.getCopied().get());
-		jd.setTotal(this.copyFileAsyncTask.getFilesize().get());
-		
-		return jd;
-//		return this.brookeRestService.getJobDetails(jobNumber);
+		return this.brookeRestService.getJobDetails(jobNumber);
 	}
 	
 	@GetMapping("/rest/book-details/{collectionName}/{itemName}")
@@ -110,11 +98,12 @@ public class BrookeRestController {
 	}
 	
 	@GetMapping("/rest/video/{collectionName}/{itemName}")
-	public boolean openVideo(
+	public JobDetails openVideo(
 			@PathVariable("collectionName") String collectionName,
 			@PathVariable("itemName") String itemName
-			) {
-		return false;
+			) throws IOException {
+		this.brookeRestService.openVLC(collectionName, itemName);
+		return new JobDetails();
 	}
 	
 	@GetMapping("/rest/video-details/{collectionName}/{itemName}")

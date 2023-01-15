@@ -1,20 +1,25 @@
 package org.github.arosecra.brooke.services;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.github.arosecra.brooke.Settings;
-import org.github.arosecra.brooke.dao.JobDao;
+import org.github.arosecra.brooke.dao.JobService;
 import org.github.arosecra.brooke.dao.LibraryDao2;
 import org.github.arosecra.brooke.model.api.BookDetailsApiModel;
 import org.github.arosecra.brooke.model.api.CategoryApiModel;
 import org.github.arosecra.brooke.model.api.CollectionApiModel;
 import org.github.arosecra.brooke.model.api.ItemApiModel;
+import org.github.arosecra.brooke.model.api.VlcOptionsApiModel;
 import org.github.arosecra.brooke.model2.JobDetails;
 import org.github.arosecra.brooke.model2.Library;
 import org.github.arosecra.brooke.model2.Shelf;
@@ -51,7 +56,7 @@ public class BrookeRestService {
 	private FileCacheService fileCacheService;
 	
 	@Autowired
-	private JobDao jobDao;
+	private JobService jobDao;
 	
 	private LibraryDao2 libraryDao2;
 	
@@ -192,12 +197,7 @@ public class BrookeRestService {
 			}
 		}
 		
-		long jobId = fileCacheService.cacheRemoteFile(remoteFile);
-		
-		JobDetails details = new JobDetails();
-//		details.setJobNumber(jobId);
-		details.setJobType("Caching");
-		return details;
+		return fileCacheService.cacheRemoteFile(remoteFile);
 	}
 
 	public byte[] getPage(String collectionName, String itemName, int pageNumber) throws IOException {
@@ -242,8 +242,81 @@ public class BrookeRestService {
 		return result;
 	}
 
-	public JobDetails getJobDetails(String jobNumber) {
+	public JobDetails getJobDetails(long jobNumber) {
 		return jobDao.getJobDetails(jobNumber);
+	}
+
+	public void openVLC(String collectionName, String itemName) throws IOException {
+
+
+		File cacheFolder = new File("D:\\Library\\Cache");
+		CollectionApiModel collection = this.getCollection(collectionName);
+		
+		
+		File remoteFile = null;
+		Shelf shelf = this.getShelf(collectionName.replaceAll(" ", "_"));
+		if(shelf != null) {
+			ShelfItem shelfItem = shelf.get(itemName.replaceAll(" ", "_"));
+			if(shelfItem != null) {
+				remoteFile = new File(shelfItem.getRemoteBaseDirectory(), shelfItem.getName() + "." + collection.getItemExtension());
+			}
+		}
+		
+		
+		File cacheFile = new File(cacheFolder, remoteFile.getName());
+		
+		VlcOptionsApiModel vlcOptions = null;
+		//TODO - look up the location based off of the collection and item, then
+		//       get the vlc options if they are in the child item or series item (if applicable)
+		
+		
+		
+		
+		String vlcCacheFilename = "file:///" + cacheFile.getAbsolutePath();
+		
+//		File vlcOptionsFile = new File(shelfItem.getFolder(), "vlcOptions.txt");
+//		if(!shelfItem.getChildItems().isEmpty()) {
+//			vlcOptionsFile = new File(shelfItem.getChildItems().get(index).getFolder(), "vlcOptions.txt");
+//		}
+		
+		List<String> vlcOptionArgs = new ArrayList<>();
+		vlcOptionArgs.add("cmd.exe");
+		vlcOptionArgs.add("/C");
+		vlcOptionArgs.add("\"C:\\Program Files\\VideoLAN\\VLC\\vlc.exe\"");
+		vlcOptionArgs.add(vlcCacheFilename);
+		
+//		if(vlcOptionsFile.exists()) {
+//			List<String> lines = FileUtils.readLines(vlcOptionsFile);
+//			vlcOptions.addAll(lines);
+//		}
+		
+		//:sub-track-id=
+		//:audio-track-id=
+//		for(String s : vlcOptionArgs)
+//			System.out.println(s);
+		
+		ProcessBuilder builder = new ProcessBuilder((String[]) vlcOptionArgs.toArray(new String[vlcOptionArgs.size()]));
+		builder.redirectErrorStream(true);
+		final Process process = builder.start();
+
+		// Watch the process
+		watch(process);
+	}
+	
+	private static void watch(final Process process) {
+	    new Thread() {
+	        public void run() {
+	            BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
+	            String line = null; 
+	            try {
+	                while ((line = input.readLine()) != null) {
+	                    System.out.println(line);
+	                }
+	            } catch (IOException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }.start();
 	}
 
 }
