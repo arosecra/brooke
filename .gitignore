@@ -1,0 +1,6 @@
+
+angular/node_modules/
+electron/node_modules/
+node_modules/
+java/target/
+target/
