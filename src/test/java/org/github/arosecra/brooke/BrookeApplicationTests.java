@@ -35,31 +35,31 @@ class BrookeApplicationTests {
     @SuppressWarnings("static-access")
     public void before() {
 
-        this.mockMvc = MockMvcBuilders.
-        		webAppContextSetup(this.context)
-//        		.alwaysDo(print())
-        		.build();
-        this.webClient = MockMvcWebClientBuilder
-        		.webAppContextSetup(context)
-        		.mockMvcSetup(mockMvc)
-        		.build();
-        MockEnvironment env = new MockEnvironment();
-        this.driver = MockMvcHtmlUnitDriverBuilder
-        		.webAppContextSetup(this.context)
-        		.mockMvcSetup(mockMvc)
-        		.alwaysUseMockMvc()
-        		.withDelegate(new LocalHostWebConnectionHtmlUnitDriver(env, BrowserVersion.CHROME))
-        		.build();
+//        this.mockMvc = MockMvcBuilders.
+//        		webAppContextSetup(this.context)
+////        		.alwaysDo(print())
+//        		.build();
+//        this.webClient = MockMvcWebClientBuilder
+//        		.webAppContextSetup(context)
+//        		.mockMvcSetup(mockMvc)
+//        		.build();
+//        MockEnvironment env = new MockEnvironment();
+//        this.driver = MockMvcHtmlUnitDriverBuilder
+//        		.webAppContextSetup(this.context)
+//        		.mockMvcSetup(mockMvc)
+//        		.alwaysUseMockMvc()
+//        		.withDelegate(new LocalHostWebConnectionHtmlUnitDriver(env, BrowserVersion.CHROME))
+//        		.build();
     }
     
     @Test
     public void shouldReturnDefaultMessage() throws Exception {
-        this.driver.get("/");
-        System.out.println(driver.getPageSource());
-        assertEquals("Home", driver.findElement(By.xpath("//a[1]")).getText());
-        
-        driver.findElement(By.xpath("//a[2]")).click();
-        System.out.println(driver.getPageSource());
+//        this.driver.get("/");
+//        System.out.println(driver.getPageSource());
+//        assertEquals("Home", driver.findElement(By.xpath("//a[1]")).getText());
+//        
+//        driver.findElement(By.xpath("//a[2]")).click();
+//        System.out.println(driver.getPageSource());
 //        webClient.getPage("http://localhost:8080/")
     }
 

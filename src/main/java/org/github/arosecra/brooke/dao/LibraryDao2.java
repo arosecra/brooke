@@ -2,16 +2,14 @@ package org.github.arosecra.brooke.dao;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang3.ObjectUtils;
 import org.github.arosecra.brooke.Settings;
 import org.github.arosecra.brooke.model.api.CategoryApiModel;
 import org.github.arosecra.brooke.model.api.CollectionApiModel;
 import org.github.arosecra.brooke.model.api.ItemApiModel;
-import org.github.arosecra.brooke.model2.ItemCatalog;
+import org.github.arosecra.brooke.model2.ItemLocation;
 import org.github.arosecra.brooke.model2.Library;
 import org.github.arosecra.brooke.model2.Shelf;
 import org.github.arosecra.brooke.model2.ShelfItem;
@@ -43,14 +41,46 @@ public class LibraryDao2 {
 			getShelfItemsFromRemote(result);
 		}
 		
-		getItemLocations(result);
+//		getItemLocations(result);
 		
 		System.out.println("Finished loading library");
 		return result;
 	}
 
 	private void getItemLocations(Library result) {
+		for(CollectionApiModel collection : result.getCollections()) {
+			for(CategoryApiModel category: collection.getCategories()) {
+				for(ItemApiModel item: category.getItems()) {
+					
+					if(!item.isSeries()) {
+						ItemLocation itemLocation = new ItemLocation();
+						itemLocation.setCollectionName(collection.getName());
+						itemLocation.setCategoryName(category.getName());
+						itemLocation.setItemName(null);
+						
+					} else {
+						for(ItemApiModel child : item.getChildItems()) {
 
+							ItemLocation itemLocation = new ItemLocation();
+							itemLocation.setCollectionName(collection.getName());
+							itemLocation.setCategoryName(category.getName());
+							itemLocation.setItemName(null);
+							
+							
+							
+							
+						}
+						
+					}
+					
+					
+					
+					
+					
+					
+				}
+			}
+		}
 	}
 
 	private void getShelfItemsFromLocal(Library result) {
@@ -156,21 +186,6 @@ public class LibraryDao2 {
 				try {
 					CollectionApiModel apiCollection = mapper.readValue(file, CollectionApiModel.class);
 					result.getCollections().add(apiCollection);
-					
-					ItemCatalog ic = new ItemCatalog();
-					ic.setName(apiCollection.getName());
-					
-					for(CategoryApiModel cat : apiCollection.getCategories()) {
-						for(ItemApiModel item : ObjectUtils.firstNonNull(cat.getItems(), new ArrayList<ItemApiModel>())) {
-							ic.put(item.getName(), item);
-							
-							for(ItemApiModel child : ObjectUtils.firstNonNull(item.getChildItems(), new ArrayList<ItemApiModel>())) {
-								ic.put(child.getName(), child);
-							}
-						}
-						
-					}
-					result.getItemCatalogs().add(ic);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
