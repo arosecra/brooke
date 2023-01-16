@@ -3,7 +3,28 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "install:angular":"cd angular && npm install",
+    "build:angular":"cd angular && npm run build",
+    "start:angular":"cd angular && npm run start",
+    "package:angular":"cd angular && npm run package",
+
+    "install:electron":"cd electron && npm install",
+    "build:electron":"cd electron && npm run make",
+    "start:electron":"cd electron && npm run start",
+    "package:electron":"cd electron && npm run package",
+
+    "install:java":"",
+    "build:java":"cd java && mvn clean package -DskipTests=true",
+    "start:java":"cd java && java -jar target/brooke.war",
+    "package:java":"cd java && mvn clean install",
+
+
+    "install":"npm-run-all install:java install:angular install:electron",
+    "build": "npm-run-all build:java build:angular build:electron",
+    "start": "npm-run-all start:java start:angular start:electron",
+    "package": "npm-run-all package:java package:angular package:electron"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/arosecra/brooke.git"

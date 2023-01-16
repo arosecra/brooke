@@ -1,6 +1,8 @@
 
 angular/node_modules/
 electron/node_modules/
+electron/out/
 node_modules/
 java/target/
+java/derby.log
 target/
