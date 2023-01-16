@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.brooke-sidenav-container { 
+    position: inherit;
+    height: 100%;
+    display: inherit;
+    transform: inherit; 
+}
+
+.brooke-item{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between
+  }
+
+@import 'bulma/css/bulma.css';

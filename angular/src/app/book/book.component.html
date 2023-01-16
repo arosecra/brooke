@@ -1,0 +1,31 @@
+<ng-container *ngIf="vm$ | async as vm">
+    <app-top-bar style="display: contents;"></app-top-bar>
+
+    <section class="hero is-fullheight-with-navbar">
+        <div class="hero-body" style="padding: 0em 0em;">
+            <div class="tile is-ancestor">
+                <div class="tile  is-vertical is-6">
+                    <div class="tile is-child">
+
+                        <figure class="image">
+                            <img class="is-square"
+                                src="http://localhost:4200/rest/page/{{vm.collection.name}}/{{vm.item}}/{{vm.leftPage}}" />
+                        </figure>
+
+                    </div>
+                </div>
+                <div class="tile">
+                    <div class="tile is-child">
+
+                        <figure class="image">
+                            <img class="is-square"
+                                src="http://localhost:4200/rest/page/{{vm.collection.name}}/{{vm.item}}/{{vm.rightPage}}" />
+                        </figure>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</ng-container>

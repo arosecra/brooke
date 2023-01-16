@@ -1,0 +1,15 @@
+<ng-container *ngIf="vm$ | async as vm">
+  <app-top-bar style="display: contents;"></app-top-bar>
+
+  <div class="tile is-ancestor ">
+      <app-collection-menu ></app-collection-menu>
+      <app-category-menu></app-category-menu>
+      <div class="tile is-vertical">
+          <div class="tile is-child box">
+              
+          </div>
+      </div>
+  
+  </div>
+
+</ng-container>

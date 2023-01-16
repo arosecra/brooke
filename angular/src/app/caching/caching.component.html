@@ -1,0 +1,15 @@
+<ng-container *ngIf="vm$ | async as vm">
+
+    <section class="hero is-large">
+        <div class="hero-body">
+          <p class="title">
+            Caching {{vm.queryParams.item}}
+          </p>
+          <p class="subtitle">
+            <progress class="progress is-large" value="{{vm.jobDetails.current}}" max="{{vm.jobDetails.total}}">80%</progress>
+          </p>
+        </div>
+      </section>
+
+
+</ng-container>

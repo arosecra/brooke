@@ -1,0 +1,15 @@
+<ng-container *ngIf="(vm$ | async) as vm">
+
+    <div class="tile is-parent is-vertical">
+            <aside class="menu ">
+                <ul class="menu-list">
+                    <li *ngFor="let link of vm.links">
+                        <a class="button menu-label" [routerLink]="[link.routerLink]" [queryParams]="link.queryParams">
+                            {{link.displayName}}
+                        </a>
+                    </li>
+                </ul>
+            </aside>
+    </div>
+
+</ng-container>
