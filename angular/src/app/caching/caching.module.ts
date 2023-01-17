@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CachingComponent } from './caching.component';
-
+import {NgxFilesizeModule} from 'ngx-filesize';
 
 
 @NgModule({
@@ -9,7 +9,8 @@ import { CachingComponent } from './caching.component';
     CachingComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+		NgxFilesizeModule,
   ],
   exports: [
     CachingComponent

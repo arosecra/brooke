@@ -3,8 +3,32 @@
     <section class="hero is-large">
         <div class="hero-body">
           <p class="title">
-            Caching {{vm.queryParams.item}}
+            Caching {{vm.queryParams.item.replaceAll('_', ' ')}}
           </p>
+
+					<nav class="level">
+						<!-- Left side -->
+						<div class="level-left">
+							<div class="level-item has-text-centered">
+								<div>
+									<p class="heading">Copied</p>
+									<p class="title">{{vm.jobDetails.current | filesize}}</p>
+								</div>
+							</div>
+						</div>
+					
+						<!-- Right side -->
+						<div class="level-right">
+							<div class="level-item has-text-centered">
+								<div>
+									<p class="heading">Total</p>
+									<p class="title">{{vm.jobDetails.total | filesize}}</p>
+								</div>
+							</div>
+						</div>
+					</nav>
+
+
           <p class="subtitle">
             <progress class="progress is-large" value="{{vm.jobDetails.current}}" max="{{vm.jobDetails.total}}">80%</progress>
           </p>
