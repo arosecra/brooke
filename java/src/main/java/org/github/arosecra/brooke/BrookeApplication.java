@@ -7,8 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class BrookeApplication {
 
 	public static void main(String[] args) {
-
-		
 		SpringApplication.run(BrookeApplication.class, args);
 	}
 

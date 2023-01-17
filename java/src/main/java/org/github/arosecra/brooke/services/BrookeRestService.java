@@ -319,6 +319,10 @@ public class BrookeRestService {
 	    }.start();
 	}
 
+	public void setLibraryDao(LibraryDao libraryDao) {
+		this.libraryDao2 = libraryDao;
+	}
+
 
 	
 	// public void copyForTablet(String collectionName, String catalogName, String categoryName, String itemName) throws IOException {
