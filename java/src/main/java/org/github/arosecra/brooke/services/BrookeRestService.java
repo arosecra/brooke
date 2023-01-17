@@ -319,4 +319,55 @@ public class BrookeRestService {
 	    }.start();
 	}
 
+
+	
+	// public void copyForTablet(String collectionName, String catalogName, String categoryName, String itemName) throws IOException {
+	// 	File tempSsdFolder = new File("C:\\scans\\temp");
+	// 	File unzippedFolder = new File(tempSsdFolder, itemName);
+	// 	unzippedFolder.mkdirs();
+	// 	Collection collection = getCollectionByName(collectionName);
+		
+	// 	File remoteFolder = getRemoteItemFolder(collection, categoryName, itemName, 0);
+	// 	File remoteFile = new File(remoteFolder, itemName + "_PNG.tar");
+		
+	// 	FileUtils.copyFileToDirectory(remoteFile, tempSsdFolder);
+	// 	File localSourceFile = new File(tempSsdFolder, remoteFile.getName());
+	// 	File localCbzFile = new File(tempSsdFolder.getAbsolutePath(), itemName + ".cbz");
+		
+	// 	CommandLine.run(new String[] {
+	// 			"D:\\software\\7za\\7za.exe", 
+	// 			"e", 
+	// 			"-o" + unzippedFolder.getAbsolutePath(),
+	// 			localSourceFile.getAbsolutePath()	
+	// 	});
+		
+		
+	// 	CommandLine.run(new String[] {
+	// 			"D:\\software\\7za\\7za.exe", 
+	// 			"a", 
+	// 			"-tzip", 
+	// 			"-o" + unzippedFolder.getAbsolutePath(),
+	// 			localCbzFile.getAbsolutePath(), 
+	// 			unzippedFolder.getAbsolutePath() + "\\*.png"		
+	// 		});
+		
+	// 	FileUtils.copyFileToDirectory(localCbzFile, new File("\\\\drobo5n\\Public\\Scans\\ForTablet"));
+	// 	FileUtils.deleteDirectory(unzippedFolder);
+	// 	FileUtils.delete(localSourceFile);
+	// 	FileUtils.delete(localCbzFile);
+	// 	System.out.println("Done copying new CBZ to tablet sync directory");
+	// }
+	
+	// public void createBoundingBoxPng() {
+//		BufferedImage image = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
+//		g = image.createGraphics();  // not sure on this line, but this seems more right
+//		g.setColor(Color.white);
+//		g.fillRect(0, 0, 100, 100); // give the whole image a white background
+//		g.setColor(Color.blue);
+//		for( ..... ){
+//		    g.fillRect(X , Y,  width , height );
+//		        ....        
+//		}
+	// }
+
 }
