@@ -24,7 +24,6 @@ import org.github.arosecra.brooke.jobs.ExtractMkvDetails;
 import org.github.arosecra.brooke.jobs.ExtractPDFs;
 import org.github.arosecra.brooke.jobs.Itemize;
 import org.github.arosecra.brooke.jobs.LightNovelRename;
-import org.github.arosecra.brooke.model.Collection;
 import org.github.arosecra.brooke.services.BrookeService;
 
 public class BrookePipelineApplication {
@@ -59,10 +58,10 @@ public class BrookePipelineApplication {
 		// libraryDao.setSettings(settings);
 		// service.setLibraryDao(libraryDao);
 
-		File workDirectory = new File("D://scans//tobeexported");
+		// File workDirectory = new File("D://scans//tobeexported");
 
-		Map<String, List<JobFolder>> foldersToProcess = new TreeMap<>();
-		Map<String, Collection> collections = new HashMap<>();
+		// Map<String, List<JobFolder>> foldersToProcess = new TreeMap<>();
+		// Map<String, Collection> collections = new HashMap<>();
 		
 		// selectWork(libraryDao, foldersToProcess, collections);
 		// printWorkStatus(foldersToProcess);

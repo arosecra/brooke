@@ -2,11 +2,6 @@ package org.github.arosecra.brooke;
 
 import java.io.IOException;
 
-// import org.github.arosecra.brooke.dao.LibraryDao;
-import org.github.arosecra.brooke.model.Catalog;
-import org.github.arosecra.brooke.model.Category;
-import org.github.arosecra.brooke.model.Collection;
-import org.github.arosecra.brooke.model.ShelfItem;
 import org.github.arosecra.brooke.services.BrookeService;
 
 public class BrookeLibraryListApplication {
