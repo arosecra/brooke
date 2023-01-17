@@ -1,4 +1,4 @@
-package org.github.arosecra.brooke;
+package org.github.arosecra.brooke.utilities;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.github.arosecra.brooke.Settings;
 import org.github.arosecra.brooke.dao.LibraryDao;
 import org.github.arosecra.brooke.model.Catalog;
 import org.github.arosecra.brooke.model.Category;

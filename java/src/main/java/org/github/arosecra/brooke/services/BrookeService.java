@@ -39,15 +39,15 @@ import org.springframework.stereotype.Service;
 public class BrookeService {
 	
 	private static byte[] DEFAULT_THUMBNAIL;
-	static {
-		try {
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			IOUtils.copy(BrookeService.class.getResourceAsStream("/static/images/default_thumbnail.png"), baos);
-			DEFAULT_THUMBNAIL = baos.toByteArray();
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
+	// static {
+	// 	try {
+	// 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	// 		IOUtils.copy(BrookeService.class.getResourceAsStream("/static/images/default_thumbnail.png"), baos);
+	// 		DEFAULT_THUMBNAIL = baos.toByteArray();
+	// 	} catch (IOException e) {
+	// 		throw new RuntimeException(e);
+	// 	}
+	// }
 	
 	@Autowired
 	private Settings settings;

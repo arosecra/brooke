@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class BrookeController {
 
-	@Autowired
+	/* @Autowired
 	private BrookeService brookeService;
 	
 	@GetMapping("/")
@@ -250,7 +250,7 @@ public class BrookeController {
 			@PathVariable(name="itemName") String itemName,
 			@PathVariable(name="pageNumber") int pageNumber) throws IOException {
 		return brookeService.getPage(collectionName, categoryName, itemName, pageNumber);
-	}
+	} */
 	
 	
 }

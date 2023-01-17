@@ -36,15 +36,15 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 public class BrookeRestService {
 	
 	private static byte[] DEFAULT_THUMBNAIL;
-	static {
-		try {
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			IOUtils.copy(BrookeRestService.class.getResourceAsStream("/static/images/default_thumbnail.png"), baos);
-			DEFAULT_THUMBNAIL = baos.toByteArray();
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
+	// static {
+	// 	try {
+	// 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	// 		IOUtils.copy(BrookeRestService.class.getResourceAsStream("/static/images/default_thumbnail.png"), baos);
+	// 		DEFAULT_THUMBNAIL = baos.toByteArray();
+	// 	} catch (IOException e) {
+	// 		throw new RuntimeException(e);
+	// 	}
+	// }
 	
 	@Autowired
 	private Settings settings;

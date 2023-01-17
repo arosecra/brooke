@@ -15,9 +15,9 @@
     "package:electron":"cd electron && npm run package",
 
     "install:java":"",
-    "build:java":"cd java && mvn clean package -DskipTests=true",
+    "build:java":"cd java && mvn clean package -Dmaven.test.skip=true",
     "start:java":"cd java && java -jar target/brooke.war",
-    "package:java":"cd java && mvn clean install",
+    "package:java":"cd java && mvn clean install -Dmaven.test.skip=true",
 
 
     "install":"npm-run-all install:java install:angular install:electron",

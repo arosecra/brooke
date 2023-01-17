@@ -180,6 +180,7 @@ public class LibraryDao2 {
 	}
 
 	private void getCollectionsFromDisk(Library result) {
+		System.out.println("Looking for files in " + (new File(".")).getAbsolutePath());
 		for (File file : new File(".").listFiles()) {
 			if (file.getName().endsWith("yaml")) {
 				ObjectMapper mapper = new YAMLMapper();

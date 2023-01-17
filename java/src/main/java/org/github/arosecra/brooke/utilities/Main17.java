@@ -1,4 +1,4 @@
-package org.github.arosecra.brooke;
+package org.github.arosecra.brooke.utilities;
 
 import java.awt.Color;
 import java.awt.Graphics2D;

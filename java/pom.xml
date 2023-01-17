@@ -174,8 +174,34 @@
 		
 	</dependencies>
 
+
+
 	<build>
-		<plugins>
+		<plugins> 
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.1.0</version>
+				<executions>
+					<execution>
+						<id>copy-resource-one</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+
+						<configuration>
+							<outputDirectory>${basedir}/target/brooke-web-${project.version}/META-INF/resources/</outputDirectory>
+							<resources>          
+								<resource>
+									<directory>../angular/dist/js</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration> 
+					</execution>
+			</executions>
+			</plugin>
+
 
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
