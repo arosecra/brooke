@@ -187,7 +187,6 @@ public class LibraryDao {
 					CollectionApiModel apiCollection = mapper.readValue(file, CollectionApiModel.class);
 					result.getCollections().add(apiCollection);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
