@@ -111,9 +111,9 @@ try {
 					{
 						url: `http://localhost:${port}/`,
 						port: port,
-						filename: 'brooke.war',
+						filename: `brooke.war`,
 						platform: process.platform,
-						cwd: app.getAppPath() + path.sep + 'java' + path.sep
+						cwd: process.resourcesPath
 					},
 					showApplication,
 					showStartUpErrorMessage
@@ -156,6 +156,8 @@ try {
 				//     //         beginStartUp();
 				//     //     });
 				//     // } else {
+						console.log(process.resourcesPath);
+						console.log(__dirname)
 				        beginStartUp();
 				//     // }
 				// } else {

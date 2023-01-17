@@ -11,11 +11,17 @@ module.exports = {
 function start(options, showApplication, showStartUpErrorMessage) {
 	console.log('spawning process')
 	var filename = options.filename;
-	// if (options.platform === 'win32') {
 	console.log('Loading win32 java');
 	console.log(filename)
-	let child = child_process.spawn('java', ['-jar', /*'-Dserver.port=' + options.port,*/ filename], {
-		cwd: 'D:/Projects/brooke/java/target/'//options.cwd
+	var java_arguments = [
+		'-jar', 
+		/*'-Dserver.port=' + options.port,*/ 
+		filename
+	];
+
+	// if (options.platform === 'win32') {
+	let child = child_process.spawn('java', java_arguments, {
+		cwd: options.cwd
 	}).on('error', function (code, signal) {
 		'+ path.sep +'
 		showStartUpErrorMessage();
@@ -24,7 +30,6 @@ function start(options, showApplication, showStartUpErrorMessage) {
 	childProcessSetup(child, options, showApplication);
 
 
-	return child;
 	// } else if (options.platform === 'darwin') {
 	//     child_process.exec('chmod +X ' + app.getAppPath() + '/java/' + jreFolder + '/Contents/Home/bin/' + 'java');
 	//     if (!app.getAppPath().startsWith("/Applications/")) {
@@ -51,6 +56,7 @@ function start(options, showApplication, showStartUpErrorMessage) {
 	// } else {
 	//     throw new Error("Platform not supported");
 	// }
+	return child;
 }
 
 function childProcessSetup(child, options, showApplication) {
@@ -74,42 +80,14 @@ function childProcessSetup(child, options, showApplication) {
 }
 
 function stop(serverProcess, successCallback) {
+	// these are suggestions from stack overflow
+	// but they don't work! at least they didn't when testing
 	// child_process.spawn("taskkill", ["/pid", serverProcess.pid, '/f', '/t']);
 	// serverProcess.kill('SIGINT');
 	// 	setTimeout(function() {
 	//     serverProcess.kill();
 	//     }, 5000
 	// );
-
-	// An object of options to indicate where to post to
-	// var post_options = {
-	// 	host: 'localhost',
-	// 	port: '8080',
-	// 	path: '/actuator/shutdown',
-	// 	method: 'POST',
-	// 	headers: {
-	// 		'Content-Type': 'application/json'
-	// 	}
-	// };
-
-	// // Set up the request
-	// var post_req = http.request(post_options, function (res) {
-	// 	res.setEncoding('utf8');
-	// 	res.on('data', function (chunk) {
-	// 		// console.log('Response: ' + chunk);
-	// 	});
-		
-	// 	result.on("end", function () {
-	// 		successCallback();
-	// 	});
-	// });
-
-	// post_req.on('error', (e) => {
-	// 	// console.error(e);
-	// });
-
-  // post_req.write('{}');
-  // post_req.end();
 
 	fetch('http://localhost:8080/actuator/shutdown', {
     method: 'POST',

@@ -4,7 +4,8 @@
   "description": "Electron app for personal use",
   "main": "main.js",
   "scripts": {
-    "start": "electron-forge start",
+		"copy-jar": "copyfiles --flat ..\\java\\target\\brooke.war node_modules\\electron\\dist\\resources\\",
+    "start": "npm run copy-jar && electron-forge start",
     "package": "electron-forge package",
     "build": "electron-forge make"
   },
@@ -16,6 +17,7 @@
     "@electron-forge/maker-rpm": "^6.0.4",
     "@electron-forge/maker-squirrel": "^6.0.4",
     "@electron-forge/maker-zip": "^6.0.4",
+    "copyfiles": "^2.4.1",
     "electron": "^22.0.2"
   },
   "dependencies": {
