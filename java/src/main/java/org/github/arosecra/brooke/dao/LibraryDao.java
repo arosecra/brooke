@@ -6,13 +6,13 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.github.arosecra.brooke.Settings;
+import org.github.arosecra.brooke.model.ItemLocation;
+import org.github.arosecra.brooke.model.Library;
+import org.github.arosecra.brooke.model.Shelf;
+import org.github.arosecra.brooke.model.ShelfItem;
 import org.github.arosecra.brooke.model.api.CategoryApiModel;
 import org.github.arosecra.brooke.model.api.CollectionApiModel;
 import org.github.arosecra.brooke.model.api.ItemApiModel;
-import org.github.arosecra.brooke.model2.ItemLocation;
-import org.github.arosecra.brooke.model2.Library;
-import org.github.arosecra.brooke.model2.Shelf;
-import org.github.arosecra.brooke.model2.ShelfItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

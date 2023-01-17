@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.github.arosecra.brooke.dao.JobService;
-import org.github.arosecra.brooke.model2.JobDetails;
+import org.github.arosecra.brooke.model.JobDetails;
 import org.github.arosecra.brooke.task.CopyFileAsyncTask;
 import org.github.arosecra.brooke.util.Try;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,7 +3,7 @@ package org.github.arosecra.brooke.dao;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.github.arosecra.brooke.model2.JobDetails;
+import org.github.arosecra.brooke.model.JobDetails;
 import org.github.arosecra.brooke.task.ProgressableRunnable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;

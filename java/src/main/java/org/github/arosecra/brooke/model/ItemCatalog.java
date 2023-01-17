@@ -1,4 +1,4 @@
-package org.github.arosecra.brooke.model2;
+package org.github.arosecra.brooke.model;
 
 import java.util.TreeMap;
 

@@ -3,11 +3,11 @@ package org.github.arosecra.brooke.controllers;
 import java.io.IOException;
 import java.util.List;
 
+import org.github.arosecra.brooke.model.JobDetails;
 import org.github.arosecra.brooke.model.api.BookDetailsApiModel;
 import org.github.arosecra.brooke.model.api.CategoryApiModel;
 import org.github.arosecra.brooke.model.api.CollectionApiModel;
 import org.github.arosecra.brooke.model.api.ItemApiModel;
-import org.github.arosecra.brooke.model2.JobDetails;
 import org.github.arosecra.brooke.services.BrookeRestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
