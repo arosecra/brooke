@@ -10,7 +10,7 @@ x overall: distil a basic project w/ hello world rest api for additional apps, p
 - angular: Ability to add TOC entries
 - angular: Ability to add overlay graphics (bounding box, etc) for image algorithm testing
 - angular: NgRx incorporation
-- angular: print the raw & compressed sizes for a book
+- angular: print the raw & compressed sizes for a book (book details page)
 - angular: add a feature to check for getting a list of missing library items / shelf items
 - angular: toggle subtitles/audio tracks
 - angular: management menu / page

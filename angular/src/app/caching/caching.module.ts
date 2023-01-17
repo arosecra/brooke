@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CachingComponent } from './caching.component';
 import {NgxFilesizeModule} from 'ngx-filesize';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -10,6 +11,7 @@ import {NgxFilesizeModule} from 'ngx-filesize';
   ],
   imports: [
     CommonModule,
+		RouterModule,
 		NgxFilesizeModule,
   ],
   exports: [

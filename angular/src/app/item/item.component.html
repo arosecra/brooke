@@ -1,6 +1,7 @@
 <div class="column is-narrow brooke-item" [ngClass]="{
-    'is-3': collection.openType === 'video', 
-    'is-2': collection.openType === 'book'
+    'is-3': openType === 'video', 
+    'is-2': openType === 'book',
+		'is-6': openType === 'book-detail'
   }">
     <figure class="image is-fullwidth">
         <a (click)="openItem()">
@@ -22,6 +23,7 @@
         <ng-container *ngIf="collection.openType === 'book'">
             <div class="buttons" >
                 <button (click)="openItem()">Open</button>
+                <button (click)="openItemDetails()" [disabled]="this.item.series">Details</button>
                 <button>CBZ</button>
             </div>
         </ng-container>

@@ -105,6 +105,21 @@ public class BrookeRestService {
 		
 		return result;
 	}
+
+	public ItemApiModel getItem(String collectionName, String categoryName, String itemName) {
+		ItemApiModel result = null;
+		CategoryApiModel category = this.getCategory(collectionName, categoryName);
+
+		if(category != null) {
+			for(ItemApiModel item : category.getItems()) {
+				if(item.getName().equals(itemName)) {
+					result = item;
+				}
+			}
+		}
+		
+		return result;
+	}
 	
 	public Shelf getShelf(String collectionName) {
 		Shelf result = null;

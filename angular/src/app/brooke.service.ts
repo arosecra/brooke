@@ -26,6 +26,12 @@ export class BrookeService {
     );
   }
 
+  getItem(collectionName: string, categoryName: string, item: string): Observable<Item> {
+    return this.http.get<Item>(
+      `/rest/item/${collectionName}/${categoryName}/${item}`
+    );
+  }
+
   getSeries(collectionName: string, categoryName: string, seriesName: string): Observable<Item> {
     return this.http.get<Item>(
       `/rest/series/${collectionName}/${categoryName}/${seriesName}`

@@ -26,6 +26,7 @@ import { CachingModule } from './caching/caching.module';
 import { BookOptionsModule } from './book-options/book-options.module';
 import { BookTocComponent } from './book-toc/book-toc.component';
 import { BookTocModule } from './book-toc/book-toc.module';
+import { BookDetailModule } from './book-detail/book-detail.module';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { BookTocModule } from './book-toc/book-toc.module';
 
     AdminModule,
     BookModule,
+		BookDetailModule,
     BookOptionsModule,
     BookPageTurnerModule,
     BookTocModule,

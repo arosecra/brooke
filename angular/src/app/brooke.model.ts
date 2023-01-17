@@ -31,8 +31,8 @@ export declare interface VLCOptions {
 
 export declare interface BookDetails {
     numberOfPages: number;
-    rawSize: bigint;
-    cbtSize: bigint;
+    rawSize: number;
+    cbtSize: number;
     compression: number;
 
     tocEntries: ToCEntry[];

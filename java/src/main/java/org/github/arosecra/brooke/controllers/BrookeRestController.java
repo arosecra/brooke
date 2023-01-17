@@ -48,6 +48,15 @@ public class BrookeRestController {
 		return this.brookeRestService.getCategory(collectionName, categoryName);
 	}
 	
+	@GetMapping("/rest/item/{collectionName}/{categoryName}/{itemName}")
+	public ItemApiModel getCategory(
+			@PathVariable("collectionName") String collectionName,
+			@PathVariable("categoryName") String categoryName,
+			@PathVariable("itemName") String itemName
+	) {
+		return this.brookeRestService.getItem(collectionName, categoryName, itemName);
+	}
+	
 	@GetMapping("/rest/series/{collectionName}/{categoryName}/{seriesName}")
 	public ItemApiModel getSeries(
 			@PathVariable("collectionName") String collectionName,

@@ -12,7 +12,8 @@
             <div class="columns is-multiline ">
               <ng-container *ngFor="let item of vm.category.items">
                   <app-item [item]="item" [collection]="vm.collection" [category]="vm.category"
-                    [columns]="vm.pageState.columns" style="display: contents;"></app-item>
+                    [openType]="vm.collection.openType" style="display: contents;"
+										></app-item>
               </ng-container>
             </div>
           </div>

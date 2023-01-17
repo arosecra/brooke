@@ -49,14 +49,21 @@ export class CachingComponent {
               map((jobDetails) => {
 
                 if (jobDetails.total > 0 && jobDetails.total === jobDetails.current) {
+									let leftPage = 0;
+									let rightPage = 0;
+									if(queryParams['leftPage'] || queryParams['rightPage']) {
+										leftPage = queryParams['leftPage'];
+										rightPage = queryParams['rightPage'];
+									}
+
                   if (forkJoinResult.collection.openType === 'book') {
                     this.router.navigate(['/book'], {
                       queryParams: {
                         collection: queryParams['collection'],
                         category: queryParams['category'],
                         item: queryParams['item'],
-                        leftPage: 0,
-                        rightPage: 1
+                        leftPage: leftPage,
+                        rightPage: rightPage
                       }
                     });
                   } else {
