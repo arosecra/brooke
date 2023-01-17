@@ -4,6 +4,7 @@ const {
 const decompress = require('decompress');
 const child_process = require('child_process');
 const requestPromise = require('minimal-request-promise');
+const getPort = require('get-port')
 
 const springBootServer = require('./spring-boot-server');
 
@@ -14,6 +15,7 @@ let mainWindow = null;
 let loading = null;
 let serverProcess = null;
 let allowClose = false;
+let port = null;
 const jreFolder = 'jdk8u265-b01-jre';
 
 function error_log(exception) {
@@ -57,10 +59,6 @@ try {
 				}).then(result => {
 					if (result.response === 0) {
 						allowClose = true;
-						springBootServer.stop(serverProcess, function () {
-
-							app.quit();
-						});
 					}
 				});
 				e.preventDefault();
@@ -106,7 +104,7 @@ try {
 		(async () => {
 			try {
 				console.log('trying to begin startup')
-				const port = 8080; //determine port here
+				port = await getPort();
 				serverProcess = springBootServer.start(
 					{
 						url: `http://localhost:${port}/`,
@@ -170,7 +168,7 @@ try {
 		app.on('will-quit', function () {
 
 			console.log('stopping spring will-quit');
-			springBootServer.stop(serverProcess, function () { });
+			springBootServer.stop(serverProcess, port, function () { });
 			serverProcess.kill('SIGINT');
 		});
 	}

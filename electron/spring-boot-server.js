@@ -10,13 +10,12 @@ module.exports = {
 
 function start(options, showApplication, showStartUpErrorMessage) {
 	console.log('spawning process')
-	var filename = options.filename;
 	console.log('Loading win32 java');
-	console.log(filename)
+	console.log(options.port)
 	var java_arguments = [
 		'-jar', 
-		/*'-Dserver.port=' + options.port,*/ 
-		filename
+		`-Dserver.port=${options.port}`, 
+		options.filename
 	];
 
 	// if (options.platform === 'win32') {
@@ -79,7 +78,7 @@ function childProcessSetup(child, options, showApplication) {
 	});
 }
 
-function stop(serverProcess, successCallback) {
+function stop(serverProcess, port, successCallback) {
 	// these are suggestions from stack overflow
 	// but they don't work! at least they didn't when testing
 	// child_process.spawn("taskkill", ["/pid", serverProcess.pid, '/f', '/t']);
@@ -89,7 +88,7 @@ function stop(serverProcess, successCallback) {
 	//     }, 5000
 	// );
 
-	fetch('http://localhost:8080/actuator/shutdown', {
+	fetch(`http://localhost:${port}/actuator/shutdown`, {
     method: 'POST',
     body: '{}',
     headers: {
