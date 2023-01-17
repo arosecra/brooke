@@ -134,33 +134,7 @@ try {
 			// i18n = new (require('./translations/i18n'));
 			try {
 				showLoadingScreen();
-				// platform = process.platform;
-				// const jrePath = app.getAppPath() + path.sep + 'java' + path.sep + jreFolder;
-				// const compressedJreFilePath = app.getAppPath() + path.sep + 'java' + path.sep;
-				// const extractionTargetPath = app.getAppPath() + path.sep + 'java' + path.sep;
-				// let zipFileName;
-				// if (platform === 'win32') {
-				//     zipFileName = 'jre_windows.zip';
-				// } else if (platform === 'darwin') {
-				//     zipFileName = 'jre_mac.tar.gz';
-				// } else if (platform === 'linux') {
-				//     zipFileName = 'jre_linux.tar.gz';
-				// }
-				// if (zipFileName) {
-				//     // if (!fs.existsSync(jrePath)) {
-				//     //     decompress(compressedJreFilePath + zipFileName, extractionTargetPath).then(files => {
-				//     //         // remove compressed jre once unpacked
-				//     //         fs.unlinkSync(compressedJreFilePath + zipFileName);
-				//     //         beginStartUp();
-				//     //     });
-				//     // } else {
-						console.log(process.resourcesPath);
-						console.log(__dirname)
-				        beginStartUp();
-				//     // }
-				// } else {
-				//     throw new Error("Platform not supported");
-				// }
+				beginStartUp();
 			} catch (e) {
 				error_log(e);
 			}
