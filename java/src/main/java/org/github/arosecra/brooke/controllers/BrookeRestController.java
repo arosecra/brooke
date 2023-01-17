@@ -21,6 +21,15 @@ public class BrookeRestController {
 	@Autowired
 	private BrookeRestService brookeRestService;
 
+	@GetMapping("/rest/process")
+	public String[] getProcess() {
+		return new String[] {
+			ProcessHandle.current().pid()+"",
+			ProcessHandle.current().parent().isPresent()+"",
+			ProcessHandle.current().parent().get().isAlive()+""
+		};
+	}
+
 	@GetMapping("/rest/collection")
 	public List<CollectionApiModel> getCollections() {
 		return this.brookeRestService.getLibrary().getCollections();
