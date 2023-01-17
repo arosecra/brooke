@@ -20,7 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 
 @Repository
-public class LibraryDao2 {
+public class LibraryDao {
 
 	private Settings settings;
 

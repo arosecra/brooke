@@ -14,7 +14,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.github.arosecra.brooke.Settings;
 import org.github.arosecra.brooke.dao.JobService;
-import org.github.arosecra.brooke.dao.LibraryDao2;
+import org.github.arosecra.brooke.dao.LibraryDao;
 import org.github.arosecra.brooke.model.api.BookDetailsApiModel;
 import org.github.arosecra.brooke.model.api.CategoryApiModel;
 import org.github.arosecra.brooke.model.api.CollectionApiModel;
@@ -58,12 +58,12 @@ public class BrookeRestService {
 	@Autowired
 	private JobService jobDao;
 	
-	private LibraryDao2 libraryDao2;
+	private LibraryDao libraryDao2;
 	
 	private Library library;
 
 	@Autowired
-	public void setLibraryDao2(LibraryDao2 libraryDao) { this.libraryDao2 = libraryDao; }
+	public void setLibraryDao2(LibraryDao libraryDao) { this.libraryDao2 = libraryDao; }
 	
 	@PostConstruct()
 	public void init() {
