@@ -1,0 +1,49 @@
+modelEncoding: UTF-8
+modelVersion: 4.0.0
+parent: {artifactId: brooke, groupId: org.github.arosecra, relativePath: ../pom.xml,
+  version: 1.0.0}
+groupId: org.github.arosecra
+artifactId: brooke-web
+packaging: war
+name: brooke
+description: Custom book reader for personal use
+properties: {java.version: 16}
+dependencies:
+- groupId: org.springframework.boot
+  artifactId: spring-boot-starter-actuator
+  exclusions:
+  - {artifactId: snakeyaml, groupId: org.yaml}
+  - {artifactId: spring-boot-starter-data-jpa, groupId: org.springframework.boot}
+- {groupId: org.springframework.boot, artifactId: spring-boot-starter-web}
+- {groupId: org.springframework.boot, artifactId: spring-boot-devtools, scope: runtime,
+  optional: true}
+- {groupId: org.apache.commons, artifactId: commons-compress, version: 1.21}
+- {groupId: commons-io, artifactId: commons-io, version: 2.11.0}
+- {groupId: org.apache.commons, artifactId: commons-lang3, version: 3.12.0}
+- {groupId: org.apache.commons, artifactId: commons-collections4, version: 4.4}
+- {groupId: org.apache.commons, artifactId: commons-text, version: 1.9}
+- {groupId: org.apache.commons, artifactId: commons-configuration2, version: 2.7}
+- {groupId: commons-beanutils, artifactId: commons-beanutils, version: 1.9.4}
+- {groupId: org.springframework.boot, artifactId: spring-boot-starter-data-jpa}
+- {groupId: net.sourceforge.tess4j, artifactId: tess4j, version: 4.5.5}
+- {groupId: com.fasterxml.jackson.core, artifactId: jackson-core, version: 2.14.1}
+- {groupId: com.fasterxml.jackson.dataformat, artifactId: jackson-dataformat-yaml,
+  version: 2.14.1}
+- {groupId: org.sejda.imageio, artifactId: webp-imageio, version: 0.1.6}
+build:
+  finalName: brooke
+  plugins:
+  - groupId: org.apache.maven.plugins
+    artifactId: maven-resources-plugin
+    executions:
+    - configuration:
+        outputDirectory: ${basedir}/target/brooke/META-INF/resources/
+        resources:
+        - {directory: ../angular/dist/js, filtering: true}
+      goals: [copy-resources]
+      id: copy-resource-one
+      inherited: true
+      phase: compile
+      priority: 0
+  - {groupId: org.springframework.boot, artifactId: spring-boot-maven-plugin}
+childProjectUrlInheritAppendPath: true

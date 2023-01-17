@@ -1,0 +1,13 @@
+modelEncoding: UTF-8
+modelVersion: 4.0.0
+parent: {artifactId: spring-boot-starter-parent, groupId: org.springframework.boot,
+  relativePath: ../pom.xml, version: 2.5.2}
+groupId: org.github.arosecra
+artifactId: brooke
+version: 1.0.0
+packaging: pom
+name: brooke
+description: Custom book reader for personal use
+properties: {java.version: 16}
+modules: [angular, java, electron]
+childProjectUrlInheritAppendPath: true
