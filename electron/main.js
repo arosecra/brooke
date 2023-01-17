@@ -23,7 +23,9 @@ function error_log(exception) {
 }
 
 try {
+	console.log('getting lock');
 	const gotTheLock = app.requestSingleInstanceLock();
+	console.log('got lock, continuing');
 
 	const showApplication = function (appUrl) {
 		mainWindow = new BrowserWindow({
@@ -154,7 +156,7 @@ try {
 				//     //         beginStartUp();
 				//     //     });
 				//     // } else {
-				//         beginStartUp();
+				        beginStartUp();
 				//     // }
 				// } else {
 				//     throw new Error("Platform not supported");
