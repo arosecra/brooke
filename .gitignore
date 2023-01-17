@@ -6,3 +6,4 @@ node_modules/
 java/target/
 java/derby.log
 target/
+derby.log

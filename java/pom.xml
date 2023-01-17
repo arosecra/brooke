@@ -177,6 +177,7 @@
 
 
 	<build>
+		<finalName>brooke</finalName>
 		<plugins> 
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
@@ -190,7 +191,7 @@
 						</goals>
 
 						<configuration>
-							<outputDirectory>${basedir}/target/brooke-web-${project.version}/META-INF/resources/</outputDirectory>
+							<outputDirectory>${basedir}/target/brooke/META-INF/resources/</outputDirectory>
 							<resources>          
 								<resource>
 									<directory>../angular/dist/js</directory>

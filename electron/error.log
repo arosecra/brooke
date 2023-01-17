@@ -1,0 +1,54 @@
+Error: ENOENT: no such file or directory, scandir 'D:\Projects\brooke\electron/java/'
+    at Object.readdirSync (node:fs:1442:3)
+    at t.readdirSync (node:electron/js2c/asar_bundle:2:10837)
+    at getJavaFile (D:\Projects\brooke\electron\main.js:80:22)
+    at spawnServerProcess (D:\Projects\brooke\electron\main.js:104:22)
+    at D:\Projects\brooke\electron\main.js:154:31
+    at beginStartUp (D:\Projects\brooke\electron\main.js:162:9)
+    at App.<anonymous> (D:\Projects\brooke\electron\main.js:195:23)
+    at App.emit (node:events:513:28)
+Error: ENOENT: no such file or directory, scandir 'D:\Projects\brooke\electron/java/'
+    at Object.readdirSync (node:fs:1442:3)
+    at t.readdirSync (node:electron/js2c/asar_bundle:2:10837)
+    at getJavaFile (D:\Projects\brooke\electron\main.js:80:22)
+    at spawnServerProcess (D:\Projects\brooke\electron\main.js:104:22)
+    at D:\Projects\brooke\electron\main.js:156:31
+    at beginStartUp (D:\Projects\brooke\electron\main.js:164:9)
+    at App.<anonymous> (D:\Projects\brooke\electron\main.js:197:23)
+    at App.emit (node:events:513:28)
+Error: ENOENT: no such file or directory, scandir 'D:\Projects\brooke\electron/java/'
+    at Object.readdirSync (node:fs:1442:3)
+    at t.readdirSync (node:electron/js2c/asar_bundle:2:10837)
+    at getJavaFile (D:\Projects\brooke\electron\main.js:80:22)
+    at spawnServerProcess (D:\Projects\brooke\electron\main.js:104:22)
+    at D:\Projects\brooke\electron\main.js:157:31
+    at beginStartUp (D:\Projects\brooke\electron\main.js:165:9)
+    at App.<anonymous> (D:\Projects\brooke\electron\main.js:198:23)
+    at App.emit (node:events:513:28)
+Error: ENOENT: no such file or directory, scandir 'D:\Projects\brooke\electron/java/'
+    at Object.readdirSync (node:fs:1442:3)
+    at t.readdirSync (node:electron/js2c/asar_bundle:2:10837)
+    at getJavaFile (D:\Projects\brooke\electron\main.js:80:22)
+    at spawnServerProcess (D:\Projects\brooke\electron\main.js:104:22)
+    at D:\Projects\brooke\electron\main.js:158:31
+    at beginStartUp (D:\Projects\brooke\electron\main.js:166:9)
+    at App.<anonymous> (D:\Projects\brooke\electron\main.js:199:23)
+    at App.emit (node:events:513:28)
+Error: ENOENT: no such file or directory, scandir 'D:\Projects\brooke\electron/java/'
+    at Object.readdirSync (node:fs:1442:3)
+    at t.readdirSync (node:electron/js2c/asar_bundle:2:10837)
+    at getJavaFile (D:\Projects\brooke\electron\main.js:80:22)
+    at spawnServerProcess (D:\Projects\brooke\electron\main.js:104:22)
+    at D:\Projects\brooke\electron\main.js:159:31
+    at beginStartUp (D:\Projects\brooke\electron\main.js:167:9)
+    at App.<anonymous> (D:\Projects\brooke\electron\main.js:200:23)
+    at App.emit (node:events:513:28)
+Error: ENOENT: no such file or directory, scandir 'D:\Projects\brooke\electron/java/'
+    at Object.readdirSync (node:fs:1442:3)
+    at t.readdirSync (node:electron/js2c/asar_bundle:2:10837)
+    at getJavaFile (D:\Projects\brooke\electron\main.js:80:22)
+    at spawnServerProcess (D:\Projects\brooke\electron\main.js:105:22)
+    at D:\Projects\brooke\electron\main.js:160:31
+    at beginStartUp (D:\Projects\brooke\electron\main.js:168:9)
+    at App.<anonymous> (D:\Projects\brooke\electron\main.js:201:23)
+    at App.emit (node:events:513:28)
