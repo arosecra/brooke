@@ -15,9 +15,9 @@ x overall: distil a basic project w/ hello world rest api for additional apps, p
 - angular: toggle subtitles/audio tracks
 - angular: management menu / page
 - angular: add ability to set the subtitle/audio tracks per series / video
-- angular: display total and current amounts when caching
-- angular: when caching, remove underscores
-- angular: remove series name from the video display name when showing a series
+c angular: display total and current amounts when caching
+c angular: when caching, remove underscores
+c angular: remove series name from the video display name when showing a series
 - angular: UI to change app settings
 - angular: button to reload library
 - angular: button to sync (make this into a progressable runnable and show progress)
@@ -30,7 +30,7 @@ x overall: distil a basic project w/ hello world rest api for additional apps, p
 - electron: use a better icon
 - electron: sometimes have to close twice (close confirm close)
 
-- collections: put yaml collections in a (private) repo
+x collections: put yaml collections in a (private) repo
 
 - java: get settings from the application path
 - java: if already cached, do not re-cache
