@@ -28,6 +28,7 @@ x overall: distil a basic project w/ hello world rest api for additional apps, p
 ? angular: add podcast collection
 
 - electron: use a better icon
+- electron: sometimes have to close twice (close confirm close)
 
 - collections: put yaml collections in a (private) repo
 
