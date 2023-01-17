@@ -15,9 +15,9 @@ x overall: distil a basic project w/ hello world rest api for additional apps, p
 - angular: toggle subtitles/audio tracks
 - angular: management menu / page
 - angular: add ability to set the subtitle/audio tracks per series / video
-c angular: display total and current amounts when caching
-c angular: when caching, remove underscores
-c angular: remove series name from the video display name when showing a series
+x angular: display total and current amounts when caching
+x angular: when caching, remove underscores
+x angular: remove series name from the video display name when showing a series
 - angular: UI to change app settings
 - angular: button to reload library
 - angular: button to sync (make this into a progressable runnable and show progress)
