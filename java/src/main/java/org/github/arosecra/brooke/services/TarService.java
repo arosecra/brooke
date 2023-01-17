@@ -19,13 +19,12 @@ public class TarService {
 		byte[] result = new byte[0];
 		try (TarArchiveInputStream tarIn = new TarArchiveInputStream(
 				new BufferedInputStream(new FileInputStream(file)))) {
-			TarArchiveEntry entry;
+			TarArchiveEntry entry = null;
 			while ((entry = (TarArchiveEntry) tarIn.getNextEntry()) != null) {
 				if (page == currentPage) {
 					ByteArrayOutputStream baos = new ByteArrayOutputStream();
 					IOUtils.copy(tarIn, baos);
 					result = baos.toByteArray();
-					System.out.println("Loading page " + currentPage + " from tarball");
 				}
 				currentPage++;
 			}
