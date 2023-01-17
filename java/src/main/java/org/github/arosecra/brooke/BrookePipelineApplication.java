@@ -13,7 +13,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import org.apache.commons.io.FileUtils;
-import org.github.arosecra.brooke.dao.LibraryDao;
+// import org.github.arosecra.brooke.dao.LibraryDao;
 import org.github.arosecra.brooke.jobs.BrookeJobStep;
 import org.github.arosecra.brooke.jobs.BrookeJobStep.JobFolder;
 import org.github.arosecra.brooke.jobs.ConvertToWebp;
@@ -55,157 +55,157 @@ public class BrookePipelineApplication {
 	public static void main(String[] args) throws IOException {
 		BrookeService service = new BrookeService();
 		Settings settings = new Settings();
-		LibraryDao libraryDao = new LibraryDao();
-		libraryDao.setSettings(settings);
-		service.setLibraryDao(libraryDao);
+		// LibraryDao libraryDao = new LibraryDao();
+		// libraryDao.setSettings(settings);
+		// service.setLibraryDao(libraryDao);
 
 		File workDirectory = new File("D://scans//tobeexported");
 
 		Map<String, List<JobFolder>> foldersToProcess = new TreeMap<>();
 		Map<String, Collection> collections = new HashMap<>();
 		
-		selectWork(libraryDao, foldersToProcess, collections);
-		printWorkStatus(foldersToProcess);
-		executePipelines(workDirectory, foldersToProcess, collections);
+		// selectWork(libraryDao, foldersToProcess, collections);
+		// printWorkStatus(foldersToProcess);
+		// executePipelines(workDirectory, foldersToProcess, collections);
 
 	}
 
-	private static void executePipelines(File workDirectory, Map<String, List<JobFolder>> foldersToProcess,
-			Map<String, Collection> collections) throws IOException {
-		for(Entry<String, List<JobFolder>> entry : foldersToProcess.entrySet()) {
-			Collection collection = collections.get(entry.getKey());
-			for (JobFolder remoteDir : entry.getValue()) {
-				executePipeline(workDirectory, collection, remoteDir);
-			}
-		}
-	}
+// 	private static void executePipelines(File workDirectory, Map<String, List<JobFolder>> foldersToProcess,
+// 			Map<String, Collection> collections) throws IOException {
+// 		for(Entry<String, List<JobFolder>> entry : foldersToProcess.entrySet()) {
+// 			Collection collection = collections.get(entry.getKey());
+// 			for (JobFolder remoteDir : entry.getValue()) {
+// 				executePipeline(workDirectory, collection, remoteDir);
+// 			}
+// 		}
+// 	}
 
-	private static void executePipeline(File workDirectory, Collection collection, JobFolder remoteDir) throws IOException {
-		remoteDir.workFolder = new File(workDirectory, remoteDir.remoteFolder.getName());
-		remoteDir.workFolder.mkdirs();
+// 	private static void executePipeline(File workDirectory, Collection collection, JobFolder remoteDir) throws IOException {
+// 		remoteDir.workFolder = new File(workDirectory, remoteDir.remoteFolder.getName());
+// 		remoteDir.workFolder.mkdirs();
 
-		File[] filesBeforeSteps = remoteDir.workFolder.listFiles();
-		boolean continueSteps = true;
-		int i = 0;
-		while (continueSteps && i < collection.getPipeline().length) {
-			String pipelineStep = collection.getPipeline()[i];
-			BrookeJobStep step = JOBS.get(pipelineStep);
-			if(step != null) {
-				if (step.required(remoteDir)) {
-					if (step.isManual()) {
-						continueSteps = false;
-					} else {
-						System.out.println("Executing " + pipelineStep + " on " + remoteDir.remoteFolder.getName());
-						executeStep(remoteDir, pipelineStep, step);
-					}
-				}
-			}
-			i++;
-		}
+// 		File[] filesBeforeSteps = remoteDir.workFolder.listFiles();
+// 		boolean continueSteps = true;
+// 		int i = 0;
+// 		while (continueSteps && i < collection.getPipeline().length) {
+// 			String pipelineStep = collection.getPipeline()[i];
+// 			BrookeJobStep step = JOBS.get(pipelineStep);
+// 			if(step != null) {
+// 				if (step.required(remoteDir)) {
+// 					if (step.isManual()) {
+// 						continueSteps = false;
+// 					} else {
+// 						System.out.println("Executing " + pipelineStep + " on " + remoteDir.remoteFolder.getName());
+// 						executeStep(remoteDir, pipelineStep, step);
+// 					}
+// 				}
+// 			}
+// 			i++;
+// 		}
 
-		File[] filesAfterSteps = remoteDir.workFolder.listFiles();
+// 		File[] filesAfterSteps = remoteDir.workFolder.listFiles();
 
-		Set<File> filesToCopyRemotely = determineNewFiles(filesBeforeSteps, filesAfterSteps);
-		for (File fileToCopyRemotely : filesToCopyRemotely) {
-			FileUtils.copyFileToDirectory(fileToCopyRemotely, remoteDir.remoteFolder);
-			remoteDir.remoteFiles.add(new File(remoteDir.remoteFolder, fileToCopyRemotely.getName()));
-		}
-		FileUtils.deleteDirectory(remoteDir.workFolder);
-	}
+// 		Set<File> filesToCopyRemotely = determineNewFiles(filesBeforeSteps, filesAfterSteps);
+// 		for (File fileToCopyRemotely : filesToCopyRemotely) {
+// 			FileUtils.copyFileToDirectory(fileToCopyRemotely, remoteDir.remoteFolder);
+// 			remoteDir.remoteFiles.add(new File(remoteDir.remoteFolder, fileToCopyRemotely.getName()));
+// 		}
+// 		FileUtils.deleteDirectory(remoteDir.workFolder);
+// 	}
 
-	private static void printWorkStatus(Map<String, List<JobFolder>> foldersToProcess) {
-		for(Map.Entry<String, List<JobFolder>> entry : foldersToProcess.entrySet()) {
-			System.out.println(entry.getKey() + " requires " + entry.getValue().size() + " folders to be processed");
-		}
-	}
+// 	private static void printWorkStatus(Map<String, List<JobFolder>> foldersToProcess) {
+// 		for(Map.Entry<String, List<JobFolder>> entry : foldersToProcess.entrySet()) {
+// 			System.out.println(entry.getKey() + " requires " + entry.getValue().size() + " folders to be processed");
+// 		}
+// 	}
 
-	private static void selectWork(LibraryDao libraryDao, Map<String, List<JobFolder>> foldersToProcess,
-			Map<String, Collection> collections) throws IOException {
-		for (Collection collection : libraryDao.getLibrary().getCollections()) {			
-			collections.put(collection.getName(), collection);
-			File remoteCollectionDir = new File(collection.getRemoteDirectory());
+// 	private static void selectWork(LibraryDao libraryDao, Map<String, List<JobFolder>> foldersToProcess,
+// 			Map<String, Collection> collections) throws IOException {
+// 		for (Collection collection : libraryDao.getLibrary().getCollections()) {			
+// 			collections.put(collection.getName(), collection);
+// 			File remoteCollectionDir = new File(collection.getRemoteDirectory());
 			
-//			if(!collection.getName().contains("Movie"))
-//				continue;
+// //			if(!collection.getName().contains("Movie"))
+// //				continue;
 
-			foldersToProcess.put(collection.getName(), new ArrayList<>());
+// 			foldersToProcess.put(collection.getName(), new ArrayList<>());
 			
-			java.util.Collection<File> remoteFiles = FileUtils.listFiles(remoteCollectionDir, null, true);
+// 			java.util.Collection<File> remoteFiles = FileUtils.listFiles(remoteCollectionDir, null, true);
 			
-			Map<String, List<File>> filesPerPath = new TreeMap<>();
+// 			Map<String, List<File>> filesPerPath = new TreeMap<>();
 			
 			
-			for(File file : remoteFiles) {
-				String key = file.getParentFile().getAbsolutePath();
-				if(!filesPerPath.containsKey(key))
-					filesPerPath.put(key, new ArrayList<>());
-				filesPerPath.get(key).add(file);
-			}
+// 			for(File file : remoteFiles) {
+// 				String key = file.getParentFile().getAbsolutePath();
+// 				if(!filesPerPath.containsKey(key))
+// 					filesPerPath.put(key, new ArrayList<>());
+// 				filesPerPath.get(key).add(file);
+// 			}
 			
 
-			for (Map.Entry<String, List<File>> entry : filesPerPath.entrySet()) {
-				JobFolder folder = new JobFolder();
-				folder.remoteFolder = new File(entry.getKey());
+// 			for (Map.Entry<String, List<File>> entry : filesPerPath.entrySet()) {
+// 				JobFolder folder = new JobFolder();
+// 				folder.remoteFolder = new File(entry.getKey());
 					
-				List<File> remoteDir = entry.getValue();
-				List<File> remoteParentDir = filesPerPath.get(folder.remoteFolder.getParentFile().getAbsolutePath());
+// 				List<File> remoteDir = entry.getValue();
+// 				List<File> remoteParentDir = filesPerPath.get(folder.remoteFolder.getParentFile().getAbsolutePath());
 				
-				folder.remoteFiles = remoteDir;
+// 				folder.remoteFiles = remoteDir;
 				
-				JobFolder parentFolder = new JobFolder();
-				parentFolder.remoteFolder = folder.remoteFolder.getParentFile();
-				parentFolder.remoteFiles = remoteParentDir;
+// 				JobFolder parentFolder = new JobFolder();
+// 				parentFolder.remoteFolder = folder.remoteFolder.getParentFile();
+// 				parentFolder.remoteFiles = remoteParentDir;
 				
-				for (String pipelineStep : collection.getPipeline()) {
-					BrookeJobStep step = JOBS.get(pipelineStep);
-					if(step != null) {
-						if (step.required(folder)) {
-							foldersToProcess.get(collection.getName()).add(folder);
-						}
-						if (remoteParentDir != null && step.required(parentFolder)) {
-							foldersToProcess.get(collection.getName()).add(parentFolder);
-						}
-					}
-				}
-			}
-		}
-	}
+// 				for (String pipelineStep : collection.getPipeline()) {
+// 					BrookeJobStep step = JOBS.get(pipelineStep);
+// 					if(step != null) {
+// 						if (step.required(folder)) {
+// 							foldersToProcess.get(collection.getName()).add(folder);
+// 						}
+// 						if (remoteParentDir != null && step.required(parentFolder)) {
+// 							foldersToProcess.get(collection.getName()).add(parentFolder);
+// 						}
+// 					}
+// 				}
+// 			}
+// 		}
+// 	}
 
-	private static void executeStep(JobFolder job, String pipelineStep, BrookeJobStep step)
-			throws IOException {
-		if (step.isRemoteStep()) {
-			// renames are carried out remotely to avoid an extra hard sync process
-			// renames should be first in the pipeline
-			step.execute(job);
-		} else {
-			// copy the files necessary for the step and execute it
-			List<File> requiredFiles = step.filesRequiredForExecution(job);
-			for (File file : requiredFiles) {
-				String relativeFromRemote = file.getAbsolutePath().substring(job.remoteFolder.getAbsolutePath().length());
-				File localFile = new File(job.workFolder, relativeFromRemote);
-				FileUtils.copyFile(file, localFile);
-			}
-			job.workFiles = new ArrayList<>();
-			job.workFiles.addAll(FileUtils.listFiles(job.workFolder, null, true));
-			step.execute(job);
-		}
-	}
+// 	private static void executeStep(JobFolder job, String pipelineStep, BrookeJobStep step)
+// 			throws IOException {
+// 		if (step.isRemoteStep()) {
+// 			// renames are carried out remotely to avoid an extra hard sync process
+// 			// renames should be first in the pipeline
+// 			step.execute(job);
+// 		} else {
+// 			// copy the files necessary for the step and execute it
+// 			List<File> requiredFiles = step.filesRequiredForExecution(job);
+// 			for (File file : requiredFiles) {
+// 				String relativeFromRemote = file.getAbsolutePath().substring(job.remoteFolder.getAbsolutePath().length());
+// 				File localFile = new File(job.workFolder, relativeFromRemote);
+// 				FileUtils.copyFile(file, localFile);
+// 			}
+// 			job.workFiles = new ArrayList<>();
+// 			job.workFiles.addAll(FileUtils.listFiles(job.workFolder, null, true));
+// 			step.execute(job);
+// 		}
+// 	}
 
-	private static Set<File> determineNewFiles(File[] filesBeforeSteps, File[] filesAfterSteps) {
-		Set<File> result = new HashSet<>();
-		Set<File> before = new HashSet<>();
-		if (filesBeforeSteps != null)
-			before = new HashSet(Arrays.asList(filesBeforeSteps));
-		Set<File> after = new HashSet<>();
-		if (filesAfterSteps != null)
-			after = new HashSet(Arrays.asList(filesAfterSteps));
+// 	private static Set<File> determineNewFiles(File[] filesBeforeSteps, File[] filesAfterSteps) {
+// 		Set<File> result = new HashSet<>();
+// 		Set<File> before = new HashSet<>();
+// 		if (filesBeforeSteps != null)
+// 			before = new HashSet(Arrays.asList(filesBeforeSteps));
+// 		Set<File> after = new HashSet<>();
+// 		if (filesAfterSteps != null)
+// 			after = new HashSet(Arrays.asList(filesAfterSteps));
 
-		for (File a : after) {
-			if (!before.contains(a)) {
-				result.add(a);
-			}
-		}
+// 		for (File a : after) {
+// 			if (!before.contains(a)) {
+// 				result.add(a);
+// 			}
+// 		}
 
-		return result;
-	}
+// 		return result;
+// 	}
 }

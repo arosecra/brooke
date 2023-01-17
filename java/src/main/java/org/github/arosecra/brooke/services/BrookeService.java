@@ -21,7 +21,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.util.FileUtil;
 import org.github.arosecra.brooke.Settings;
-import org.github.arosecra.brooke.dao.LibraryDao;
+// import org.github.arosecra.brooke.dao.LibraryDao;
 import org.github.arosecra.brooke.model.Button;
 import org.github.arosecra.brooke.model.ButtonSet;
 import org.github.arosecra.brooke.model.Catalog;
@@ -58,16 +58,16 @@ public class BrookeService {
 	@Autowired 
 	private FileCacheService fileCacheService;
 	
-	private LibraryDao libraryDao;
+	// private LibraryDao libraryDao;
 	
 	private Library library;
 
-	@Autowired
-	public void setLibraryDao(LibraryDao libraryDao) { this.libraryDao = libraryDao; }
+	// @Autowired
+	// public void setLibraryDao(LibraryDao libraryDao) { this.libraryDao = libraryDao; }
 	
 	@PostConstruct()
 	public void init() {
-		library = libraryDao.getLibrary();
+		// library = libraryDao.getLibrary();
 	}
 	
 	public Library getLibrary() {
@@ -277,7 +277,7 @@ public class BrookeService {
 	}
 
 	public void reloadLibrary() {
-		library = libraryDao.getLibrary();
+		// library = libraryDao.getLibrary();
 	}
 
 	public void openVLC(String collectionName, String catalogName, String categoryName, String itemName, int index) throws IOException {
