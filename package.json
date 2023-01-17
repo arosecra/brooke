@@ -14,10 +14,10 @@
     "start:electron":"cd electron && npm run start",
     "package:electron":"cd electron && npm run package",
 
-    "install:java":"",
-    "build:java":"cd java && mvn clean package -Dmaven.test.skip=true",
-    "start:java":"cd java && java -jar target/brooke.war",
-    "package:java":"cd java && mvn clean install -Dmaven.test.skip=true",
+    "install:java":"cd java && npm install",
+    "build:java":"cd java && npm run build",
+    "start:java":"cd java && npm run start",
+    "package:java":"cd java && npm run package",
 
 
     "install":"npm-run-all install:java install:angular install:electron",

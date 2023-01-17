@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "install":"",
+    "build":"mvn clean package -Dmaven.test.skip=true",
+    "start":"java -jar target/brooke.war",
+    "package":"mvn clean install -Dmaven.test.skip=true"
+  }
+}

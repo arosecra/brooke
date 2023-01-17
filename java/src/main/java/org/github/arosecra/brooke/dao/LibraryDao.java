@@ -180,7 +180,7 @@ public class LibraryDao {
 	}
 
 	private void getCollectionsFromDisk(Library result) {
-		for (File file : new File(settings.getLibraryHome()).listFiles()) {
+		for (File file : new File(settings.getLibraryHome(), "Collections").listFiles()) {
 			if (file.getName().endsWith("yaml")) {
 				ObjectMapper mapper = new YAMLMapper();
 				try {
