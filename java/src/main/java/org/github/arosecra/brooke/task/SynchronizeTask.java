@@ -97,6 +97,7 @@ public class SynchronizeTask implements RunnableTask {
 		List<FilePair> result = new ArrayList<>();
 		for(CollectionApiModel collection : this.collections) {
 			result.addAll(this.syncCollection(collection));
+			this.copied.set(this.copied.get()+1);
 		}
 
 		return result;
