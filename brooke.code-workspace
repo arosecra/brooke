@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": ".",
+			"name": "root"
+		},
+		{
+			"path": "angular"
+		},
+		{
+			"path": "electron"
+		},
+		{
+			"path": "java"
+		}
+	]
+}
