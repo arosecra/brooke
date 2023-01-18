@@ -46,7 +46,16 @@ export declare interface ToCEntry {
 export declare interface JobDetails {
     jobNumber: bigint;
     jobType: string;
+		jobDescription: string;
+		currentProgressDescription: string;
+		totalProgressDescription: string;
     current: number;
     total: number;
 
+}
+
+export declare interface MissingItem {
+	collection: string;
+	itemName: string;
+	itemMissing: boolean;
 }

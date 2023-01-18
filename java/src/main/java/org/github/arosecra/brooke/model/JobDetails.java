@@ -3,10 +3,12 @@ package org.github.arosecra.brooke.model;
 public class JobDetails {
 	private long jobNumber;
 	private String jobType;
+	private String jobDescription;
+	private String currentProgressDescription;
+	private String totalProgressDescription;
 	private long total;
 	private long current;
 	private boolean started;
-	
 	
 	public long getJobNumber() {
 		return jobNumber;
@@ -20,7 +22,6 @@ public class JobDetails {
 	public void setJobType(String jobType) {
 		this.jobType = jobType;
 	}
-	
 	public boolean isStarted() {
 		return started;
 	}
@@ -39,4 +40,23 @@ public class JobDetails {
 	public void setTotal(long total) {
 		this.total = total;
 	}
+	public String getJobDescription() {
+		return jobDescription;
+	}
+	public void setJobDescription(String jobDescription) {
+		this.jobDescription = jobDescription;
+	}
+	public String getCurrentProgressDescription() {
+		return currentProgressDescription;
+	}
+	public void setCurrentProgressDescription(String currentProgressDescription) {
+		this.currentProgressDescription = currentProgressDescription;
+	}
+	public String getTotalProgressDescription() {
+		return totalProgressDescription;
+	}
+	public void setTotalProgressDescription(String totalProgressDescription) {
+		this.totalProgressDescription = totalProgressDescription;
+	}
+	
 }

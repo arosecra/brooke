@@ -6,98 +6,96 @@ import java.io.FileOutputStream;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.springframework.scheduling.annotation.Async;
+import org.apache.commons.io.FilenameUtils;
 
-public class CopyFileAsyncTask implements ProgressableRunnable {
+public class CopyFileAsyncTask implements RunnableTask {
 
-        private AtomicLong filesize = new AtomicLong(0L);
-        private AtomicLong copied = new AtomicLong(0L);
-        private AtomicBoolean started = new AtomicBoolean(false);
-        private File remoteFile;
-        private File cacheFile;
+	private AtomicLong filesize = new AtomicLong(0L);
+	private AtomicLong copied = new AtomicLong(0L);
+	private AtomicBoolean started = new AtomicBoolean(false);
+	private File remoteFile;
+	private File cacheFile;
 
-        public CopyFileAsyncTask(File remoteFile, File cacheFile) {
-                this.remoteFile = remoteFile;
-                this.cacheFile = cacheFile;
-        }
+	public CopyFileAsyncTask(File remoteFile, File cacheFile) {
+		this.remoteFile = remoteFile;
+		this.cacheFile = cacheFile;
+	}
 
-        @Async
-        public void copyFilesWithProgress(File remoteFile, File cacheFile) {
-                FileInputStream fin = null;
-                FileOutputStream fout = null;
+	public AtomicLong getFilesize() {
+		return filesize;
+	}
 
-                this.filesize.set(remoteFile.length());
+	public void setFilesize(AtomicLong filesize) {
+		this.filesize = filesize;
+	}
 
-                long counter = 0;
-                int r = 0;
-                byte[] b = new byte[1024];
-                try {
-                        fin = new FileInputStream(remoteFile);
-                        fout = new FileOutputStream(cacheFile);
-                        while ((r = fin.read(b)) != -1) {
-                                counter += r;
-                                this.copied.set(counter);
-                                fout.write(b, 0, r);
-                        }
-                } catch (Exception e) {
-                        System.out.println("foo");
-                }
-        }
+	public AtomicLong getCopied() {
+		return copied;
+	}
 
-        public AtomicLong getFilesize() {
-                return filesize;
-        }
+	public void setCopied(AtomicLong copied) {
+		this.copied = copied;
+	}
 
-        public void setFilesize(AtomicLong filesize) {
-                this.filesize = filesize;
-        }
+	@Override
+	public String getJobDescription() {
+		return "Caching " + FilenameUtils.getBaseName(this.remoteFile.getName()).replace("_", "");
+	}
 
-        public AtomicLong getCopied() {
-                return copied;
-        }
+	@Override
+	public String getJobType() {
+		return "Cache";
+	}
 
-        public void setCopied(AtomicLong copied) {
-                this.copied = copied;
-        }
+	@Override
+	public String getCurrentProgressDescription() {
+		return "Copied";
+	}
 
-        @Override
-        public void run() {
-                FileInputStream fin = null;
-                FileOutputStream fout = null;
+	@Override
+	public String getTotalProgressDescription() {
+		return "Filesize";
+	}
 
-                this.filesize.set(remoteFile.length());
+	@Override
+	public void run() {
+		FileInputStream fin = null;
+		FileOutputStream fout = null;
 
-                long counter = 0;
-                int r = 0;
-                byte[] b = new byte[1024 * 1024];
-                try {
-                        fin = new FileInputStream(remoteFile);
-                        fout = new FileOutputStream(cacheFile);
-                        while ((r = fin.read(b)) != -1) {
-                                counter += r;
-                                this.copied.set(counter);
-                                fout.write(b, 0, r);
-                        }
-                        fout.flush();
-                        fout.close();
-                } catch (Exception e) {
-                        System.out.println("foo");
-                }
-        }
+		this.filesize.set(remoteFile.length());
+		this.started.set(true);
 
-        @Override
-        public AtomicBoolean started() {
-                return this.started;
-        }
+		long counter = 0;
+		int r = 0;
+		byte[] b = new byte[1024 * 1024];
+		try {
+			fin = new FileInputStream(remoteFile);
+			fout = new FileOutputStream(cacheFile);
+			while ((r = fin.read(b)) != -1) {
+				counter += r;
+				this.copied.set(counter);
+				fout.write(b, 0, r);
+			}
+			fout.flush();
+			fout.close();
+		} catch (Exception e) {
+			System.out.println("foo");
+		}
+	}
 
-        @Override
-        public AtomicLong getTotalProgress() {
-                return this.filesize;
-        }
+	@Override
+	public AtomicBoolean started() {
+		return this.started;
+	}
 
-        @Override
-        public AtomicLong getCurrentProgress() {
-                return this.copied;
-        }
+	@Override
+	public AtomicLong getTotalProgress() {
+		return this.filesize;
+	}
+
+	@Override
+	public AtomicLong getCurrentProgress() {
+		return this.copied;
+	}
 
 }

@@ -29,6 +29,8 @@ public class FileCacheService {
 		File cacheFile = new File(cacheFolder, remoteFile.getName());
 		CopyFileAsyncTask task = new CopyFileAsyncTask(remoteFile, cacheFile);
 		JobDetails jobDetails = jobDao.createJob(task);
+		jobDetails.setJobDescription("Caching");
+		jobDetails.setJobType("Cache");
 		jobDao.runJob(jobDetails, task);
 		return jobDetails;
 	}

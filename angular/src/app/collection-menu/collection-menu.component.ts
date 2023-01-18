@@ -6,6 +6,7 @@ interface Link {
   displayName: string;
   routerLink: string;
   queryParams?: any;
+	subLinks?: Link[];
 }
 
 interface CollectionMenuVM {
@@ -17,6 +18,21 @@ const home: Link = {
   routerLink: '/home'
 };
 
+const admin: Link = {
+	displayName: 'Administration',
+	routerLink: '',
+	subLinks: [
+		{
+			displayName: 'Missing Items',
+			routerLink: '/missing-items'
+		},
+		{
+			displayName: 'Synchronize',
+			routerLink: '/synchronize'
+		},
+	]
+}
+
 @Component({
   selector: 'app-collection-menu',
   templateUrl: './collection-menu.component.html'
@@ -24,26 +40,6 @@ const home: Link = {
 export class CollectionMenuComponent implements OnInit {
 
   vm$: Observable<CollectionMenuVM>;
-
-  links = [
-    {
-      route: 'home',
-      displayName: 'Home',
-      routerLink: '/home',
-      isActive: false
-    },
-    {
-      displayName: "Anime",
-      routerLink: '/collection',
-      queryParams: { collection: 'Anime' },
-      isActive: false
-    }, {
-      displayName: "Movies",
-      routerLink: '/collection',
-      queryParams: { collection: 'Movies' },
-      isActive: false
-    }
-  ]
 
   constructor(
     private brookeService: BrookeService
@@ -65,7 +61,9 @@ export class CollectionMenuComponent implements OnInit {
               queryParams: { collection: collection.name }
             }
           )
-        })
+        });
+
+				links.push(admin);
 
         return {
           collections: collections,

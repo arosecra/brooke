@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import {BookDetails, Category, Collection, Item, JobDetails} from './brooke.model';
+import {BookDetails, Category, Collection, Item, JobDetails, MissingItem} from './brooke.model';
 
 @Injectable()
 export class BrookeService {
@@ -44,6 +44,12 @@ export class BrookeService {
     );
   }
 
+  synchronize(): Observable<JobDetails> {
+    return this.http.get<JobDetails>(
+      `/rest/administration/sync`
+    );
+  }
+
   openVideo(collectionName: string, itemName: string): Observable<JobDetails> {
     return this.http.get<JobDetails>(
       `/rest/video/${collectionName}/${itemName}`
@@ -61,4 +67,10 @@ export class BrookeService {
       `/rest/job-details/${jobNumber}`
     );
   }
+
+	getMissingItems(): Observable<MissingItem[]> {
+		return this.http.get<MissingItem[]>(
+      `/rest/administration/missing-item`
+    );
+	}
 }

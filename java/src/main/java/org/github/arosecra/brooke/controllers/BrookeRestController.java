@@ -10,6 +10,7 @@ import org.github.arosecra.brooke.model.api.BookDetailsApiModel;
 import org.github.arosecra.brooke.model.api.CategoryApiModel;
 import org.github.arosecra.brooke.model.api.CollectionApiModel;
 import org.github.arosecra.brooke.model.api.ItemApiModel;
+import org.github.arosecra.brooke.model.api.MissingItemApiModel;
 import org.github.arosecra.brooke.services.BrookeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -142,12 +143,15 @@ public class BrookeRestController {
 			) {
 		return false;
 	}
-	
-	
-	@GetMapping("/rest/sync")
-	public String syncLocalWithRemote() throws IOException {
-//		brookeService.sync();
-		return "redirect:/";
+
+	@GetMapping("/rest/administration/missing-item")
+	public List<MissingItemApiModel> getMissingItems() {
+		return brookeService.getMissingItems();
+	}
+
+	@GetMapping("/rest/administration/sync")
+	public JobDetails sync() {
+		return brookeService.sync();
 	}
 	
 	@GetMapping("/rest/reload")

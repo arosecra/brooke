@@ -11,7 +11,6 @@ ToDo:
 - angular: Ability to add overlay graphics (bounding box, etc) for image algorithm testing
 - angular: NgRx incorporation
 - angular: add a feature to check for getting a list of missing library items / shelf items
-- angular: toggle subtitles/audio tracks
 - angular: management menu / page
 - angular: add ability to set the subtitle/audio tracks per series / video
 - angular: UI to change app settings

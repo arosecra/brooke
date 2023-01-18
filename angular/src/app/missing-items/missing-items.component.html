@@ -1,0 +1,68 @@
+<ng-container *ngIf="(vm$ | async) as vm">
+
+	<div class="columns">
+		<div class="column">
+			<div class="content">
+				<h1>Missing Items ({{vm.missingItemCnt}})</h1>
+			</div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Collection</th>
+						<th>Item Name</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<th>Collection</th>
+						<th>Item Name</th>
+					</tr>
+				</tfoot>
+				<tbody>
+					<ng-container *ngFor="let missingItem of vm.missingItems">
+					<tr *ngIf="missingItem.itemMissing">
+						<th>{{missingItem.collection}}</th>
+						<td>{{missingItem.itemName}}</td>
+					</tr>
+				</ng-container>
+				</tbody>
+			</table>
+		</div>
+		<div class="column">
+			<div class="content">
+				<h1>Missing Shelf Items ({{vm.missingShelfItemCnt}})</h1>
+			</div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Collection</th>
+						<th>Item Name</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<th>Collection</th>
+						<th>Item Name</th>
+					</tr>
+				</tfoot>
+				<tbody>
+					<ng-container *ngFor="let missingItem of vm.missingItems">
+					<tr *ngIf="!missingItem.itemMissing">
+						<th>{{missingItem.collection}}</th>
+						<td>{{missingItem.itemName}}</td>
+					</tr>
+				</ng-container>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+
+	
+
+
+
+	
+	
+</ng-container>

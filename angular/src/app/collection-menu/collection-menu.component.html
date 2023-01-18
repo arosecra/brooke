@@ -4,9 +4,23 @@
             <aside class="menu ">
                 <ul class="menu-list">
                     <li *ngFor="let link of vm.links">
+											<ng-container *ngIf="!link.subLinks">
                         <a class="button menu-label" [routerLink]="[link.routerLink]" [queryParams]="link.queryParams">
                             {{link.displayName}}
                         </a>
+											</ng-container>
+											<ng-container *ngIf="link.subLinks">
+												<p class="menu-label">
+													{{link.displayName}}
+												</p>
+												<ul>
+													<li *ngFor="let sublink of link.subLinks">
+														<a class="button menu-label" [routerLink]="[sublink.routerLink]" [queryParams]="sublink.queryParams">
+																{{sublink.displayName}}
+														</a>
+													</li>
+												</ul>
+											</ng-container>
                     </li>
                 </ul>
             </aside>

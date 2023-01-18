@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.github.arosecra.brooke.model.JobDetails;
-import org.github.arosecra.brooke.task.ProgressableRunnable;
+import org.github.arosecra.brooke.task.RunnableTask;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +13,9 @@ public class JobService {
 	
 	private long lastJobNumber = 1;
 
-	private Map<Long, ProgressableRunnable> jobs = new HashMap<>();
+	private Map<Long, RunnableTask> jobs = new HashMap<>();
 	
-	public JobDetails createJob(ProgressableRunnable runnable) {
+	public JobDetails createJob(RunnableTask runnable) {
 		
 		JobDetails jobDetails = new JobDetails();
 		jobDetails.setJobNumber(this.lastJobNumber++);		
@@ -26,15 +26,19 @@ public class JobService {
 	}
 	
 	@Async
-	public void runJob(JobDetails jobDetails, ProgressableRunnable runnable) {
+	public void runJob(JobDetails jobDetails, RunnableTask runnable) {
 		runnable.run();
 	}
 	
 	public JobDetails getJobDetails(Long jobNumber) {
-		ProgressableRunnable pr = this.jobs.get(jobNumber);
+		RunnableTask pr = this.jobs.get(jobNumber);
 		
 		JobDetails jobDetails = new JobDetails();
+		jobDetails.setJobType(pr.getJobType());
 		jobDetails.setJobNumber(lastJobNumber);
+		jobDetails.setJobDescription(pr.getJobDescription());
+		jobDetails.setCurrentProgressDescription(pr.getCurrentProgressDescription());
+		jobDetails.setTotalProgressDescription(pr.getTotalProgressDescription());
 		jobDetails.setCurrent(pr.getCurrentProgress().get());
 		jobDetails.setTotal(pr.getTotalProgress().get());
 		jobDetails.setStarted(pr.started().get());

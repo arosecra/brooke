@@ -22,6 +22,7 @@ import org.github.arosecra.brooke.model.api.BookDetailsApiModel;
 import org.github.arosecra.brooke.model.api.CategoryApiModel;
 import org.github.arosecra.brooke.model.api.CollectionApiModel;
 import org.github.arosecra.brooke.model.api.ItemApiModel;
+import org.github.arosecra.brooke.model.api.MissingItemApiModel;
 import org.github.arosecra.brooke.model.api.VlcOptionsApiModel;
 import org.github.arosecra.brooke.util.CommandLine;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,9 @@ public class BrookeService {
 
 	@Autowired
 	private LibraryLocationService libraryLocationService;
+
+	@Autowired
+	private BrookeSyncService syncService;
 	
 	private LibraryDao libraryDao2;
 	
@@ -61,7 +65,6 @@ public class BrookeService {
 	public void init() {
 		library = libraryDao2.getLibrary(false);
 	}
-	
 
 	public Library getLibrary() {
 		return this.library;
@@ -153,15 +156,12 @@ public class BrookeService {
 	
 	private File getCachedFile(String collectionName, String itemName) {
 		File cacheFolder = new File("D:\\Library\\Cache");
-		
 		File remoteFile = this.libraryLocationService.getRemoteFile(library, collectionName, itemName);
-		
 		File cacheFile = new File(cacheFolder, remoteFile.getName());
 		return cacheFile;
 	}
 
 	public BookDetailsApiModel getBookDetails(String collectionName, String itemName) throws JsonParseException, JsonMappingException, IOException {
-		
 		File cbtDetailsFile = null;
 		
 		Shelf shelf = this.getShelf(collectionName.replaceAll(" ", "_"));
@@ -241,8 +241,6 @@ public class BrookeService {
 		this.libraryDao2 = libraryDao;
 	}
 
-
-	
 	public void copyForTablet(String collectionName, String catalogName, String categoryName, String itemName) throws IOException {
 		File tempSsdFolder = new File("C:\\scans\\temp");
 		File unzippedFolder = new File(tempSsdFolder, itemName);
@@ -277,6 +275,60 @@ public class BrookeService {
 		FileUtils.delete(localSourceFile);
 		FileUtils.delete(localCbzFile);
 		System.out.println("Done copying new CBZ to tablet sync directory");
+	}
+
+	public List<MissingItemApiModel> getMissingItems() {
+		List<MissingItemApiModel> result = new ArrayList<>();
+		//find all of the shelf items that do not have item locations
+		for(Shelf shelf : this.library.getShelves()) {
+			for(ShelfItem si : shelf.values()) {
+				ItemLocation il = this.libraryLocationService.getItemLocation(library, shelf.getName(), si.getName());
+
+				if(il == null) {
+					MissingItemApiModel missing = new MissingItemApiModel();
+					missing.setCollection(shelf.getName());
+					missing.setItemMissing(true);
+					missing.setItemName(si.getName());
+					result.add(missing);
+				}
+			}
+		}
+
+		//find all of the item and child items that do not have a shelf item
+		for(CollectionApiModel collection : this.library.getCollections()) {
+			for(CategoryApiModel category : collection.getCategories()) {
+				for(ItemApiModel item : category.getItems()) {
+					ShelfItem si = this.libraryLocationService.getShelfItem(library, collection.getName(), item.getName());
+
+					if(si == null) {
+						MissingItemApiModel missing = new MissingItemApiModel();
+						missing.setCollection(collection.getName());
+						missing.setItemMissing(false);
+						missing.setItemName(item.getName());
+						result.add(missing);
+					}
+
+					for(ItemApiModel child : item.getChildItems()) {
+						
+						si = this.libraryLocationService.getShelfItem(library, collection.getName(), child.getName());
+
+						if(si == null) {
+							MissingItemApiModel missing = new MissingItemApiModel();
+							missing.setCollection(collection.getName());
+							missing.setItemMissing(false);
+							missing.setItemName(child.getName());
+							result.add(missing);
+						}
+					}
+				}
+			}
+		}
+
+		return result;
+	}
+
+	public JobDetails sync() {
+		return this.syncService.sync(library.getCollections());
 	}
 	
 	// public void createBoundingBoxPng() {

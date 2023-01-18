@@ -19,14 +19,16 @@ import { ItemModule } from './item/item.module';
 import { TopBarModule } from './top-bar/top-bar.module';
 import { CollectionMenuModule } from './collection-menu/collection-menu.module';
 import { CategoryMenuModule } from './category-menu/category-menu.module';
-import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { BreadcrumbModule } from './breadcrumb/breadcrumb.module';
 import { BookPageTurnerModule } from './book-page-turner/book-page-turner.module';
-import { CachingModule } from './caching/caching.module';
 import { BookOptionsModule } from './book-options/book-options.module';
-import { BookTocComponent } from './book-toc/book-toc.component';
 import { BookTocModule } from './book-toc/book-toc.module';
 import { BookDetailModule } from './book-detail/book-detail.module';
+import { MissingItemsModule } from './missing-items/missing-items.module';
+import { CachingModule } from './caching/caching.module';
+import { JobDetailsComponent } from './job-details/job-details.component';
+import { JobDetailsModule } from './job-details/job-details.module';
+import { SynchronizeModule } from './synchronize/synchronize.module';
 
 @NgModule({
   declarations: [
@@ -45,16 +47,19 @@ import { BookDetailModule } from './book-detail/book-detail.module';
     BookPageTurnerModule,
     BookTocModule,
     BreadcrumbModule,
-    CachingModule,
+		CachingModule,
     CategoryMenuModule,
     CategoryModule,
     CollectionModule,
     CollectionMenuModule,
     ConfigureModule,
     HomeModule,
+		JobDetailsModule,
     ItemModule,
     MaterialModule,
+		MissingItemsModule,
     SeriesModule,
+		SynchronizeModule,
     TopBarModule,
     WidgetsModule,
 

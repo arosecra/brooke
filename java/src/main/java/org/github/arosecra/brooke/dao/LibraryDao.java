@@ -84,36 +84,38 @@ public class LibraryDao {
 			shelf.setName(collection.getName());
 
 			File localDir = new File(collection.getLocalDirectory());
+			if (localDir.exists()) {
 
-			for (File childFile : FileUtils.listFiles(localDir, null, true)) {
-				if (childFile.getName().endsWith(".item")) {
-					File baseDir = childFile.getParentFile();
-					String name = FilenameUtils.getBaseName(childFile.getName());
-					if (!shelf.containsKey(name)) {
-						ShelfItem shelfItem = new ShelfItem();
-						shelfItem.setName(name);
-						shelfItem.setLocalCollectionBaseDirectory(localDir);
-						shelfItem.setRemoteCollectionBaseDirectory(new File(collection.getRemoteDirectory()));
-						shelf.add(shelfItem);
-					}
-
-					ShelfItem shelfItem = shelf.get(name);
-					shelfItem.setLocalBaseDirectory(baseDir);
-
-					// check if the parent directory has a thumbnail.png file
-					if (new File(baseDir, "../thumbnail.png").exists()) {
-						File parentBaseDir = baseDir.getParentFile();
-						String parentName = FilenameUtils.getBaseName(parentBaseDir.getName());
-						if (!shelf.containsKey(parentName)) {
-							ShelfItem parentShelfItem = new ShelfItem();
-							parentShelfItem.setName(parentName);
-							parentShelfItem.setLocalCollectionBaseDirectory(localDir);
-							parentShelfItem.setRemoteCollectionBaseDirectory(new File(collection.getRemoteDirectory()));
-							shelf.add(parentShelfItem);
+				for (File childFile : FileUtils.listFiles(localDir, null, true)) {
+					if (childFile.getName().endsWith(".item")) {
+						File baseDir = childFile.getParentFile();
+						String name = FilenameUtils.getBaseName(childFile.getName());
+						if (!shelf.containsKey(name)) {
+							ShelfItem shelfItem = new ShelfItem();
+							shelfItem.setName(name);
+							shelfItem.setLocalCollectionBaseDirectory(localDir);
+							shelfItem.setRemoteCollectionBaseDirectory(new File(collection.getRemoteDirectory()));
+							shelf.add(shelfItem);
 						}
 
-						ShelfItem parentShelfItem = shelf.get(parentName);
-						parentShelfItem.setLocalBaseDirectory(parentBaseDir);
+						ShelfItem shelfItem = shelf.get(name);
+						shelfItem.setLocalBaseDirectory(baseDir);
+
+						// check if the parent directory has a thumbnail.png file
+						if (new File(baseDir, "../thumbnail.png").exists()) {
+							File parentBaseDir = baseDir.getParentFile();
+							String parentName = FilenameUtils.getBaseName(parentBaseDir.getName());
+							if (!shelf.containsKey(parentName)) {
+								ShelfItem parentShelfItem = new ShelfItem();
+								parentShelfItem.setName(parentName);
+								parentShelfItem.setLocalCollectionBaseDirectory(localDir);
+								parentShelfItem.setRemoteCollectionBaseDirectory(new File(collection.getRemoteDirectory()));
+								shelf.add(parentShelfItem);
+							}
+
+							ShelfItem parentShelfItem = shelf.get(parentName);
+							parentShelfItem.setLocalBaseDirectory(parentBaseDir);
+						}
 					}
 				}
 			}
