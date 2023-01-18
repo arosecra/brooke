@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.github.arosecra.brooke.Settings;
+import org.github.arosecra.brooke.model.ItemCatalog;
 import org.github.arosecra.brooke.model.ItemLocation;
 import org.github.arosecra.brooke.model.Library;
 import org.github.arosecra.brooke.model.Shelf;
@@ -34,52 +35,45 @@ public class LibraryDao {
 
 		// get the collections
 		getCollectionsFromDisk(result);
-		
-		
+
 		getShelfItemsFromLocal(result);
-		if(includeRemote) {
+		if (includeRemote) {
 			getShelfItemsFromRemote(result);
 		}
-		
-//		getItemLocations(result);
-		
+
+		getItemLocations(result);
+
 		System.out.println("Finished loading library");
 		return result;
 	}
 
 	private void getItemLocations(Library result) {
-		for(CollectionApiModel collection : result.getCollections()) {
-			for(CategoryApiModel category: collection.getCategories()) {
-				for(ItemApiModel item: category.getItems()) {
-					
-					if(!item.isSeries()) {
-						ItemLocation itemLocation = new ItemLocation();
-						itemLocation.setCollectionName(collection.getName());
-						itemLocation.setCategoryName(category.getName());
-						itemLocation.setItemName(null);
-						
-					} else {
-						for(ItemApiModel child : item.getChildItems()) {
+		for (CollectionApiModel collection : result.getCollections()) {
 
-							ItemLocation itemLocation = new ItemLocation();
-							itemLocation.setCollectionName(collection.getName());
-							itemLocation.setCategoryName(category.getName());
-							itemLocation.setItemName(null);
-							
-							
-							
-							
+			ItemCatalog catalog = new ItemCatalog();
+			catalog.setName(collection.getName());
+			for (CategoryApiModel category : collection.getCategories()) {
+				for (ItemApiModel item : category.getItems()) {
+					ItemLocation itemLocation = new ItemLocation();
+					itemLocation.setCollectionName(collection.getName());
+					itemLocation.setCategoryName(category.getName());
+					itemLocation.setItemName(item.getName());
+					catalog.put(item.getName(), itemLocation);
+
+					if (item.isSeries()) {
+						for (ItemApiModel child : item.getChildItems()) {
+							ItemLocation childLocation = new ItemLocation();
+							childLocation.setCollectionName(collection.getName());
+							childLocation.setCategoryName(category.getName());
+							childLocation.setSeriesName(item.getName());
+							childLocation.setItemName(child.getName());
+							catalog.put(child.getName(), childLocation);
 						}
-						
 					}
-					
-					
-					
-					
-					
-					
 				}
 			}
+
+			result.getItemCatalogs().add(catalog);
 		}
 	}
 
@@ -105,9 +99,9 @@ public class LibraryDao {
 
 					ShelfItem shelfItem = shelf.get(name);
 					shelfItem.setLocalBaseDirectory(baseDir);
-					
-					//check if the parent directory has a thumbnail.png file
-					if(new File(baseDir, "../thumbnail.png").exists()) {
+
+					// check if the parent directory has a thumbnail.png file
+					if (new File(baseDir, "../thumbnail.png").exists()) {
 						File parentBaseDir = baseDir.getParentFile();
 						String parentName = FilenameUtils.getBaseName(parentBaseDir.getName());
 						if (!shelf.containsKey(parentName)) {
@@ -126,15 +120,13 @@ public class LibraryDao {
 			result.getShelves().add(shelf);
 		}
 	}
-	
-
 
 	private void getShelfItemsFromRemote(Library result) {
 		for (CollectionApiModel collection : result.getCollections()) {
 
 			Shelf shelf = null;
-			for(Shelf s : result.getShelves()) {
-				if(s.getName().equals(collection.getName())) {
+			for (Shelf s : result.getShelves()) {
+				if (s.getName().equals(collection.getName())) {
 					shelf = s;
 				}
 			}
@@ -155,12 +147,11 @@ public class LibraryDao {
 						shelf.add(shelfItem);
 					}
 					ShelfItem shelfItem = shelf.get(name);
-					
-					
+
 					shelfItem.setRemoteBaseDirectory(baseDir);
 					shelf.add(shelfItem);
-					
-					if(new File(baseDir, "../thumbnail.png").exists()) {
+
+					if (new File(baseDir, "../thumbnail.png").exists()) {
 						File parentBaseDir = baseDir.getParentFile();
 						String parentName = FilenameUtils.getBaseName(parentBaseDir.getName());
 						if (!shelf.containsKey(parentName)) {

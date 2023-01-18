@@ -1,14 +1,16 @@
 package org.github.arosecra.brooke.controllers;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.github.arosecra.brooke.model.JobDetails;
 import org.github.arosecra.brooke.model.api.BookDetailsApiModel;
 import org.github.arosecra.brooke.model.api.CategoryApiModel;
 import org.github.arosecra.brooke.model.api.CollectionApiModel;
 import org.github.arosecra.brooke.model.api.ItemApiModel;
-import org.github.arosecra.brooke.services.BrookeRestService;
+import org.github.arosecra.brooke.services.BrookeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,26 +20,29 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class BrookeRestController {
 
-	@Autowired
-	private BrookeRestService brookeRestService;
-
-	@GetMapping("/rest/process")
-	public String[] getProcess() {
-		return new String[] {
-			ProcessHandle.current().pid()+"",
-			ProcessHandle.current().parent().isPresent()+"",
-			ProcessHandle.current().parent().get().isAlive()+""
-		};
+	
+	private static byte[] DEFAULT_THUMBNAIL;
+	static {
+		try {
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			IOUtils.copy(BrookeService.class.getResourceAsStream("/static/images/default_thumbnail.png"), baos);
+			DEFAULT_THUMBNAIL = baos.toByteArray();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
+
+	@Autowired
+	private BrookeService brookeService;
 
 	@GetMapping("/rest/collection")
 	public List<CollectionApiModel> getCollections() {
-		return this.brookeRestService.getLibrary().getCollections();
+		return this.brookeService.getLibrary().getCollections();
 	}
 
 	@GetMapping("/rest/collection/{collectionName}")
 	public CollectionApiModel getCollection(@PathVariable("collectionName") String collectionName) {
-		return this.brookeRestService.getCollection(collectionName);
+		return this.brookeService.getCollection(collectionName);
 	}
 	
 	@GetMapping("/rest/category/{collectionName}/{categoryName}")
@@ -45,16 +50,15 @@ public class BrookeRestController {
 			@PathVariable("collectionName") String collectionName,
 			@PathVariable("categoryName") String categoryName
 	) {
-		return this.brookeRestService.getCategory(collectionName, categoryName);
+		return this.brookeService.getCategory(collectionName, categoryName);
 	}
 	
 	@GetMapping("/rest/item/{collectionName}/{categoryName}/{itemName}")
-	public ItemApiModel getCategory(
+	public ItemApiModel getItem(
 			@PathVariable("collectionName") String collectionName,
-			@PathVariable("categoryName") String categoryName,
 			@PathVariable("itemName") String itemName
 	) {
-		return this.brookeRestService.getItem(collectionName, categoryName, itemName);
+		return this.brookeService.getItem(collectionName, itemName);
 	}
 	
 	@GetMapping("/rest/series/{collectionName}/{categoryName}/{seriesName}")
@@ -63,7 +67,7 @@ public class BrookeRestController {
 			@PathVariable("categoryName") String categoryName,	
 			@PathVariable("seriesName") String seriesName
 	) {
-		return this.brookeRestService.getSeries(collectionName, categoryName, seriesName);
+		return this.brookeService.getSeries(collectionName, categoryName, seriesName);
 	}
 	
 	@GetMapping("/rest/cache/{collectionName}/{itemName}")
@@ -71,7 +75,7 @@ public class BrookeRestController {
 			@PathVariable("collectionName") String collectionName,
 			@PathVariable("itemName") String seriesName
 	) throws IOException {
-		JobDetails details = this.brookeRestService.cacheItem(collectionName, seriesName);
+		JobDetails details = this.brookeService.cacheItem(collectionName, seriesName);
 		return details;
 	}
 	
@@ -80,7 +84,10 @@ public class BrookeRestController {
 			@PathVariable("collectionName") String collectionName,
 			@PathVariable("itemName") String itemName
 	) throws IOException {
-		return this.brookeRestService.getThumbnail(collectionName, itemName);
+		byte[] thumbnail = this.brookeService.getThumbnail(collectionName, itemName);
+		if(thumbnail == null)
+			thumbnail = DEFAULT_THUMBNAIL;
+		return thumbnail;
 	}
 	
 	@GetMapping(value="/rest/large-thumbnail/{collectionName}/{itemName}", produces = MediaType.IMAGE_PNG_VALUE)
@@ -88,7 +95,11 @@ public class BrookeRestController {
 			@PathVariable("collectionName") String collectionName,
 			@PathVariable("itemName") String itemName
 	) throws IOException {
-		return this.brookeRestService.getLargeThumbnail(collectionName, itemName);
+		
+		byte[] thumbnail = this.brookeService.getLargeThumbnail(collectionName, itemName);
+		if(thumbnail == null)
+			thumbnail = DEFAULT_THUMBNAIL;
+		return thumbnail;
 	}
 
 	@GetMapping(value="/rest/page/{collectionName}/{itemName}/{pageNumber}", produces = MediaType.IMAGE_PNG_VALUE)
@@ -97,14 +108,14 @@ public class BrookeRestController {
 			@PathVariable("itemName") String itemName,
 			@PathVariable("pageNumber") int pageNumber
 	) throws IOException {
-		return this.brookeRestService.getPage(collectionName, itemName, pageNumber);
+		return this.brookeService.getPage(collectionName, itemName, pageNumber);
 	}
 	
 	@GetMapping("/rest/job-details/{jobNumber}")
 	public JobDetails getJobDetails(
 			@PathVariable("jobNumber") long jobNumber
 			) throws IOException {
-		return this.brookeRestService.getJobDetails(jobNumber);
+		return this.brookeService.getJobDetails(jobNumber);
 	}
 	
 	@GetMapping("/rest/book-details/{collectionName}/{itemName}")
@@ -112,7 +123,7 @@ public class BrookeRestController {
 			@PathVariable("collectionName") String collectionName,
 			@PathVariable("itemName") String itemName
 			) throws IOException {
-		return this.brookeRestService.getBookDetails(collectionName, itemName);
+		return this.brookeService.getBookDetails(collectionName, itemName);
 	}
 	
 	@GetMapping("/rest/video/{collectionName}/{itemName}")
@@ -120,7 +131,7 @@ public class BrookeRestController {
 			@PathVariable("collectionName") String collectionName,
 			@PathVariable("itemName") String itemName
 			) throws IOException {
-		this.brookeRestService.openVLC(collectionName, itemName);
+		this.brookeService.openVLC(collectionName, itemName);
 		return new JobDetails();
 	}
 	

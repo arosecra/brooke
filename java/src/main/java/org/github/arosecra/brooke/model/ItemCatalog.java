@@ -8,7 +8,9 @@ public class ItemCatalog extends TreeMap<String, ItemLocation> {
 
 	private String name;
 	
-	
+	//shelf item to item location
+	//item to item location
+	//  BOTH ARE THE SAME - since we expect every item to be unique
 	
 
 	public String getName() {

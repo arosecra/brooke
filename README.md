@@ -5,19 +5,15 @@ Custom book reader for personal use
 ToDo:
 ----------------
 - overall: investigate that literate programming plugin
-x overall: distil a basic project w/ hello world rest api for additional apps, put that in a repo
+- overall: move image apis into /images/
 
 - angular: Ability to add TOC entries
 - angular: Ability to add overlay graphics (bounding box, etc) for image algorithm testing
 - angular: NgRx incorporation
-- angular: print the raw & compressed sizes for a book (book details page)
 - angular: add a feature to check for getting a list of missing library items / shelf items
 - angular: toggle subtitles/audio tracks
 - angular: management menu / page
 - angular: add ability to set the subtitle/audio tracks per series / video
-x angular: display total and current amounts when caching
-x angular: when caching, remove underscores
-x angular: remove series name from the video display name when showing a series
 - angular: UI to change app settings
 - angular: button to reload library
 - angular: button to sync (make this into a progressable runnable and show progress)
@@ -30,9 +26,10 @@ x angular: remove series name from the video display name when showing a series
 - electron: use a better icon
 - electron: sometimes have to close twice (close confirm close)
 
-x collections: put yaml collections in a (private) repo
-
+- java: better approach for finding a shelf item (find shelf item, find location for it, then find collection, cat, etc)
 - java: get settings from the application path
 - java: if already cached, do not re-cache
 - java: make the pipeline use the background task stuff, progressable runnable
 - java: make the bounding box utility into an api
+- java: rename brooke rest service to brooke service facade and move the real work of the services to other service files
+- java: use the item location for most queries, instead of looping through collection/category/etc

@@ -14,6 +14,8 @@ public class CollectionApiModel {
 	private List<String> pipelineSteps;
 	private String remoteDirectory;
 	public List<CategoryApiModel> getCategories() {
+		if(categories == null)
+			categories = new ArrayList<>();
 		return categories;
 	}
 	public List<String> getExcludeExtensions() {

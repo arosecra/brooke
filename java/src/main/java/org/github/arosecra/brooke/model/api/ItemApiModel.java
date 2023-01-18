@@ -13,6 +13,8 @@ public class ItemApiModel {
 		return brookeOptions;
 	}
 	public List<ItemApiModel> getChildItems() {
+		if(childItems == null)
+			childItems = new ArrayList<>();
 		return childItems;
 	}
 	public String getName() {

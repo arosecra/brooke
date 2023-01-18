@@ -12,6 +12,8 @@ public class CategoryApiModel {
 		return brookeOptions;
 	}
 	public List<ItemApiModel> getItems() {
+		if(items == null)
+			items = new ArrayList<>();
 		return items;
 	}
 	public String getName() {
