@@ -104,18 +104,18 @@ public class Main24 {
 			itemizedFolders.add(file.getParentFile());
 		}
 		
-		List<File> missingMkv = new ArrayList<>();
+		// List<File> missingMkv = new ArrayList<>();
 		
 		int current = 0;
 		for(File itemizedFolder : itemizedFolders) {
-			boolean mkvFound = false;
-			for(File file : itemizedFolder.listFiles()) {
-				if(file.getName().endsWith("mkv"))
-					mkvFound = true;
-			}
+			// boolean mkvFound = false;
+			// for(File file : itemizedFolder.listFiles()) {
+			// 	if(file.getName().endsWith("mkv"))
+			// 		mkvFound = true;
+			// }
 			
-			if(!mkvFound)
-				missingMkv.add(itemizedFolder);
+			// if(!mkvFound)
+			// 	missingMkv.add(itemizedFolder);
 			
 			for(File file : itemizedFolder.listFiles()) {
 				String folderName = itemizedFolder.getName();
@@ -124,7 +124,6 @@ public class Main24 {
 				
 				if((
 					   file.getName().endsWith("mkv") 
-					|| file.getName().endsWith("mp4")
 					|| file.getName().endsWith("item")
 					) 
 					&& !folderName.equals(filename)
@@ -140,17 +139,17 @@ public class Main24 {
 			}
 		}
 		
-		Collections.sort(missingMkv, new Comparator<File>() {
+		// Collections.sort(missingMkv, new Comparator<File>() {
 
-			@Override
-			public int compare(File o1, File o2) {
-				return o1.getName().compareTo(o2.getName());
-			}
+		// 	@Override
+		// 	public int compare(File o1, File o2) {
+		// 		return o1.getName().compareTo(o2.getName());
+		// 	}
 			
-		});
+		// });
 		
-		for(File file : missingMkv)
-			System.out.println("No MKV in " + file);
+		// for(File file : missingMkv)
+		// 	System.out.println("No MKV in " + file);
 
 	}
 

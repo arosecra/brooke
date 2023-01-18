@@ -80,7 +80,7 @@ public class SynchronizeTask implements RunnableTask {
 			this.currentProgressDescription = "Copied";
 			this.totalProgressDescription = "Copies Required";
 			this.jobDescription = "Syncrhonizing";
-			this.totalProgress.set(filesToCopy.size());
+			this.totalProgress.set(filesToCopy.size()+collections.size());
 	
 			//once we have the list of files to copy, update the progress total & start copying
 			for(FilePair filepair : filesToCopy) {
