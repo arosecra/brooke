@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BrookeService } from '../brooke.service';
 import { map, Observable, switchMap } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 interface Link {
 	displayName: string;
@@ -48,7 +48,8 @@ export class CollectionMenuComponent implements OnInit {
 
 	constructor(
 		private activatedRoute: ActivatedRoute,
-		private brookeService: BrookeService
+		private brookeService: BrookeService,
+		private router: Router
 	) {
 	}
 
@@ -59,6 +60,8 @@ export class CollectionMenuComponent implements OnInit {
 				return this.brookeService.getCollections().pipe(
 					map((collections) => {
 						let links: Link[] = [];
+
+						home.isActive = this.router.isActive(this.router.createUrlTree([home.routerLink]), false);
 						links.push(home);
 
 						collections.forEach((collection) => {
@@ -99,6 +102,9 @@ export class CollectionMenuComponent implements OnInit {
 							links.push(link)
 						});
 
+						admin.subLinks?.forEach((sublink) => {
+							sublink.isActive = this.router.isActive(this.router.createUrlTree([sublink.routerLink]), false);
+						})
 						links.push(admin);
 
 						return {
