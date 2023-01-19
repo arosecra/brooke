@@ -35,7 +35,7 @@ export class ItemComponent {
 		} else {
 			if (this.collection.openType === 'book') {
 				queryParams.leftPage = 0;
-				queryParams.rightPage = 0;
+				queryParams.rightPage = 1;
 			}
 
 			this.router.navigate(['/cache'], { queryParams: queryParams });

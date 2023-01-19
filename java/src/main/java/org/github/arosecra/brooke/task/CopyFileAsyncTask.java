@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.commons.io.FilenameUtils;
 
-public class CopyFileAsyncTask implements RunnableTask {
+public class CopyFileAsyncTask implements IRunnableTask {
 
 	private AtomicLong filesize = new AtomicLong(0L);
 	private AtomicLong copied = new AtomicLong(0L);

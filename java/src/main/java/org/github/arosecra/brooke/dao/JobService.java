@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.github.arosecra.brooke.model.JobDetails;
-import org.github.arosecra.brooke.task.RunnableTask;
+import org.github.arosecra.brooke.task.IRunnableTask;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +13,9 @@ public class JobService {
 	
 	private long lastJobNumber = 1;
 
-	private Map<Long, RunnableTask> jobs = new HashMap<>();
+	private Map<Long, IRunnableTask> jobs = new HashMap<>();
 	
-	public JobDetails createJob(RunnableTask runnable) {
+	public JobDetails createJob(IRunnableTask runnable) {
 		
 		JobDetails jobDetails = new JobDetails();
 		jobDetails.setJobNumber(this.lastJobNumber++);		
@@ -26,12 +26,12 @@ public class JobService {
 	}
 	
 	@Async
-	public void runJob(JobDetails jobDetails, RunnableTask runnable) {
+	public void runJob(JobDetails jobDetails, IRunnableTask runnable) {
 		runnable.run();
 	}
 	
 	public JobDetails getJobDetails(Long jobNumber) {
-		RunnableTask pr = this.jobs.get(jobNumber);
+		IRunnableTask pr = this.jobs.get(jobNumber);
 		
 		JobDetails jobDetails = new JobDetails();
 		jobDetails.setJobType(pr.getJobType());

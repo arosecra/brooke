@@ -1,4 +1,9 @@
 <ng-container *ngIf="vm$ | async as vm">
+
+
+
+
+
 	<app-top-bar style="display: contents;"></app-top-bar>
 
 	<section class="section">
@@ -36,37 +41,33 @@
 	</nav>
 
 
-	<!-- Main container -->
-	<nav class="level">
-		<!-- Left side -->
-		<div class="level-left">
-			<div class="level-item">
-				<app-item [item]="vm.item" [collection]="vm.collection" [category]="vm.category" [openType]="''"
+<section class="section mx-0 px-0">
+	<div class="columns">
+		<div class="column is-9 ">
+			<app-item [item]="vm.item" [collection]="vm.collection" [category]="vm.category" [openType]="''"
 					style="display: contents;"></app-item>
-			</div>
-			<div class="level-item">
-				<table class="table">
-					<thead>
-							<tr>
-									<th></th>
-									<th></th>
-							</tr>
-					</thead>
-					<tbody>
-							<ng-container *ngFor="let tocEntry of vm.bookDetails?.tocEntries">
-									<tr (click)="goToPage(vm, ''+tocEntry.pageNumber)">
-											<td>{{tocEntry.pageNumber}}</td>
-											<td>{{tocEntry.name}}</td>
-									</tr>
-							</ng-container>
-					</tbody>
-			</table>
-
-
-			</div>
 		</div>
+		<div class="column mt-5">
+			<table class="table">
+				<thead>
+						<tr>
+								<th></th>
+								<th></th>
+						</tr>
+				</thead>
+				<tbody>
+						<ng-container *ngFor="let tocEntry of vm.bookDetails?.tocEntries">
+								<tr (click)="goToPage(vm, ''+tocEntry.pageNumber)">
+										<td>{{tocEntry.pageNumber}}</td>
+										<td>{{tocEntry.name}}</td>
+								</tr>
+						</ng-container>
+				</tbody>
+		</table>
+		</div>
+	</div>
+</section>
 
-	</nav>
 
 
 </ng-container>

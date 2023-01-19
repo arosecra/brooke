@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'book', component: BookComponent },
   { path: 'book-detail', component: BookDetailComponent },
-  { path: 'caching', component: CachingComponent },
+  { path: 'cache', component: CachingComponent },
   { path: 'collection', component: CollectionComponent },
   { path: 'category', component: CategoryComponent },
   { path: 'job-details', component: JobDetailsComponent },

@@ -11,7 +11,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.github.arosecra.brooke.model.api.CollectionApiModel;
 
-public class SynchronizeTask implements RunnableTask {
+public class SynchronizeTask implements IRunnableTask {
 
 	private static class FilePair {
 		private File source;

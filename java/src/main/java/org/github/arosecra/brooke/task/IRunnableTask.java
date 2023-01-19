@@ -3,7 +3,7 @@ package org.github.arosecra.brooke.task;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
-public interface RunnableTask extends Runnable {
+public interface IRunnableTask extends Runnable {
 
 	public String getJobDescription();
 	public String getJobType();
