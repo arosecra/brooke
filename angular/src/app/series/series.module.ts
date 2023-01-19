@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SeriesComponent } from './series.component';
-import { MaterialModule } from '../material/material.module';
 import { RouterModule } from '@angular/router';
 import { TopBarModule } from '../top-bar/top-bar.module';
 
@@ -13,7 +12,6 @@ import { TopBarModule } from '../top-bar/top-bar.module';
   ],
   imports: [
     CommonModule,
-    MaterialModule,
     RouterModule,
     TopBarModule
   ]

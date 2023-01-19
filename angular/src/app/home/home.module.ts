@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
-import { MaterialModule } from '../material/material.module';
 import { RouterModule } from '@angular/router';
 import { TopBarModule } from '../top-bar/top-bar.module';
 import { CollectionMenuModule } from '../collection-menu/collection-menu.module';
@@ -14,10 +13,9 @@ import { CollectionMenuModule } from '../collection-menu/collection-menu.module'
   ],
   imports: [
     CollectionMenuModule,
-    CommonModule, 
-    MaterialModule,
+    CommonModule,
     RouterModule,
-    TopBarModule,
+    TopBarModule
   ]
 })
 export class HomeModule { }

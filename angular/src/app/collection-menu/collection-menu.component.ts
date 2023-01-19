@@ -1,77 +1,115 @@
 import { Component, OnInit } from '@angular/core';
 import { BrookeService } from '../brooke.service';
-import { map, Observable } from 'rxjs';
+import { map, Observable, switchMap } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 interface Link {
-  displayName: string;
-  routerLink: string;
-  queryParams?: any;
+	displayName: string;
+	isActive: boolean;
+	routerLink?: string;
+	queryParams?: any;
 	subLinks?: Link[];
 }
 
 interface CollectionMenuVM {
-  links: Link[];
+	links: Link[];
 }
 
 const home: Link = {
-  displayName: 'Home',
-  routerLink: '/home'
+	displayName: 'Home',
+	routerLink: '/home',
+	isActive: false
 };
 
 const admin: Link = {
 	displayName: 'Administration',
-	routerLink: '',
+	isActive: false,
 	subLinks: [
 		{
 			displayName: 'Missing Items',
-			routerLink: '/missing-items'
+			routerLink: '/missing-items',
+			isActive: false
 		},
 		{
 			displayName: 'Synchronize',
-			routerLink: '/synchronize'
+			routerLink: '/synchronize',
+			isActive: false
 		},
 	]
 }
 
 @Component({
-  selector: 'app-collection-menu',
-  templateUrl: './collection-menu.component.html'
+	selector: 'app-collection-menu',
+	templateUrl: './collection-menu.component.html'
 })
 export class CollectionMenuComponent implements OnInit {
 
-  vm$: Observable<CollectionMenuVM>;
+	vm$: Observable<CollectionMenuVM>;
 
-  constructor(
-    private brookeService: BrookeService
-  ) {
-  }
+	constructor(
+		private activatedRoute: ActivatedRoute,
+		private brookeService: BrookeService
+	) {
+	}
 
+	ngOnInit(): void {
 
-  ngOnInit(): void {
-    this.vm$ = this.brookeService.getCollections().pipe(
-      map((collections) => {
-        let links: Link[] = [];
-        links.push(home);
+		this.vm$ = this.activatedRoute.queryParams.pipe(
+			switchMap((queryParams) => {
+				return this.brookeService.getCollections().pipe(
+					map((collections) => {
+						let links: Link[] = [];
+						links.push(home);
 
-        collections.forEach((collection) => {
-          links.push(
-            {
-              displayName: collection.name.replaceAll('_', ' '),
-              routerLink: '/collection',
-              queryParams: { collection: collection.name }
-            }
-          )
-        });
+						collections.forEach((collection) => {
+							let link: Link = {
+								displayName: collection.name.replaceAll('_', ' '),
+								isActive: queryParams['collection'] === collection.name,
+								routerLink: '/collection',
+								queryParams: { collection: collection.name }
+							}
 
-				links.push(admin);
+							if (link.isActive) {
+								link.routerLink = '/home'
+								link.queryParams = {}
+							}
 
-        return {
-          collections: collections,
-          links: links
-        }
+							link.subLinks = []
+							collection.categories.forEach((category) => {
+								let sublink: Link = {
+									displayName: category.name.replaceAll('_', ' '),
+									isActive: queryParams['category'] === category.name,
+									routerLink: '/category',
+									queryParams: {
+										collection: collection.name,
+										category: category.name
+									}
+								}
 
-      })
+								if (sublink.isActive) {
+									sublink.routerLink = '/collection';
+									sublink.queryParams = {
+										collection: collection.name
+									};
+								}
 
-    )
-  }
+								link.subLinks?.push(sublink);
+							})
+
+							links.push(link)
+						});
+
+						links.push(admin);
+
+						return {
+							collections: collections,
+							links: links
+						} as CollectionMenuVM;
+
+					})
+				)
+			}
+			)
+		)
+	}
 }

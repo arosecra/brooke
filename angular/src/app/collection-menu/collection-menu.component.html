@@ -1,29 +1,48 @@
 <ng-container *ngIf="(vm$ | async) as vm">
 
-    <div class="tile is-parent is-vertical">
-            <aside class="menu ">
-                <ul class="menu-list">
-                    <li *ngFor="let link of vm.links">
-											<ng-container *ngIf="!link.subLinks">
-                        <a class="button menu-label" [routerLink]="[link.routerLink]" [queryParams]="link.queryParams">
-                            {{link.displayName}}
-                        </a>
-											</ng-container>
-											<ng-container *ngIf="link.subLinks">
-												<p class="menu-label">
-													{{link.displayName}}
-												</p>
-												<ul>
-													<li *ngFor="let sublink of link.subLinks">
-														<a class="button menu-label" [routerLink]="[sublink.routerLink]" [queryParams]="sublink.queryParams">
-																{{sublink.displayName}}
-														</a>
-													</li>
-												</ul>
-											</ng-container>
-                    </li>
-                </ul>
-            </aside>
-    </div>
+	<aside class="menu tile is-child is-vertical box">
+		<ul class="menu-list">
+			<li *ngFor="let link of vm.links">
+				<ng-container *ngIf="link.routerLink">
+					<a class="button menu-label" 
+							[ngClass]="{
+								'is-active': link.isActive
+							}"
+					   [routerLink]="[link.routerLink]"
+						 [queryParams]="link.queryParams"
+					>
+						{{link.displayName}}
+					</a>
+				</ng-container>
+				<ng-container *ngIf="!link.routerLink">
+					<p class="menu-label mt-2">
+						{{link.displayName}}
+					</p>
+				</ng-container>
+
+				<ng-container *ngIf="
+					(link.subLinks && !link.routerLink)
+					|| (link.subLinks && link.routerLink && link.isActive)
+				">
+
+					<ul>
+						<li *ngFor="let sublink of link.subLinks">
+							<a class="button menu-label" 
+								 [ngClass]="{
+								 	'is-active': sublink.isActive
+								 }"
+							   [routerLink]="[sublink.routerLink]" 
+								 [queryParams]="sublink.queryParams"
+							>
+								{{sublink.displayName}}
+							</a>
+						</li>
+					</ul>
+
+				</ng-container>
+
+			</li>
+		</ul>
+	</aside>
 
 </ng-container>
