@@ -167,14 +167,10 @@ public class BrookeRestController {
 
 //	
 //	@GetMapping(value={
-//		"/shelfitem-to-cbt/{collectionName}/{catalogName}/{categoryName}/{itemName}"
+//		"/shelfitem-to-cbt/{collectionName}/{itemName}"
 //	})
-//	public String copyShelfItemToCbt(Model model,
-//			HttpServletRequest  request,
-//			HttpServletResponse response,
+//	public JobDetail copyShelfItemToCbt(
 //			@PathVariable(name="collectionName") String collectionName,
-//			@PathVariable(name="catalogName") String catalogName, 
-//			@PathVariable(name="categoryName") String categoryName,
 //			@PathVariable(name="itemName") String itemName,
 //			@PathVariable(name="pageNo", required = false) String pageNumber
 //			) throws IOException {
@@ -192,17 +188,4 @@ public class BrookeRestController {
 //		return null;
 //	}
 
-//	
-//	@GetMapping(value="/page/{collectionName}/{catalogName}/{categoryName}/{itemName}/{pageNumber}", produces = MediaType.IMAGE_PNG_VALUE)
-//	@ResponseBody
-//	public byte[] getPage(Model model, 
-//			@PathVariable(name="collectionName") String collectionName,
-//			@PathVariable(name="catalogName") String catalogName, 
-//			@PathVariable(name="categoryName") String categoryName,
-//			@PathVariable(name="itemName") String itemName,
-//			@PathVariable(name="pageNumber") int pageNumber) throws IOException {
-//		return brookeService.getPage(collectionName, categoryName, itemName, pageNumber);
-//	}
-	
-	
 }

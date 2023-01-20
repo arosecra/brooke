@@ -54,11 +54,14 @@ public class BrookeService {
 	@Autowired
 	private BrookeSyncService syncService;
 	
+	@Autowired
 	private LibraryDao libraryDao2;
+
+	@Autowired
+	private VideoService videoService;
 	
 	private Library library;
 
-	@Autowired
 	public void setLibraryDao2(LibraryDao libraryDao) { this.libraryDao2 = libraryDao; }
 	
 	@PostConstruct()
@@ -135,7 +138,7 @@ public class BrookeService {
 	}
 
 	public byte[] getPage(String collectionName, String itemName, int pageNumber) throws IOException {
-		File tar = getCachedFile(collectionName, itemName);
+		File tar = fileCacheService.getCachedFile(library, collectionName, itemName);
 		return tarService.getPageFromTar(tar, pageNumber);
 	}
 	
@@ -152,13 +155,6 @@ public class BrookeService {
 		}
 		
 		return fileCacheService.cacheRemoteFile(remoteFile);
-	}
-	
-	private File getCachedFile(String collectionName, String itemName) {
-		File cacheFolder = new File("D:\\Library\\Cache");
-		File remoteFile = this.libraryLocationService.getRemoteFile(library, collectionName, itemName);
-		File cacheFile = new File(cacheFolder, remoteFile.getName());
-		return cacheFile;
 	}
 
 	public BookDetailsApiModel getBookDetails(String collectionName, String itemName) throws JsonParseException, JsonMappingException, IOException {
@@ -182,59 +178,8 @@ public class BrookeService {
 		return jobDao.getJobDetails(jobNumber);
 	}
 
-	public void openVLC(String collectionName, String itemName) throws IOException {
-		File cacheFile = getCachedFile(collectionName, itemName);
-		
-		VlcOptionsApiModel vlcOptions = null;
-		ItemLocation itemLocation = this.libraryLocationService.getItemLocation(library, collectionName, itemName);
-		ItemApiModel item = this.libraryLocationService.getItemByLocation(library, itemLocation);
-
-		if(item.getVlcOptions() != null) {
-			vlcOptions = item.getVlcOptions();
-		} else if(itemLocation.getSeriesName() != null) {
-			ItemApiModel series = this.libraryLocationService.getSeriesByLocation(library, itemLocation);
-			if(series.getVlcOptions() != null) {
-				vlcOptions = series.getVlcOptions();
-			}
-		}
-		
-		String vlcCacheFilename = "file:///" + cacheFile.getAbsolutePath();
-		
-		List<String> vlcOptionArgs = new ArrayList<>();
-		vlcOptionArgs.add("cmd.exe");
-		vlcOptionArgs.add("/C");
-		vlcOptionArgs.add("\"C:\\Program Files\\VideoLAN\\VLC\\vlc.exe\"");
-		vlcOptionArgs.add(vlcCacheFilename);
-
-		if(vlcOptions != null) {
-			if(vlcOptions.getAudioTrack() > 0)
-				vlcOptionArgs.add(":audio-track-id="+vlcOptions.getAudioTrack());
-			if(vlcOptions.getSubtitleTrack() > 0)
-				vlcOptionArgs.add(":sub-track-id="+vlcOptions.getSubtitleTrack());
-		}
-		
-		ProcessBuilder builder = new ProcessBuilder((String[]) vlcOptionArgs.toArray(new String[vlcOptionArgs.size()]));
-		builder.redirectErrorStream(true);
-		final Process process = builder.start();
-
-		// Watch the process
-		watch(process);
-	}
-	
-	private static void watch(final Process process) {
-	    new Thread() {
-	        public void run() {
-	            BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
-	            String line = null; 
-	            try {
-	                while ((line = input.readLine()) != null) {
-	                    System.out.println(line);
-	                }
-	            } catch (IOException e) {
-	                e.printStackTrace();
-	            }
-	        }
-	    }.start();
+	public void openVLC(String collectionName, String itemName) throws IOException {		
+		this.videoService.openVLC(library, collectionName, itemName);
 	}
 
 	public void setLibraryDao(LibraryDao libraryDao) {

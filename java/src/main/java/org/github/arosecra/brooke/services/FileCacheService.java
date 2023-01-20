@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import org.github.arosecra.brooke.dao.JobService;
 import org.github.arosecra.brooke.model.JobDetails;
+import org.github.arosecra.brooke.model.Library;
 import org.github.arosecra.brooke.task.CopyFileAsyncTask;
 import org.github.arosecra.brooke.util.Try;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,16 @@ public class FileCacheService {
 	
 	@Autowired
 	private JobService jobDao;
+	
+	@Autowired
+	private LibraryLocationService libraryLocationService;
+	
+	public File getCachedFile(Library library, String collectionName, String itemName) {
+		File cacheFolder = new File("D:\\Library\\Cache");
+		File remoteFile = this.libraryLocationService.getRemoteFile(library, collectionName, itemName);
+		File cacheFile = new File(cacheFolder, remoteFile.getName());
+		return cacheFile;
+	}
 
 	public JobDetails cacheRemoteFile(File remoteFile) throws IOException {
 		File cacheFolder = new File("D:\\Library\\Cache");

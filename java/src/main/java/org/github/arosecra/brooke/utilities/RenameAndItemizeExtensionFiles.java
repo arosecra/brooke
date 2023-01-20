@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -15,15 +16,6 @@ import org.github.arosecra.brooke.Settings;
 import org.github.arosecra.brooke.dao.LibraryDao;
 import org.github.arosecra.brooke.model.Library;
 import org.github.arosecra.brooke.model.api.CollectionApiModel;
-
-
-class RenameNode {
-	File folderToRename;
-	File parentFolder;
-	File grandparentFolder;
-	String folderOriginalName;
-}
-
 
 public class RenameAndItemizeExtensionFiles {
 	public static void main(String[] args) throws IOException {
@@ -45,20 +37,19 @@ public class RenameAndItemizeExtensionFiles {
 
 			for(int i = 0; i < extensionFolders.size(); i++) {
 				File folder = extensionFolders.get(i);
-				System.out.println("Folder " + i + " of " + extensionFolders.size());
-				renameAndItemize(folder);
+				renameAndItemize(folder, collection.getItemExtension());
 			}
 		}
 	}
 
-	private static void renameAndItemize(File itemizedFolder) throws IOException {
+	private static void renameAndItemize(File itemizedFolder, String ext) throws IOException {
 		for(File file : itemizedFolder.listFiles()) {
 			String folderName = itemizedFolder.getName();
 			String filename = FilenameUtils.getBaseName(file.getName());
 			String extension = FilenameUtils.getExtension(file.getName());
 			
 			if((
-					 file.getName().endsWith("mkv") 
+					 file.getName().endsWith(ext) 
 				|| file.getName().endsWith("item")
 				) 
 				&& !folderName.equals(filename)
@@ -80,9 +71,9 @@ public class RenameAndItemizeExtensionFiles {
 	}
 
 	private static Collection<File> listFiles(File remoteDir, String extension) {
-		java.util.Collection<File> remoteFiles = FileUtils.listFiles(remoteDir, null, true);
+		Collection<File> remoteFiles = FileUtils.listFiles(remoteDir, null, true);
 
-		java.util.Set<File> files = new HashSet<>();
+		Set<File> files = new HashSet<>();
 		for (File file : remoteFiles) {
 			if (file.getName().endsWith(extension)) {
 				files.add(file);
