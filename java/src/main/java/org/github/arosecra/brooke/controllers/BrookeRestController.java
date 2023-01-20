@@ -154,11 +154,6 @@ public class BrookeRestController {
 		return brookeService.sync();
 	}
 	
-	@GetMapping("/rest/reload")
-	public String reload() throws IOException {
-//		brookeService.reloadLibrary();
-		return "redirect:/";
-	}
 
 //	@PostMapping(value="/addtoc/{collectionName}/{catalogName}/{categoryName}/{itemName}")
 //	public String addToC(Model model, 

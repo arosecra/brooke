@@ -34,7 +34,7 @@ import org.w3c.dom.NodeList;
 
 import net.sourceforge.tess4j.Tesseract;
 
-public class Main12 {
+public class TesseractSubtitleTest {
 
 	static Tesseract tesseract = new Tesseract();
 

@@ -42,8 +42,6 @@ public class LibraryDao {
 		}
 
 		getItemLocations(result);
-
-		System.out.println("Finished loading library");
 		return result;
 	}
 

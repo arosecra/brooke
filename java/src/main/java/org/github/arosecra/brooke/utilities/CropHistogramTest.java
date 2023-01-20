@@ -10,7 +10,7 @@ import java.math.RoundingMode;
 
 import javax.imageio.ImageIO;
 
-public class Main23 {
+public class CropHistogramTest {
 	public static void main(String[] args) throws Exception {
 
 		

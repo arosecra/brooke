@@ -50,6 +50,12 @@ export class BrookeService {
     );
   }
 
+  reload(): Observable<void> {
+    return this.http.get<void>(
+      `/rest/administration/reload`
+    );
+  }
+
   openVideo(collectionName: string, itemName: string): Observable<JobDetails> {
     return this.http.get<JobDetails>(
       `/rest/video/${collectionName}/${itemName}`
