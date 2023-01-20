@@ -11,7 +11,6 @@ import javax.annotation.PostConstruct;
 
 import org.apache.commons.io.FileUtils;
 import org.github.arosecra.brooke.Settings;
-import org.github.arosecra.brooke.dao.JobService;
 import org.github.arosecra.brooke.dao.LibraryDao;
 import org.github.arosecra.brooke.model.ItemLocation;
 import org.github.arosecra.brooke.model.JobDetails;
@@ -55,18 +54,19 @@ public class BrookeService {
 	private BrookeSyncService syncService;
 	
 	@Autowired
-	private LibraryDao libraryDao2;
+	private LibraryDao libraryDao;
+
+	@Autowired
+	private TabletService tabletService;
 
 	@Autowired
 	private VideoService videoService;
 	
 	private Library library;
-
-	public void setLibraryDao2(LibraryDao libraryDao) { this.libraryDao2 = libraryDao; }
 	
 	@PostConstruct()
 	public void init() {
-		library = libraryDao2.getLibrary(false);
+		library = libraryDao.getLibrary(false);
 	}
 
 	public Library getLibrary() {
@@ -183,43 +183,11 @@ public class BrookeService {
 	}
 
 	public void setLibraryDao(LibraryDao libraryDao) {
-		this.libraryDao2 = libraryDao;
+		this.libraryDao = libraryDao;
 	}
 
-	public void copyForTablet(String collectionName, String catalogName, String categoryName, String itemName) throws IOException {
-		File tempSsdFolder = new File("C:\\scans\\temp");
-		File unzippedFolder = new File(tempSsdFolder, itemName);
-		unzippedFolder.mkdirs();
-		
-		ShelfItem shelfItem = this.libraryLocationService.getShelfItem(library, collectionName, itemName);
-		File remoteFile = new File(shelfItem.getRemoteBaseDirectory(), itemName + "_PNG.tar");
-		
-		FileUtils.copyFileToDirectory(remoteFile, tempSsdFolder);
-		File localSourceFile = new File(tempSsdFolder, remoteFile.getName());
-		File localCbzFile = new File(tempSsdFolder.getAbsolutePath(), itemName + ".cbz");
-		
-		CommandLine.run(new String[] {
-				"D:\\software\\7za\\7za.exe", 
-				"e", 
-				"-o" + unzippedFolder.getAbsolutePath(),
-				localSourceFile.getAbsolutePath()	
-		});
-		
-		
-		CommandLine.run(new String[] {
-				"D:\\software\\7za\\7za.exe", 
-				"a", 
-				"-tzip", 
-				"-o" + unzippedFolder.getAbsolutePath(),
-				localCbzFile.getAbsolutePath(), 
-				unzippedFolder.getAbsolutePath() + "\\*.png"		
-			});
-		
-		FileUtils.copyFileToDirectory(localCbzFile, new File("\\\\drobo5n\\Public\\Scans\\ForTablet"));
-		FileUtils.deleteDirectory(unzippedFolder);
-		FileUtils.delete(localSourceFile);
-		FileUtils.delete(localCbzFile);
-		System.out.println("Done copying new CBZ to tablet sync directory");
+	public JobDetails copyForTablet(String collectionName, String itemName) {
+		return tabletService.copyForTablet(library, collectionName, itemName);
 	}
 
 	public List<MissingItemApiModel> getMissingItems() {

@@ -1,4 +1,4 @@
-package org.github.arosecra.brooke.dao;
+package org.github.arosecra.brooke.services;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -2,7 +2,6 @@ package org.github.arosecra.brooke.services;
 
 import java.util.List;
 
-import org.github.arosecra.brooke.dao.JobService;
 import org.github.arosecra.brooke.model.JobDetails;
 import org.github.arosecra.brooke.model.api.CollectionApiModel;
 import org.github.arosecra.brooke.task.SynchronizeTask;

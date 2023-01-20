@@ -153,39 +153,23 @@ public class BrookeRestController {
 	public JobDetails sync() {
 		return brookeService.sync();
 	}
-	
 
-//	@PostMapping(value="/addtoc/{collectionName}/{catalogName}/{categoryName}/{itemName}")
-//	public String addToC(Model model, 
+//	@PostMapping(value="/addtoc/{collectionName}/{itemName}")
+//	public String addToC(
 //			@PathVariable(name="collectionName") String collectionName,
-//			@PathVariable(name="catalogName") String catalogName, 
-//			@PathVariable(name="categoryName") String categoryName,
 //			@PathVariable(name="itemName") String itemName) throws IOException {
 //		brookeService.addToc(collectionName, categoryName, itemName, 0, itemName);
 //		return "";
 //	}
-
-//	
-//	@GetMapping(value={
-//		"/shelfitem-to-cbt/{collectionName}/{itemName}"
-//	})
-//	public JobDetail copyShelfItemToCbt(
-//			@PathVariable(name="collectionName") String collectionName,
-//			@PathVariable(name="itemName") String itemName,
-//			@PathVariable(name="pageNo", required = false) String pageNumber
-//			) throws IOException {
-//		System.out.println("openShelfItem");
-//		
-//		Collection collection = brookeService.getCollectionByName(collectionName);
-//		ShelfItem item = brookeService.getItemByName(collectionName, catalogName, categoryName, itemName);
-//		
-//		if(collection.getOpenType().equals("book")) {			
-//            brookeService.copyForTablet(collectionName, catalogName, categoryName, itemName);
-//		} 
-//
-//		response.sendRedirect(request.getHeader("Referer"));
-//		
-//		return null;
-//	}
+	
+	@GetMapping(value={
+		"/shelfitem-to-cbt/{collectionName}/{itemName}"
+	})
+	public JobDetails copyShelfItemToCbt(
+			@PathVariable(name="collectionName") String collectionName,
+			@PathVariable(name="itemName") String itemName
+			) throws IOException {
+		return this.brookeService.copyForTablet(collectionName, itemName);
+	}
 
 }
