@@ -38,7 +38,7 @@ public class BrookeRestController {
 
 	@GetMapping("/rest/collection")
 	public List<CollectionApiModel> getCollections() {
-		return this.brookeService.getLibrary().getCollections();
+		return this.brookeService.getCollections();
 	}
 
 	@GetMapping("/rest/collection/{collectionName}")

@@ -10,6 +10,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.github.arosecra.brooke.model.api.CollectionApiModel;
+import org.github.arosecra.brooke.services.LibraryCacheService;
 
 public class SynchronizeTask implements IRunnableTask {
 
@@ -25,8 +26,10 @@ public class SynchronizeTask implements IRunnableTask {
 	private String currentProgressDescription;
 	private String totalProgressDescription;
 	private String jobDescription;
+	private LibraryCacheService libraryCacheService;
 
-	public SynchronizeTask(List<CollectionApiModel> collections) {
+	public SynchronizeTask(LibraryCacheService libraryCacheService, List<CollectionApiModel> collections) {
+		this.libraryCacheService = libraryCacheService;
 		this.collections = collections;
 	}
 
@@ -85,6 +88,9 @@ public class SynchronizeTask implements IRunnableTask {
 			//once we have the list of files to copy, update the progress total & start copying
 			for(FilePair filepair : filesToCopy) {
 				FileUtils.copyFile(filepair.source, filepair.destination);
+				if(this.copied.get() == this.totalProgress.get()) {
+					this.libraryCacheService.reload();
+				}
 				this.copied.set(this.copied.get()+1);
 			}
 		} catch (IOException e) {

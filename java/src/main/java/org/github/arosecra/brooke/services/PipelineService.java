@@ -29,7 +29,7 @@ import org.github.arosecra.brooke.model.api.CollectionApiModel;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BrookePipelineService {
+public class PipelineService {
 
 	
 	private static final Map<String, BrookeJobStep> JOBS = new HashMap<>();

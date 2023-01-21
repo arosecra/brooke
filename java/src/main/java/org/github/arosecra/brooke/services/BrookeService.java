@@ -4,15 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import org.apache.commons.io.FileUtils;
 import org.github.arosecra.brooke.Settings;
 import org.github.arosecra.brooke.dao.LibraryDao;
 import org.github.arosecra.brooke.model.JobDetails;
-import org.github.arosecra.brooke.model.Library;
 import org.github.arosecra.brooke.model.Shelf;
-import org.github.arosecra.brooke.model.ShelfItem;
 import org.github.arosecra.brooke.model.api.BookDetailsApiModel;
 import org.github.arosecra.brooke.model.api.CategoryApiModel;
 import org.github.arosecra.brooke.model.api.CollectionApiModel;
@@ -59,40 +55,36 @@ public class BrookeService {
 	@Autowired
 	private VideoService videoService;
 	
-	private Library library;
-	
-	@PostConstruct()
-	public void init() {
-		library = libraryDao.getLibrary(false);
-	}
+	@Autowired
+	private LibraryCacheService libraryCacheService;
 
-	public Library getLibrary() {
-		return this.library;
+	public List<CollectionApiModel> getCollections() {
+		return libraryCacheService.getLibrary().getCollections();
 	}
 
 	public CollectionApiModel getCollection(String collectionName) {
-		return libraryLocationService.getCollection(library, collectionName);
+		return libraryLocationService.getCollection(libraryCacheService.getLibrary(), collectionName);
 	}
 
 	public CategoryApiModel getCategory(String collectionName, String categoryName) {
-		return this.libraryLocationService.getCategory(library, collectionName, categoryName);
+		return this.libraryLocationService.getCategory(libraryCacheService.getLibrary(), collectionName, categoryName);
 	}
 
 	public ItemApiModel getItem(String collectionName, String itemName) {
-		return this.libraryLocationService.getItem(library, collectionName, itemName);
+		return this.libraryLocationService.getItem(libraryCacheService.getLibrary(), collectionName, itemName);
 	}
 	
 	public Shelf getShelf(String collectionName) {
-		return this.libraryLocationService.getShelf(library, collectionName);
+		return this.libraryLocationService.getShelf(libraryCacheService.getLibrary(), collectionName);
 	}
 
 	public ItemApiModel getSeries(String collectionName, String categoryName, String seriesName) {
-		return this.libraryLocationService.getSeries(library, collectionName, categoryName, seriesName);
+		return this.libraryLocationService.getSeries(libraryCacheService.getLibrary(), collectionName, categoryName, seriesName);
 	}
 	
 	public byte[] getThumbnail(String collectionName, String itemName) throws IOException {
 		File thumbnailFile = this.libraryLocationService.getLocalRelatedFile(
-			library, 
+			libraryCacheService.getLibrary(), 
 			collectionName, 
 			itemName, 
 			"thumbnail.png", 
@@ -109,7 +101,7 @@ public class BrookeService {
 	public byte[] getLargeThumbnail(String collectionName, String itemName) throws IOException {
 		//category may be the series, or not needed
 		File thumbnailFile = this.libraryLocationService.getLocalRelatedFile(
-			library, 
+			libraryCacheService.getLibrary(), 
 			collectionName, 
 			itemName, 
 			"large_thumbnail.png", 
@@ -124,17 +116,17 @@ public class BrookeService {
 	}
 
 	public byte[] getPage(String collectionName, String itemName, int pageNumber) throws IOException {
-		File tar = fileCacheService.getCachedFile(library, collectionName, itemName);
+		File tar = fileCacheService.getCachedFile(libraryCacheService.getLibrary(), collectionName, itemName);
 		return tarService.getPageFromTar(tar, pageNumber);
 	}
 	
 	public JobDetails cacheItem(String collectionName, String itemName) throws IOException {		
-		return fileCacheService.cacheItem(library, collectionName, itemName);
+		return fileCacheService.cacheItem(libraryCacheService.getLibrary(), collectionName, itemName);
 	}
 
 	public BookDetailsApiModel getBookDetails(String collectionName, String itemName) throws JsonParseException, JsonMappingException, IOException {
 		File cbtDetailsFile = this.libraryLocationService.getLocalRelatedFile(
-			library, 
+			libraryCacheService.getLibrary(), 
 			collectionName, 
 			itemName, 
 			"cbtDetails.yaml", 
@@ -152,7 +144,7 @@ public class BrookeService {
 	}
 
 	public void openVLC(String collectionName, String itemName) throws IOException {		
-		this.videoService.openVLC(library, collectionName, itemName);
+		this.videoService.openVLC(libraryCacheService.getLibrary(), collectionName, itemName);
 	}
 
 	public void setLibraryDao(LibraryDao libraryDao) {
@@ -160,15 +152,15 @@ public class BrookeService {
 	}
 
 	public JobDetails copyForTablet(String collectionName, String itemName) {
-		return tabletService.copyForTablet(library, collectionName, itemName);
+		return tabletService.copyForTablet(libraryCacheService.getLibrary(), collectionName, itemName);
 	}
 
 	public List<MissingItemApiModel> getMissingItems() {
-		return missingItemService.getMissingItems(library);
+		return missingItemService.getMissingItems(libraryCacheService.getLibrary());
 	}
 
 	public JobDetails sync() {
-		return this.syncService.sync(library.getCollections());
+		return this.syncService.sync(libraryCacheService.getLibrary().getCollections());
 	}
 	
 	// public void createBoundingBoxPng() {

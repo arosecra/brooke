@@ -10,12 +10,12 @@ import java.util.TreeMap;
 import org.github.arosecra.brooke.dao.LibraryDao;
 import org.github.arosecra.brooke.jobs.BrookeJobStep.JobFolder;
 import org.github.arosecra.brooke.model.api.CollectionApiModel;
-import org.github.arosecra.brooke.services.BrookePipelineService;
+import org.github.arosecra.brooke.services.PipelineService;
 
 public class BrookePipelineApplication {
 
 	public static void main(String[] args) throws IOException {
-		BrookePipelineService service = new BrookePipelineService();
+		PipelineService service = new PipelineService();
 		Settings settings = new Settings();
 		LibraryDao libraryDao = new LibraryDao();
 		libraryDao.setSettings(settings);
