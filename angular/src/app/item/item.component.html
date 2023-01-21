@@ -1,0 +1,30 @@
+<div class="column is-narrow brooke-item" [ngClass]="{
+    'is-2': openType !== 'book-detail',
+		'is-6': openType === 'book-detail'
+  }">
+    <figure class="image is-fullwidth">
+        <a (click)="openItem()">
+            <img class="image is-fullwidth"
+                src="/rest/thumbnail/{{collection.name}}/{{item.name}}">
+        </a>
+    </figure>
+    <div class="title is-size-5" style="margin-top: auto;">
+        <ng-container *ngIf="category.name.length > 1">
+            <div style="font-weight: bold; width:0; min-width:100%;">
+                {{item.name.replace(category.name, '').replaceAll('_', ' ')}}
+            </div>
+        </ng-container>
+        <ng-container *ngIf="category.name.length === 1">
+            <div style="font-weight: bold; width:0; min-width:100%;">
+                {{item.name.replaceAll('_', ' ')}}
+            </div>
+        </ng-container>
+        <ng-container *ngIf="collection.openType === 'book'">
+            <div class="buttons" >
+                <button class="button" (click)="openItem()">Open</button>
+                <button class="button" (click)="openItemDetails()" [disabled]="this.item.series">Details</button>
+                <button class="button" (click)="copyToTablet()">CBZ</button>
+            </div>
+        </ng-container>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+{
+	"java.debug.settings.onBuildFailureProceed": true,
+	
+  "files.exclude": {
+    "angular": true,
+    "electron": true,
+    "java": true,
+  },
+}

@@ -1,0 +1,44 @@
+{
+  "name": "brooke-electron",
+  "version": "0.0.0",
+  "main": "app.js",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng serve --watch --configuration development",
+    "zip": "npm-build-zip --source=./dist/js --destination=./dist",
+    "package": "npm run build && npm run zip "
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^15.0.0",
+    "@angular/cdk": "^15.0.3",
+    "@angular/common": "^15.0.0",
+    "@angular/compiler": "^15.0.0",
+    "@angular/core": "^15.0.0",
+    "@angular/forms": "^15.0.0",
+    "@angular/platform-browser": "^15.0.0",
+    "@angular/platform-browser-dynamic": "^15.0.0",
+    "@angular/router": "^15.0.0",
+    "bulma": "^0.9.4",
+    "ionicons": "^6.1.1",
+    "js-yaml": "^4.1.0",
+    "ngx-filesize": "^3.0.1",
+    "rxjs": "~7.5.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.12.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^15.0.4",
+    "@angular/cli": "~15.0.4",
+    "@angular/compiler-cli": "^15.0.0",
+    "@types/js-yaml": "^4.0.5",
+    "jasmine-core": "~4.5.0",
+    "ng-packagr": "^15.0.0",
+    "nodemon": "^2.0.20",
+    "npm-build-zip": "^1.0.3",
+    "ts-node": "^10.9.1",
+    "typescript": "~4.8.2"
+  }
+}

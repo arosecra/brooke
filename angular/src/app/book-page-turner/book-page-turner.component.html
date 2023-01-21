@@ -1,0 +1,23 @@
+<ng-container *ngIf="vm$ | async as vm">
+    <ng-container *ngIf="vm.ranges.length > 0">
+
+        <nav class="pagination is-small" role="navigation" aria-label="pagination">
+            <a class="pagination-previous" (click)="goToPage(vm, ''+(toNum(vm.leftPage)-2))" >Previous</a>
+            <a class="pagination-next" (click)="goToPage(vm, ''+(toNum(vm.leftPage)+2))" >Next page</a>
+            <ul class="pagination-list">
+                <li *ngFor="let range of vm.ranges">
+                    <ng-container *ngIf="!range.elipses">
+                        <a class="pagination-link"
+                           (click)="goToPage(vm, ''+range.page)" 
+                        [ngClass]="{
+                            'is-current': range.current
+                        }">{{range.page}}</a>
+                    </ng-container>
+                    <ng-container *ngIf="range.elipses">
+                        <span class="pagination-ellipsis">&hellip;</span>
+                    </ng-container>
+                </li>
+            </ul>
+        </nav>
+    </ng-container>
+</ng-container>

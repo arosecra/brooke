@@ -1,0 +1,98 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch BrookeApplication",
+            "request": "launch",
+            "mainClass": "org.github.arosecra.brooke.BrookeApplication",
+            "projectName": "brooke-web"
+        },
+        {
+            "type": "java",
+            "name": "Launch BrookeLibraryListApplication",
+            "request": "launch",
+            "mainClass": "org.github.arosecra.brooke.BrookeLibraryListApplication",
+            "projectName": "brooke-web"
+        },
+        {
+            "type": "java",
+            "name": "Launch BrookePipelineApplication",
+            "request": "launch",
+            "mainClass": "org.github.arosecra.brooke.BrookePipelineApplication",
+            "projectName": "brooke-web"
+        },
+        {
+            "type": "java",
+            "name": "Launch BrookeSync",
+            "request": "launch",
+            "mainClass": "org.github.arosecra.brooke.BrookeSync",
+            "projectName": "brooke-web"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main12",
+            "request": "launch",
+            "mainClass": "org.github.arosecra.brooke.Main12",
+            "projectName": "brooke-web"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main17",
+            "request": "launch",
+            "mainClass": "org.github.arosecra.brooke.Main17",
+            "projectName": "brooke-web"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main20",
+            "request": "launch",
+            "mainClass": "org.github.arosecra.brooke.Main20",
+            "projectName": "brooke-web"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main21",
+            "request": "launch",
+            "mainClass": "org.github.arosecra.brooke.Main21",
+            "projectName": "brooke-web"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main22",
+            "request": "launch",
+            "mainClass": "org.github.arosecra.brooke.Main22",
+            "projectName": "brooke-web"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main23",
+            "request": "launch",
+            "mainClass": "org.github.arosecra.brooke.Main23",
+            "projectName": "brooke-web"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main24",
+            "request": "launch",
+            "mainClass": "org.github.arosecra.brooke.Main24",
+            "projectName": "brooke-web"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main7",
+            "request": "launch",
+            "mainClass": "org.github.arosecra.brooke.jobs.gatherbookstats.Main7",
+            "projectName": "brooke-web"
+        }
+    ]
+}

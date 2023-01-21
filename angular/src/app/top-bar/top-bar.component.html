@@ -1,0 +1,29 @@
+<nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+	<div class="navbar-brand">
+		<a class="navbar-item" href="https://bulma.io">
+			<img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+		</a>
+
+		<a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+			<span aria-hidden="true"></span>
+			<span aria-hidden="true"></span>
+			<span aria-hidden="true"></span>
+		</a>
+	</div>
+
+	<div class="navbar-menu">
+		<div class="navbar-start">
+			<app-breadcrumb class="mb-2" style="display: contents; display: flex; margin-top: auto"></app-breadcrumb>
+			<app-modify-collection-button
+				style="display: contents; display: flex; margin-top: auto"></app-modify-collection-button>
+		</div>
+
+		<div class="navbar-end">
+			<div class="navbar-item">
+				<app-book-toc></app-book-toc>
+				<app-book-options></app-book-options>
+				<app-book-page-turner></app-book-page-turner>
+			</div>
+		</div>
+	</div>
+</nav>

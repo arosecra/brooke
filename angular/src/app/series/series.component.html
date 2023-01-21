@@ -1,0 +1,25 @@
+<ng-container *ngIf="vm$ | async as vm">
+
+  <app-top-bar style="display: contents;"></app-top-bar>
+
+  <div class="tile is-ancestor">
+    <div class="tile is-parent is-vertical is-2">
+      <aside class="menu ">
+        <ul class="menu-list">
+          <li *ngFor="let childItem of vm.series.childItems">
+            <a class="button menu-label" (click)="openItem(vm, childItem)">{{childItem.name.replaceAll(vm.series.name, '').replaceAll('_', ' ')}}</a>
+          </li>
+        </ul>
+      </aside>
+    </div>
+
+    <div class="tile">
+      <div class="tile is-child box">
+        <img src="/rest/large-thumbnail/{{vm.collection.name}}/{{vm.series.name}}">
+      </div>
+    </div>
+  </div>
+
+
+
+</ng-container>
