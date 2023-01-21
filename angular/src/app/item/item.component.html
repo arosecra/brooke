@@ -23,7 +23,7 @@
             <div class="buttons" >
                 <button class="button" (click)="openItem()">Open</button>
                 <button class="button" (click)="openItemDetails()" [disabled]="this.item.series">Details</button>
-                <button class="button">CBZ</button>
+                <button class="button" (click)="copyToTablet()">CBZ</button>
             </div>
         </ng-container>
     </div>

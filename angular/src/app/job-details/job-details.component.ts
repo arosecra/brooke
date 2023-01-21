@@ -40,25 +40,20 @@ export class JobDetailsComponent {
 			switchMap((queryParams) => {
 				return this.brookeService.getJobDetails(queryParams['jobNumber']).pipe(
 					map((jobDetails) => {
+						let newQueryParams: any = {...queryParams}
+						newQueryParams.jobNumber = undefined;
+						newQueryParams.navigateTo = undefined;
 
 						if (jobDetails.total > 0 && jobDetails.total === jobDetails.current) {
 							//job is done
 							this.router.navigate([queryParams['navigateTo']], {
-								queryParams: {
-								}
+								queryParams: newQueryParams
 							})
 						}
 
 						return {
 							jobDetails: jobDetails,
-							queryParams: {
-								collection: queryParams['collection'],
-								category: queryParams['category'],
-								series: queryParams['series'],
-								item: queryParams['item'],
-								leftPage: queryParams['leftPage'],
-								rightPage: queryParams['rightPage']
-							}
+							queryParams: newQueryParams
 						} as JobDetailsVM;
 					}),
 					delay(500),

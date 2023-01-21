@@ -66,8 +66,6 @@ public class LibraryLocationService {
 		return result;
 	}
 
-	
-
 	public ItemApiModel getSeries(Library library, String collectionName, String categoryName, String seriesName) {
 		ItemApiModel result = null;
 		CategoryApiModel cat = this.getCategory(library, collectionName, categoryName);
@@ -143,6 +141,27 @@ public class LibraryLocationService {
 		}
 		return remoteFile;
 	}
+
+	public File getLocalRelatedFile(
+		Library library, 
+		String collectionName, 
+		String itemName, 
+		String relatedFilename, 
+		boolean includeParent
+	) {
+		File relatedFile = null;
+		Shelf shelf = this.getShelf(library, collectionName.replaceAll(" ", "_"));
+		if(shelf != null) {
+			ShelfItem shelfItem = shelf.get(itemName.replaceAll(" ", "_"));
+			if(shelfItem != null) {
+				relatedFile = new File(shelfItem.getLocalBaseDirectory(), relatedFilename);
+				if(!relatedFile.exists() && includeParent) {
+					relatedFile = new File(shelfItem.getLocalBaseDirectory().getParentFile().getParentFile(), relatedFilename);
+				}
+			}
+		}
+		return relatedFile;
+	} 
 
 	private ItemApiModel getItemByName(ItemApiModel parent, String itemName) {
 		ItemApiModel result = null;

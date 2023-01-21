@@ -1,10 +1,7 @@
 package org.github.arosecra.brooke.services;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -12,7 +9,6 @@ import javax.annotation.PostConstruct;
 import org.apache.commons.io.FileUtils;
 import org.github.arosecra.brooke.Settings;
 import org.github.arosecra.brooke.dao.LibraryDao;
-import org.github.arosecra.brooke.model.ItemLocation;
 import org.github.arosecra.brooke.model.JobDetails;
 import org.github.arosecra.brooke.model.Library;
 import org.github.arosecra.brooke.model.Shelf;
@@ -22,8 +18,6 @@ import org.github.arosecra.brooke.model.api.CategoryApiModel;
 import org.github.arosecra.brooke.model.api.CollectionApiModel;
 import org.github.arosecra.brooke.model.api.ItemApiModel;
 import org.github.arosecra.brooke.model.api.MissingItemApiModel;
-import org.github.arosecra.brooke.model.api.VlcOptionsApiModel;
-import org.github.arosecra.brooke.util.CommandLine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,6 +49,9 @@ public class BrookeService {
 	
 	@Autowired
 	private LibraryDao libraryDao;
+
+	@Autowired
+	private MissingItemService missingItemService;
 
 	@Autowired
 	private TabletService tabletService;
@@ -94,19 +91,13 @@ public class BrookeService {
 	}
 	
 	public byte[] getThumbnail(String collectionName, String itemName) throws IOException {
-		//category may be the series, or not needed
-		File thumbnailFile = null;
-		
-		Shelf shelf = this.getShelf(collectionName.replaceAll(" ", "_"));
-		if(shelf != null) {
-			ShelfItem shelfItem = shelf.get(itemName.replaceAll(" ", "_"));
-			if(shelfItem != null) {
-				thumbnailFile = new File(shelfItem.getLocalBaseDirectory(), "thumbnail.png");
-				if(!thumbnailFile.exists()) {
-					thumbnailFile = new File(shelfItem.getLocalBaseDirectory().getParentFile().getParentFile(), "thumbnail.png");
-				}
-			}
-		}
+		File thumbnailFile = this.libraryLocationService.getLocalRelatedFile(
+			library, 
+			collectionName, 
+			itemName, 
+			"thumbnail.png", 
+			true
+		);
 		
 		if(thumbnailFile == null || !thumbnailFile.exists()) {
 			return null;
@@ -117,18 +108,13 @@ public class BrookeService {
 	
 	public byte[] getLargeThumbnail(String collectionName, String itemName) throws IOException {
 		//category may be the series, or not needed
-		File thumbnailFile = null;
-		
-		Shelf shelf = this.getShelf(collectionName.replaceAll(" ", "_"));
-		if(shelf != null) {
-			ShelfItem shelfItem = shelf.get(itemName.replaceAll(" ", "_"));
-			if(shelfItem != null) {
-				thumbnailFile = new File(shelfItem.getLocalBaseDirectory(), "large_thumbnail.png");
-				if(!thumbnailFile.exists()) {
-					thumbnailFile = new File(shelfItem.getLocalBaseDirectory().getParentFile().getParentFile(), "large_thumbnail.png");
-				}
-			}
-		}
+		File thumbnailFile = this.libraryLocationService.getLocalRelatedFile(
+			library, 
+			collectionName, 
+			itemName, 
+			"large_thumbnail.png", 
+			true
+		);
 		
 		if(thumbnailFile == null || !thumbnailFile.exists()) {
 			return null;
@@ -142,31 +128,18 @@ public class BrookeService {
 		return tarService.getPageFromTar(tar, pageNumber);
 	}
 	
-	public JobDetails cacheItem(String collectionName, String itemName) throws IOException {
-		File remoteFile = null;
-		CollectionApiModel collection = this.getCollection(collectionName);
-		
-		Shelf shelf = this.getShelf(collectionName.replaceAll(" ", "_"));
-		if(shelf != null) {
-			ShelfItem shelfItem = shelf.get(itemName.replaceAll(" ", "_"));
-			if(shelfItem != null) {
-				remoteFile = new File(shelfItem.getRemoteBaseDirectory(), shelfItem.getName() + "." + collection.getItemExtension());
-			}
-		}
-		
-		return fileCacheService.cacheRemoteFile(remoteFile);
+	public JobDetails cacheItem(String collectionName, String itemName) throws IOException {		
+		return fileCacheService.cacheItem(library, collectionName, itemName);
 	}
 
 	public BookDetailsApiModel getBookDetails(String collectionName, String itemName) throws JsonParseException, JsonMappingException, IOException {
-		File cbtDetailsFile = null;
-		
-		Shelf shelf = this.getShelf(collectionName.replaceAll(" ", "_"));
-		if(shelf != null) {
-			ShelfItem shelfItem = shelf.get(itemName.replaceAll(" ", "_"));
-			if(shelfItem != null) {
-				cbtDetailsFile = new File(shelfItem.getLocalBaseDirectory(), "cbtDetails.yaml");
-			}
-		}
+		File cbtDetailsFile = this.libraryLocationService.getLocalRelatedFile(
+			library, 
+			collectionName, 
+			itemName, 
+			"cbtDetails.yaml", 
+			false
+		);
 
 		ObjectMapper mapper = new YAMLMapper();
 		BookDetailsApiModel result = mapper.readValue(cbtDetailsFile, BookDetailsApiModel.class);
@@ -191,53 +164,7 @@ public class BrookeService {
 	}
 
 	public List<MissingItemApiModel> getMissingItems() {
-		List<MissingItemApiModel> result = new ArrayList<>();
-		//find all of the shelf items that do not have item locations
-		for(Shelf shelf : this.library.getShelves()) {
-			for(ShelfItem si : shelf.values()) {
-				ItemLocation il = this.libraryLocationService.getItemLocation(library, shelf.getName(), si.getName());
-
-				if(il == null) {
-					MissingItemApiModel missing = new MissingItemApiModel();
-					missing.setCollection(shelf.getName());
-					missing.setItemMissing(true);
-					missing.setItemName(si.getName());
-					result.add(missing);
-				}
-			}
-		}
-
-		//find all of the item and child items that do not have a shelf item
-		for(CollectionApiModel collection : this.library.getCollections()) {
-			for(CategoryApiModel category : collection.getCategories()) {
-				for(ItemApiModel item : category.getItems()) {
-					ShelfItem si = this.libraryLocationService.getShelfItem(library, collection.getName(), item.getName());
-
-					if(si == null) {
-						MissingItemApiModel missing = new MissingItemApiModel();
-						missing.setCollection(collection.getName());
-						missing.setItemMissing(false);
-						missing.setItemName(item.getName());
-						result.add(missing);
-					}
-
-					for(ItemApiModel child : item.getChildItems()) {
-						
-						si = this.libraryLocationService.getShelfItem(library, collection.getName(), child.getName());
-
-						if(si == null) {
-							MissingItemApiModel missing = new MissingItemApiModel();
-							missing.setCollection(collection.getName());
-							missing.setItemMissing(false);
-							missing.setItemName(child.getName());
-							result.add(missing);
-						}
-					}
-				}
-			}
-		}
-
-		return result;
+		return missingItemService.getMissingItems(library);
 	}
 
 	public JobDetails sync() {

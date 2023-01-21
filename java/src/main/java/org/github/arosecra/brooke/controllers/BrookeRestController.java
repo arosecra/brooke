@@ -163,7 +163,7 @@ public class BrookeRestController {
 //	}
 	
 	@GetMapping(value={
-		"/shelfitem-to-cbt/{collectionName}/{itemName}"
+		"/rest/copy-to-tablet/{collectionName}/{itemName}"
 	})
 	public JobDetails copyShelfItemToCbt(
 			@PathVariable(name="collectionName") String collectionName,

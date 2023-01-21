@@ -3,11 +3,12 @@ package org.github.arosecra.brooke.utilities;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.github.arosecra.brooke.Settings;
@@ -22,6 +23,8 @@ public class ListMissingExtensionFiles {
 		libraryDao.setSettings(new Settings());
 		Library library = libraryDao.getLibrary(false);
 
+		List<File> missingExtensionFolders = new ArrayList<>();
+
 		for(CollectionApiModel collection : library.getCollections()) {
 			Collection<File> itemFiles = listFiles(
 				new File(collection.getRemoteDirectory()),
@@ -35,22 +38,33 @@ public class ListMissingExtensionFiles {
 
 			for(int i = 0; i < extensionFolders.size(); i++) {
 				File folder = extensionFolders.get(i);
-				checkForExtension(folder, collection.getItemExtension());
+				if(!checkForExtension(folder, collection.getItemExtension()))
+					missingExtensionFolders.add(folder);
 			}
+		}
+
+		Collections.sort(missingExtensionFolders, new Comparator<File>() {
+
+			@Override
+			public int compare(File o1, File o2) {
+				return o1.getAbsolutePath().compareTo(o2.getAbsolutePath());
+			}
+			
+		});
+
+		for(File file : missingExtensionFolders) {
+			System.out.println(file);
 		}
 	}
 
-	private static void checkForExtension(File folder, String itemExtension) {
-		File extFile = new File(folder, folder.getName() + "." + itemExtension);
-		if(!extFile.exists()) {
-			System.out.println(folder.getAbsolutePath() + " is missing a " + itemExtension);
-		}
+	private static boolean checkForExtension(File folder, String itemExtension) {
+		return new File(folder, folder.getName() + "." + itemExtension).exists();
 	}
 
 	private static Collection<File> listFiles(File remoteDir, String extension) {
 		Collection<File> remoteFiles = FileUtils.listFiles(remoteDir, null, true);
 
-		java.util.Set<File> files = new HashSet<>();
+		Set<File> files = new HashSet<>();
 		for (File file : remoteFiles) {
 			if (file.getName().endsWith(extension)) {
 				files.add(file);

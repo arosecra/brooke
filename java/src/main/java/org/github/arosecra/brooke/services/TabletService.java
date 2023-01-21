@@ -26,7 +26,7 @@ public class TabletService {
 		ShelfItem shelfItem = this.libraryLocationService.getShelfItem(library, collectionName, itemName);
 		File remoteFile = new File(shelfItem.getRemoteBaseDirectory(), itemName + "_PNG.tar");
 		
-		CopyForTabletTask task = new CopyForTabletTask(remoteFile);
+		CopyForTabletTask task = new CopyForTabletTask(remoteFile, itemName);
 		JobDetails jobDetails = jobService.createJob(task);
 		jobDetails.setJobDescription("Caching");
 		jobDetails.setJobType("Cache");

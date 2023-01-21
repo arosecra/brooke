@@ -42,6 +42,20 @@ export class ItemComponent {
 		}
 	}
 
+	copyToTablet() {
+		this.brookeService.copyToTablet(this.collection.name, this.item.name).subscribe((jobDetails) => {
+
+			this.router.navigate(['/job-details'], { queryParams: {
+					collection: this.collection.name,
+					category: this.category.name,
+					item: this.item.name,
+					navigateTo: 'category',
+					jobNumber: jobDetails.jobNumber
+				} 
+			});
+		});
+	}
+
 	openItemDetails() {
 		let queryParams: any = {
 			collection: this.collection.name,

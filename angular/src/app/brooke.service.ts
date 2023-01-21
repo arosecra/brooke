@@ -44,6 +44,12 @@ export class BrookeService {
     );
   }
 
+	copyToTablet(collectionName: string, itemName: string): Observable<JobDetails> {
+		return this.http.get<JobDetails>(
+			`/rest/copy-to-tablet/${collectionName}/${itemName}`
+		)
+	}
+
   synchronize(): Observable<JobDetails> {
     return this.http.get<JobDetails>(
       `/rest/administration/sync`

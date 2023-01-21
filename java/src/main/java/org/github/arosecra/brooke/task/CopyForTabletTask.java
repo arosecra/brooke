@@ -6,6 +6,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.github.arosecra.brooke.util.CommandLine;
 
 public class CopyForTabletTask implements IRunnableTask {
@@ -15,18 +16,19 @@ public class CopyForTabletTask implements IRunnableTask {
 	private AtomicBoolean started = new AtomicBoolean(false);
 	private String status;
 	private File remoteFile;
+	private String itemName;
 
-	public CopyForTabletTask(File remoteFile) {
+	public CopyForTabletTask(File remoteFile, String itemName) {
 		this.remoteFile = remoteFile;
+		this.itemName = itemName;
 	}
 
 	@Override
 	public void run() {
 		steps.set(5);
 		started.set(true);
-		String itemName = remoteFile.getParentFile().getName();
 		File tempSsdFolder = new File("C:\\scans\\temp");
-		File unzippedFolder = new File(tempSsdFolder, remoteFile.getName());
+		File unzippedFolder = new File(tempSsdFolder, itemName);
 		unzippedFolder.mkdirs();
 		try {
 			FileUtils.copyFileToDirectory(remoteFile, tempSsdFolder);
@@ -65,12 +67,12 @@ public class CopyForTabletTask implements IRunnableTask {
 
 	@Override
 	public String getJobDescription() {
-		return "Converting for Tablet";
+		return "Copy for Tablet";
 	}
 
 	@Override
 	public String getJobType() {
-		return null;
+		return "Copy for Tablet";
 	}
 
 	@Override
@@ -90,7 +92,7 @@ public class CopyForTabletTask implements IRunnableTask {
 
 	@Override
 	public AtomicLong getTotalProgress() {
-		return this.getTotalProgress();
+		return this.steps;
 	}
 
 	@Override
