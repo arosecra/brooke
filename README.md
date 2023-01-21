@@ -1,6 +1,9 @@
 # brooke
 Custom book reader for personal use
 
+Electron piece based off of https://github.com/appreciated/maven-springboot-electron
+ and https://github.com/jreznot/electron-java-app and https://medium.com/@amitbhave10/modern-desktop-application-with-electron-js-and-spring-boot-150419db0d49
+
 
 ToDo:
 ----------------

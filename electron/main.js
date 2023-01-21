@@ -64,7 +64,8 @@ try {
 				e.preventDefault();
 			}
 		});
-		mainWindow.webContents.openDevTools();
+		if(!app.isPackaged)
+			mainWindow.webContents.openDevTools();
 	};
 
 	const focusSecondInstance = function () {
