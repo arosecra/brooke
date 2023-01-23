@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -24,11 +24,16 @@ import { BookTocModule } from './book-toc/book-toc.module';
 import { BookDetailModule } from './book-detail/book-detail.module';
 import { MissingItemsModule } from './missing-items/missing-items.module';
 import { CachingModule } from './caching/caching.module';
-import { JobDetailsComponent } from './job-details/job-details.component';
 import { JobDetailsModule } from './job-details/job-details.module';
 import { SynchronizeModule } from './synchronize/synchronize.module';
 import { ModifyCollectionButtonModule } from './modify-collection-button/modify-collection-button.module';
 import { ModifyCollectionModule } from './modify-collection/modify-collection.module';
+
+import { brookeReducer, BrookeState } from './brooke.reducer';
+import { Store, StoreModule } from '@ngrx/store';
+import { getCollections } from './brooke.action';
+import { BrookeEffect } from './brooke.effect';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -65,11 +70,27 @@ import { ModifyCollectionModule } from './modify-collection/modify-collection.mo
     TopBarModule,
     WidgetsModule,
 
-    
+    // StoreModule.forRoot({ brooke: brookeReducer }),
+    // EffectsModule.forRoot([BrookeEffect]),
   ],
-  providers: [BrookeService],
+  providers: [
+		BrookeService,
+	
+		// {
+    //   provide: APP_INITIALIZER,
+    //   useFactory: (store: Store<BrookeState>) => {
+    //     return () => {
+    //       store.dispatch(getCollections());
+    //     };
+    //   },
+    //   multi: true,
+    //   deps: [Store]
+    // }
+
+	],
   bootstrap: [AppComponent],
   exports: [
   ]
 })
-export class AppModule { }
+export class AppModule {
+}

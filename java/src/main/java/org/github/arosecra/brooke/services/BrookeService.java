@@ -41,7 +41,7 @@ public class BrookeService {
 	private LibraryLocationService libraryLocationService;
 
 	@Autowired
-	private BrookeSyncService syncService;
+	private SyncService syncService;
 	
 	@Autowired
 	private LibraryDao libraryDao;

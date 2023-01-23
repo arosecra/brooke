@@ -3,14 +3,14 @@ package org.github.arosecra.brooke;
 import java.io.IOException;
 
 import org.github.arosecra.brooke.dao.LibraryDao;
-import org.github.arosecra.brooke.services.BrookeSyncService;
+import org.github.arosecra.brooke.services.SyncService;
 
 // import org.github.arosecra.brooke.dao.LibraryDao;
 // import org.github.arosecra.brooke.services.BrookeService;
 
 public class BrookeSync {
 	public static void main(String[] args) throws IOException {
-		BrookeSyncService service = new BrookeSyncService();
+		SyncService service = new SyncService();
 		Settings settings = new Settings();
 		LibraryDao libraryDao =new LibraryDao();
 		libraryDao.setSettings(settings);
