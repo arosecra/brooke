@@ -1,6 +1,6 @@
 
 NOTES:
-1. Overview / Purpose / History / Doc conventions, preprocessing
+1. [Introduction](introduction.md)
 2. Architecture
 3. Build Process
 4. Book Format, Item Folders, Model & Processing
