@@ -4,7 +4,8 @@
 ## Overview
 
 Brooke is a personal solution for, first, a book reader for digitized books, and second for
-launching videos archived from DVDs and Blu-Rays.  
+launching videos archived from DVDs and Blu-Rays.  Books are in cbt (Comic Book Tar) archives,
+and videos are in MKV files.
 
 Brooke is an Angular web application, backed with a Java Spring server, wrapped in Electron.
 
@@ -31,7 +32,15 @@ is notes about the application rather than a formal design document.
 
 ## History
 
-This is not the first implementation of the Brooke solution.
+This is not the first implementation of the Brooke solution. A brief synopsis of prior iterations, and why they were abandoned:
+
+- Concatenated PDFs.  The first solution was to concatenate scanned PDFs together into a single file.  This resulted in some extremely large files, and as a consequence had very poor performance in applications when viewing.
+
+- Utilizing open source Comic Book readers (ComicRacks, etc) with cbz files. No suitably performant solution was found.
+
+- Java web application with slide shows.  Books were htlm files with a bunch of loose PNGs.  This lead to many loose files sitting around, elongating any operation against the book. (Moving files, etc)
+
+- Java web application with cbt and Thymeleaf.  The closest to the current solution, this was a Thymeleaf Spring application.  This solution was modified to use Electron and Angular to remove the outdated  server side rendering.
 
 ## Document Conventions
 
