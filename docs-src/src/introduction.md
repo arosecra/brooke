@@ -59,12 +59,10 @@ for the starting_angular epic into the output below.
 
 @LINK starting_angular
 
-
-
 ### PlantUML
 
 This documentation uses PlantUML to generate images for UML diagrams.  The plant UML text
-is inside HTML quotes, and then linked to.
+is inside HTML quotes, and then linked to. [node-plantuml](https://www.npmjs.com/package/node-plantuml) is used to create the PlantUML graphics
 
 <!--
 @startuml firstDiagram

@@ -4,18 +4,7 @@ NOTES:
 2. [Architecture](architecture.md)
 3. [Build Process](build_process.md)
 4. [Book Format, Item Folders, Model & Processing](data.md)
-	- file and item folder formats (current)
-	- file and item folder formats (history) 
-		- brief run down of how i got here, scanning, pdfs, comic book readers, diff collections, etc
-	- processing
-		- itemizing
-		- creating thumbnails
-		- extracting images from pdfs
-		- deskew
-		- webp compression
-		- extracting meta data
-		- 
-	- 
+
 
 5. Features
 	- Starting the application
