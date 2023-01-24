@@ -1,9 +1,9 @@
 
 NOTES:
 1. [Introduction](introduction.md)
-2. Architecture
-3. Build Process
-4. Book Format, Item Folders, Model & Processing
+2. [Architecture](architecture.md)
+3. [Build Process](build_process.md)
+4. [Book Format, Item Folders, Model & Processing](data.md)
 	- file and item folder formats (current)
 	- file and item folder formats (history) 
 		- brief run down of how i got here, scanning, pdfs, comic book readers, diff collections, etc
