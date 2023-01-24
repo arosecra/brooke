@@ -1,5 +1,28 @@
-package org.github.arosecra.brooke.controllers;
-//DOC[epic=starting_angular,seq=1] //start
+
+# Overview
+
+## Overview / Purpose / History / Doc conventions, preprocessing
+
+
+
+## Purpose
+
+## History
+
+## Document Conventions
+
+This document is created using markdown with a couple preprocessing steps.  
+
+## Document Preprocessing
+
+### Linking to Files
+
+The preprocessing allows for linking to Epics defined in the source using 
+Comment Anchors in Visual Studio Code.
+
+	@LINK starting_angular
+
+```java
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,4 +53,21 @@ public class CustomErrorController extends BasicErrorController {
         }
     }
 }
-//DOC[epic=starting_angular,seq=2] //stop
+```
+
+
+
+### PlantUML
+
+This documentation uses PlantUML to generate images
+
+<!--
+@startuml firstDiagram
+
+Alice -[dotted]-> Bob: Hello
+Bob -> Alice: Hi!
+	
+@enduml
+-->
+
+![](firstDiagram.svg)

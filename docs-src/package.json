@@ -1,0 +1,16 @@
+{
+  "name": "brooke",
+  "version": "1.0.0",
+  "description": "docs pre processor",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "package": "",
+    "build": ""
+  },
+  "author": "arosecra",
+  "license": "ISC",
+  "dependencies": {
+    "node-plantuml": "^0.9.0"
+  }
+}

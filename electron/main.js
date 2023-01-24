@@ -50,19 +50,19 @@ try {
 		});
 
 		mainWindow.on('close', function (e) {
-			if (serverProcess && !allowClose) {
-				dialog.showMessageBox(this, {
-					type: 'question'
-					, buttons: ['yes', 'no']
-					, title: 'confirm'
-					, message: "are-you-sure-you-want-to-quit"
-				}).then(result => {
-					if (result.response === 0) {
-						allowClose = true;
-					}
-				});
-				e.preventDefault();
-			}
+			// if (serverProcess && !allowClose) {
+			// 	dialog.showMessageBox(this, {
+			// 		type: 'question'
+			// 		, buttons: ['yes', 'no']
+			// 		, title: 'confirm'
+			// 		, message: "are-you-sure-you-want-to-quit"
+			// 	}).then(result => {
+			// 		if (result.response === 0) {
+			// 			allowClose = true;
+			// 		}
+			// 	});
+			// 	e.preventDefault();
+			// }
 		});
 		if(!app.isPackaged)
 			mainWindow.webContents.openDevTools();

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.github.arosecra</groupId>
+		<artifactId>brooke</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	<artifactId>brooke-docs</artifactId>
+	<name>brooke-docs</name>
+	<description>Docs for brooke</description>
+	<properties>
+	</properties>
+	<dependencies>
+
+	</dependencies>
+
+
+	<build>
+		<finalName>brooke</finalName>
+		<plugins>
+
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>.</directory>
+							<includes>
+								<include>node_modules</include>
+								<include>out</include>
+							</includes>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>exec-maven-plugin</artifactId>
+				<groupId>org.codehaus.mojo</groupId>
+				<version>3.1.0</version>
+				<executions>
+					<execution>
+						<id>NPM Install</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>npm</executable>
+							<arguments>
+								<argument>install</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					
+					<!-- <execution>
+						<id>NPM Compile</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>npm</executable>
+							<arguments>
+								<argument>run</argument>
+								<argument>build</argument>
+							</arguments>
+						</configuration>
+					</execution> -->
+					
+					<execution>
+						<id>NPM Package</id>
+						<phase>package</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>npm</executable>
+							<arguments>
+								<argument>run</argument>
+								<argument>package</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>	
+
+		</plugins>
+	</build>
+
+	<packaging>pom</packaging>
+</project>

@@ -2,6 +2,8 @@
 	"java.debug.settings.onBuildFailureProceed": true,
 	"files.exclude": {
 		"angular": true,
+		"docs": true,
+		"docs-src": true,
 		"electron": true,
 		"java": true,
 	},
