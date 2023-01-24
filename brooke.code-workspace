@@ -8,16 +8,16 @@
 			"path": "angular"
 		},
 		{
-			"path": "electron"
-		},
-		{
-			"path": "java"
-		},
-		{
 			"path": "docs"
 		},
 		{
 			"path": "docs-src"
+		},
+		{
+			"path": "electron"
+		},
+		{
+			"path": "java"
 		}
 	]
 }
