@@ -1,17 +1,16 @@
-
+/* You can add global styles to this file, and also import other style files */
 
 .brooke-sidenav-container { 
-    position: inherit;
-    height: 100%;
-    display: inherit;
-    transform: inherit; 
+	position: inherit;
+	height: 100%;
+	display: inherit;
+	transform: inherit; 
 }
 
 .brooke-item{
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between
-  }
+	display:flex;
+	flex-direction:column;
+	justify-content:space-between
+}
 
 @import 'bulma/css/bulma.css';
-

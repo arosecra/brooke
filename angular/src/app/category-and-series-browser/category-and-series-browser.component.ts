@@ -3,14 +3,9 @@ import { CommonModule } from '@angular/common';
 import { BrookeService } from '../brooke.service';
 
 @Component({
-  selector: 'modify-collection-button',
-  templateUrl: './modify-collection-button.component.html'
+  selector: 'category-and-series-browser',
+  templateUrl: './category-and-series-browser.component.html'
 })
-export class ModifyCollectionButtonComponent {
+export class CategoryAndSeriesBrowserComponent {
 	public brookeService: BrookeService = inject(BrookeService)
-
-
-	onEditCollectionClick() {
-
-	}
 }

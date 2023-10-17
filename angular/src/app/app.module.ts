@@ -1,96 +1,51 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AdminModule } from './admin/admin.module';
-import { BookModule } from './book/book.module';
-import { CategoryModule } from './category/category.module';
-import { CollectionModule } from './collection/collection.module';
-import { ConfigureModule } from './configure/configure.module';
-import { HomeModule } from './home/home.module';
-import { SeriesModule } from './series/series.module';
-import { WidgetsModule } from './widgets/widgets.module';
-import { BrookeService } from './brooke.service';
+import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { ItemModule } from './item/item.module';
-import { TopBarModule } from './top-bar/top-bar.module';
-import { CollectionMenuModule } from './collection-menu/collection-menu.module';
-import { BreadcrumbModule } from './breadcrumb/breadcrumb.module';
-import { BookPageTurnerModule } from './book-page-turner/book-page-turner.module';
-import { BookOptionsModule } from './book-options/book-options.module';
-import { BookTocModule } from './book-toc/book-toc.module';
-import { BookDetailModule } from './book-detail/book-detail.module';
-import { MissingItemsModule } from './missing-items/missing-items.module';
-import { CachingModule } from './caching/caching.module';
-import { JobDetailsModule } from './job-details/job-details.module';
-import { SynchronizeModule } from './synchronize/synchronize.module';
-import { ModifyCollectionButtonModule } from './modify-collection-button/modify-collection-button.module';
-import { ModifyCollectionModule } from './modify-collection/modify-collection.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { brookeReducer, BrookeState } from './brooke.reducer';
-import { Store, StoreModule } from '@ngrx/store';
-import { getCollections } from './brooke.action';
-import { BrookeEffect } from './brooke.effect';
-import { EffectsModule } from '@ngrx/effects';
+import { App } from './app.component';
+import { BookComponent } from './book/book.component';
+import { BrookeServerService } from './brookeserver.service';
+import { TopBarComponent } from './top-bar/top-bar.component';
+import { CollectionMenuComponent } from './collection-menu/collection-menu.component';
+import { BrookeService } from './brooke.service';
+import { ItemComponent } from './item/item.component';
+import { JobDetailsComponent } from './job-details/job-details.component';
+import { CategoryAndSeriesBrowserComponent } from './category-and-series-browser/category-and-series-browser.component';
+import { PanelComponent } from './panel/panel.component';
+import { BookOptionsComponent } from './book-options/book-options.component';
+import { BookPageTurnerComponent } from './book-page-turner/book-page-turner.component';
+import { BookTocComponent } from './book-toc/book-toc.component';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { ModifyCollectionButtonComponent } from './modify-collection-button/modify-collection-button.component';
+import { SeriesComponent } from './series/series.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    App,
+		BookComponent,
+		BookOptionsComponent,
+		BookPageTurnerComponent,
+		BookTocComponent,
+		BreadcrumbComponent,
+		CategoryAndSeriesBrowserComponent,
+    CollectionMenuComponent,
+    ItemComponent,
+		JobDetailsComponent,
+		ModifyCollectionButtonComponent,
+		PanelComponent,
+		SeriesComponent,
+    TopBarComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule, 
-
-    AdminModule,
-    BookModule,
-		BookDetailModule,
-    BookOptionsModule,
-    BookPageTurnerModule,
-    BookTocModule,
-    BreadcrumbModule,
-		CachingModule,
-    CategoryModule,
-    CollectionModule,
-    CollectionMenuModule,
-    ConfigureModule,
-    HomeModule,
-		JobDetailsModule,
-    ItemModule,
-		MissingItemsModule,
-
-		ModifyCollectionButtonModule,
-		ModifyCollectionModule,
-
-    SeriesModule,
-		SynchronizeModule,
-    TopBarModule,
-    WidgetsModule,
-
-    // StoreModule.forRoot({ brooke: brookeReducer }),
-    // EffectsModule.forRoot([BrookeEffect]),
+    HttpClientModule,
   ],
   providers: [
 		BrookeService,
-	
-		// {
-    //   provide: APP_INITIALIZER,
-    //   useFactory: (store: Store<BrookeState>) => {
-    //     return () => {
-    //       store.dispatch(getCollections());
-    //     };
-    //   },
-    //   multi: true,
-    //   deps: [Store]
-    // }
-
+		BrookeServerService
 	],
-  bootstrap: [AppComponent],
-  exports: [
-  ]
+  bootstrap: [App]
 })
-export class AppModule {
-}
+export class AppModule { }

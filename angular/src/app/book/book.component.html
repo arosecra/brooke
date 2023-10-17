@@ -1,31 +1,25 @@
-<ng-container *ngIf="vm$ | async as vm">
-    <app-top-bar style="display: contents;"></app-top-bar>
 
-    <section class="hero is-fullheight-with-navbar">
-        <div class="hero-body" style="padding: 0em 0em;">
-            <div class="tile is-ancestor">
-                <div class="tile  is-vertical is-6">
-                    <div class="tile is-child">
+	<div class="hero-body" style="padding: 0em 0em;">
+			<div class="tile is-ancestor">
+					<div class="tile  is-vertical is-6">
+							<div class="tile is-child">
 
-                        <figure class="image">
-                            <img class="is-square"
-                                src="/rest/page/{{vm.collection.name}}/{{vm.item}}/{{vm.leftPage}}" />
-                        </figure>
+									<figure class="image">
+											<img class="is-square"
+													src="/rest/page/{{brookeService.currentCollection()?.name}}/{{brookeService.currentItem()?.name}}/{{brookeService.currentLeftPage()}}" />
+									</figure>
 
-                    </div>
-                </div>
-                <div class="tile">
-                    <div class="tile is-child">
+							</div>
+					</div>
+					<div class="tile">
+							<div class="tile is-child">
 
-                        <figure class="image">
-                            <img class="is-square"
-                                src="/rest/page/{{vm.collection.name}}/{{vm.item}}/{{vm.rightPage}}" />
-                        </figure>
+									<figure class="image">
+											<img class="is-square"
+													src="/rest/page/{{brookeService.currentCollection()?.name}}/{{brookeService.currentItem()?.name}}/{{brookeService.currentRightPage()}}" />
+									</figure>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-</ng-container>
+							</div>
+					</div>
+			</div>
+	</div>

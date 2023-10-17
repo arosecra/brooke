@@ -1,7 +1,4 @@
-<ng-container *ngIf="vm$ | async as vm">
-	<ng-container *ngIf="vm.pageState.visible">
-			<button class="button mx-4" (click)="onEditCollectionClick(vm)">Edit Collection</button>
 
-			
-	</ng-container>
-</ng-container>
+@if(brookeService.currentCollection() && !brookeService.currentCategory()) {
+	<button class="button mx-4" (click)="onEditCollectionClick()">Edit Collection</button>
+}

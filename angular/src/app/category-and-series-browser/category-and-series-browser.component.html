@@ -1,0 +1,9 @@
+
+@if(brookeService.currentJob()) {
+	<job-details></job-details>
+} @else if(brookeService.currentCategory()) {
+			<item [item]="item" 
+				*ngFor="let item of brookeService.currentCategory()?.items"
+				style="display: contents;">
+			</item>
+}

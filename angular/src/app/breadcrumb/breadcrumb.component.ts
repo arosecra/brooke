@@ -1,57 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
-import { map, Observable, of, switchMap } from 'rxjs';
-import { Collection } from '../brooke.model';
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BrookeService } from '../brooke.service';
 
-interface BreadcrumbVM {
-  collection: string;
-  category: string;
-  series: string;
-  item: string;
-}
-
 @Component({
-  selector: 'app-breadcrumb',
+  selector: 'breadcrumb',
   templateUrl: './breadcrumb.component.html'
 })
-export class BreadcrumbComponent implements OnInit {
-  vm$: Observable<BreadcrumbVM>;
+export class BreadcrumbComponent {
+	public brookeService: BrookeService = inject(BrookeService)
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
-  ) {
-  }
-  
-  ngOnInit() {
+	openHome() {
+		this.brookeService.currentCollection.set(undefined);
+		this.brookeService.currentCategory.set(undefined);
+		this.brookeService.currentSeries.set(undefined);
+		this.brookeService.currentItem.set(undefined);
+	}
 
-    this.vm$ = this.activatedRoute.queryParams.pipe(
-      map( (queryParams) => {
-          return {
-            collection: queryParams['collection'],
-            category: queryParams['category']
-          } as BreadcrumbVM;
-        }
-      )
-    )
-  }
+	openCollection() {
+		this.brookeService.currentCategory.set(undefined);
+		this.brookeService.currentSeries.set(undefined);
+		this.brookeService.currentItem.set(undefined);
+	}
 
-  openCollection(vm: BreadcrumbVM) {
-    this.router.navigate(['/collection'], {
-      queryParams: {
-        collection: vm.collection
-      }
-    })
-  }
-
-  openCategory(vm: BreadcrumbVM) {
-    this.router.navigate(['/category'], {
-      queryParams: {
-        collection: vm.collection,
-        category: vm.category
-      }
-    })
-  }
+	openCategory() {
+		this.brookeService.currentSeries.set(undefined);
+		this.brookeService.currentItem.set(undefined);
+	}
 }

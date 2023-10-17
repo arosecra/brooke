@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": ".",
   "projects": {
-    "brooke-electron": {
+    "brooke": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -19,7 +19,7 @@
             "polyfills": [
               "zone.js"
             ],
-            "tsConfig": "src/tsconfig.angular-app.json",
+            "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -60,10 +60,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "brooke-electron:build:production"
+              "browserTarget": "brooke:build:production"
             },
             "development": {
-              "browserTarget": "brooke-electron:build:development",
+              "browserTarget": "brooke:build:development",
               "proxyConfig": "./proxy.conf.json"
             }
           },
@@ -72,7 +72,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "brooke-electron:build"
+            "browserTarget": "brooke:build"
           }
         },
         "test": {
@@ -91,72 +91,6 @@
               "src/styles.css"
             ],
             "scripts": []
-          }
-        }
-      }
-    },
-    "@brooke/server-interface": {
-      "projectType": "library",
-      "root": "src-server-interface",
-      "sourceRoot": "src-server-interface/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "src-server-interface/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "src-server-interface/tsconfig.lib.json"
-            },
-            "development": {
-              "tsConfig": "src-server-interface/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "tsConfig": "src-server-interface/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
-          }
-        }
-      }
-    },
-    "@brooke/server-impl": {
-      "projectType": "library",
-      "root": "src-server-impl",
-      "sourceRoot": "src-server-impl/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "src-server-impl/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "src-server-impl/tsconfig.lib.json"
-            },
-            "development": {
-              "tsConfig": "src-server-impl/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "tsConfig": "src-server-impl/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
           }
         }
       }

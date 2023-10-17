@@ -1,13 +1,9 @@
-<ng-container *ngIf="vm$ | async as vm">
-
-    <a class="is-size-6" [routerLink]="['/home']">Home</a>
-    <p><strong>&nbsp;/&nbsp;</strong></p>
-    <ng-container *ngIf="vm.collection">
-        <a class="is-size-6" (click)="openCollection(vm)">{{vm.collection}}</a>
-    </ng-container>
-    <ng-container *ngIf="vm.category">
-        <p><strong>&nbsp;/&nbsp;</strong></p>
-        <a class="is-size-6" (click)="openCategory(vm)">{{vm.category}}</a>
-    </ng-container>
-
-</ng-container>
+<a class="is-size-6" (click)="openHome()">Home</a>
+<p><strong>&nbsp;/&nbsp;</strong></p>
+@if(brookeService.currentCollection()) {
+	<a class="is-size-6" (click)="openCollection()">{{brookeService.currentCollection()?.name}}</a>
+}
+@if(brookeService.currentCategory()) {
+		<p><strong>&nbsp;/&nbsp;</strong></p>
+		<a class="is-size-6" (click)="openCategory()">{{brookeService.currentCategory()?.name}}</a>
+}

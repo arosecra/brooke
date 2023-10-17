@@ -1,48 +1,51 @@
-<ng-container *ngIf="(vm$ | async) as vm">
+<ng-container *ngIf="!collapsed()">
 
-	<aside class="menu tile is-child is-vertical box">
-		<ul class="menu-list">
-			<li *ngFor="let link of vm.links">
-				<ng-container *ngIf="link.routerLink">
-					<a class="button menu-label" 
-							[ngClass]="{
-								'is-active': link.isActive
-							}"
-					   [routerLink]="[link.routerLink]"
-						 [queryParams]="link.queryParams"
-					>
-						{{link.displayName}}
-					</a>
-				</ng-container>
-				<ng-container *ngIf="!link.routerLink">
-					<p class="menu-label mt-2">
-						{{link.displayName}}
-					</p>
-				</ng-container>
+	
+<div class="column ">
+<aside class="menu tile is-child is-vertical box">
+	<ul class="menu-list">
+		<li *ngFor="let link of brookeService.collections()">
+			<ng-container *ngIf="link">
+				<a class="button menu-label" 
+					[ngClass]="{
+						'is-active': link.name === brookeService.currentCollection()?.name
+					}"
+					(click)="onCollectionButtonClick(link)"
+				>
+					@if(collapsed()) {
+						{{link.name.substring(0, 1)}}
+					} @else {
+						{{link.name.replaceAll('_', ' ')}}
+					}
+			</a>
+			</ng-container>
+			<!-- <ng-container *ngIf="!link.routerLink">
+				<p class="menu-label mt-2">
+					{{link.displayName}}
+				</p>
+			</ng-container> -->
 
-				<ng-container *ngIf="
-					(link.subLinks && !link.routerLink)
-					|| (link.subLinks && link.routerLink && link.isActive)
-				">
+			<ng-container *ngIf="!collapsed()">
+				<ng-container *ngIf="link.name === brookeService.currentCollection()?.name">
 
 					<ul>
-						<li *ngFor="let sublink of link.subLinks">
+						<li *ngFor="let sublink of brookeService.currentCollection()?.categories">
 							<a class="button menu-label" 
-								 [ngClass]="{
-								 	'is-active': sublink.isActive
-								 }"
-							   [routerLink]="[sublink.routerLink]" 
-								 [queryParams]="sublink.queryParams"
+								[ngClass]="{
+									'is-active': brookeService.currentCategory()?.name === sublink.name
+								}"
+								(click)="onCategoryButtonClick(sublink)"
+								
 							>
-								{{sublink.displayName}}
+								{{sublink.name.replaceAll('_', ' ')}}
 							</a>
 						</li>
 					</ul>
 
 				</ng-container>
-
-			</li>
-		</ul>
-	</aside>
-
+			</ng-container>
+		</li>
+	</ul>
+</aside>
+</div>
 </ng-container>

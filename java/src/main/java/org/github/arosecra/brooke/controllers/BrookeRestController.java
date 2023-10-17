@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
+import org.github.arosecra.brooke.model.CacheManifest;
 import org.github.arosecra.brooke.model.JobDetails;
 import org.github.arosecra.brooke.model.api.BookDetailsApiModel;
 import org.github.arosecra.brooke.model.api.CategoryApiModel;
@@ -69,6 +70,11 @@ public class BrookeRestController {
 			@PathVariable("seriesName") String seriesName
 	) {
 		return this.brookeService.getSeries(collectionName, categoryName, seriesName);
+	}
+	
+	@GetMapping("/rest/cache")
+	public CacheManifest getCachedItems() throws IOException {
+		return this.brookeService.listCachedItems();
 	}
 	
 	@GetMapping("/rest/cache/{collectionName}/{itemName}")

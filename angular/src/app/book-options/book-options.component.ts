@@ -1,54 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { map, Observable, of, switchMap } from 'rxjs';
+import { Component, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BrookeService } from '../brooke.service';
 
-interface BookOptionsVM {
-  collection?: string,
-  category?: string,
-  item?: string,
-  leftPage?: string,
-  rightPage?: string,
-  pageState: BookOptionsPageState;
-}
-
-interface BookOptionsPageState {
-  isActive: boolean;
-
-}
-
 @Component({
-  selector: 'app-book-options',
+  selector: 'book-options',
   templateUrl: './book-options.component.html'
 })
-export class BookOptionsComponent implements OnInit {
-  vm$: Observable<BookOptionsVM>;
+export class BookOptionsComponent {
+	public brookeService: BrookeService = inject(BrookeService)
 
+	isOpen = signal<Boolean>(false);
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private brookeService: BrookeService,
-    private router: Router,
-  ) { }
+	onTOCClick(newValue: boolean) {
+		this.isOpen.update(() => newValue)
+	}
 
-  ngOnInit() {
-
-    this.vm$ = this.activatedRoute.queryParams.pipe(
-      map((queryParams) => {
-        let result: BookOptionsVM = {
-          collection: queryParams['collection'],
-          category: queryParams['category'],
-          item: queryParams['item'],
-          leftPage: queryParams['leftPage'],
-          rightPage: queryParams['rightPage'],
-          pageState: {
-            isActive: false
-          } as BookOptionsPageState
-        }
-
-        return result;
-
-      })
-    )
-  }
 }

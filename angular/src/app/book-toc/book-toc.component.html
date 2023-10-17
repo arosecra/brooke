@@ -1,36 +1,41 @@
-<ng-container *ngIf="vm$ | async as vm">
-    <ng-container *ngIf="isTocPresent(vm)">
-        <button class="button mr-4" (click)="vm.pageState.isActive = true">TOC</button>
+@if(brookeService.currentItem()) {
+	<button class="button mr-4" (click)="onTOCClick(true)">TOC</button>
 
-        <div class="modal" [ngClass]="{'is-active': vm.pageState.isActive}">
-            <div class="modal-background"></div>
-            <div class="modal-card">
-                <header class="modal-card-head">
-                    <p class="modal-card-title">Table of Contents</p>
-                    <button class="delete" aria-label="close" (click)="vm.pageState.isActive = false"></button>
-                </header>
-                <section class="modal-card-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <ng-container *ngFor="let tocEntry of vm.bookDetails?.tocEntries">
-                                <tr (click)="goToPage(vm, ''+tocEntry.pageNumber)">
-                                    <td>{{tocEntry.pageNumber}}</td>
-                                    <td>{{tocEntry.name}}</td>
-                                </tr>
-                            </ng-container>
-                        </tbody>
-                    </table>
-                </section>
-                <footer class="modal-card-foot">
-                    <button class="button" (click)="vm.pageState.isActive = false">Cancel</button>
-                </footer>
-            </div>
-        </div>
-    </ng-container>
-</ng-container>
+	<div class="modal" [ngClass]="{ 'is-active': isOpen() }">
+		<div class="modal-background"></div>
+		<div class="modal-card">
+			<header class="modal-card-head">
+				<p class="modal-card-title">Table of Contents</p>
+				<button
+					class="delete"
+					aria-label="close"
+					(click)="onTOCClick(false)"
+				></button>
+			</header>
+			<section class="modal-card-body">
+				<table class="table">
+					<thead>
+						<tr>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<ng-container *ngFor="let tocEntry of brookeService.currentBookDetails()?.tocEntries">
+							<tr (click)="goToPage(tocEntry.pageNumber)">
+								<td>{{ tocEntry.pageNumber }}</td>
+								<td>{{ tocEntry.name }}</td>
+							</tr>
+						</ng-container>
+					</tbody>
+				</table>
+			</section>
+			<footer class="modal-card-foot">
+				<button class="button" (click)="onTOCClick(false)">
+					Cancel
+				</button>
+			</footer>
+		</div>
+	</div>
+}
+

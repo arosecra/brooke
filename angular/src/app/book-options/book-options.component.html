@@ -1,29 +1,27 @@
-<ng-container *ngIf="vm$ | async as vm">
-    <ng-container *ngIf="vm.leftPage || vm.rightPage">
-        <button class="button mr-4" (click)="vm.pageState.isActive = true">Options</button>
+@if(brookeService.currentItem()) {
+	<button class="button mr-4" (click)="onTOCClick(true)">Options</button>
 
-        <div class="modal" [ngClass]="{'is-active': vm.pageState.isActive}">
-            <div class="modal-background"></div>
-            <div class="modal-card">
-                <header class="modal-card-head">
-                    <p class="modal-card-title">Options</p>
-                    <button class="delete" aria-label="close" (click)="vm.pageState.isActive = false"></button>
-                </header>
-                <section class="modal-card-body">
-                    <div class="field">
-                        <div class="control">
-                          <label class="checkbox">
-                            <input type="checkbox">
-                            Crop Overlay
-                          </label>
-                        </div>
-                      </div>
-                </section>
-                <footer class="modal-card-foot">
-                    <button class="button is-success" (click)="vm.pageState.isActive = false">Save changes</button>
-                    <button class="button" (click)="vm.pageState.isActive = false">Cancel</button>
-                </footer>
-            </div>
-        </div>
-    </ng-container>
-</ng-container>
+	<div class="modal" [ngClass]="{'is-active': isOpen()}">
+			<div class="modal-background"></div>
+			<div class="modal-card">
+					<header class="modal-card-head">
+							<p class="modal-card-title">Options</p>
+							<button class="delete" aria-label="close" (click)="onTOCClick(false)"></button>
+					</header>
+					<section class="modal-card-body">
+							<div class="field">
+									<div class="control">
+										<label class="checkbox">
+											<input type="checkbox">
+											Crop Overlay
+										</label>
+									</div>
+								</div>
+					</section>
+					<footer class="modal-card-foot">
+							<button class="button is-success" (click)="onTOCClick(false)">Save changes</button>
+							<button class="button" (click)="onTOCClick(false)">Cancel</button>
+					</footer>
+			</div>
+	</div>
+}

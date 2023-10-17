@@ -3,10 +3,16 @@ package org.github.arosecra.brooke.task;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.commons.io.FilenameUtils;
+import org.github.arosecra.brooke.model.CacheManifest;
+import org.github.arosecra.brooke.model.CachedFile;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 
 public class CopyFileTask implements IRunnableTask {
 
@@ -14,9 +20,11 @@ public class CopyFileTask implements IRunnableTask {
 	private AtomicLong copied = new AtomicLong(0L);
 	private AtomicBoolean started = new AtomicBoolean(false);
 	private File remoteFile;
-	private File cacheFile;
+	private CachedFile cacheFile;
+	private CacheManifest manifest;
 
-	public CopyFileTask(File remoteFile, File cacheFile) {
+	public CopyFileTask(CacheManifest manifest, File remoteFile, CachedFile cacheFile) {
+		this.manifest = manifest;
 		this.remoteFile = remoteFile;
 		this.cacheFile = cacheFile;
 	}
@@ -70,7 +78,7 @@ public class CopyFileTask implements IRunnableTask {
 		byte[] b = new byte[1024 * 1024];
 		try {
 			fin = new FileInputStream(remoteFile);
-			fout = new FileOutputStream(cacheFile);
+			fout = new FileOutputStream(new File("D:/Library/Cache", cacheFile.getFilename()));
 			while ((r = fin.read(b)) != -1) {
 				counter += r;
 				this.copied.set(counter);
@@ -81,7 +89,17 @@ public class CopyFileTask implements IRunnableTask {
 		} catch (Exception e) {
 			System.out.println("foo");
 		}
+		
+		this.manifest.getFiles().add(this.cacheFile);
+
+		ObjectMapper mapper = new YAMLMapper();
+		try {
+			mapper.writeValue(new File("D:\\Library\\cache-manifest.yaml"), this.manifest);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
+	
 
 	@Override
 	public AtomicBoolean started() {

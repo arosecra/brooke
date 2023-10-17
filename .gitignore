@@ -6,6 +6,10 @@ electron/out/
 node_modules/
 java/target/
 java/derby.log
+java/.settings/
 target/
 derby.log
 electron/error.log
+/.metadata/
+java/.classpath
+java/.project

@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { BrookeService } from '../brooke.service';
 
 @Component({
-  selector: 'app-top-bar',
+  selector: 'top-bar',
   templateUrl: './top-bar.component.html'
 })
 export class TopBarComponent {
+	public brookeService: BrookeService = inject(BrookeService)
 
 }

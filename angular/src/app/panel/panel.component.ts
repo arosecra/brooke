@@ -3,14 +3,10 @@ import { CommonModule } from '@angular/common';
 import { BrookeService } from '../brooke.service';
 
 @Component({
-  selector: 'modify-collection-button',
-  templateUrl: './modify-collection-button.component.html'
+  selector: 'panel',
+  templateUrl: './panel.component.html'
 })
-export class ModifyCollectionButtonComponent {
+export class PanelComponent {
 	public brookeService: BrookeService = inject(BrookeService)
 
-
-	onEditCollectionClick() {
-
-	}
 }

@@ -1,48 +1,38 @@
 {
-  "name": "brooke-electron",
+  "name": "brooke",
   "version": "0.0.0",
-  "main": "app.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "watch": "ng serve --watch --configuration development",
     "zip": "npm-build-zip --source=./dist/js --destination=./dist",
-    "package": "npm run build && npm run zip "
+    "package": "npm run build && npm run zip ",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^15.0.0",
-    "@angular/cdk": "^15.0.3",
-    "@angular/common": "^15.0.0",
-    "@angular/compiler": "^15.0.0",
-    "@angular/core": "^15.0.0",
-    "@angular/forms": "^15.0.0",
-    "@angular/platform-browser": "^15.0.0",
-    "@angular/platform-browser-dynamic": "^15.0.0",
-    "@angular/router": "^15.0.0",
-    "@ngrx/effects": "^15.1.0",
-    "@ngrx/router-store": "^15.1.0",
-    "@ngrx/store": "^15.1.0",
-    "@ngrx/store-devtools": "^15.1.0",
+    "@angular/animations": "^17.0.0-next.7",
+    "@angular/cdk": "^17.0.0-next.6",
+    "@angular/common": "^17.0.0-next.7",
+    "@angular/compiler": "^17.0.0-next.7",
+    "@angular/core": "^17.0.0-next.7",
+    "@angular/forms": "^17.0.0-next.7",
+    "@angular/platform-browser": "^17.0.0-next.7",
+    "@angular/platform-browser-dynamic": "^17.0.0-next.7",
+    "@angular/router": "^17.0.0-next.7",
     "bulma": "^0.9.4",
     "ionicons": "^6.1.1",
     "js-yaml": "^4.1.0",
-    "ngx-filesize": "^3.0.1",
-    "rxjs": "~7.5.0",
+    "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.12.0"
+    "zone.js": "~0.14.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^15.0.4",
-    "@angular/cli": "~15.0.4",
-    "@angular/compiler-cli": "^15.0.0",
-    "@types/js-yaml": "^4.0.5",
-    "jasmine-core": "~4.5.0",
-    "ng-packagr": "^15.0.0",
-    "nodemon": "^2.0.20",
-    "npm-build-zip": "^1.0.3",
-    "ts-node": "^10.9.1",
-    "typescript": "~4.8.2"
+    "@angular-devkit/build-angular": "^17.0.0-next.7",
+    "@angular/cli": "17.0.0-next.7",
+    "@angular/compiler-cli": "^17.0.0-next.7",
+    "npm-build-zip": "^1.0.4",
+    "typescript": "~5.2.2"
   }
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.github.arosecra.brooke.Settings;
 import org.github.arosecra.brooke.dao.LibraryDao;
+import org.github.arosecra.brooke.model.CacheManifest;
 import org.github.arosecra.brooke.model.JobDetails;
 import org.github.arosecra.brooke.model.Shelf;
 import org.github.arosecra.brooke.model.api.BookDetailsApiModel;
@@ -118,6 +119,10 @@ public class BrookeService {
 	public byte[] getPage(String collectionName, String itemName, int pageNumber) throws IOException {
 		File tar = fileCacheService.getCachedFile(libraryCacheService.getLibrary(), collectionName, itemName);
 		return tarService.getPageFromTar(tar, pageNumber);
+	}
+	
+	public CacheManifest listCachedItems() throws IOException {		
+		return fileCacheService.readCachedFileManifest();
 	}
 	
 	public JobDetails cacheItem(String collectionName, String itemName) throws IOException {		

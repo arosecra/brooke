@@ -1,22 +1,13 @@
-import { OnInit } from '@angular/core';
-import { Component } from '@angular/core';
-import {Collection} from './brooke.model';
-
-
-interface AppVM {
-}
+import { Component, inject } from '@angular/core';
+import { BrookeService } from './brooke.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './app.component.html'
 })
-export class AppComponent implements OnInit {
+export class App {
+  title = 'brooke';
 
-  constructor(
-  ) {}
+	public brookeService: BrookeService = inject(BrookeService)
 
-    
-  ngOnInit(): void {
-  }
 }

@@ -16,28 +16,13 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "noImplicitAny": false,
     "target": "ES2022",
     "module": "ES2022",
-    "paths": {
-      "server-impl": [
-        "dist/server-impl"
-      ],
-      "server-interface": [
-        "dist/server-interface"
-      ]
-    },
+		"strictPropertyInitialization": false,
     "useDefineForClassFields": false,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "strictPropertyInitialization": false,
     "lib": [
       "ES2022",
       "dom"
-    ],
-    "typeRoots": [
-      "./@types",
-      "./node_modules/@types"
     ]
   },
   "angularCompilerOptions": {
@@ -45,5 +30,5 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  } 
+  }
 }
