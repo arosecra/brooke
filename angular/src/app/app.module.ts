@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, provideClientHydration, } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { App } from './app.component';
@@ -44,7 +44,8 @@ import { SeriesComponent } from './series/series.component';
   ],
   providers: [
 		BrookeService,
-		BrookeServerService
+		BrookeServerService,
+		provideClientHydration()
 	],
   bootstrap: [App]
 })
