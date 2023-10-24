@@ -1,10 +1,12 @@
 import { Component, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgStyle, NgFor } from '@angular/common';
 import { BrookeService } from '../brooke.service';
 
 @Component({
-  selector: 'book-toc',
-  templateUrl: './book-toc.component.html'
+    selector: 'book-toc',
+    templateUrl: './book-toc.component.html',
+    standalone: true,
+    imports: [NgStyle, NgFor]
 })
 export class BookTocComponent {
 	public brookeService: BrookeService = inject(BrookeService)

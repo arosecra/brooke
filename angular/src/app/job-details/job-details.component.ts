@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { BrookeService } from '../brooke.service';
 
 @Component({
-  selector: 'job-details',
-  templateUrl: './job-details.component.html'
+    selector: 'job-details',
+    templateUrl: './job-details.component.html',
+    standalone: true
 })
 export class JobDetailsComponent {
 

@@ -22,8 +22,17 @@ import { SeriesComponent } from './series/series.component';
 import { ItemNamePipe } from "./brooke.pipe";
 
 @NgModule({
-    declarations: [
-        App,
+    declarations: [App],
+    providers: [
+        BrookeService,
+        BrookeServerService
+    ],
+    bootstrap: [App],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        ItemNamePipe,
         BookComponent,
         BookOptionsComponent,
         BookPageTurnerComponent,
@@ -36,18 +45,7 @@ import { ItemNamePipe } from "./brooke.pipe";
         ModifyCollectionButtonComponent,
         PanelComponent,
         SeriesComponent,
-        TopBarComponent,
-    ],
-    providers: [
-        BrookeService,
-        BrookeServerService
-    ],
-    bootstrap: [App],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        ItemNamePipe
+        TopBarComponent
     ]
 })
 export class AppModule { }

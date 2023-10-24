@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { BrookeService } from '../brooke.service';
 
 @Component({
-  selector: 'breadcrumb',
-  templateUrl: './breadcrumb.component.html'
+    selector: 'breadcrumb',
+    templateUrl: './breadcrumb.component.html',
+    standalone: true
 })
 export class BreadcrumbComponent {
 	public brookeService: BrookeService = inject(BrookeService)

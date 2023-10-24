@@ -1,10 +1,14 @@
 import { Component, Input, inject } from '@angular/core';
 import { Item } from '../brooke.model';
 import { BrookeService } from '../brooke.service';
+import { ItemNamePipe } from '../brooke.pipe';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'item',
-  templateUrl: './item.component.html'
+    selector: 'item',
+    templateUrl: './item.component.html',
+    standalone: true,
+    imports: [NgIf, ItemNamePipe]
 })
 export class ItemComponent {
 	@Input("item") item: Item;
