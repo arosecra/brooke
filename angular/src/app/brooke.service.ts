@@ -28,6 +28,10 @@ import { toSignal } from '@angular/core/rxjs-interop';
 export class BrookeService {
   constructor(private brookeServerService: BrookeServerService) {}
 
+	widgets = {
+		asideMenuExpanded: signal<boolean>(true)
+	}
+
   currentCollection = signal<Collection | undefined>(undefined);
   currentCategory = signal<Category | undefined>(undefined);
   currentSeries = signal<Item | undefined>(undefined);

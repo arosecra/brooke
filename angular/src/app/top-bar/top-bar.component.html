@@ -1,34 +1,17 @@
-<nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
-	<div class="navbar-brand">
+<header class="w3-bar" role="navigation" aria-label="main navigation">
+	<div class="w3-bar-item">
+		<button class="w3-button w3-teal" 
+		  (click)="onToggleAsideMenuButtonClick()"
+		>&#9776;</button>
+		<!-- <h2>Brooke</h2> -->
 		<!-- <a class="navbar-item" href="https://bulma.io">
 			<img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
 		</a> -->
-
-		<a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-			<span aria-hidden="true"></span>
-			<span aria-hidden="true"></span>
-			<span aria-hidden="true"></span>
-		</a>
 	</div>
+	<breadcrumb class="w3-bar-item" style="display: contents; display: flex; margin-top: auto"></breadcrumb>
+	<modify-collection-button class="w3-bar-item" style="display: contents; display: flex; margin-top: auto"></modify-collection-button>
 
-	<div class="navbar-menu">
-		<div class="navbar-start">
-			
-			<breadcrumb class="mb-2" style="display: contents; display: flex; margin-top: auto"></breadcrumb>
-			<modify-collection-button
-				style="display: contents; display: flex; margin-top: auto">
-			</modify-collection-button> 
-			
-		</div>
-
-		<div class="navbar-end">
-			<div class="navbar-item">
-				
-				<book-toc></book-toc>
-				<book-options></book-options>
-				<book-page-turner></book-page-turner> 
-			  
-			</div>
-		</div>
-	</div>
-</nav>
+	<book-toc class="w3-bar-item"></book-toc>
+	<book-options class="w3-bar-item"></book-options>
+	<book-page-turner class="w3-bar-item w3-right"></book-page-turner> 
+</header>

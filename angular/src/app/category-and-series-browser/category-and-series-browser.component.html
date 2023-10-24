@@ -3,6 +3,7 @@
 	<job-details></job-details>
 } @else if(brookeService.currentCategory()) {
 			<item [item]="item" 
+			  class="w3-col"
 				*ngFor="let item of brookeService.currentCategory()?.items"
 				style="display: contents;">
 			</item>

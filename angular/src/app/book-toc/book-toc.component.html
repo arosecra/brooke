@@ -1,40 +1,29 @@
 @if(brookeService.currentItem()) {
-	<button class="button mr-4" (click)="onTOCClick(true)">TOC</button>
+	<button class="w3-button" (click)="onTOCClick(true)">TOC</button>
 
-	<div class="modal" [ngClass]="{ 'is-active': isOpen() }">
-		<div class="modal-background"></div>
-		<div class="modal-card">
-			<header class="modal-card-head">
-				<p class="modal-card-title">Table of Contents</p>
-				<button
-					class="delete"
-					aria-label="close"
-					(click)="onTOCClick(false)"
-				></button>
-			</header>
-			<section class="modal-card-body">
-				<table class="table">
-					<thead>
-						<tr>
-							<th></th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						<ng-container *ngFor="let tocEntry of brookeService.currentBookDetails()?.tocEntries">
-							<tr (click)="goToPage(tocEntry.pageNumber)">
-								<td>{{ tocEntry.pageNumber }}</td>
-								<td>{{ tocEntry.name }}</td>
+	<div class="w3-modal" [ngStyle]="{'display': isOpen() ? 'block' : 'none' }">
+		<div class="w3-modal-content">
+			<div class="w3-container">
+				<h2>Table of Contents </h2><button (click)="onTOCClick(false)" class="w3-button w3-display-topright">&times;</button>
+				<div>
+					<table class="table">
+						<thead>
+							<tr>
+								<th></th>
+								<th></th>
 							</tr>
-						</ng-container>
-					</tbody>
-				</table>
-			</section>
-			<footer class="modal-card-foot">
-				<button class="button" (click)="onTOCClick(false)">
-					Cancel
-				</button>
-			</footer>
+						</thead>
+						<tbody>
+							<ng-container *ngFor="let tocEntry of brookeService.currentBookDetails()?.tocEntries">
+								<tr (click)="goToPage(tocEntry.pageNumber)">
+									<td>{{ tocEntry.pageNumber }}</td>
+									<td>{{ tocEntry.name }}</td>
+								</tr>
+							</ng-container>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 }

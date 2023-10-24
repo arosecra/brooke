@@ -1,18 +1,15 @@
+<div class="w3-cell-row">
 
-<div class="tile is-ancestor">
-	<div class="tile is-parent is-vertical is-2">
-		<aside class="menu ">
-			<ul class="menu-list">
+  <div class="w3-cell w3-cell-top">
+			<ul class="w3-ul">
 				<li *ngFor="let childItem of brookeService.currentSeries()?.childItems">
 					<a class="button menu-label" (click)="openItem(childItem)">{{childItem.name.replaceAll('_', ' ')}}</a>
 				</li>
 			</ul>
-		</aside>
 	</div>
 
-	<div class="tile">
-		<div class="tile is-child box">
-			<img src="/rest/large-thumbnail/{{brookeService.currentCollection()?.name}}/{{brookeService.currentSeries()?.name}}">
-		</div>
+  <div class="w3-cell ">
+			<img style="width: 100%" src="/rest/large-thumbnail/{{brookeService.currentCollection()?.name}}/{{brookeService.currentSeries()?.name}}">
 	</div>
+
 </div>

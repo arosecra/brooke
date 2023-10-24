@@ -8,4 +8,7 @@ import { BrookeService } from '../brooke.service';
 export class TopBarComponent {
 	public brookeService: BrookeService = inject(BrookeService)
 
+	onToggleAsideMenuButtonClick() {
+		this.brookeService.widgets.asideMenuExpanded.update(() => !this.brookeService.widgets.asideMenuExpanded())
+	}
 }

@@ -1,22 +1,16 @@
-@if(brookeService.currentItem() && brookeService.currentCollection()?.openType === 'book') {
-	<section class="hero is-fullheight-with-navbar">
-		<book style="display: contents;"></book>
-	</section>
-} @else if(brookeService.currentSeries()) {
-	<section class="section mx-0 px-0">
-		<series style="display: contents;"></series>
-	</section>
-} @else {
-	<section class="section mx-0 px-0">
-		<div class="columns">
-				<collection-menu style="display: contents;"></collection-menu>
-			<div class="column is-9 mt-5" 
-			>
-				<div class="columns is-multiline mr-3">
-					<category-and-series-browser style="display: contents;"></category-and-series-browser>
-				</div>
-			</div>
-		</div>
-	</section>
-}
+<div id="main" class="main" >
+	<collection-menu style="display: contents;"></collection-menu>
+	<div [ngStyle]="{'margin-left': this.brookeService.widgets.asideMenuExpanded() ? '20%' : '0%' }">
+		@if(brookeService.currentItem() && brookeService.currentCollection()?.openType === 'book') {
+			<book style="display: contents;"></book>
+		} @else if(brookeService.currentSeries()) {
+			<series style="display: contents;"></series>
+		} @else {
+			<category-and-series-browser style="display: contents;"></category-and-series-browser>
+		}
+		
+	</div>
+</div>
+
+
 

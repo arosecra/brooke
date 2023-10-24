@@ -1,25 +1,21 @@
-
-	<div class="hero-body" style="padding: 0em 0em;">
-			<div class="tile is-ancestor">
-					<div class="tile  is-vertical is-6">
-							<div class="tile is-child">
-
-									<figure class="image">
-											<img class="is-square"
-													src="/rest/page/{{brookeService.currentCollection()?.name}}/{{brookeService.currentItem()?.name}}/{{brookeService.currentLeftPage()}}" />
-									</figure>
-
-							</div>
-					</div>
-					<div class="tile">
-							<div class="tile is-child">
-
-									<figure class="image">
-											<img class="is-square"
-													src="/rest/page/{{brookeService.currentCollection()?.name}}/{{brookeService.currentItem()?.name}}/{{brookeService.currentRightPage()}}" />
-									</figure>
-
-							</div>
-					</div>
-			</div>
-	</div>
+<div
+  class="w3-row"
+  style="padding: 0em 0em"
+>
+  <div class="w3-half">
+    <img
+      style="width: 100%"
+      src="/rest/page/{{ brookeService.currentCollection()?.name }}/{{
+        brookeService.currentItem()?.name
+      }}/{{ brookeService.currentLeftPage() }}"
+    />
+  </div>
+  <div class="w3-half">
+    <img
+			style="width: 100%"
+      src="/rest/page/{{ brookeService.currentCollection()?.name }}/{{
+        brookeService.currentItem()?.name
+      }}/{{ brookeService.currentRightPage() }}"
+    />
+  </div>
+</div>

@@ -1,51 +1,49 @@
-<ng-container *ngIf="!collapsed()">
+<ng-container>
+  <div class="w3-sidebar w3-bar-block w3-card"
+		[ngStyle]="{'width': brookeService.widgets.asideMenuExpanded() ? '20%' : '0%' }"
+		[ngClass]="{
+			'w3-show': brookeService.widgets.asideMenuExpanded()
+		}"
+	>
+    <ng-container *ngFor="let link of brookeService.collections()">
+      <ng-container *ngIf="link">
+        <button class="w3-bar-item w3-button"
+          [ngClass]="{
+            'is-active': link.name === brookeService.currentCollection()?.name
+          }"
+          (click)="onCollectionButtonClick(link)"
+        >
+          {{ link.name.replaceAll("_", " ") }}
+        </button>
 
-	
-<div class="column ">
-<aside class="menu tile is-child is-vertical box">
-	<ul class="menu-list">
-		<li *ngFor="let link of brookeService.collections()">
-			<ng-container *ngIf="link">
-				<a class="button menu-label" 
+        <div class="w3-bar-block w3-white w3-card"
 					[ngClass]="{
-						'is-active': link.name === brookeService.currentCollection()?.name
+						'w3-block': brookeService.currentCollection()?.name === link.name,
+						'w3-show': brookeService.currentCollection()?.name == link.name
 					}"
-					(click)="onCollectionButtonClick(link)"
 				>
-					@if(collapsed()) {
-						{{link.name.substring(0, 1)}}
-					} @else {
-						{{link.name.replaceAll('_', ' ')}}
-					}
-			</a>
-			</ng-container>
-			<!-- <ng-container *ngIf="!link.routerLink">
-				<p class="menu-label mt-2">
-					{{link.displayName}}
-				</p>
-			</ng-container> -->
+          <ng-container
+            *ngFor="
+              let sublink of brookeService.currentCollection()?.categories
+            "
+          >
+            <ng-container
+              *ngIf="link.name === brookeService.currentCollection()?.name"
+            >
+              <button class="w3-bar-item w3-button"
+                [ngClass]="{
+                  'is-active':
+                    brookeService.currentCategory()?.name === sublink.name
+                }"
+                (click)="onCategoryButtonClick(sublink)"
+              >
+                {{ sublink.name.replaceAll("_", " ") }}
+              </button>
+            </ng-container>
+          </ng-container>
+        </div>
+      </ng-container>
 
-			<ng-container *ngIf="!collapsed()">
-				<ng-container *ngIf="link.name === brookeService.currentCollection()?.name">
-
-					<ul>
-						<li *ngFor="let sublink of brookeService.currentCollection()?.categories">
-							<a class="button menu-label" 
-								[ngClass]="{
-									'is-active': brookeService.currentCategory()?.name === sublink.name
-								}"
-								(click)="onCategoryButtonClick(sublink)"
-								
-							>
-								{{sublink.name.replaceAll('_', ' ')}}
-							</a>
-						</li>
-					</ul>
-
-				</ng-container>
-			</ng-container>
-		</li>
-	</ul>
-</aside>
-</div>
+    </ng-container>
+  </div>
 </ng-container>

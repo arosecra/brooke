@@ -9,13 +9,6 @@ import { Category, Collection } from '../brooke.model';
 export class CollectionMenuComponent {
 	public brookeService: BrookeService = inject(BrookeService)
 
-	collapsed = computed<boolean>(() => {
-		if(this.brookeService.currentItem()) {
-			return true;
-		}
-		return false;
-	})
-
 	onCollectionButtonClick(collection: Collection) {
 		if(this.brookeService.currentCollection()?.name === collection.name) {
 			this.brookeService.currentCollection.update(()=>undefined)

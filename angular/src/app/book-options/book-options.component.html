@@ -1,10 +1,18 @@
 @if(brookeService.currentItem()) {
-	<button class="button mr-4" (click)="onTOCClick(true)">Options</button>
+	<button class="w3-button" (click)="onTOCClick(true)">Options</button>
 
-	<div class="modal" [ngClass]="{'is-active': isOpen()}">
-			<div class="modal-background"></div>
-			<div class="modal-card">
-					<header class="modal-card-head">
+	<div class="w3-modal" [ngStyle]="{'display': isOpen() ? 'block' : 'none' }">
+		<div class="w3-modal-content">
+			<div class="w3-container">
+				<h2>Options </h2><button (click)="onTOCClick(false)" class="w3-button w3-display-topright">&times;</button>
+				<div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+					<!-- <header class="modal-card-head">
 							<p class="modal-card-title">Options</p>
 							<button class="delete" aria-label="close" (click)="onTOCClick(false)"></button>
 					</header>
@@ -21,7 +29,6 @@
 					<footer class="modal-card-foot">
 							<button class="button is-success" (click)="onTOCClick(false)">Save changes</button>
 							<button class="button" (click)="onTOCClick(false)">Cancel</button>
-					</footer>
-			</div>
-	</div>
+					</footer> -->
+
 }

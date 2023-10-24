@@ -19,34 +19,36 @@ import { BookTocComponent } from './book-toc/book-toc.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { ModifyCollectionButtonComponent } from './modify-collection-button/modify-collection-button.component';
 import { SeriesComponent } from './series/series.component';
+import { ItemNamePipe } from "./brooke.pipe";
 
 @NgModule({
-  declarations: [
-    App,
-		BookComponent,
-		BookOptionsComponent,
-		BookPageTurnerComponent,
-		BookTocComponent,
-		BreadcrumbComponent,
-		CategoryAndSeriesBrowserComponent,
-    CollectionMenuComponent,
-    ItemComponent,
-		JobDetailsComponent,
-		ModifyCollectionButtonComponent,
-		PanelComponent,
-		SeriesComponent,
-    TopBarComponent,
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-  ],
-  providers: [
-		BrookeService,
-		BrookeServerService,
-		provideClientHydration()
-	],
-  bootstrap: [App]
+    declarations: [
+        App,
+        BookComponent,
+        BookOptionsComponent,
+        BookPageTurnerComponent,
+        BookTocComponent,
+        BreadcrumbComponent,
+        CategoryAndSeriesBrowserComponent,
+        CollectionMenuComponent,
+        ItemComponent,
+        JobDetailsComponent,
+        ModifyCollectionButtonComponent,
+        PanelComponent,
+        SeriesComponent,
+        TopBarComponent,
+    ],
+    providers: [
+        BrookeService,
+        BrookeServerService,
+        provideClientHydration()
+    ],
+    bootstrap: [App],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        ItemNamePipe
+    ]
 })
 export class AppModule { }

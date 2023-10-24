@@ -13,4 +13,5 @@
 	justify-content:space-between
 }
 
-@import 'bulma/css/bulma.css';
+/* @import 'bulma/css/bulma.css'; */
+@import 'w3-css/w3.css';
