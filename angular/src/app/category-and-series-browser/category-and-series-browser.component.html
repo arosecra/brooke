@@ -2,9 +2,19 @@
 @if(brookeService.currentJob()) {
 	<job-details></job-details>
 } @else if(brookeService.currentCategory()) {
+	<div class="brooke-grid" 
+	[ngStyle]="{
+		'grid-template-columns': brookeService.widgets.asideMenuExpanded() ? '16% 16% 16% 16% 16% 16%' : '14% 14% 14% 14% 14% 14% 14%' 
+	}"
+	>
+		<div class=""
+		*ngFor="let item of brookeService.currentCategory()?.items">
 			<item [item]="item" 
-			  class="w3-col"
-				*ngFor="let item of brookeService.currentCategory()?.items"
-				style="display: contents;">
-			</item>
+			
+			style="display: contents;">
+		</item>
+
+		</div>
+			
+		</div>
 }

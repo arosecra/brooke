@@ -1,6 +1,6 @@
-<div id="main" class="main" >
+<div id="main" class="brooke-panel" >
 	<collection-menu style="display: contents;"></collection-menu>
-	<div [ngStyle]="{'margin-left': this.brookeService.widgets.asideMenuExpanded() ? '20%' : '0%' }">
+	<div >
 		@if(brookeService.currentItem() && brookeService.currentCollection()?.openType === 'book') {
 			<book style="display: contents;"></book>
 		} @else if(brookeService.currentSeries()) {

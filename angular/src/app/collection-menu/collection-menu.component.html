@@ -1,9 +1,6 @@
-<ng-container>
-  <div class="w3-sidebar w3-bar-block w3-card"
+<ng-container *ngIf="brookeService.widgets.asideMenuExpanded()">
+  <div class="brooke-collection-menu"
 		[ngStyle]="{'width': brookeService.widgets.asideMenuExpanded() ? '20%' : '0%' }"
-		[ngClass]="{
-			'w3-show': brookeService.widgets.asideMenuExpanded()
-		}"
 	>
     <ng-container *ngFor="let link of brookeService.collections()">
       <ng-container *ngIf="link">
@@ -16,11 +13,7 @@
           {{ link.name.replaceAll("_", " ") }}
         </button>
 
-        <div class="w3-bar-block w3-white w3-card"
-					[ngClass]="{
-						'w3-block': brookeService.currentCollection()?.name === link.name,
-						'w3-show': brookeService.currentCollection()?.name == link.name
-					}"
+        <div class="brooke-category-menu"
 				>
           <ng-container
             *ngFor="

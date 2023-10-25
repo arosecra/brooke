@@ -13,5 +13,76 @@
 	justify-content:space-between
 }
 
+.brooke-main {
+  width: 100%;
+  height: 100vh;
+  background: yellow;
+  display: grid;
+  grid-template-rows: 10% 90%;
+	border: 10px;
+}
+
+
+.brooke-header {
+  grid-column: 1 / 1;
+  grid-row: 1 / 2;
+  background: blue;
+  color: white;
+  font-weight: bold;
+
+  display: flex;
+  flex-direction: row;
+	
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.brooke-panel {
+  grid-row: 2 / 2;
+	display: flex;
+  flex-direction: row;
+
+}
+
+.brooke-collection-menu {
+  background: green;
+  color: white;
+  font-weight: bold;
+
+	
+  display: flex;
+  flex-direction: column;
+}
+
+.brooke-category-menu {	
+  display: flex;
+  flex-direction: column;
+	margin-left: 10px;
+}
+
+.brooke-header-leftside {
+	align-content: flex-start;
+}
+
+.brooke-header-rightside {
+	align-content: flex-end;
+}
+
+.main {
+  grid-row: 2 / 3;
+  grid-column: 2 / 3;
+  background: palevioletred;
+  color: white;
+  font-weight: bold;
+}
+
+.brooke-grid {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 16% 16% 16% 16% 16% 16%;
+  grid-template-rows: auto;
+	align-items: baseline;
+}
+
 /* @import 'bulma/css/bulma.css'; */
-@import 'w3-css/w3.css';
+/* @import 'w3-css/w3.css'; */
