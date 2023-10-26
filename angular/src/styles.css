@@ -12,8 +12,8 @@
 .brooke-header {
   grid-column: 1 / 1;
   grid-row: 1 / 2;
-  /* background: blue;
-  color: white; */
+   background: #060b47;
+  color: white; 
   font-weight: bold;
 
   display: flex;
@@ -21,6 +21,18 @@
 	
   justify-content: space-between;
   padding: 10px;
+}
+
+.brooke-header-leftside {
+	align-content: flex-start;
+	display: flex;
+	flex-direction: row;
+}
+
+.brooke-header-rightside {
+	align-content: flex-end;
+	display: flex;
+	flex-direction: row;
 }
 
 .brooke-panel {
@@ -34,8 +46,6 @@
   /* background: green;
   color: white; */
   font-weight: bold;
-
-	
   display: flex;
   flex-direction: column;
 }
@@ -44,14 +54,6 @@
   display: flex;
   flex-direction: column;
 	margin-left: 10px;
-}
-
-.brooke-header-leftside {
-	align-content: flex-start;
-}
-
-.brooke-header-rightside {
-	align-content: flex-end;
 }
 
 .brooke-book-grid {
@@ -66,6 +68,14 @@
   display: grid;
   grid-gap: 10px;
   grid-template-columns: 20% 20% 20% 20%;
+  grid-template-rows: auto;
+	align-items: end;
+}
+
+.brooke-pages-grid {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 50% 50%;
   grid-template-rows: auto;
 	align-items: end;
 }
