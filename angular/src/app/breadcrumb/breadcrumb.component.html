@@ -1,9 +1,9 @@
-<div class="w3-bar">
-	<a class="w3-bar-item w3-button w3-small w3-border" (click)="openHome()">Home</a>
+<div class="breadcrumb">
+	<a class="button primary" (click)="openHome()">Home</a>
 	@if(brookeService.currentCollection()) {
-		<a class="w3-bar-item w3-button w3-small w3-border" (click)="openCollection()">{{brookeService.currentCollection()?.name}}</a>
+		<a class="button primary" (click)="openCollection()">{{brookeService.currentCollection()?.name}}</a>
 	}
 	@if(brookeService.currentCategory()) {
-			<a class="w3-bar-item w3-button w3-small w3-border" (click)="openCategory()">{{brookeService.currentCategory()?.name}}</a>
+			<a class="button primary" (click)="openCategory()">{{brookeService.currentCategory()?.name}}</a>
 	}
 </div>
