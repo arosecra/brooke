@@ -1,8 +1,8 @@
 <ng-container *ngIf="brookeService.pages().length > 0">
 
 	<div class="w3-bar">
-		<button class="w3-bar-item" (click)="goToPage(brookeService.currentLeftPage(), -2)" >Previous</button>
-		<button class="w3-bar-item" (click)="goToPage(brookeService.currentLeftPage(), 2)" >Next page</button>
+		<button class="w3-bar-item" (click)="goToPage(brookeService.currentLeftPage(), -2)" >Prev</button>
+		<button class="w3-bar-item" (click)="goToPage(brookeService.currentLeftPage(), 2)" >Next</button>
 		
 		<ng-container *ngFor="let range of brookeService.pages()">
 			<ng-container *ngIf="!range.elipses">
