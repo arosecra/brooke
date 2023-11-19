@@ -123,7 +123,7 @@
 							<outputDirectory>${basedir}/target/brooke/META-INF/resources/</outputDirectory>
 							<resources>
 								<resource>
-									<directory>../angular/dist/js</directory>
+									<directory>../angular/dist/brooke</directory>
 									<filtering>true</filtering>
 								</resource>
 							</resources>

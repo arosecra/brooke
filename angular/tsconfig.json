@@ -3,6 +3,29 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "paths": {
+      "brooke-components": [
+        "./dist/brooke-components"
+      ],
+      "brooke-css": [
+        "./dist/brooke-css"
+      ],
+      "brooke-domain": [
+        "./dist/brooke-domain"
+      ],
+      "brooke-mock-server": [
+        "./dist/brooke-mock-server"
+      ],
+      "brooke-server": [
+        "./dist/brooke-server"
+      ],
+      "brooke-state": [
+        "./dist/brooke-state"
+      ],
+      "brooke-storybook-server": [
+        "./dist/brooke-storybook-server"
+      ]
+    },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -18,7 +41,7 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
-		"strictPropertyInitialization": false,
+    "strictPropertyInitialization": false,
     "useDefineForClassFields": false,
     "lib": [
       "ES2022",

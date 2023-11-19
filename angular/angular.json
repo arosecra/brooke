@@ -1,31 +1,31 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "newProjectRoot": ".",
+  "newProjectRoot": "projects",
   "projects": {
     "brooke": {
       "projectType": "application",
       "schematics": {},
-      "root": "",
-      "sourceRoot": "src",
+      "root": "projects/brooke",
+      "sourceRoot": "projects/brooke/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/js",
-            "index": "src/index.html",
-            "main": "src/main.ts",
+            "outputPath": "dist/brooke",
+            "index": "projects/brooke/src/index.html",
+            "main": "projects/brooke/src/main.ts",
             "polyfills": [
               "zone.js"
             ],
-            "tsConfig": "tsconfig.app.json",
+            "tsConfig": "projects/brooke/tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "projects/brooke/src/favicon.ico",
+              "projects/brooke/src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "brooke.css"
             ],
             "scripts": []
           },
@@ -82,15 +82,241 @@
               "zone.js",
               "zone.js/testing"
             ],
-            "tsConfig": "tsconfig.spec.json",
+            "tsConfig": "projects/brooke/tsconfig.spec.json",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "projects/brooke/src/favicon.ico",
+              "projects/brooke/src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "brooke.css"
             ],
             "scripts": []
+          }
+        }
+      }
+    },
+    "brooke-storybook": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/brooke-storybook",
+      "sourceRoot": "projects/brooke-storybook/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/brooke-storybook",
+            "index": "projects/brooke-storybook/src/index.html",
+            "main": "projects/brooke-storybook/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/brooke-storybook/tsconfig.app.json",
+            "assets": [
+              "projects/brooke-storybook/src/favicon.ico",
+              "projects/brooke-storybook/src/assets"
+            ],
+            "styles": [
+              "brooke.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "brooke-storybook:build:production"
+            },
+            "development": {
+              "buildTarget": "brooke-storybook:build:development"
+            }
+          },
+					"options": {
+						"port": 4300
+					}
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "brooke-storybook:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/brooke-storybook/tsconfig.spec.json",
+            "assets": [
+              "projects/brooke-storybook/src/favicon.ico",
+              "projects/brooke-storybook/src/assets"
+            ],
+            "styles": [
+              "projects/brooke-storybook/src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    },
+    "brooke-state": {
+      "projectType": "library",
+      "root": "projects/brooke-state",
+      "sourceRoot": "projects/brooke-state/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/brooke-state/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/brooke-state/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/brooke-state/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/brooke-state/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "brooke-server": {
+      "projectType": "library",
+      "root": "projects/brooke-server",
+      "sourceRoot": "projects/brooke-server/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/brooke-server/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/brooke-server/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/brooke-server/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/brooke-server/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "brooke-components": {
+      "projectType": "library",
+      "root": "projects/brooke-components",
+      "sourceRoot": "projects/brooke-components/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/brooke-components/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/brooke-components/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/brooke-components/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/brooke-components/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "brooke-domain": {
+      "projectType": "library",
+      "root": "projects/brooke-domain",
+      "sourceRoot": "projects/brooke-domain/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/brooke-domain/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/brooke-domain/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/brooke-domain/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/brooke-domain/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
           }
         }
       }
