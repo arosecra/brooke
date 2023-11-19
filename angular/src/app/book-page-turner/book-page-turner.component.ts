@@ -6,7 +6,7 @@ import { BrookeService } from '../brooke.service';
     selector: 'book-page-turner',
     templateUrl: './book-page-turner.component.html',
     standalone: true,
-    imports: [NgIf, NgFor, NgClass]
+    imports: [NgClass]
 })
 export class BookPageTurnerComponent {
 	public brookeService: BrookeService = inject(BrookeService)

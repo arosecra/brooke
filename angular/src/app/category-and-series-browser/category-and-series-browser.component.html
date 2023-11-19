@@ -7,14 +7,11 @@
 			'brooke-movie-grid': brookeService.currentCollection()?.openType === 'video'
 		}" 
 	>
-		<div class=""
-		*ngFor="let item of brookeService.currentCategory()?.items">
-			<item [item]="item" 
-			
-			style="display: contents;">
-		</item>
-
-		</div>
+		@for (item of brookeService.currentCategory()?.items; track item.name) {
+			<div class="">
+				<item [item]="item" style="display: contents;"></item>
+			</div>
+		}
 			
 		</div>
 }

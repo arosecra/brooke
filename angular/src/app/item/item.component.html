@@ -8,12 +8,13 @@
 			<div style="font-weight: bold; width:0; min-width:100%;">
 					{{item | itemName: brookeService.currentCollection():brookeService.currentCategory():true}}
 			</div>
-			<ng-container *ngIf="brookeService.currentCollection()?.openType === 'book'">
-					<div class="buttons" >
-							<button class="button" (click)="openItem()">Open</button>
-							<!-- <button class="button" (click)="openItemDetails()" [disabled]="this.item.series">Details</button> -->
-							<button class="button" (click)="copyToTablet()">CBZ</button>
-					</div>
-			</ng-container>
+			
+			@if (brookeService.currentCollection()?.openType === 'book') {
+				<div class="buttons" >
+						<button class="button" (click)="openItem()">Open</button>
+						<!-- <button class="button" (click)="openItemDetails()" [disabled]="this.item.series">Details</button> -->
+						<button class="button" (click)="copyToTablet()">CBZ</button>
+				</div>
+			}
 	</div>
 </div>

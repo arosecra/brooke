@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule, NgFor } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { BrookeService } from '../brooke.service';
 import { Item } from '../brooke.model';
 
@@ -7,7 +7,7 @@ import { Item } from '../brooke.model';
     selector: 'series',
     templateUrl: './series.component.html',
     standalone: true,
-    imports: [NgFor]
+    imports: []
 })
 export class SeriesComponent {
 	public brookeService: BrookeService = inject(BrookeService)

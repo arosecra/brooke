@@ -1,13 +1,13 @@
 import { Component, inject, computed } from '@angular/core';
 import { BrookeService } from '../brooke.service';
 import { Category, Collection } from '../brooke.model';
-import { NgStyle, NgClass, NgFor, NgIf } from '@angular/common';
+import { NgStyle, NgClass } from '@angular/common';
 
 @Component({
     selector: 'collection-menu',
     templateUrl: './collection-menu.component.html',
     standalone: true,
-    imports: [NgStyle, NgClass, NgFor, NgIf]
+    imports: [NgStyle, NgClass]
 })
 export class CollectionMenuComponent {
 	public brookeService: BrookeService = inject(BrookeService)

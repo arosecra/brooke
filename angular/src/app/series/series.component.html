@@ -2,9 +2,11 @@
 
   <div class="w3-cell w3-cell-top">
 			<ul class="w3-ul">
-				<li *ngFor="let childItem of brookeService.currentSeries()?.childItems">
-					<a class="button menu-label" (click)="openItem(childItem)">{{childItem.name.replaceAll('_', ' ')}}</a>
-				</li>
+				@for (childItem of brookeService.currentSeries()?.childItems; track childItem.name) {
+					<li>
+						<a class="button menu-label" (click)="openItem(childItem)">{{childItem.name.replaceAll('_', ' ')}}</a>
+					</li>
+				}
 			</ul>
 	</div>
 

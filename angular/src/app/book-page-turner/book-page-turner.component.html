@@ -1,21 +1,20 @@
-<ng-container *ngIf="brookeService.pages().length > 0">
+@if (brookeService.pages().length > 0) {
+		<div class="m-r--xs">
+			<button class="button primary black-border" (click)="goToPage(brookeService.currentLeftPage(), -2)" >Prev</button>
+			<button class="button primary black-border" (click)="goToPage(brookeService.currentLeftPage(), 2)" >Next</button>	
+		</div>
 
-	<div class="w3-bar">
-		<button class="w3-bar-item" (click)="goToPage(brookeService.currentLeftPage(), -2)" >Prev</button>
-		<button class="w3-bar-item" (click)="goToPage(brookeService.currentLeftPage(), 2)" >Next</button>
-		
-		<ng-container *ngFor="let range of brookeService.pages()">
-			<ng-container *ngIf="!range.elipses">
-				<button class="w3-bar-item"
-					 (click)="goToPage(range.page, 0)" 
-				[ngClass]="{
-						'is-current': range.current
-				}">{{range.page}}</button>
-			</ng-container>
-			<ng-container *ngIf="range.elipses">
-					<span class="w3-bar-item">&hellip;</span>
-			</ng-container>
-		</ng-container>
-
-	</div>
-</ng-container>
+		<div>
+			@for (range of brookeService.pages(); track range.page) {
+				@if (!range.elipses) {
+					<button class="button primary black-border"
+						(click)="goToPage(range.page, 0)" 
+						[ngClass]="{
+								'is-current': range.current
+						}">{{range.page}}</button>
+				} @else {
+					<span >&hellip;</span>
+				}
+			}
+		</div>
+}

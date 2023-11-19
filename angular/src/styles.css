@@ -103,11 +103,16 @@
   content: "/\00a0";
 }
 
-.border {
+.grey-border-with-shadow {
 	box-shadow:inset 0px 1px 3px 0px #91b8b3;
 	background-color:#000000;
 	border-radius:5px;
 	border:1px solid #566963;
+}
+
+.black-border {
+	border-radius: 5px;
+	border:2px solid #000000;
 }
 
 .primary {
@@ -125,4 +130,12 @@
 .secondary-variant {
 	background-color: #018786;
 	color:#000000;
+}
+
+.p-r--xs {
+	padding-right: 5px;
+}
+
+.m-r--xs {
+	margin-right: 5px;
 }
