@@ -6,7 +6,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.github.arosecra.brooke.util.CommandLine;
 
 public class CopyForTabletTask implements IRunnableTask {
