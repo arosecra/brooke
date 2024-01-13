@@ -28,4 +28,11 @@ public class SyncService {
 		return jobDetails;
 	}
 
+	public void setJobService(JobService jobService) {
+		this.jobService = jobService;
+	}
+
+	public void setLibraryCacheService(LibraryCacheService libraryCacheService) {
+		this.libraryCacheService = libraryCacheService;
+	}
 }
