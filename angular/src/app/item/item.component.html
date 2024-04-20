@@ -1,0 +1,21 @@
+<div class="block h-96 content-end">
+	<img 
+		class="h-fit"
+		[ngClass]="{
+			'aspect-video': brookeService.currentCollection()?.openType === 'video',
+			'aspect-auto': brookeService.currentCollection()?.openType === 'book'
+		}"
+			src="/rest/thumbnail/{{brookeService.currentCollection()?.name}}/{{item.name}}">
+
+	<h3 class="mt-4 font-bold text-gray-900">
+		{{item | itemName: brookeService.currentCollection():brookeService.currentCategory():true}}
+	</h3>
+
+	@if (brookeService.currentCollection()?.openType === 'book') {
+		<div class="buttons" >
+				<button class="button" (click)="openItem()">Open</button>
+				<!-- <button class="button" (click)="openItemDetails()" [disabled]="this.item.series">Details</button> -->
+				<button class="button" (click)="copyToTablet()">CBZ</button>
+		</div>
+	}
+</div>

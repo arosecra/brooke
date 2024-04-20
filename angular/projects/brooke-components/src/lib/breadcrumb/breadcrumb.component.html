@@ -1,9 +1,0 @@
-<div class="breadcrumb">
-	<a class="button primary" (click)="openHome()">Home</a>
-	@if(brookeService.currentCollection()) {
-		<a class="button primary" (click)="openCollection()">{{brookeService.currentCollection()?.name}}</a>
-	}
-	@if(brookeService.currentCategory()) {
-			<a class="button primary" (click)="openCategory()">{{brookeService.currentCategory()?.name}}</a>
-	}
-</div>
