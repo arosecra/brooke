@@ -164,6 +164,7 @@ export class BrookeService {
   }
 
   private displayBookItem(item: any) {
+		this.widgets.asideMenuExpanded.update(() => false)
     this.currentItem.update(() => item);
 
     if (this.lastItem()?.name !== item.name) {

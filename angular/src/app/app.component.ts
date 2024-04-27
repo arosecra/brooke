@@ -13,6 +13,7 @@ import { CollectionMenuComponent } from "./collection-menu/collection-menu.compo
 export class App {
   title = 'brooke';
 
-	public brookeService: BrookeService = inject(BrookeService)
+	public brookeService: BrookeService = inject(BrookeService);
+
 
 }

@@ -8,5 +8,5 @@ import { CommonModule } from '@angular/common';
   templateUrl: './icon.component.html'
 })
 export class IconComponent {
-	@Input() name: 'greater-than' | 'less-than' | 'home';
+	@Input() name: 'bookshelf' | 'greater-than' | 'less-than' | 'home' | 'hamburger';
 }
