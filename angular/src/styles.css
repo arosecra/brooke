@@ -4,26 +4,20 @@
 @tailwind utilities;
 
 .brooke-main {
-  width: 100%;
-  /* background: yellow; */
-  display: grid;
-  grid-template-rows: 10% 90%;
-	border: 10px;
+  width: 100vw;
+	height: 97vh;
 }
 
 
 .brooke-header {
-  grid-column: 1 / 1;
-  grid-row: 1 / 2;
-   background: #060b47;
+  background: #060b47;
   color: white; 
   font-weight: bold;
 
   display: flex;
   flex-direction: row;
-	
+	height: 3vh;
   justify-content: space-between;
-  padding: 10px;
 }
 
 .brooke-header-leftside {
@@ -39,7 +33,6 @@
 }
 
 .brooke-panel {
-  grid-row: 2 / 2;
 	display: flex;
   flex-direction: row;
 

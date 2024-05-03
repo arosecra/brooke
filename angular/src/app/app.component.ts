@@ -10,7 +10,7 @@ import { CollectionMenuComponent } from "./collection-menu/collection-menu.compo
     standalone: true,
     imports: [TopBarComponent, PanelComponent, CollectionMenuComponent]
 })
-export class App {
+export class AppComponent {
   title = 'brooke';
 
 	public brookeService: BrookeService = inject(BrookeService);
