@@ -3,7 +3,7 @@
   <div class="brooke-main flex flex-row gap-4">
     @if(this.brookeService.widgets.asideMenuExpanded()) {
     	<collection-menu style="display: contents"></collection-menu>
-    } @else {
+    } @else if(!this.brookeService.currentItem()) {
 			<div class="px-4"></div>
 		}
     <panel style="display: contents"></panel>
