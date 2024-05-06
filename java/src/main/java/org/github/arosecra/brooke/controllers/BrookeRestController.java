@@ -115,7 +115,7 @@ public class BrookeRestController {
 			@PathVariable("itemName") String itemName,
 			@PathVariable("pageNumber") int pageNumber
 	) throws IOException {
-		return this.brookeService.getPage(collectionName, itemName, pageNumber);
+		return this.brookeService.getPage(collectionName, itemName, pageNumber, 960);
 	}
 	
 	@GetMapping("/rest/job-details/{jobNumber}")

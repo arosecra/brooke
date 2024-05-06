@@ -58,6 +58,9 @@ public class BrookeService {
 	
 	@Autowired
 	private LibraryCacheService libraryCacheService;
+	
+	@Autowired
+	private ImageService imageService;
 
 	public List<CollectionApiModel> getCollections() {
 		return libraryCacheService.getLibrary().getCollections();
@@ -116,7 +119,7 @@ public class BrookeService {
 		}
 	}
 
-	public byte[] getPage(String collectionName, String itemName, int pageNumber) throws IOException {
+	public byte[] getPage(String collectionName, String itemName, int pageNumber, int width) throws IOException {
 		File tar = fileCacheService.getCachedFile(libraryCacheService.getLibrary(), collectionName, itemName);
 		return tarService.getPageFromTar(tar, pageNumber);
 	}

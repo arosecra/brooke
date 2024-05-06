@@ -8,6 +8,6 @@ import { BrookeService } from '../brooke.service';
     standalone: true
 })
 export class BookComponent {
-	public brookeService: BrookeService = inject(BrookeService)
+	public brookeService: BrookeService = inject(BrookeService);
 
 }
