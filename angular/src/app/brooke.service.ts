@@ -1,4 +1,4 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, effect } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import {
@@ -16,7 +16,19 @@ import { Collection, Category, Item, BookDetails, JobDetails, BrookeLocation, Pa
 
 @Injectable()
 export class BrookeService {
-  constructor(private brookeServerService: BrookeServerService) {}
+  constructor(private brookeServerService: BrookeServerService) {
+		// if(window.localStorage.getItem('leftPage')) {
+		// 	this.currentLeftPage.set(window.localStorage.getItem('leftPage') || '');
+		// }
+		// if(window.localStorage.getItem('rightPage')) {
+		// 	this.currentRightPage.set(window.localStorage.getItem('rightPage') || '');
+		// }
+
+		// effect(() => {
+		// 	window.localStorage.setItem('leftPage', this.currentLeftPage() || '');
+		// 	window.localStorage.setItem('rightPage', this.currentRightPage() || '');
+		// });
+	}
 
 	widgets = {
 		asideMenuExpanded: signal<boolean>(true)
@@ -48,65 +60,10 @@ export class BrookeService {
       rightPage: this.currentRightPage(),
     } as BrookeLocation;
   });
-
-  pages = computed<Page[]>(() => {
-    let result: Page[] = [];
-
-    if (this.currentBookDetails()) {
-      let leftPage = this.currentLeftPage() ?? '0';
-      let numberOfPages = this.currentBookDetails()?.numberOfPages ?? 4;
-      let isFirstTwoPages = Number(leftPage) < 4;
-      let isLastTwoPages = Number(leftPage) > numberOfPages - 4;
-
-      if (isFirstTwoPages || isLastTwoPages) {
-        //if the number is 0 to 2, or
-        //if the number is bookDetails.numberOfPages -2 to bookDetails.numberOfPages
-        // add the first two pages
-        // add elipses
-        // add the lst two pages
-        result.push(this.createRange(0, leftPage, false));
-        result.push(this.createRange(2, leftPage, false));
-        if (leftPage === '2') result.push(this.createRange(4, leftPage, false));
-        result.push(this.createRange(0, '0', true));
-        if (leftPage === '' + (numberOfPages - 2))
-          result.push(this.createRange(numberOfPages - 4, leftPage, false));
-        result.push(this.createRange(numberOfPages - 2, leftPage, false));
-        result.push(this.createRange(numberOfPages, leftPage, false));
-      } else {
-        //otherwise
-        // add the first 2 pages
-        // add elipses
-        // add left -2 to left +2
-        // add elipses
-        // add last 2 pages
-        result.push(this.createRange(0, leftPage, false));
-        if (leftPage !== '2') result.push(this.createRange(2, leftPage, false));
-        result.push(this.createRange(0, '0', true));
-        result.push(this.createRange(parseInt(leftPage) - 2, leftPage, false));
-        result.push(this.createRange(parseInt(leftPage), leftPage, false));
-        result.push(this.createRange(parseInt(leftPage) + 2, leftPage, false));
-        result.push(this.createRange(0, '0', true));
-        if (leftPage !== '' + (numberOfPages - 2))
-          result.push(this.createRange(numberOfPages - 2, leftPage, false));
-        result.push(this.createRange(numberOfPages, leftPage, false));
-      }
-    }
-
-    return result;
-  });
-
-  private createRange(pageNo: number, leftPage: string, elipses: boolean) {
-    return {
-      current: '' + pageNo === leftPage,
-      elipses: elipses,
-      page: '' + pageNo,
-    } as Page;
-  }
-
 	
-	copyToTablet(item: Item) {
+	copyToBooxTablet(item: Item) {
     this.brookeServerService
-      .copyToTablet(this.currentCollection()?.name ?? 'undefined', item.name)
+      .copyToBooxTablet(this.currentCollection()?.name ?? 'undefined', item.name)
       .subscribe((result: JobDetails) => {
         let sub = this.brookeServerService
           .getJobDetails(result.jobNumber)

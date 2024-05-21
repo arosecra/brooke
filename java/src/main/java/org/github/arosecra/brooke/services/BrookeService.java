@@ -159,7 +159,7 @@ public class BrookeService {
 		this.libraryDao = libraryDao;
 	}
 
-	public JobDetails copyForTablet(String collectionName, String itemName) {
+	public JobDetails copyForBooxTablet(String collectionName, String itemName) {
 		return tabletService.copyForTablet(libraryCacheService.getLibrary(), collectionName, itemName);
 	}
 

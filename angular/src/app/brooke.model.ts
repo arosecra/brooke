@@ -1,3 +1,5 @@
+import { Signal } from "@angular/core";
+
 export declare interface BrookeLocation {
   collection: Collection;
   category?: Category;
@@ -71,9 +73,8 @@ export declare interface JobDetails {
 }
 
 export declare interface Page {
-  elipses: boolean;
-  page: string;
-  current: boolean;
+  bytes: Signal<any | undefined>;
+	pageNo: number;
 }
 
 export declare interface MissingItem {

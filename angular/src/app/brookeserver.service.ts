@@ -44,9 +44,9 @@ export class BrookeServerService {
     );
   }
 
-	copyToTablet(collectionName: string, itemName: string): Observable<JobDetails> {
+	copyToBooxTablet(collectionName: string, itemName: string): Observable<JobDetails> {
 		return this.http.get<JobDetails>(
-			`/rest/copy-to-tablet/${collectionName}/${itemName}`
+			`/rest/copy-to-boox-tablet/${collectionName}/${itemName}`
 		)
 	}
 

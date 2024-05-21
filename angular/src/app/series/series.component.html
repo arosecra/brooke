@@ -1,7 +1,7 @@
-<div class="w3-cell-row">
+<div class="flex flex-row">
 
-  <div class="w3-cell w3-cell-top">
-			<ul class="w3-ul">
+  <div class="">
+			<ul class="">
 				@for (childItem of brookeService.currentSeries()?.childItems; track childItem.name) {
 					<li>
 						<a class="button menu-label" (click)="openItem(childItem)">{{childItem.name.replaceAll('_', ' ')}}</a>
@@ -10,7 +10,7 @@
 			</ul>
 	</div>
 
-  <div class="w3-cell ">
+  <div class="">
 			<img style="width: 100%" src="/rest/large-thumbnail/{{brookeService.currentCollection()?.name}}/{{brookeService.currentSeries()?.name}}">
 	</div>
 

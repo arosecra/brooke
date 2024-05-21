@@ -19,8 +19,8 @@ export class ItemComponent {
 		this.brookeService.openItem(this.item);
 	}
 
-	copyToTablet() {
-		this.brookeService.copyToTablet(this.item);
+	copyToBooxTablet() {
+		this.brookeService.copyToBooxTablet(this.item);
 	}
 
 	openItemDetails() {

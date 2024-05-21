@@ -6,9 +6,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.commons.io.FileUtils;
+import org.github.arosecra.brooke.services.ImageService;
 import org.github.arosecra.brooke.util.CommandLine;
 
-public class CopyForTabletTask implements IRunnableTask {
+public class CopyForBooxTabletTask implements IRunnableTask {
 
 	private AtomicLong steps = new AtomicLong(0L);
 	private AtomicLong current = new AtomicLong(0L);
@@ -16,15 +17,17 @@ public class CopyForTabletTask implements IRunnableTask {
 	private String status;
 	private File remoteFile;
 	private String itemName;
+	private ImageService imageService;
 
-	public CopyForTabletTask(File remoteFile, String itemName) {
+	public CopyForBooxTabletTask(ImageService imageService, File remoteFile, String itemName) {
+		this.imageService = imageService;
 		this.remoteFile = remoteFile;
 		this.itemName = itemName;
 	}
 
 	@Override
 	public void run() {
-		steps.set(5);
+		steps.set(6);
 		started.set(true);
 		File tempSsdFolder = new File("C:\\scans\\temp");
 		File unzippedFolder = new File(tempSsdFolder, itemName);
@@ -41,6 +44,15 @@ public class CopyForTabletTask implements IRunnableTask {
 					localSourceFile.getAbsolutePath()
 			});
 			current.set(2);
+			
+			for(File file : unzippedFolder.getAbsoluteFile().listFiles()) {
+				if(file.getName().endsWith("png")) {
+					byte[] img = FileUtils.readFileToByteArray(file);
+					byte[] resizedImg = this.imageService.resizeImageToWidth(img, 1404);
+					FileUtils.writeByteArrayToFile(file, resizedImg);
+				}
+			}
+			current.set(3);
 
 			CommandLine.run(new String[] {
 					"D:\\software\\7za\\7za.exe",
@@ -50,14 +62,14 @@ public class CopyForTabletTask implements IRunnableTask {
 					localCbzFile.getAbsolutePath(),
 					unzippedFolder.getAbsolutePath() + "\\*.png"
 			});
-			current.set(3);
+			current.set(4);
 
 			FileUtils.copyFileToDirectory(localCbzFile, new File("\\\\drobo5n\\Public\\Scans\\ForTablet"));
-			current.set(4);
+			current.set(5);
 			FileUtils.deleteDirectory(unzippedFolder);
 			FileUtils.delete(localSourceFile);
 			FileUtils.delete(localCbzFile);
-			current.set(5);
+			current.set(6);
 			status = "Complete";
 		} catch (IOException e) {
 			status = "Failed";
