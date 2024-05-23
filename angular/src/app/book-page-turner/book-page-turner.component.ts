@@ -5,7 +5,34 @@ import { IconComponent } from "../icon/icon.component";
 
 @Component({
     selector: 'book-page-turner',
-    templateUrl: './book-page-turner.component.html',
+		template: `
+<div class="inline-flex items-center justify-center gap-3">
+  <a
+    href="#"
+    (click)="goToPage(brookeService.currentLeftPage(), -2)"
+    class="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
+  >
+    <span class="sr-only">Next Page</span>
+    <icon name="less-than"></icon>
+  </a>
+
+  <p class="text-xs text-gray-900">
+    {{ brookeService.currentLeftPage() }}
+    <span class="mx-0.25">/</span>
+    {{ brookeService.currentBookDetails()?.numberOfPages }}
+  </p>
+
+  <a
+    href="#"
+    (click)="goToPage(brookeService.currentLeftPage(), 2)"
+    class="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
+  >
+    <span class="sr-only">Next Page</span>
+    <icon name="greater-than"></icon>
+  </a>
+</div>
+		
+		`,
     standalone: true,
     imports: [NgClass, IconComponent]
 })

@@ -5,7 +5,29 @@ import { Page } from '../brooke.model';
 
 @Component({
     selector: 'book',
-    templateUrl: './book.component.html',
+    template: `
+<div class="brooke-pages-grid"
+  style="padding: 0em 0em"
+>
+  <div >
+    <img
+      style="width: 100%"
+      src="/rest/page/{{ brookeService.currentCollection()?.name }}/{{
+        brookeService.currentItem()?.name
+      }}/{{ brookeService.currentLeftPage() }}"
+    />
+  </div>
+  <div >
+    <img
+			style="width: 100%"
+      src="/rest/page/{{ brookeService.currentCollection()?.name }}/{{
+        brookeService.currentItem()?.name
+      }}/{{ brookeService.currentRightPage() }}"
+    />
+  </div>
+</div>
+		
+		`,
     standalone: true
 })
 export class BookComponent {

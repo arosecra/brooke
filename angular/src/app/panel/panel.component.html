@@ -1,8 +1,0 @@
-
-	@if(brookeService.currentItem() && brookeService.currentCollection()?.openType === 'book') {
-		<book style="display: contents;"></book>
-	} @else if(brookeService.currentSeries()) {
-		<series style="display: contents;"></series>
-	} @else {
-		<category-and-series-browser style="display: contents;"></category-and-series-browser>
-	}
