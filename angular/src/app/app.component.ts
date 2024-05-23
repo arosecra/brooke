@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { TopBarComponent } from './top-bar/top-bar.component';
-import { PanelComponent } from './panel/panel.component';
+import { TopBarComponent } from './top-bar.component';
+import { PanelComponent } from './panel.component';
 import { BrookeService } from './brooke.service';
-import { CollectionMenuComponent } from "./collection-menu/collection-menu.component";
+import { CollectionMenuComponent } from "./collection-menu.component";
 
 @Component({
     selector: 'app-root',

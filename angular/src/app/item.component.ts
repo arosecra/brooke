@@ -1,7 +1,7 @@
 import { Component, Input, inject } from '@angular/core';
-import { ItemNamePipe } from '../brooke.pipe';
-import { Item } from '../brooke.model';
-import { BrookeService } from '../brooke.service';
+import { ItemNamePipe } from './brooke.pipe';
+import { Item } from './brooke.model';
+import { BrookeService } from './brooke.service';
 import { NgClass } from '@angular/common';
 
 @Component({

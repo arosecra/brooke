@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrookeService } from '../brooke.service';
-import { IconComponent } from "../icon/icon.component";
+import { BrookeService } from './brooke.service';
+import { IconComponent } from "./icon.component";
 
 @Component({
     selector: 'breadcrumb',

@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule, NgStyle } from '@angular/common';
-import { CategoryAndSeriesBrowserComponent } from '../category-and-series-browser/category-and-series-browser.component';
-import { SeriesComponent } from '../series/series.component';
-import { BookComponent } from '../book/book.component';
-import { CollectionMenuComponent } from '../collection-menu/collection-menu.component';
-import { BrookeService } from '../brooke.service';
+import { CategoryAndSeriesBrowserComponent } from './category-and-series-browser.component';
+import { SeriesComponent } from './series.component';
+import { BookComponent } from './book.component';
+import { CollectionMenuComponent } from './collection-menu.component';
+import { BrookeService } from './brooke.service';
 
 @Component({
     selector: 'panel',

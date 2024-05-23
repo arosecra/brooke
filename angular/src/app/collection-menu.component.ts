@@ -1,8 +1,8 @@
 import { Component, inject, computed } from '@angular/core';
 import { NgStyle, NgClass } from '@angular/common';
-import { BrookeService } from '../brooke.service';
-import { Collection, Category } from '../brooke.model';
-import { IconComponent } from "../icon/icon.component";
+import { BrookeService } from './brooke.service';
+import { Collection, Category } from './brooke.model';
+import { IconComponent } from "./icon.component";
 
 @Component({
     selector: 'collection-menu',

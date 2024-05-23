@@ -1,7 +1,7 @@
 import { Component, HostListener, inject } from '@angular/core';
 import { CommonModule, NgIf, NgFor, NgClass } from '@angular/common';
-import { BrookeService } from '../brooke.service';
-import { IconComponent } from "../icon/icon.component";
+import { BrookeService } from './brooke.service';
+import { IconComponent } from "./icon.component";
 
 @Component({
     selector: 'book-page-turner',

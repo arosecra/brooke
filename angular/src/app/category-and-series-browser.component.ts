@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { NgClass, NgStyle } from '@angular/common';
-import { ItemComponent } from '../item/item.component';
-import { JobDetailsComponent } from '../job-details/job-details.component';
-import { BrookeService } from '../brooke.service';
+import { ItemComponent } from './item.component';
+import { JobDetailsComponent } from './job-details.component';
+import { BrookeService } from './brooke.service';
 
 @Component({
     selector: 'category-and-series-browser',

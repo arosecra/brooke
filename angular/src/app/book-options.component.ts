@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule, NgStyle } from '@angular/common';
-import { BrookeService } from '../brooke.service';
+import { BrookeService } from './brooke.service';
 
 @Component({
     selector: 'book-options',
