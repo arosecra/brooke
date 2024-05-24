@@ -65,6 +65,7 @@ export class ItemComponent {
 	@Input("item") item: Item;
 
 	public brookeService: BrookeService = inject(BrookeService)
+	component: {};
 
 	openItem() {
 		this.brookeService.openItem(this.item);
