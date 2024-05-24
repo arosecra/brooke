@@ -125,6 +125,12 @@ public class BrookeRestController {
 		return this.brookeService.getJobDetails(jobNumber);
 	}
 	
+	@GetMapping("/rest/job-details")
+	public JobDetails[] getJobDetails(
+			) throws IOException {
+		return this.brookeService.getJobDetails();
+	}
+	
 	@GetMapping("/rest/book-details/{collectionName}/{itemName}")
 	public BookDetailsApiModel getBookDetails(
 			@PathVariable("collectionName") String collectionName,

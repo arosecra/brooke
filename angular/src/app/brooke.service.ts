@@ -1,4 +1,4 @@
-import { Injectable, signal, computed, effect } from '@angular/core';
+import { Injectable, signal, computed, effect, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import {
@@ -9,6 +9,8 @@ import {
   take,
   filter,
   tap,
+	takeUntil,
+	takeWhile,
 } from 'rxjs/operators';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { BrookeServerService } from './brookeserver.service';
@@ -16,7 +18,10 @@ import { Collection, Category, Item, BookDetails, JobDetails, BrookeLocation, Pa
 
 @Injectable()
 export class BrookeService {
-  constructor(private brookeServerService: BrookeServerService) {
+
+	brookeServerService: BrookeServerService = inject(BrookeServerService);
+
+  constructor() {
 		// if(window.localStorage.getItem('leftPage')) {
 		// 	this.currentLeftPage.set(window.localStorage.getItem('leftPage') || '');
 		// }
@@ -46,45 +51,28 @@ export class BrookeService {
 
   currentJob = signal<JobDetails | undefined>(undefined);
 
+  allJobs = signal<JobDetails[]>([]);
+
   collections = toSignal(this.brookeServerService.getCollections());
   cachedManifest = toSignal(this.brookeServerService.getCachedManifest());
-
-  currentLocation = computed<BrookeLocation>(() => {
-    return {
-      collection: this.currentCollection(),
-      category: this.currentCategory(),
-      series: this.currentSeries(),
-      item: this.currentItem(),
-      jobDetails: this.currentJob(),
-      leftPage: this.currentLeftPage(),
-      rightPage: this.currentRightPage(),
-    } as BrookeLocation;
-  });
+	
+	jobQueue = signal<boolean>(false);
 	
 	copyToDevice(item: Item, device: string) {
     this.brookeServerService
       .copyToDevice(this.currentCollection()?.name ?? 'undefined', item.name, device)
       .subscribe((result: JobDetails) => {
         let sub = this.brookeServerService
-          .getJobDetails(result.jobNumber)
+          .getAllJobDetails()
           .pipe(
-            repeat({ delay: 1000 }),
+            repeat({ delay: 10000 }),
             tap((jobDetails) => {
-              // if(jobDetails.current === jobDetails.total && jobDetails.total > 0)
-              // 	sub.unsubscribe()
-              this.currentJob.update(() => jobDetails);
+              this.allJobs.update(() => jobDetails);
             }),
-            filter((res) => {
-              console.log(res.current, res.total);
-              return res.current === res.total && res.total > 0;
-            })
-            // take(1)
+						takeWhile((jobDetail: JobDetails[]) => {
+							return jobDetail.length > 0
+						})
           )
-          .subscribe((done) => {
-            this.currentJob.update(() => undefined);
-            console.log('done', done.current, done.total);
-            sub.unsubscribe();
-          });
 
         this.currentJob.update(() => result);
       });

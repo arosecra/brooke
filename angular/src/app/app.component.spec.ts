@@ -3,21 +3,23 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { BrookeService } from './brooke.service';
 import { BrookeServerService } from './brookeserver.service';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideHttpClient } from '@angular/common/http';
 
-import { describe, test, expect, beforeEach, it } from 'vitest';
-import { provideExperimentalZonelessChangeDetection } from '@angular/core';
+import { configureCommonTestBed } from '../test/common-test-bed';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 describe('AppComponent', () => {
-	let fixture: ComponentFixture<AppComponent> | undefined = undefined;
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
+    await configureCommonTestBed({
       imports: [AppComponent, ],
-			providers: [BrookeService, BrookeServerService, provideHttpClient(), provideHttpClientTesting(), provideExperimentalZonelessChangeDetection()]
+			providers: [BrookeService, BrookeServerService]
     }).compileComponents();
+    
     fixture = TestBed.createComponent(AppComponent);
-		await fixture.whenStable();
+    component = fixture.componentInstance;
+    await fixture.whenStable();
   });
 
   it('should match the snapshot', () => {

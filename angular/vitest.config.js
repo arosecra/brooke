@@ -6,9 +6,13 @@ export default defineConfig({
 		include: ['**/*.{test,spec}.?(c|m)[jt]s?(x)'],
 		environment: 'jsdom',
 		root: './src/app',
-    setupFiles: ['../test/vite-setup.ts'],
+    reporters: ['basic'],
+		setupFiles: ['../test/vite-setup.ts'],
+
 		coverage: {
-      provider: 'istanbul'
+      provider: 'istanbul',
+			reporter: ['html', 'text'],
+			reportsDirectory: '../../coverage/'
     },
   },
 })

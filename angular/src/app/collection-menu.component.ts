@@ -45,6 +45,21 @@ import { IconComponent } from "./icon.component";
           </details>
         </li>
         }
+				<li>
+					<summary
+              class="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+            >
+              <span class="text-sm font-medium">
+                <a
+                  href="#"
+                  (click)="onJobQueueClick()"
+                  class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                >
+								Job Queue
+								</a>
+							</span>
+            </summary>
+				</li>
       </ul>
     </div>
   </div>
@@ -56,12 +71,17 @@ import { IconComponent } from "./icon.component";
 export class CollectionMenuComponent {
 	public brookeService: BrookeService = inject(BrookeService)
 
+	onJobQueueClick() {
+		this.brookeService.jobQueue.update(() => true);
+	}
+
 	onCategoryButtonClick(collection: Collection, category: Category) {
 		if(this.brookeService.currentCategory()?.name === category.name) {
 			this.brookeService.currentCategory.update(()=>undefined)
 		} else {
 			this.brookeService.currentCategory.update(() => category)
 		}
+		this.brookeService.jobQueue.update(() => false);
 		this.brookeService.currentCollection.update(() => collection);
 		this.brookeService.currentSeries.update(()=>undefined)
 		this.brookeService.currentItem.update(()=>undefined)

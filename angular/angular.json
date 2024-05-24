@@ -76,5 +76,15 @@
         }
       }
     }
-  }
+  },
+	"schematics": {
+		"@schematics/angular": {
+			"component": {
+				"inlineTemplate": true,
+				"flat": true,
+				"style": "none",
+				
+			}
+		}
+	 }
 }

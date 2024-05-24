@@ -151,6 +151,10 @@ public class BrookeService {
 		return jobDao.getJobDetails(jobNumber);
 	}
 
+	public JobDetails[] getJobDetails() {
+		return jobDao.getJobDetails();
+	}
+
 	public void openVLC(String collectionName, String itemName) throws IOException {		
 		this.videoService.openVLC(libraryCacheService.getLibrary(), collectionName, itemName);
 	}

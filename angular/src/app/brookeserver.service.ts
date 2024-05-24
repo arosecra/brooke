@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
@@ -6,7 +6,10 @@ import { BookDetails, CacheManifest, Category, Collection, Item, JobDetails, Mis
 
 @Injectable()
 export class BrookeServerService {
-  constructor(private http: HttpClient) { }
+
+	private http: HttpClient = inject(HttpClient);
+
+  constructor() { }
 
   getCollections(): Observable<Collection[]> {
     return this.http.get<Collection[]>(
@@ -83,6 +86,12 @@ export class BrookeServerService {
   getJobDetails(jobNumber: bigint): Observable<JobDetails> {
     return this.http.get<JobDetails>(
       `/rest/job-details/${jobNumber}`
+    );
+  }
+
+  getAllJobDetails(): Observable<JobDetails[]> {
+    return this.http.get<JobDetails[]>(
+      `/rest/job-details`
     );
   }
 

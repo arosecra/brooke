@@ -1,6 +1,8 @@
 package org.github.arosecra.brooke.services;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.github.arosecra.brooke.model.JobDetails;
@@ -44,6 +46,26 @@ public class JobService {
 		jobDetails.setStarted(pr.started().get());
 		
 		return jobDetails;
+	}
+	
+	public JobDetails[] getJobDetails() {
+		List<JobDetails> details = new ArrayList<>();
+		
+		for(IRunnableTask pr : this.jobs.values()) {
+			
+			JobDetails jobDetails = new JobDetails();
+			jobDetails.setJobType(pr.getJobType());
+			jobDetails.setJobNumber(lastJobNumber);
+			jobDetails.setJobDescription(pr.getJobDescription());
+			jobDetails.setCurrentProgressDescription(pr.getCurrentProgressDescription());
+			jobDetails.setTotalProgressDescription(pr.getTotalProgressDescription());
+			jobDetails.setCurrent(pr.getCurrentProgress().get());
+			jobDetails.setTotal(pr.getTotalProgress().get());
+			jobDetails.setStarted(pr.started().get());
+			
+		}
+		
+		return details.toArray(new JobDetails[details.size()]);
 	}
 	
 }
