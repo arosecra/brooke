@@ -25,13 +25,17 @@ public class ImageService {
 	public BufferedImage resizeImageToWidth(BufferedImage image, int desiredWidth) {
 		int width = image.getWidth();
 		int height = image.getHeight();
+		
+		int newWidth = width;
+		int newHeight = height;
+		
+		if(desiredWidth < width) {
+			newWidth = desiredWidth;
+			double reduction = width / desiredWidth;
+			newHeight = (int)(height / reduction);
+		}
 
-		int newWidth = desiredWidth;
-
-		int reduction = width / desiredWidth;
-		int newHeight = height / reduction;
-
-		BufferedImage thumbnail = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
+		BufferedImage thumbnail = new BufferedImage(newWidth, newHeight, image.getType());
 		thumbnail.createGraphics().drawImage(image.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH), 0, 0,
 				null);
 		return thumbnail;

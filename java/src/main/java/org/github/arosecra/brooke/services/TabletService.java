@@ -21,7 +21,7 @@ public class TabletService {
 	@Autowired 
 	private ImageService imageService;
 	
-	public JobDetails copyForTablet(Library library, String collectionName, String itemName) {
+	public JobDetails copyForTablet(Library library, String collectionName, String itemName, String folderName, int desiredWidth, boolean runCalibre) {
 		File tempSsdFolder = new File("C:\\scans\\temp");
 		File unzippedFolder = new File(tempSsdFolder, itemName);
 		unzippedFolder.mkdirs();
@@ -29,7 +29,7 @@ public class TabletService {
 		ShelfItem shelfItem = this.libraryLocationService.getShelfItem(library, collectionName, itemName);
 		File remoteFile = new File(shelfItem.getRemoteBaseDirectory(), itemName + "_PNG.tar");
 		
-		CopyForBooxTabletTask task = new CopyForBooxTabletTask(imageService, remoteFile, itemName);
+		CopyForBooxTabletTask task = new CopyForBooxTabletTask(imageService, remoteFile, itemName, folderName, desiredWidth, runCalibre);
 		JobDetails jobDetails = jobService.createJob(task);
 		jobDetails.setJobDescription("Caching");
 		jobDetails.setJobType("Cache");

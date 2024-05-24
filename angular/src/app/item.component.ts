@@ -47,6 +47,12 @@ import { NgClass } from '@angular/common';
     >
       Boox
     </button>
+    <button
+      (click)="copyToKindleScribe()"
+      class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:relative"
+    >
+      Scribe
+    </button>
     }
   </span>
 </div>
@@ -65,7 +71,11 @@ export class ItemComponent {
 	}
 
 	copyToBooxTablet() {
-		this.brookeService.copyToBooxTablet(this.item);
+		this.brookeService.copyToDevice(this.item, 'boox');
+	}
+
+	copyToKindleScribe() {
+		this.brookeService.copyToDevice(this.item, 'scribe');
 	}
 
 	openItemDetails() {

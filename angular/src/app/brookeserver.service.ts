@@ -50,6 +50,12 @@ export class BrookeServerService {
 		)
 	}
 
+	copyToDevice(collectionName: string, itemName: string, deviceName: string): Observable<JobDetails> {
+		return this.http.get<JobDetails>(
+			`/rest/copy-to/${deviceName}/${collectionName}/${itemName}`
+		)
+	}
+
   synchronize(): Observable<JobDetails> {
     return this.http.get<JobDetails>(
       `/rest/administration/sync`

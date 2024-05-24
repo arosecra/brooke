@@ -18,24 +18,33 @@ public class CopyForBooxTabletTask implements IRunnableTask {
 	private File remoteFile;
 	private String itemName;
 	private ImageService imageService;
+	private boolean runCalibre;
+	private int desiredWidth;
+	private String folderName;
 
-	public CopyForBooxTabletTask(ImageService imageService, File remoteFile, String itemName) {
+	public CopyForBooxTabletTask(ImageService imageService, File remoteFile, String itemName, String folderName, int desiredWidth, boolean runCalibre) {
 		this.imageService = imageService;
 		this.remoteFile = remoteFile;
 		this.itemName = itemName;
+		this.folderName = folderName;
+		this.desiredWidth = desiredWidth;
+		this.runCalibre = runCalibre;
 	}
 
 	@Override
 	public void run() {
-		steps.set(6);
+		steps.set(7);
+			
 		started.set(true);
 		File tempSsdFolder = new File("C:\\scans\\temp");
 		File unzippedFolder = new File(tempSsdFolder, itemName);
+		File coverFile = new File(tempSsdFolder.getAbsolutePath(), "cover.png");
+		File localSourceFile = new File(tempSsdFolder, remoteFile.getName());
+		File localCbzFile = new File(tempSsdFolder.getAbsolutePath(), itemName + ".cbz");
+		File azw3OutputFile = new File(localCbzFile.getAbsolutePath().replace(".cbz", ".azw3"));
 		unzippedFolder.mkdirs();
 		try {
 			FileUtils.copyFileToDirectory(remoteFile, tempSsdFolder);
-			File localSourceFile = new File(tempSsdFolder, remoteFile.getName());
-			File localCbzFile = new File(tempSsdFolder.getAbsolutePath(), itemName + ".cbz");
 			current.set(1);
 			CommandLine.run(new String[] {
 					"D:\\software\\7za\\7za.exe",
@@ -45,11 +54,23 @@ public class CopyForBooxTabletTask implements IRunnableTask {
 			});
 			current.set(2);
 			
-			for(File file : unzippedFolder.getAbsoluteFile().listFiles()) {
-				if(file.getName().endsWith("png")) {
-					byte[] img = FileUtils.readFileToByteArray(file);
-					byte[] resizedImg = this.imageService.resizeImageToWidth(img, 1404);
-					FileUtils.writeByteArrayToFile(file, resizedImg);
+			boolean coverGenerated = false;
+			
+			if(this.desiredWidth != 0) {
+				
+				for(File file : unzippedFolder.getAbsoluteFile().listFiles()) {
+					if(file.getName().endsWith("png")) {
+						
+						byte[] img = FileUtils.readFileToByteArray(file);
+						byte[] resizedImg = this.imageService.resizeImageToWidth(img, this.desiredWidth);
+						FileUtils.writeByteArrayToFile(file, resizedImg);
+						
+						if(!coverGenerated) {
+							byte[] cover = this.imageService.resizeImageToWidth(img, 600);
+							FileUtils.writeByteArrayToFile(coverFile, cover);
+							coverGenerated = true;
+						}
+					}
 				}
 			}
 			current.set(3);
@@ -62,14 +83,37 @@ public class CopyForBooxTabletTask implements IRunnableTask {
 					localCbzFile.getAbsolutePath(),
 					unzippedFolder.getAbsolutePath() + "\\*.png"
 			});
+			
 			current.set(4);
-
-			FileUtils.copyFileToDirectory(localCbzFile, new File("\\\\drobo5n\\Public\\Scans\\ForTablet"));
+			File outputFile = localCbzFile;
+			if(this.runCalibre) {
+				outputFile = new File(localCbzFile.getAbsolutePath().replace(".cbz", ".azw3"));
+				
+				//ebook-convert Is_it_Wrong_to_Pick_Up_Girls_in_a_Dungeon_04.cbz Is_it_Wrong_to_Pick_Up_Girls_in_a_Dungeon_04.azw3 --no-process
+				CommandLine.run(new String[] {
+						"ebook-convert",
+						localCbzFile.getAbsolutePath(),
+						outputFile.getAbsolutePath(),
+						"--no-process",
+						"--cover",
+						new File(tempSsdFolder.getAbsolutePath(), "cover.png").getAbsolutePath()
+				});
+			}
+			
 			current.set(5);
+			FileUtils.copyFileToDirectory(outputFile, new File("\\\\drobo5n\\Public\\Scans\\" + this.folderName));
+			
+			current.set(6);
 			FileUtils.deleteDirectory(unzippedFolder);
 			FileUtils.delete(localSourceFile);
 			FileUtils.delete(localCbzFile);
-			current.set(6);
+			FileUtils.delete(coverFile);
+			if(this.runCalibre) {
+				FileUtils.delete(azw3OutputFile);
+			}
+			
+			
+			current.set(7);
 			status = "Complete";
 		} catch (IOException e) {
 			status = "Failed";

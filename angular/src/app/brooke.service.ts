@@ -61,9 +61,9 @@ export class BrookeService {
     } as BrookeLocation;
   });
 	
-	copyToBooxTablet(item: Item) {
+	copyToDevice(item: Item, device: string) {
     this.brookeServerService
-      .copyToBooxTablet(this.currentCollection()?.name ?? 'undefined', item.name)
+      .copyToDevice(this.currentCollection()?.name ?? 'undefined', item.name, device)
       .subscribe((result: JobDetails) => {
         let sub = this.brookeServerService
           .getJobDetails(result.jobNumber)

@@ -169,13 +169,14 @@ public class BrookeRestController {
 //	}
 	
 	@GetMapping(value={
-		"/rest/copy-to-boox-tablet/{collectionName}/{itemName}"
+		"/rest/copy-to/{device}/{collectionName}/{itemName}"
 	})
-	public JobDetails copyShelfItemToBooxTablet(
+	public JobDetails copyShelfItemTo(
 			@PathVariable(name="collectionName") String collectionName,
-			@PathVariable(name="itemName") String itemName
+			@PathVariable(name="itemName") String itemName,
+			@PathVariable(name="device") String device
 			) throws IOException {
-		return this.brookeService.copyForBooxTablet(collectionName, itemName);
+		return this.brookeService.copyToDevice(collectionName, itemName, device);
 	}
 
 }

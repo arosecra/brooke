@@ -6,7 +6,9 @@
       "vitest/jsdom",
 			"vitest/globals"
     ],
-    "target": "es2016"
+    "target": "es2016",
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": true
   },
   "include": [
     "src/**/*.spec.ts",

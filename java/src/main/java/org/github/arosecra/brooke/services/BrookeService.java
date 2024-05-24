@@ -160,7 +160,20 @@ public class BrookeService {
 	}
 
 	public JobDetails copyForBooxTablet(String collectionName, String itemName) {
-		return tabletService.copyForTablet(libraryCacheService.getLibrary(), collectionName, itemName);
+		return tabletService.copyForTablet(libraryCacheService.getLibrary(), collectionName, itemName, "ForBoox", 1304, false);
+	}
+
+	public JobDetails copyForKindleScribe(String collectionName, String itemName) {
+		return tabletService.copyForTablet(libraryCacheService.getLibrary(), collectionName, itemName, "ForScribe", 1960, false);
+	}
+
+	public JobDetails copyToDevice(String collectionName, String itemName, String device) {
+		if(device.equalsIgnoreCase("Boox")) {
+			return tabletService.copyForTablet(libraryCacheService.getLibrary(), collectionName, itemName, "ForBoox", 1304, false);
+		} else if (device.equalsIgnoreCase("Scribe")) {
+			return tabletService.copyForTablet(libraryCacheService.getLibrary(), collectionName, itemName, "ForScribe", 1760, true);
+		} else
+			return null;
 	}
 
 	public List<MissingItemApiModel> getMissingItems() {
