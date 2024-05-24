@@ -1,11 +1,15 @@
 package org.github.arosecra.brooke.task;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.github.arosecra.brooke.services.ImageService;
 import org.github.arosecra.brooke.util.CommandLine;
 
@@ -36,9 +40,10 @@ public class CopyForBooxTabletTask implements IRunnableTask {
 		steps.set(7);
 			
 		started.set(true);
+		byte[] coverBytes = null;
 		File tempSsdFolder = new File("C:\\scans\\temp");
 		File unzippedFolder = new File(tempSsdFolder, itemName);
-		File coverFile = new File(tempSsdFolder.getAbsolutePath(), "cover.png");
+		File coverFile = null;
 		File localSourceFile = new File(tempSsdFolder, remoteFile.getName());
 		File localCbzFile = new File(tempSsdFolder.getAbsolutePath(), itemName + ".cbz");
 		File azw3OutputFile = new File(localCbzFile.getAbsolutePath().replace(".cbz", ".azw3"));
@@ -66,8 +71,8 @@ public class CopyForBooxTabletTask implements IRunnableTask {
 						FileUtils.writeByteArrayToFile(file, resizedImg);
 						
 						if(!coverGenerated) {
-							byte[] cover = this.imageService.resizeImageToWidth(img, 600);
-							FileUtils.writeByteArrayToFile(coverFile, cover);
+							coverBytes = this.imageService.resizeImageToWidth(img, 600);
+							coverBytes = this.imageService.toJpegBytes(coverBytes);
 							coverGenerated = true;
 						}
 					}
@@ -95,21 +100,32 @@ public class CopyForBooxTabletTask implements IRunnableTask {
 						localCbzFile.getAbsolutePath(),
 						outputFile.getAbsolutePath(),
 						"--no-process",
-						"--cover",
-						new File(tempSsdFolder.getAbsolutePath(), "cover.png").getAbsolutePath()
 				});
+				
+				//process the ebook and get the uuid
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				
+				CommandLine.run(new String[] {
+						"ebook-meta",
+						outputFile.getAbsolutePath(),
+				}, new PrintStream(baos, true, StandardCharsets.UTF_8.name()));
+				
+				String asin = StringUtils.substringAfter(baos.toString(), "mobi-asin:").trim();
+				coverFile = new File(tempSsdFolder.getAbsolutePath(), "thumbnail_"+asin+"_EBOK_portrait.jpg");
+				FileUtils.writeByteArrayToFile(coverFile, coverBytes);
 			}
 			
 			current.set(5);
 			FileUtils.copyFileToDirectory(outputFile, new File("\\\\drobo5n\\Public\\Scans\\" + this.folderName));
+			FileUtils.copyFileToDirectory(coverFile, new File("\\\\drobo5n\\Public\\Scans\\" + this.folderName));
 			
 			current.set(6);
 			FileUtils.deleteDirectory(unzippedFolder);
 			FileUtils.delete(localSourceFile);
 			FileUtils.delete(localCbzFile);
-			FileUtils.delete(coverFile);
 			if(this.runCalibre) {
 				FileUtils.delete(azw3OutputFile);
+				FileUtils.delete(coverFile);
 			}
 			
 			

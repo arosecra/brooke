@@ -25,19 +25,27 @@ public class ImageService {
 	public BufferedImage resizeImageToWidth(BufferedImage image, int desiredWidth) {
 		int width = image.getWidth();
 		int height = image.getHeight();
-		
+
 		int newWidth = width;
 		int newHeight = height;
-		
-		if(desiredWidth < width) {
+
+		if (desiredWidth < width) {
 			newWidth = desiredWidth;
 			double reduction = width / desiredWidth;
-			newHeight = (int)(height / reduction);
+			newHeight = (int) (height / reduction);
 		}
 
 		BufferedImage thumbnail = new BufferedImage(newWidth, newHeight, image.getType());
 		thumbnail.createGraphics().drawImage(image.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH), 0, 0,
 				null);
 		return thumbnail;
+	}
+
+	public byte[] toJpegBytes(byte[] image) throws IOException {
+		ByteArrayInputStream bais = new ByteArrayInputStream(image);
+		BufferedImage source = ImageIO.read(bais);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ImageIO.write(source, "jpeg", baos);
+		return baos.toByteArray();
 	}
 }
