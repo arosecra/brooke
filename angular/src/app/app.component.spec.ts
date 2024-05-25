@@ -22,7 +22,7 @@ describe('AppComponent', () => {
     await fixture.whenStable();
   });
 
-  it('should match the snapshot', () => {
+  it('should create', () => {
     expect(fixture).toBeDefined();
   });
 });

@@ -11,6 +11,7 @@ import {
   tap,
 	takeUntil,
 	takeWhile,
+	map,
 } from 'rxjs/operators';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { BrookeServerService } from './brookeserver.service';
@@ -61,20 +62,28 @@ export class BrookeService {
 	copyToDevice(item: Item, device: string) {
     this.brookeServerService
       .copyToDevice(this.currentCollection()?.name ?? 'undefined', item.name, device)
-      .subscribe((result: JobDetails) => {
+      .subscribe(() => {
+				this.jobQueue.update(() => true);
         let sub = this.brookeServerService
           .getAllJobDetails()
           .pipe(
             repeat({ delay: 10000 }),
+						map((jobDetails) => {
+							let result: JobDetails[] = []
+							jobDetails.forEach((jobDetail) => {
+								if(jobDetail.total !== jobDetail.current || !jobDetail.started) 
+									result.push(jobDetail);
+							})
+							return result;
+						}),
             tap((jobDetails) => {
               this.allJobs.update(() => jobDetails);
             }),
 						takeWhile((jobDetail: JobDetails[]) => {
 							return jobDetail.length > 0
 						})
-          )
+          ).subscribe()
 
-        this.currentJob.update(() => result);
       });
   }
 

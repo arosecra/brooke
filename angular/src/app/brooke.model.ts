@@ -70,6 +70,7 @@ export declare interface JobDetails {
   totalProgressDescription: string;
   current: number;
   total: number;
+	started: boolean;
 }
 
 export declare interface Page {
