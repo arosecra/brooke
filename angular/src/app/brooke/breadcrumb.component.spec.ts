@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { beforeEach, describe, expect, it } from 'vitest';
-import { configureCommonTestBed } from '../../test/common-test-bed';
+import { configureCommonTestBed } from '../../app-test/common-test-bed';
 import { BreadcrumbComponent } from './breadcrumb.component';
 
 describe('BreadcrumbComponent', () => {

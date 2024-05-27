@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "./out-tsc/spec",
+    "outDir": "./out-tsc/app-spec",
     "types": [
       "vitest/jsdom",
 			"vitest/globals"
@@ -11,10 +11,10 @@
     "emitDecoratorMetadata": true
   },
   "include": [
-    "src/**/*.spec.ts",
-    "src/**/*.d.ts"
+    "src/app/*.spec.ts",
+    "src/app/*.d.ts"
   ],
   "files": [
-    "src/test/test-setup.ts"
+    "src/app-test/test-setup.ts"
   ]
 }

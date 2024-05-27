@@ -7,7 +7,7 @@ export default defineConfig({
 		environment: 'jsdom',
 		root: './src/app',
     reporters: ['basic'],
-		setupFiles: ['../test/vite-setup.ts'],
+		setupFiles: ['../app-test/vite-setup.ts'],
 
 		coverage: {
       provider: 'istanbul',

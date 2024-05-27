@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { BrookeService } from './brooke.service';
 import { BrookeServerService } from './brookeserver.service';
 
-import { configureCommonTestBed } from '../../test/common-test-bed';
+import { configureCommonTestBed } from '../../app-test/common-test-bed';
 import { beforeEach, describe, expect, it } from 'vitest';
 
 describe('AppComponent', () => {

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { JobQueueComponent } from './job-queue.component';
 import { describe, test, expect, beforeEach, it } from 'vitest';
-import { configureCommonTestBed } from '../../test/common-test-bed';
+import { configureCommonTestBed } from '../../app-test/common-test-bed';
 
 describe('JobQueueComponent', () => {
   let component: JobQueueComponent;
