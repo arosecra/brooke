@@ -8,7 +8,7 @@
     "emitDecoratorMetadata": true
   },
   "files": [
-    "src/main.ts"
+    "src/app/main.ts"
   ],
   "include": [
     "src/**/*.d.ts"

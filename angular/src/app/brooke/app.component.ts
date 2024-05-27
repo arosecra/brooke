@@ -6,7 +6,6 @@ import { CollectionMenuComponent } from "./collection-menu.component";
 
 @Component({
     selector: 'app-root',
-    // templateUrl: './app.component.html',
 		template: `
 		<div class="flex flex-col">
 			<top-bar style="display: contents"></top-bar>

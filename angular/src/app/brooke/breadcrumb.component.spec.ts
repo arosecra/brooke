@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { beforeEach, describe, expect, it } from 'vitest';
-import { configureCommonTestBed } from '../test/common-test-bed';
-import { PanelComponent } from './panel.component';
+import { configureCommonTestBed } from '../../test/common-test-bed';
+import { BreadcrumbComponent } from './breadcrumb.component';
 
-describe('PanelComponent', () => {
-  let component: PanelComponent;
-  let fixture: ComponentFixture<PanelComponent>;
+describe('BreadcrumbComponent', () => {
+  let component: BreadcrumbComponent;
+  let fixture: ComponentFixture<BreadcrumbComponent>;
 
   beforeEach(async () => {
     await configureCommonTestBed({
-      imports: [PanelComponent]
+      imports: [BreadcrumbComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(PanelComponent);
+    fixture = TestBed.createComponent(BreadcrumbComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

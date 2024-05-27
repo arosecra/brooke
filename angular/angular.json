@@ -18,8 +18,8 @@
               "browser": ""
             },
 						
-            "index": "src/index.html",
-            "browser": "src/main.ts",
+            "index": "src/app/index.html",
+            "browser": "src/app/main.ts",
             "polyfills": [],
             "tsConfig": "tsconfig.app.json",
             "assets": [
@@ -29,7 +29,7 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/app/styles.css"
             ],
             "scripts": []
           },

@@ -6,7 +6,7 @@ import {Observable, Observer} from 'rxjs';
 import {HttpBackend, ɵREQUESTS_CONTRIBUTE_TO_STABILITY} from '@angular/common/http';
 import {Provider} from '@angular/core';
 import { HttpTestingController, TestRequest } from '@angular/common/http/testing';
-import { Category, Collection } from 'src/app/brooke.model';
+import { Category, Collection } from 'src/app/brooke/brooke.model';
 
 // Based off of Angulars provideHttpClientTesting()
 

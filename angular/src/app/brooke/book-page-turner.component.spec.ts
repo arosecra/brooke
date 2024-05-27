@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { beforeEach, describe, expect, it } from 'vitest';
-import { configureCommonTestBed } from '../test/common-test-bed';
+import { configureCommonTestBed } from '../../test/common-test-bed';
 import { BookPageTurnerComponent } from './book-page-turner.component';
 
 describe('BookPageTurnerComponent', () => {
