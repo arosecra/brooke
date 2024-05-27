@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { BookDetails, CacheManifest, Category, Collection, Item, JobDetails, MissingItem } from './brooke.model';
 
@@ -12,9 +12,13 @@ export class BrookeServerService {
   constructor() { }
 
   getCollections(): Observable<Collection[]> {
-    return this.http.get<Collection[]>(
-      '/rest/collection'
-    );
+		if((window as any).api?.getCollections) {
+			return of((window as any).api.getCollections);
+		} else {
+			return this.http.get<Collection[]>(
+				'/rest/collection'
+			);
+		}
   }
 
   getCollection(name: string): Observable<Collection> {
