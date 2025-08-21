@@ -5,7 +5,7 @@ import { IconComponent } from "./icon.component";
 
 @Component({
     selector: 'breadcrumb',
-		template: `
+    template: `
 <nav aria-label="Breadcrumb">
 	<ol class="flex items-center gap-1 text-sm text-gray-600"> 
 		<li>
@@ -37,7 +37,6 @@ import { IconComponent } from "./icon.component";
 	</ol>
 </nav>		
 		`,
-    standalone: true,
     imports: [IconComponent]
 })
 export class BreadcrumbComponent {

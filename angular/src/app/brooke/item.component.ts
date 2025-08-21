@@ -7,7 +7,7 @@ import { NgClass } from '@angular/common';
 @Component({
     selector: 'item',
     // templateUrl: './item.component.html',
-		template: `
+    template: `
 		<div class="block content-end border-4 border-black">
   <img
     class="h-fit max-h-96 max-w-60"
@@ -58,7 +58,6 @@ import { NgClass } from '@angular/common';
 </div>
 
 		`,
-    standalone: true,
     imports: [ItemNamePipe, NgClass]
 })
 export class ItemComponent {

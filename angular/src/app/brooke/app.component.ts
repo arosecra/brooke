@@ -6,7 +6,7 @@ import { CollectionMenuComponent } from "./collection-menu.component";
 
 @Component({
     selector: 'app-root',
-		template: `
+    template: `
 		<div class="flex flex-col">
 			<top-bar style="display: contents"></top-bar>
 			<div class="brooke-main flex flex-row gap-4">
@@ -19,7 +19,6 @@ import { CollectionMenuComponent } from "./collection-menu.component";
 			</div>
 		</div>
 		`,
-    standalone: true,
     imports: [TopBarComponent, PanelComponent, CollectionMenuComponent]
 })
 export class AppComponent {

@@ -6,7 +6,7 @@ import { BrookeService } from './brooke.service';
 
 @Component({
     selector: 'category-and-series-browser',
-		template: `
+    template: `
 
 @if(brookeService.currentJob()) {
 	<job-details></job-details>
@@ -24,7 +24,6 @@ import { BrookeService } from './brooke.service';
 }
 		
 		`,
-    standalone: true,
     imports: [NgStyle, NgClass, JobDetailsComponent, ItemComponent]
 })
 export class CategoryAndSeriesBrowserComponent {

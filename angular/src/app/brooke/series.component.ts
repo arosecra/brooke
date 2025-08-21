@@ -6,7 +6,7 @@ import { Item } from './brooke.model';
 @Component({
     selector: 'series',
     // templateUrl: './series.component.html',
-		template: `
+    template: `
 		<div class="flex flex-row">
 
 			<div class="">
@@ -25,7 +25,6 @@ import { Item } from './brooke.model';
 
 		</div>
 		`,
-    standalone: true,
     imports: []
 })
 export class SeriesComponent {

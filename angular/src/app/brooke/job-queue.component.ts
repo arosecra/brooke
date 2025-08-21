@@ -2,10 +2,9 @@ import { Component, inject } from '@angular/core';
 import { BrookeService } from './brooke.service';
 
 @Component({
-  selector: 'job-queue',
-  standalone: true,
-  imports: [],
-  template: `
+    selector: 'job-queue',
+    imports: [],
+    template: `
 	<table>
 	@for(job of brookeService.allJobs(); track job.jobNumber) {
 		<tr>

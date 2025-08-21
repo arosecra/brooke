@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.github.arosecra.brooke.services.ImageService;
 import org.github.arosecra.brooke.util.CommandLine;
 
-public class CopyForBooxTabletTask implements IRunnableTask {
+public class CopyForTabletTask implements IRunnableTask {
 
 	private AtomicLong steps = new AtomicLong(0L);
 	private AtomicLong current = new AtomicLong(0L);
@@ -26,7 +26,7 @@ public class CopyForBooxTabletTask implements IRunnableTask {
 	private int desiredWidth;
 	private String folderName;
 
-	public CopyForBooxTabletTask(ImageService imageService, File remoteFile, String itemName, String folderName, int desiredWidth, boolean runCalibre) {
+	public CopyForTabletTask(ImageService imageService, File remoteFile, String itemName, String folderName, int desiredWidth, boolean runCalibre) {
 		this.imageService = imageService;
 		this.remoteFile = remoteFile;
 		this.itemName = itemName;
@@ -117,7 +117,9 @@ public class CopyForBooxTabletTask implements IRunnableTask {
 			
 			current.set(5);
 			FileUtils.copyFileToDirectory(outputFile, new File("\\\\drobo5n\\Public\\Scans\\" + this.folderName));
-			FileUtils.copyFileToDirectory(coverFile, new File("\\\\drobo5n\\Public\\Scans\\" + this.folderName));
+			if(coverFile != null) {
+				FileUtils.copyFileToDirectory(coverFile, new File("\\\\drobo5n\\Public\\Scans\\" + this.folderName));
+			}
 			
 			current.set(6);
 			FileUtils.deleteDirectory(unzippedFolder);

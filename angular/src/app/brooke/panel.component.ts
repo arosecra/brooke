@@ -9,7 +9,7 @@ import { JobQueueComponent } from './job-queue.component';
 
 @Component({
     selector: 'panel',
-		template: `
+    template: `
 			@if(brookeService.currentItem() && brookeService.currentCollection()?.openType === 'book') {
 				<book style="display: contents;"></book>
 			} @else if(brookeService.currentSeries()) {
@@ -20,7 +20,6 @@ import { JobQueueComponent } from './job-queue.component';
 				<category-and-series-browser style="display: contents;"></category-and-series-browser>
 			}
 		`,
-    standalone: true,
     imports: [CollectionMenuComponent, NgStyle, BookComponent, SeriesComponent, CategoryAndSeriesBrowserComponent, JobQueueComponent]
 })
 export class PanelComponent {

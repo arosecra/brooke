@@ -4,7 +4,7 @@ import { BrookeService } from './brooke.service';
 
 @Component({
     selector: 'book-toc',
-		template: `
+    template: `
 <div>
   <button class="button primary black-border" (click)="onTOCClick(true)">
     TOC
@@ -45,7 +45,6 @@ import { BrookeService } from './brooke.service';
 </div>
 		
 		`,
-    standalone: true,
     imports: [NgStyle]
 })
 export class BookTocComponent {

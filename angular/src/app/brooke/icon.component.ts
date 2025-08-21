@@ -2,11 +2,10 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'icon',
-  standalone: true,
-  imports: [CommonModule],
-  // templateUrl: './icon.component.html'
-	template: `
+    selector: 'icon',
+    imports: [CommonModule],
+    // templateUrl: './icon.component.html'
+    template: `
 @if(name === 'greater-than') {
 <svg
   xmlns="http://www.w3.org/2000/svg"
@@ -77,7 +76,7 @@ import { CommonModule } from '@angular/common';
       </svg>
 }
 	
-	`,
+	`
 })
 export class IconComponent {
 	@Input() name: 'bookshelf' | 'greater-than' | 'less-than' | 'home' | 'hamburger';

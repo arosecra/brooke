@@ -44,7 +44,6 @@ import { BrookeService } from './brooke.service';
 
 }
 		`,
-    standalone: true,
     imports: [NgStyle]
 })
 export class BookOptionsComponent {

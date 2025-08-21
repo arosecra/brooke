@@ -10,7 +10,7 @@ import { IconComponent } from "./icon.component";
 @Component({
     selector: 'top-bar',
     // templateUrl: './top-bar.component.html',
-		template: `
+    template: `
 <!-- <header class="brooke-header primary" role="navigation" aria-label="main navigation">
 	<div class="brooke-header-leftside">
 		<div class="">
@@ -103,7 +103,6 @@ import { IconComponent } from "./icon.component";
   </div>
 </header>
 		`,
-    standalone: true,
     imports: [BreadcrumbComponent, ModifyCollectionButtonComponent, BookTocComponent, BookOptionsComponent, BookPageTurnerComponent, IconComponent]
 })
 export class TopBarComponent {

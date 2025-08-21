@@ -5,7 +5,7 @@ import java.io.File;
 import org.github.arosecra.brooke.model.JobDetails;
 import org.github.arosecra.brooke.model.Library;
 import org.github.arosecra.brooke.model.ShelfItem;
-import org.github.arosecra.brooke.task.CopyForBooxTabletTask;
+import org.github.arosecra.brooke.task.CopyForTabletTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +29,7 @@ public class TabletService {
 		ShelfItem shelfItem = this.libraryLocationService.getShelfItem(library, collectionName, itemName);
 		File remoteFile = new File(shelfItem.getRemoteBaseDirectory(), itemName + "_PNG.tar");
 		
-		CopyForBooxTabletTask task = new CopyForBooxTabletTask(imageService, remoteFile, itemName, folderName, desiredWidth, runCalibre);
+		CopyForTabletTask task = new CopyForTabletTask(imageService, remoteFile, itemName, folderName, desiredWidth, runCalibre);
 		JobDetails jobDetails = jobService.createJob(task);
 		jobDetails.setJobDescription("Caching");
 		jobDetails.setJobType("Cache");

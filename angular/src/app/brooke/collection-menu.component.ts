@@ -6,7 +6,7 @@ import { IconComponent } from "./icon.component";
 
 @Component({
     selector: 'collection-menu',
-		template: `
+    template: `
 <div class="h-32 rounded-lg bg-gray-200">
   <div class="flex h-screen flex-row justify-between border-e bg-white">
     <div class="px-4 py-6">
@@ -65,7 +65,6 @@ import { IconComponent } from "./icon.component";
   </div>
 </div>		
 		`,
-    standalone: true,
     imports: [NgStyle, NgClass, IconComponent]
 })
 export class CollectionMenuComponent {

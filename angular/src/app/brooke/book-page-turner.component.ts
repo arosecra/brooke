@@ -5,7 +5,7 @@ import { IconComponent } from "./icon.component";
 
 @Component({
     selector: 'book-page-turner',
-		template: `
+    template: `
 <div class="inline-flex items-center justify-center gap-3">
   <a
     href="#"
@@ -33,7 +33,6 @@ import { IconComponent } from "./icon.component";
 </div>
 		
 		`,
-    standalone: true,
     imports: [NgClass, IconComponent]
 })
 export class BookPageTurnerComponent {

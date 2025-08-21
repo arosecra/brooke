@@ -83,7 +83,7 @@
 			"component": {
 				"inlineTemplate": true,
 				"flat": true,
-				"style": "none",
+				"style": "none"
 				
 			}
 		}
