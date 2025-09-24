@@ -1,9 +1,9 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "newProjectRoot": ".",
+  "newProjectRoot": "projects",
   "projects": {
-    "brooke": {
+    "brooke-ui": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -11,16 +11,9 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular/build:application",
           "options": {
-            "outputPath": {
-              "base": "dist/brooke",
-              "browser": ""
-            },
-						
-            "index": "src/app/index.html",
-            "browser": "src/app/main.ts",
-            "polyfills": [],
+            "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {
@@ -28,64 +21,85 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/app/styles.css"
-            ],
-            "scripts": []
+            "styles": ["src/styles.scss"]
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "serviceWorker": "ngsw-config.json"
             },
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "define": {
+                "import.meta.vitest": "undefined"
+              }
             }
           },
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "brooke:build:production"
+              "buildTarget": "brooke-ui:build:production"
             },
             "development": {
               "proxyConfig": "./proxy.conf.json",
-              "buildTarget": "brooke:build:development"
+              "buildTarget": "brooke-ui:build:development"
             }
           },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n"
+          "builder": "@angular/build:extract-i18n"
         },
         "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "tsconfig.spec.json",
+            "buildTarget": "::development",
+            "runner": "vitest"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+          }
         }
       }
     }
   },
-	"schematics": {
-		"@schematics/angular": {
-			"component": {
-				"inlineTemplate": true,
-				"flat": true,
-				"style": "none"
-				
-			}
-		}
-	 }
+  "schematics": {
+    "@schematics/angular:component": {
+      "ngHtml": false,
+      "flat": true,
+      "inlineTemplate": true,
+      "inlineStyle": true,
+      "viewEncapsulation": "None",
+      "skipTests": true,
+      "prefix": ""
+    },
+    "@schematics/angular:service": {
+      "flat": true,
+      "skipTests": true
+    }
+  },
+  "cli": {
+    "schematicCollections": ["angular-eslint"]
+  }
 }
