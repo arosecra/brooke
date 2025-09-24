@@ -21,7 +21,6 @@
 		<module>docs-src</module>
 		<module>angular</module>
 		<module>java</module>
-		<module>electron</module>
 	</modules>
 
 

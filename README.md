@@ -1,12 +1,16 @@
 # brooke
 Custom book reader for personal use
 
-Electron piece based off of https://github.com/appreciated/maven-springboot-electron
- and https://github.com/jreznot/electron-java-app and https://medium.com/@amitbhave10/modern-desktop-application-with-electron-js-and-spring-boot-150419db0d49
 
 
 ToDo:
 ----------------
+- in the process of a major overhaul, investigate which of the below are still relevant
+- rewrite docs
+- replace plantuml w/ mermaid
+
+
+
 - overall: investigate that literate programming plugin
 - overall: move image apis into /images/
 
@@ -23,8 +27,6 @@ ToDo:
 ? angular: add mp3 collection
 ? angular: add podcast collection
 
-- electron: use a better icon
-- electron: sometimes have to close twice (close confirm close)
 
 - java: better approach for finding a shelf item (find shelf item, find location for it, then find collection, cat, etc)
 - java: get settings from the application path

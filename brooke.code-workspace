@@ -14,9 +14,6 @@
 			"path": "docs-src"
 		},
 		{
-			"path": "electron"
-		},
-		{
 			"path": "java"
 		}
 	]
