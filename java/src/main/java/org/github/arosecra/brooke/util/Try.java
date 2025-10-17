@@ -4,13 +4,11 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Properties;
-
-import org.apache.commons.io.FileUtils;
 
 public class Try {
 
@@ -24,7 +22,7 @@ public class Try {
 
 	public static List<String> readLines(File childFile) {
 		try {
-			return  FileUtils.readLines(childFile, StandardCharsets.UTF_8);
+			return Files.readAllLines(childFile.toPath());
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

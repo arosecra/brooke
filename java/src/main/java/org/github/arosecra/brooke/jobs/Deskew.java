@@ -13,7 +13,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -23,10 +28,59 @@ import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.github.arosecra.brooke.util.CommandLine;
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfPoint;
+import org.opencv.core.MatOfPoint2f;
+import org.opencv.core.RotatedRect;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
+
+import nu.pattern.OpenCV;
 
 public class Deskew implements BrookeJobStep {
+	
+	
+	public static void main(String[] args) throws Exception {
+		File baseDir = new File("C:\\Scans\\temp\\Redemption_of_Althalus_RAW");
+		File outDir = new File("C:\\Scans\\temp\\out\\");
+		outDir.mkdirs();
+		
+		File[] files = baseDir.listFiles();
+		for(int i = 0; i < files.length; i++) {
+			File file = files[i];
+			File outputFile = new File(outDir, file.getName());
+			BufferedImage image = ImageIO.read(new ByteArrayInputStream(FileUtils.readFileToByteArray(file)));
+			
+			if(!Deskew.isColor(image)) {
+				
+				deskewOrCopyImage(outputFile, image);
+			}
+		}
+		
+		
+	}
+	
+	public static double imageMagickDeskew(File file) throws IOException {
+		//D:\Software\ImageMagick\magick.exe C:\scans\deskew\Redemption_of_Althalus_RAW\Redemption_of_Althalus-001-001.png -deskew 40% -format '%[deskew:angle]' info:
+		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	    final String utf8 = StandardCharsets.UTF_8.name();
+	    try (PrintStream ps = new PrintStream(baos, true, utf8)) {
+			CommandLine.run(new String[] {
+					"D:\\Software\\ImageMagick\\magick.exe", 
+		    		file.getAbsolutePath(),
+		    		"-deskew",
+		    		"40%",
+		    		"-format",
+		    		"%[deskew:angle]",
+		    		"info:"
+				}, ps);
+	    }
+	    String data = baos.toString(utf8).replace("'", "");
+		return Double.parseDouble(data);
+	}
+	
 
-	private void deskewOrCopyImage(File newImageFile, BufferedImage image)
+	private static void deskewOrCopyImage(File newImageFile, BufferedImage image)
 			throws IOException {
 		if(!isColor(image))
 		{
@@ -170,7 +224,7 @@ public class Deskew implements BrookeJobStep {
 		return new Point(xPrime, yPrime);
 	}
 
-	private static boolean isColor(BufferedImage image) {
+	public static boolean isColor(BufferedImage image) {
 		boolean ret = false;
 		
 		for(int x = 0; x < image.getWidth(); x++) {
@@ -188,7 +242,7 @@ public class Deskew implements BrookeJobStep {
 		return ret;
 	}
 
-	public double doIt(BufferedImage image) {
+	public static double doIt(BufferedImage image) {
 		final double skewRadians;
 		BufferedImage black = new BufferedImage(image.getWidth(),
 				image.getHeight(), BufferedImage.TYPE_BYTE_BINARY);

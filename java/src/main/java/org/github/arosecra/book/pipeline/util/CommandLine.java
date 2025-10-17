@@ -1,4 +1,4 @@
-package org.github.arosecra.brooke.util;
+package org.github.arosecra.book.pipeline.util;
 
 import java.io.BufferedReader;
 import java.io.File;
