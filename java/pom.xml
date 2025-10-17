@@ -100,6 +100,19 @@
 			<artifactId>webp-imageio</artifactId>
 			<version>0.1.6</version>
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.commonmark</groupId>
+		    <artifactId>commonmark</artifactId>
+		    <version>0.26.0</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.openpnp/opencv -->
+		<dependency>
+		    <groupId>org.openpnp</groupId>
+		    <artifactId>opencv</artifactId>
+		    <version>4.9.0-0</version>
+		</dependency>
 
 	</dependencies>
 
