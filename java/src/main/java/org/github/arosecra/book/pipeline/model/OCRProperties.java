@@ -8,14 +8,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
 public class OCRProperties {
-	public List<String> blankPages;
-	public List<String> excludedPages;
-	public List<String> imagePages;
+	public List<String> blankPages = new ArrayList<>();
+	public List<String> excludedPages = new ArrayList<>();
+	public List<String> imagePages = new ArrayList<>();
 
 	public static OCRProperties fromLists(List<String> blankPages, List<String> imagePages,
 			List<String> excludedPages) {
@@ -33,14 +34,20 @@ public class OCRProperties {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		String[] propsExcluded = ocrProperties.get("excludedPages").toString().split(",");
-		String[] propsImages = ocrProperties.get("excludedPages").toString().split(",");
-		String[] propsBlank = ocrProperties.get("excludedPages").toString().split(",");
-
 		OCRProperties res = new OCRProperties();
-		res.blankPages = Arrays.asList(propsBlank);
-		res.excludedPages = Arrays.asList(propsExcluded);
-		res.imagePages = Arrays.asList(propsImages);
+		if(ocrProperties.get("excludePages") != null) {
+			String[] propsExcluded = ocrProperties.get("excludePages").toString().split(",");
+			res.excludedPages = Arrays.asList(propsExcluded);
+		}
+		if(ocrProperties.get("imagePages") != null) {
+			String[] propsImages = ocrProperties.get("imagePages").toString().split(",");
+			res.imagePages = Arrays.asList(propsImages);
+			
+		}
+		if(ocrProperties.get("blankPages") != null) {
+			String[] propsBlank = ocrProperties.get("blankPages").toString().split(",");
+			res.blankPages = Arrays.asList(propsBlank);			
+		}
 
 		return res;
 	}

@@ -183,13 +183,12 @@ public class CreateOCRPropertiesStep implements JobStep {
 
 	private BufferedImage[] createThumbnails(File[] imgFiles) {
 		BufferedImage[] thumbnails = new BufferedImage[imgFiles.length];
-		System.out.println("Preparing " + imgFiles.length + " thumbnails");
 		for (int i = 0; i < imgFiles.length; i++) {
 			try {
 				BufferedImage originalImage = ImageIO.read(imgFiles[i]);
 				thumbnails[i] = Images.resizeImageToWidth(originalImage, 200, Image.SCALE_FAST);
-				if (i % 50 == 0) {
-					System.out.println(i + " thumbnails prepared.");
+				if (i > 0 && i % 50 == 0) {
+					System.out.println(i + " / " + imgFiles.length + " thumbnails prepared.");
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

@@ -13,8 +13,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -28,51 +26,25 @@ public class ModifyBookImageStep implements JobStep {
 
 	@Override
 	public void execute(JobFolder job) throws IOException {
-		
-		List<File> blankFiles = new ArrayList<>();
-		List<File> imageFiles = new ArrayList<>();
-		List<File> textFiles = new ArrayList<>();
-		
-
 		for (File file : job.tempFolder.listFiles()) {
-			if (job.bookJob.ocrProperties.excludedPages.contains(file.getName())) {
-				// do nothing
-			} else if (job.bookJob.ocrProperties.blankPages.contains(file.getName())) {
-				blankFiles.add(file);
-			} else if (job.bookJob.ocrProperties.imagePages.contains(file.getName())) {
-				imageFiles.add(file);
-			} else {
-				textFiles.add(file);
-			}
-		}
-
-		processTextFiles(job, textFiles, imageFiles);
-		moveImages(job, blankFiles);
-		moveImages(job, imageFiles);
-	}
-
-	private void moveImages(JobFolder job, List<File> blankFiles) throws IOException {
-		for(File file : blankFiles)
-			Files.move(file.toPath(), Path.of(job.destFolder.toPath().toString(), file.getName()), StandardCopyOption.REPLACE_EXISTING);
-	}
-
-	private void processTextFiles(JobFolder job, List<File> textFiles, List<File> imageFiles) throws IOException {
-		for (File file : textFiles) {
 
 			File outputFile = new File(job.destFolder, file.getName());
 			BufferedImage originalImage = ImageIO.read(file);
 			if (isColor(originalImage)) {
-				imageFiles.add(file);
+				Files.move(file.toPath(), Path.of(job.destFolder.toPath().toString(), file.getName()),
+						StandardCopyOption.REPLACE_EXISTING);
 			} else {
 				double skew = imageMagickDeskewRadians(file);
 				if (skew != 0) {
 					rotateImage(originalImage, skew, outputFile);
 					file.delete();
 				} else {
-					imageFiles.add(file); //just to move it later
+					Files.move(file.toPath(), Path.of(job.destFolder.toPath().toString(), file.getName()),
+							StandardCopyOption.REPLACE_EXISTING);
 				}
 			}
 		}
+
 	}
 
 	private void rotateImage(BufferedImage image, double skew, File outputFile) throws IOException {

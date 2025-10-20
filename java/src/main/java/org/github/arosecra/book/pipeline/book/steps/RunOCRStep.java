@@ -26,7 +26,6 @@ public class RunOCRStep implements JobStep {
 		List<String> skipOCR = new ArrayList<>();
 		skipOCR.addAll(job.bookJob.ocrProperties.blankPages);
 		skipOCR.addAll(job.bookJob.ocrProperties.imagePages);
-		skipOCR.addAll(job.bookJob.ocrProperties.excludedPages);
 
 		File ocrTempFolder = new File(job.workFolder, "ocr");
 		ocrTempFolder.mkdirs();

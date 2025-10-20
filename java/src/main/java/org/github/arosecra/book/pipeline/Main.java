@@ -9,17 +9,20 @@ import java.nio.file.StandardCopyOption;
 import org.github.arosecra.book.pipeline.book.steps.ConvertBookImageToWebpStep;
 import org.github.arosecra.book.pipeline.book.steps.CreateCBTDetails;
 import org.github.arosecra.book.pipeline.book.steps.CreateCoverThumbnailStep;
-import org.github.arosecra.book.pipeline.book.steps.CreateMarkdownForBlankImagesStep;
 import org.github.arosecra.book.pipeline.book.steps.CreateOCRPropertiesStep;
 import org.github.arosecra.book.pipeline.book.steps.CreateThumbnailsStep;
 import org.github.arosecra.book.pipeline.book.steps.DeleteExcludedPagesStep;
 import org.github.arosecra.book.pipeline.book.steps.ExtractBookPDFsStep;
+import org.github.arosecra.book.pipeline.book.steps.HandleBlankImagesStep;
+import org.github.arosecra.book.pipeline.book.steps.HandleImageFilesStep;
 import org.github.arosecra.book.pipeline.book.steps.ModifyBookImageStep;
 import org.github.arosecra.book.pipeline.book.steps.ReadOCRPropertiesStep;
 import org.github.arosecra.book.pipeline.book.steps.ResizeBookImageStep;
 import org.github.arosecra.book.pipeline.book.steps.RunOCRStep;
+import org.github.arosecra.book.pipeline.book.steps.TarToCbtStep;
 import org.github.arosecra.book.pipeline.model.JobFolder;
 import org.github.arosecra.book.pipeline.model.JobStep;
+import org.github.arosecra.book.pipeline.model.JobSubStep;
 import org.github.arosecra.book.pipeline.model.MasterSchedule;
 import org.github.arosecra.book.pipeline.model.Pipeline;
 import org.github.arosecra.book.pipeline.model.RemoteFolder;
@@ -43,20 +46,19 @@ public class Main {
 		for(Schedule schedule : ms.schedules) {
 			System.out.println("Processing " + schedule.workRequired.size() + " folders through pipeline " + schedule.pipeline.name);
 			for(int i = 0; i < schedule.workRequired.size(); i++) {
-				executePipelineForFolder(schedule, i);
+				RemoteFolder rf = schedule.workRequired.get(i);
+				JobSubStep jss = new JobSubStep(schedule.pipeline.name, rf.folder, i, schedule.workRequired.size());
+				jss.start();
+				jss.printStartLn();
+				executePipelineForFolder(schedule, schedule.workRequired.get(i));
+				jss.printStart();
+				jss.endAndPrint();
 			}
 		}
 	}
 
-	private static void executePipelineForFolder(Schedule schedule, int i) throws IOException {
-		RemoteFolder rf = schedule.workRequired.get(i);
-		JobFolder jf = new JobFolder();
-		jf.remoteFolder = rf;
-		
-		jf.workFolder = createFileAndMkdirs(new File(WORK_DIRECTORY), rf.folder.getName());
-		jf.sourceFolder = createFileAndMkdirs(jf.workFolder, "source");
-		jf.destFolder = createFileAndMkdirs(jf.workFolder, "dest");
-		jf.tempFolder = createFileAndMkdirs(jf.workFolder, "temp");
+	private static void executePipelineForFolder(Schedule schedule, RemoteFolder rf) throws IOException {
+		JobFolder jf = createJobFolder(rf);
 		
 		for(File file : rf.contents) {
 			if(file.getName().matches(schedule.pipeline.uses)) {
@@ -64,8 +66,14 @@ public class Main {
 			}
 		}
 		
-		for(JobStep js : schedule.pipeline.steps) {
+		for(int i = 0; i < schedule.pipeline.steps.size(); i++) {
+			JobStep js = schedule.pipeline.steps.get(i);
+			JobSubStep jss = new JobSubStep(js.getClass().getSimpleName(), rf.folder, i, schedule.pipeline.steps.size());
+			jss.start();
+			jss.printStartLn();
 			js.execute(jf);
+			jss.printStart();
+			jss.endAndPrint();
 		}
 		
 		for(File file : jf.destFolder.listFiles()) {
@@ -75,7 +83,17 @@ public class Main {
 		}
 		rf.contents = rf.folder.listFiles();
 		Try.deleteFolder(jf.workFolder.toPath());
-		System.out.println("Done. " + (schedule.workRequired.size() - i) + " remaining");
+	}
+
+	private static JobFolder createJobFolder(RemoteFolder rf) {
+		JobFolder jf = new JobFolder();
+		jf.remoteFolder = rf;
+		
+		jf.workFolder = createFileAndMkdirs(new File(WORK_DIRECTORY), rf.folder.getName());
+		jf.sourceFolder = createFileAndMkdirs(jf.workFolder, "source");
+		jf.destFolder = createFileAndMkdirs(jf.workFolder, "dest");
+		jf.tempFolder = createFileAndMkdirs(jf.workFolder, "temp");
+		return jf;
 	}
 
 	private static void summarize(MasterSchedule ms) {
@@ -109,12 +127,22 @@ public class Main {
 				"-------------", //
 				"--------", //
 				"------"));
+		int total = 0;
 		for(Schedule schedule : ms.schedules) {
 			System.out.println(String.format("%24s %48s %8d", //
 					schedule.rootFolder.rootFolder(), //
 					schedule.pipeline.name, //
 					schedule.workRequired.size()));
+			total += schedule.workRequired.size();
 		}
+		System.out.println(String.format("%24s %48s %8s", //
+				"-------------", //
+				"--------", //
+				"------"));
+		System.out.println(String.format("%24s %48s %8d", //
+				"Total", //
+				"--------", //
+				total));
 	}
 	
 	private static boolean doesRemoteUsesExists(Pipeline pipeline, RemoteFolder rf) {
@@ -185,15 +213,17 @@ public class Main {
 			.setName("Book CBT") //
 			.setUses(".*.pdf") //
 			.setProduces(".*.cbt") //
-			.addStep(new ReadOCRPropertiesStep()) //
+//			.addStep(new ReadOCRPropertiesStep()) //
 			.addStep(new ExtractBookPDFsStep()) //
 			.addStep(new DeleteExcludedPagesStep())
 			.addStep(new ResizeBookImageStep()) //
+			.addStep(new HandleBlankImagesStep()) //
+			.addStep(new HandleImageFilesStep()) //
 			.addStep(new ModifyBookImageStep()) //
-			.addStep(new CreateThumbnailsStep())
-			.addStep(new CreateMarkdownForBlankImagesStep()) //
+			.addStep(new CreateThumbnailsStep()) //
 			.addStep(new ConvertBookImageToWebpStep()) //
-			.addStep(new RunOCRStep()) //
+//			.addStep(new RunOCRStep()) //
+			.addStep(new TarToCbtStep()) //
 		;
 		
 		MasterSchedule ms = new MasterSchedule() //
