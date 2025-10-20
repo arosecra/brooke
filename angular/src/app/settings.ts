@@ -1,4 +1,4 @@
-import { Component, inject, ViewEncapsulation } from '@angular/core';
+import { Component, inject, signal, ViewEncapsulation } from '@angular/core';
 import { App } from './app';
 import { LibraryDB } from './db/library-db';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,32 +13,39 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [MatButtonModule, MatIconModule],
   template: `
     <h2>Settings</h2>
-    <h3>Collections</h3>
-
-    @for (collection of app.resources.storedLibrary.value()?.collections; track collection.name) {
-      <div>
-        {{ collection.name }}
-
-        <span class="spacer"></span>
-        @if (collection.hasPermission) {
-          <mat-icon fontSet="material-symbols-outlined">check_circle</mat-icon>
-        } @else {
-          <mat-icon fontSet="material-symbols-outlined">close</mat-icon>
-        }
-      </div>
-    }
-
-    <button mat-raised-button (click)="addCollection()">Add Collection</button>
-
-		<h3>Cache Directory</h3>
-		@if(!app.resources.storedLibrary.value()?.settingsByName?.['cacheDirectory']) {
-			<button mat-raised-button (click)="setLocalCacheDirectory()">Set Local Directory</button>
+		@if(busy()) {
+			<div>Busy. Please wait...</div>
+			<div>{{ busyMessage() }}</div>
 		} @else {
-			<div>{{ app.resources.storedLibrary.value()?.settingsByName?.['cacheDirectory']?.name }}</div>
-		}
-		
+    	<h3>Collections</h3>
 
-    <button mat-raised-button (click)="app.appState.showSettingsManual.set(false)">Done</button>
+			@for (collection of app.resources.storedLibrary.value()?.collections; track collection.name) {
+				<div>
+					{{ collection.name }}
+
+					<span class="spacer"></span>
+					@if (collection.hasPermission) {
+						<mat-icon fontSet="material-symbols-outlined">check_circle</mat-icon>
+					} @else {
+						<mat-icon fontSet="material-symbols-outlined">close</mat-icon>
+					}
+				</div>
+			}
+
+			<button mat-raised-button (click)="addCollection()">Add Collection</button>
+
+			<h3>Cache Directory</h3>
+			@if(!app.resources.storedLibrary.value()?.settingsByName?.['cacheDirectory']) {
+				<button mat-raised-button (click)="setLocalCacheDirectory()">Set Local Directory</button>
+			} @else {
+				<div>{{ app.resources.storedLibrary.value()?.settingsByName?.['cacheDirectory']?.name }}</div>
+			}
+			
+
+			<button mat-raised-button (click)="app.appState.showSettingsManual.set(false)">Done</button>
+
+		}
+
   `,
   styles: ``,
   encapsulation: ViewEncapsulation.None,
@@ -48,9 +55,17 @@ export class Settings {
   appDB = inject(LibraryDB);
   files = inject(Files);
 
+	busy = signal<boolean>(false);
+	busyMessage = signal<string>("not busy");
+
 	async setLocalCacheDirectory() {
     let handle: FileSystemDirectoryHandle = await window.showDirectoryPicker();
 		
+		this.busy.set(true);
+		this.busyMessage.set("Setting cache directory");
+
+		await this.files.getReadWritePermission(handle);
+
     let library = new Library({
       collections: [],
       categories: [],
@@ -63,12 +78,17 @@ export class Settings {
     });
 
     await this.appDB.addLibrary(library);
+		this.busy.set(false);
 
 	}
 
 
   async addCollection() {
     let handle: FileSystemDirectoryHandle = await window.showDirectoryPicker();
+		this.busy.set(true);
+		this.busyMessage.set("Adding Collection");
+
+		await this.files.getReadWritePermission(handle);
 
     let currentDirectory = await this.files.getFiles(handle);
     console.log(Object.entries(currentDirectory));
@@ -141,6 +161,8 @@ export class Settings {
     await this.appDB.addLibrary(library);
 
     this.app.resources.storedLibrary.reload();
+		
+		this.busy.set(false);
 
     //find the collection.yaml and categories.yaml files
     // read their contents

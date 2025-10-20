@@ -36,6 +36,11 @@ export declare interface Item {
   childItems?: Item[];
 }
 
+export declare interface CacheDirectory {
+  handle: FileSystemDirectoryHandle;
+  hasPermission?: boolean;
+}
+
 export declare interface CachedFile {
   collectionName: string;
   itemName: string;

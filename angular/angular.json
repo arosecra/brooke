@@ -53,13 +53,16 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+					"options": {
+					},
           "configurations": {
             "production": {
-              "buildTarget": "brooke-ui:build:production"
+              "buildTarget": "brooke-ui:build:production"							
             },
             "development": {
               "proxyConfig": "./proxy.conf.json",
-              "buildTarget": "brooke-ui:build:development"
+              "buildTarget": "brooke-ui:build:development",
+							"ssl": true
             }
           },
           "defaultConfiguration": "development"

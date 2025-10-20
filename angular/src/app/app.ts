@@ -12,7 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { BookDetails, CachedFile, Item, ItemRef, NewCategory, NewCollection } from './app-model';
+import { BookDetails, CachedFile, CacheDirectory, Item, ItemRef, NewCategory, NewCollection } from './app-model';
 import { Breadcrumb } from './breadcrumb';
 import { LibraryDB } from './db/library-db';
 import { Files } from './fs/library-fs';
@@ -133,7 +133,14 @@ export class App {
     showSettingsManual: signal<boolean>(false),
 
     settingsRequired: computed(() => {
-      return this.resources.storedLibrary?.value()?.collections.length === 0;
+			const library = this.resources.storedLibrary.value();
+
+			const hasCollections = library?.collections && library?.collections?.length > 0;
+			const hasCollectionMissingPermissions = library?.collections.some((val) => {
+				return !val.hasPermission;
+			});
+
+      return !library?.cacheDirectory?.hasPermission || !hasCollections || hasCollectionMissingPermissions;
     }),
   };
 
@@ -142,7 +149,7 @@ export class App {
       loader: async ({ params, abortSignal }): Promise<Library> => {
         return await this.appDb.getLibrary();
       },
-    }),
+    })
   };
 
   actions = {

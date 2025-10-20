@@ -33,6 +33,7 @@
     "@angular/router": "^20.3.6",
     "@angular/service-worker": "^20.3.6",
     "material-symbols": "^0.34.1",
+    "nanotar": "^0.2.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "yaml": "^2.8.1"

@@ -1,17 +1,9 @@
 import { Component, effect, inject, OnInit, signal, viewChild, ViewEncapsulation } from '@angular/core';
 import { App } from '../app';
 
-import {
-	parseTar
-} from "nanotar";
+import { parseTar } from "nanotar";
 import { Files } from '../fs/library-fs';
 
-
-//todo
-//  keep a array of img elements. say 20
-//  keep another array that is the length of the book
-//  currentLeftPage => index[currentLeftPage] gives a # into the img buffer
-//  
 
 @Component({
   selector: 'book',
@@ -20,16 +12,16 @@ import { Files } from '../fs/library-fs';
 	@if(bookIsLoaded()) {
 		@let leftPageNo = app.appState.currentPageSet() * 2;
 		@let rightPageNo = app.appState.currentPageSet() * 2 + 1;
-		@if(pages.length > leftPageNo) {
+		@if(pageOrder.length > leftPageNo) {
 			<img #leftPage
 				style="width: 100%"
-				[src]="pages[leftPageNo]"
+				[src]="pages[pageOrder[leftPageNo]].fullPage"
 			/>
 		}
-		@if(pages.length > rightPageNo) {
+		@if(pageOrder.length > rightPageNo) {
 			<img #rightPage
 				style="width: 100%"
-				[src]="pages[rightPageNo]"
+				[src]="pages[pageOrder[rightPageNo]].fullPage"
 			/>
 		}
 
@@ -48,7 +40,9 @@ export class Book implements OnInit {
 
 	test = signal<string>('');
 
-	pages: string[] = [];
+	pages: Record<string, Page> = {};
+
+	pageOrder: string[] = []
 
 	ngOnInit() {
 		let cacheDirectory = this.app.resources.storedLibrary.value()?.settingsByName['cacheDirectory'].value as FileSystemDirectoryHandle;
@@ -66,19 +60,42 @@ export class Book implements OnInit {
 					for(let i = 0; i < files.length; i++) {
 						const file = files[i];
 						if(file.data) {
-							this.pages.push('');
+							let type = 'fullPage'
+							if(file.name.startsWith('.md')) {
+								type = 'markdown';
+							} else if(file.name.startsWith('.thumbnails')) {
+								type = 'thumbnail';
+							}
+
+							let name = file.name.replaceAll('.md', '').replaceAll('.webp', '');							
+							if(type !== 'fullPage') {
+								name = name.split('/')[1]
+							} 
+							if(!this.pages[name]) {
+								this.pages[name] = { name } as Page;
+							}
+
 							this.bytesToBase64DataUrl(file.data).then((val) => {
-								this.pages[i] = val;
+								if(type === 'fullPage') this.pages[name].fullPage = val;
+								if(type === 'markdown') this.pages[name].markdown = val;
+								if(type === 'thumbnail') this.pages[name].thumbnail = val;
+
+								if(i === files.length - 1) {
+									console.log('really done loading');
+									this.bookIsLoaded.set(true);
+								}
 							})
 							// this.test.set('data:image/png:base64,' + await this.bytesToBase64DataUrl(file.data))
 
 						}
 						console.log('finished file ' + i);
 					}
+					let keys = Object.keys(this.pages).sort();
+					for(let i = 0; i < keys.length; i++ ) {
+						this.pageOrder.push(keys[i]);
+					}
 					console.log('done loading');
 				})
-					console.log('really done loading');
-					this.bookIsLoaded.set(true);
 			});
 		});
 
@@ -93,4 +110,11 @@ export class Book implements OnInit {
 			reader.readAsDataURL(new File([bytes], "", { type }));
 		});
 	}
+}
+
+export declare interface Page {
+	markdown: string;
+	thumbnail: string;
+	fullPage: string;
+	name: string;
 }

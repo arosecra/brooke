@@ -1,4 +1,4 @@
-import { NewCollection, NewCategory, Item, Setting, CachedFile } from '../app-model';
+import { NewCollection, NewCategory, Item, Setting, CachedFile, CacheDirectory } from '../app-model';
 
 export declare interface LibraryOptions {
   collections: NewCollection[];
@@ -14,6 +14,7 @@ export class Library {
   items: Item[];
   settings: Setting[];
 	cachedItems: CachedFile[];
+	cacheDirectory: CacheDirectory | null = null;
 
   itemsByCollectionAndName: Record<string, Item> = {};
 	settingsByName: Record<string, any> = {};

@@ -15,6 +15,15 @@
 		},
 		{
 			"path": "java"
+		},
+		{
+			"path": "ts-pipeline"
+		},
+		{
+			"path": "ts-vlc-launcher"
+		},
+		{
+			"path": "ts-server"
 		}
 	]
 }
