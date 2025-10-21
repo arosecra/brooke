@@ -14,5 +14,19 @@ export abstract class CRUD<T> {
     });
   }
 
+  remove(db: IDBDatabase, tx: IDBTransaction, key: IDBValidKey): Promise<T[]> {
+    return new Promise<T[]>((resolve) => {
+      const request = tx.objectStore(this.getStoreName()).delete(key);
+      request.onsuccess = (e) => resolve([] as T[]);
+    });
+  }
+
+  removeAll(db: IDBDatabase, tx: IDBTransaction): Promise<T[]> {
+    return new Promise<T[]>((resolve) => {
+      const request = tx.objectStore(this.getStoreName()).clear();
+      request.onsuccess = (e) => resolve([] as T[]);
+    });
+  }
+
   abstract getStoreName(): string;
 }

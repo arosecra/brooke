@@ -75,7 +75,20 @@ export class LibraryDB {
     });
   }
 
-  private getAll<T>(tx: IDBTransaction, objectStoreName: string) {
+	async removeCollection(collection: Collection) {
+    const db = await openDB('db', 1, onUpgradeNeeded);
+    let tx = db.transaction(['collections', 'categories', 'items', 'settings', 'cache'], 'readwrite');
+		await this.remove(tx, 'collections', collection.name);
+	}
+
+  remove(tx: IDBTransaction, objectStoreName: string, key: IDBValidKey): Promise<boolean> {
+    return new Promise<boolean>((resolve) => {
+      const request = tx.objectStore(objectStoreName).delete(key);
+      request.onsuccess = (e) => resolve(true);
+    });
+  }
+
+  getAll<T>(tx: IDBTransaction, objectStoreName: string) {
     return new Promise<T>((resolve) => {
       const request = tx.objectStore(objectStoreName).getAll();
       request.onsuccess = (e) => resolve(request.result as T);

@@ -26,67 +26,13 @@ import { CollectionBrowser } from './media-components/collection-browser';
 import { Series } from './media-components/series';
 import { Library } from './model/library';
 import { Settings } from './settings';
+import { AppHeader } from './app-header';
 
 @Component({
   selector: 'app',
-  imports: [
-    Book,
-    Breadcrumb,
-    CollectionBrowser,
-    Series,
-    MatIconModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatPaginatorModule,
-    Settings,
-  ],
+  imports: [ AppHeader, Book, CollectionBrowser, Series, Settings ],
   template: `
-    <mat-toolbar color="primary">
-      <button matMiniFab >
-        <mat-icon fontSet="material-symbols-outlined">newsstand</mat-icon>
-      </button>
-      <h1>Brooke</h1>
-      <breadcrumb></breadcrumb>
-      <span class="spacer"></span>
-      
-
-			@if (!widgets.panel.showBook() || !widgets.panel.showSeries()) {
-				<button matMiniFab> <!-- modify collection / category button -->
-					<mat-icon fontSet="material-symbols-outlined">library_books</mat-icon>
-				</button>
-			}
-      
-      @if (widgets.panel.showBook()) {
-				<button matMiniFab> <!-- book options -->
-					<mat-icon fontSet="material-symbols-outlined">book_2</mat-icon>
-				</button>
-				<button matMiniFab> <!-- book toc -->
-					<mat-icon fontSet="material-symbols-outlined">toc</mat-icon>
-				</button>
-				<button matMiniFab (click)="toggleOneOrTwoPageMode()"> <!-- one or two page -->
-					<mat-icon fontSet="material-symbols-outlined">two_pager</mat-icon>
-				</button>
-				<button matMiniFab> <!-- png & md side by side -->
-					<mat-icon fontSet="material-symbols-outlined">compare</mat-icon>
-				</button>
-
-
-        <mat-paginator
-          (page)="handlePaginationEvent($event)"
-          [length]="appState.currentItem()?.bookDetails?.numberOfPages"
-          [pageSize]="this.widgets.book.pagesInDisplay()"
-          [disabled]="false"
-          [showFirstLastButtons]="true"
-					[pageIndex]="appState.currentPageSet()"
-          [hidePageSize]="true"
-          aria-label="Select page"
-        >
-        </mat-paginator>
-      }
-			<button matMiniFab (click)="appState.showSettingsManual.set(true)">
-        <mat-icon fontSet="material-symbols-outlined">settings</mat-icon>
-      </button>
-    </mat-toolbar>
+    <app-header/>
     <main>
       @if (widgets.panel.showLoading()) {
         <div>Loading</div>

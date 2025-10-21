@@ -9,10 +9,12 @@ import { Collection } from './model/collection';
 import { FSEntry } from './fs/fs-entry';
 import { Library } from './model/library';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
+import { CacheDirectory } from './model/cache-directory';
 
 @Component({
   selector: 'settings',
-  imports: [MatButtonModule, MatIconModule],
+  imports: [MatButtonModule, MatIconModule, MatTableModule],
   template: `
     <h2>Settings</h2>
 		@if(busy()) {
@@ -21,26 +23,76 @@ import { MatIconModule } from '@angular/material/icon';
 		} @else {
     	<h3>Collections</h3>
 
-			@for (collection of app.resources.storedLibrary.value()?.collections; track collection.name) {
-				<div>
-					{{ collection.name }}
+			<table mat-table [dataSource]="app.resources.storedLibrary.value()?.collections || []">
 
-					<span class="spacer"></span>
-					@if (collection.hasPermission) {
-						<mat-icon fontSet="material-symbols-outlined">check_circle</mat-icon>
-					} @else {
-						<mat-icon fontSet="material-symbols-outlined">close</mat-icon>
-					}
-				</div>
-			}
+				<ng-container matColumnDef="name">
+					<th mat-header-cell *matHeaderCellDef> Name </th>
+    			<td mat-cell *matCellDef="let row"> {{row.name}} </td>
+				</ng-container>
 
-			<button mat-raised-button (click)="addCollection()">Add Collection</button>
+				<ng-container matColumnDef="permission">
+					<th mat-header-cell *matHeaderCellDef> Permission </th>
+    			<td mat-cell *matCellDef="let row"> 
+						@if(!row.hasPermission) {
+						<button matMiniFab (click)="requestPermission(row)" title="Request Permission">
+							<mat-icon fontSet="material-symbols-outlined">close</mat-icon>
+						</button>
+						}	@else {
+							<mat-icon fontSet="material-symbols-outlined">check_circle</mat-icon>
+						}
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="actions">
+					<th mat-header-cell *matHeaderCellDef> Actions </th>
+    			<td mat-cell *matCellDef="let row">  
+						<div  class="row-flex">
+						<button matMiniFab (click)="removeCollection(row)" title="Remove">
+							<mat-icon fontSet="material-symbols-outlined">close</mat-icon>
+						</button> 
+						<button matMiniFab (click)="updateCollectionFromFiles(row)" title="Re-Download">
+							<mat-icon fontSet="material-symbols-outlined">sync_arrow_down</mat-icon>
+						</button>
+						</div>
+					</td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="['name', 'permission', 'actions']"></tr>
+  			<tr mat-row *matRowDef="let row; columns: ['name', 'permission', 'actions']"></tr>
+			</table>
+
+			<button mat-raised-button (click)="addNewCollection()">Add Collection</button>
 
 			<h3>Cache Directory</h3>
-			@if(!app.resources.storedLibrary.value()?.settingsByName?.['cacheDirectory']) {
+			@let cacheDirectory = app.resources.storedLibrary.value()?.cacheDirectory;
+			@if(!cacheDirectory) {
 				<button mat-raised-button (click)="setLocalCacheDirectory()">Set Local Directory</button>
 			} @else {
-				<div>{{ app.resources.storedLibrary.value()?.settingsByName?.['cacheDirectory']?.name }}</div>
+
+				<table mat-table [dataSource]="[cacheDirectory]">
+
+					<ng-container matColumnDef="name">
+						<th mat-header-cell *matHeaderCellDef> Name </th>
+						<td mat-cell *matCellDef="let row"> Cache Directory </td>
+					</ng-container>
+
+					<ng-container matColumnDef="permission">
+						<th mat-header-cell *matHeaderCellDef> Permission </th>
+						<td mat-cell *matCellDef="let row"> 
+							@if(!row.hasPermission) {
+							<button matMiniFab (click)="requestPermission(row)" title="Request Permission">
+								<mat-icon fontSet="material-symbols-outlined">close</mat-icon>
+							</button>
+							}	@else {
+								<mat-icon fontSet="material-symbols-outlined">check_circle</mat-icon>
+							}
+						</td>
+					</ng-container>
+
+					<tr mat-header-row *matHeaderRowDef="['name', 'permission']"></tr>
+					<tr mat-row *matRowDef="let row; columns: ['name', 'permission']"></tr>
+				</table>
+
 			}
 			
 
@@ -59,6 +111,35 @@ export class Settings {
 
 	busy = signal<boolean>(false);
 	busyMessage = signal<string>("not busy");
+
+	async requestPermission(permissable: Collection | CacheDirectory) {
+		this.busy.set(true);
+		this.busyMessage.set("Requesting Permission");
+		permissable.hasPermission = await this.files.getReadWritePermission(permissable.handle);
+		this.busy.set(false);
+	}
+
+	async updateCollectionFromFiles(collection: Collection) {
+		this.busy.set(true);
+		this.busyMessage.set("Downloading Collection");
+		let handle = collection.handle;
+		this.removeCollection(collection);
+		this.addCollectionFromHandle(handle);
+		this.busy.set(false);
+	}
+
+	async removeCollection(collection: Collection) {
+		const alreadyBusy = this.busy();
+		if(!alreadyBusy) {
+			this.busy.set(true);
+			this.busyMessage.set("Removing Collection");
+		}
+		await this.appDB.removeCollection(collection);
+    this.app.resources.storedLibrary.reload();
+		if(!alreadyBusy) {
+			this.busy.set(false);
+		}
+	}
 
 	async setLocalCacheDirectory() {
     let handle: FileSystemDirectoryHandle = await window.showDirectoryPicker();
@@ -84,9 +165,7 @@ export class Settings {
 
 	}
 
-
-  async addCollection() {
-    let handle: FileSystemDirectoryHandle = await window.showDirectoryPicker();
+	async addCollectionFromHandle(handle: FileSystemDirectoryHandle) {
 		this.busy.set(true);
 		this.busyMessage.set("Adding Collection");
 
@@ -165,23 +244,11 @@ export class Settings {
     this.app.resources.storedLibrary.reload();
 		
 		this.busy.set(false);
+	}
 
-    //find the collection.yaml and categories.yaml files
-    // read their contents
-
-    //find all of the files in our list that have the item extension in the collection yaml file
-    // create an item for each of these
-    // check if the parent directory has a thumbnail or large thumbnail. if so, create a series for it and add this item to it
-    // check if there's a toc file
-    // check if there's a cbtDetails file
-    // read in the toc / cbtDetails / thumbnail / large_thumbnail files
-    // they go with the item
-
-    //create a list of the files in question (for sync'ing later) - hopefully with timestamps
-    //  only need to keep files we used, don't need directories
-
-    //once we have all of this, add the new entries to the db & trigger a reload of the saved library
-    //
+  async addNewCollection() {
+    let handle: FileSystemDirectoryHandle = await window.showDirectoryPicker();
+		this.addCollectionFromHandle(handle);
   }
 
   private async createItem(
