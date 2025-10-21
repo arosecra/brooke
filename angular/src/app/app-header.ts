@@ -22,7 +22,7 @@ import { BookToC } from './media-components/book-toc';
   <breadcrumb></breadcrumb>
   <span class="spacer"></span>
   
-	@if (!app.widgets.panel.showBook() || !app.widgets.panel.showSeries()) {
+	@if (!app.widgets.panel.showBook() && !app.widgets.panel.showSeries()) {
 		<button matMiniFab title="Modify Categories">
 			<mat-icon fontSet="material-symbols-outlined">library_books</mat-icon>
 		</button>
