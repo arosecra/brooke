@@ -9,11 +9,12 @@ import java.util.List;
 
 import org.github.arosecra.book.pipeline.model.JobFolder;
 import org.github.arosecra.book.pipeline.model.JobStep;
+import org.github.arosecra.book.pipeline.model.Pipeline;
 
 public class HandleImageFilesStep implements JobStep {
 
 	@Override
-	public void execute(JobFolder job) throws IOException {
+	public void execute(Pipeline pipeline, JobFolder job) throws IOException {
 		List<String> imagePages = job.bookJob.ocrProperties.imagePages;
 		for (File file : job.tempFolder.listFiles()) {
 			String filename = file.getName();

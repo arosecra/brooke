@@ -19,13 +19,14 @@ import javax.imageio.ImageIO;
 import org.github.arosecra.book.pipeline.model.BoundingBox;
 import org.github.arosecra.book.pipeline.model.JobFolder;
 import org.github.arosecra.book.pipeline.model.JobStep;
+import org.github.arosecra.book.pipeline.model.Pipeline;
 import org.github.arosecra.book.pipeline.model.Point;
 import org.github.arosecra.brooke.util.CommandLine;
 
 public class ModifyBookImageStep implements JobStep {
 
 	@Override
-	public void execute(JobFolder job) throws IOException {
+	public void execute(Pipeline pipeline, JobFolder job) throws IOException {
 		for (File file : job.tempFolder.listFiles()) {
 
 			File outputFile = new File(job.destFolder, file.getName());

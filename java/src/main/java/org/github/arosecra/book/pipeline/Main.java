@@ -59,30 +59,39 @@ public class Main {
 
 	private static void executePipelineForFolder(Schedule schedule, RemoteFolder rf) throws IOException {
 		JobFolder jf = createJobFolder(rf);
-		
-		for(File file : rf.contents) {
-			if(file.getName().matches(schedule.pipeline.uses)) {
-				Files.copy(file.toPath(), Path.of(jf.sourceFolder.getAbsolutePath(), file.getName()), StandardCopyOption.REPLACE_EXISTING);
-			}
-		}
-		
+		copySourceFilesLocally(schedule, rf, jf);
+		executeSteps(schedule, rf, jf);
+		copyProducedFilesToRemote(schedule, rf, jf);
+		rf.contents = rf.folder.listFiles();
+		Try.deleteFolder(jf.workFolder.toPath());
+	}
+
+	private static void executeSteps(Schedule schedule, RemoteFolder rf, JobFolder jf) throws IOException {
 		for(int i = 0; i < schedule.pipeline.steps.size(); i++) {
 			JobStep js = schedule.pipeline.steps.get(i);
 			JobSubStep jss = new JobSubStep(js.getClass().getSimpleName(), rf.folder, i, schedule.pipeline.steps.size());
 			jss.start();
 			jss.printStartLn();
-			js.execute(jf);
+			js.execute(schedule.pipeline, jf);
 			jss.printStart();
 			jss.endAndPrint();
 		}
-		
+	}
+
+	private static void copyProducedFilesToRemote(Schedule schedule, RemoteFolder rf, JobFolder jf) throws IOException {
 		for(File file : jf.destFolder.listFiles()) {
 			if(file.getName().matches(schedule.pipeline.produces)) {
 				Files.copy(file.toPath(), Path.of(rf.folder.getAbsolutePath(), file.getName()), StandardCopyOption.REPLACE_EXISTING);
 			}
 		}
-		rf.contents = rf.folder.listFiles();
-		Try.deleteFolder(jf.workFolder.toPath());
+	}
+
+	private static void copySourceFilesLocally(Schedule schedule, RemoteFolder rf, JobFolder jf) throws IOException {
+		for(File file : rf.contents) {
+			if(file.getName().matches(schedule.pipeline.uses)) {
+				Files.copy(file.toPath(), Path.of(jf.sourceFolder.getAbsolutePath(), file.getName()), StandardCopyOption.REPLACE_EXISTING);
+			}
+		}
 	}
 
 	private static JobFolder createJobFolder(RemoteFolder rf) {

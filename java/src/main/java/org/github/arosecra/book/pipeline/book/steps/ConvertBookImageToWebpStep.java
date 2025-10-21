@@ -5,12 +5,13 @@ import java.io.IOException;
 
 import org.github.arosecra.book.pipeline.model.JobFolder;
 import org.github.arosecra.book.pipeline.model.JobStep;
+import org.github.arosecra.book.pipeline.model.Pipeline;
 import org.github.arosecra.brooke.util.CommandLine;
 
 public class ConvertBookImageToWebpStep implements JobStep {
 
 	@Override
-	public void execute(JobFolder job) throws IOException {
+	public void execute(Pipeline pipeline, JobFolder job) throws IOException {
 		convertFolder(job.destFolder);
 		convertFolder(new File(job.destFolder, ".thumbnails"));
 	}

@@ -8,11 +8,12 @@ import java.nio.file.StandardOpenOption;
 
 import org.github.arosecra.book.pipeline.model.JobFolder;
 import org.github.arosecra.book.pipeline.model.JobStep;
+import org.github.arosecra.book.pipeline.model.Pipeline;
 
 public class CreateCBTDetails implements JobStep {
 
 	@Override
-	public void execute(JobFolder job) throws IOException {
+	public void execute(Pipeline pipeline, JobFolder job) throws IOException {
 		Path remoteCbtDetails = Path.of(job.destFolder.getAbsolutePath(), "cbtDetails.yaml");
 		int size = 0;
 		for (File file : job.tempFolder.listFiles()) {

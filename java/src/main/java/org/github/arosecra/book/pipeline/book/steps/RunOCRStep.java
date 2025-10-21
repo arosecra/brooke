@@ -16,13 +16,14 @@ import org.commonmark.parser.Parser;
 import org.commonmark.renderer.markdown.MarkdownRenderer;
 import org.github.arosecra.book.pipeline.model.JobFolder;
 import org.github.arosecra.book.pipeline.model.JobStep;
+import org.github.arosecra.book.pipeline.model.Pipeline;
 import org.github.arosecra.book.pipeline.util.Try;
 import org.github.arosecra.brooke.util.CommandLine;
 
 public class RunOCRStep implements JobStep {
 
 	@Override
-	public void execute(JobFolder job) throws IOException {
+	public void execute(Pipeline pipeline, JobFolder job) throws IOException {
 		List<String> skipOCR = new ArrayList<>();
 		skipOCR.addAll(job.bookJob.ocrProperties.blankPages);
 		skipOCR.addAll(job.bookJob.ocrProperties.imagePages);

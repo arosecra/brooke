@@ -7,12 +7,13 @@ import java.nio.file.StandardOpenOption;
 
 import org.github.arosecra.book.pipeline.model.JobFolder;
 import org.github.arosecra.book.pipeline.model.JobStep;
+import org.github.arosecra.book.pipeline.model.Pipeline;
 import org.github.arosecra.book.pipeline.util.Images;
 
 public class CreateCoverThumbnailStep implements JobStep {
 
 	@Override
-	public void execute(JobFolder job) throws IOException {
+	public void execute(Pipeline pipeline, JobFolder job) throws IOException {
 		File remoteThumbnail = new File(job.remoteFolder.folder, "thumbnail.png");
 		
 		for(File file : job.destFolder.listFiles()) {

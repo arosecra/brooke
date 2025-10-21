@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.github.arosecra.book.pipeline.model.JobFolder;
 import org.github.arosecra.book.pipeline.model.JobStep;
 import org.github.arosecra.book.pipeline.model.JobSubStep;
+import org.github.arosecra.book.pipeline.model.Pipeline;
 import org.github.arosecra.book.pipeline.util.CommandLine;
 
 public class ExtractBookPDFsStep implements JobStep {
@@ -29,7 +30,7 @@ public class ExtractBookPDFsStep implements JobStep {
 	}
 
 	@Override
-	public void execute(JobFolder job) throws IOException {
+	public void execute(Pipeline pipeline, JobFolder job) throws IOException {
 
 		File[] workFiles = job.sourceFolder.listFiles();
 
