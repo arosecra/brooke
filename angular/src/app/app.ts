@@ -2,7 +2,6 @@ import { Location } from '@angular/common';
 import {
 	Component,
 	computed,
-	effect,
 	HostListener,
 	inject,
 	resource,
@@ -64,7 +63,7 @@ import { Settings } from './settings';
 				<button matMiniFab> <!-- book toc -->
 					<mat-icon fontSet="material-symbols-outlined">toc</mat-icon>
 				</button>
-				<button matMiniFab> <!-- one or two page -->
+				<button matMiniFab (click)="toggleOneOrTwoPageMode()"> <!-- one or two page -->
 					<mat-icon fontSet="material-symbols-outlined">two_pager</mat-icon>
 				</button>
 				<button matMiniFab> <!-- png & md side by side -->
@@ -75,7 +74,7 @@ import { Settings } from './settings';
         <mat-paginator
           (page)="handlePaginationEvent($event)"
           [length]="appState.currentItem()?.bookDetails?.numberOfPages"
-          [pageSize]="2"
+          [pageSize]="this.widgets.book.pagesInDisplay()"
           [disabled]="false"
           [showFirstLastButtons]="true"
 					[pageIndex]="appState.currentPageSet()"
@@ -147,6 +146,9 @@ export class App {
         return this.resources.storedLibrary.isLoading();
       }),
     },
+		book: {
+			pagesInDisplay: signal<number>(2)
+		}
   };
 
   appState = {
@@ -277,12 +279,28 @@ export class App {
   }
 
   goToNextPage() {
-    this.goToPageSet(this.appState.currentPageSet()+1);
+    this.goToPageSet(this.appState.currentPageSet() + 1);
   }
 
   goToPreviousPage() {
-    this.goToPageSet(this.appState.currentPageSet() -1);
+    this.goToPageSet(this.appState.currentPageSet() - 1);
   }
+
+	toggleOneOrTwoPageMode() {
+		if(this.widgets.book.pagesInDisplay() === 1) {
+			this.widgets.book.pagesInDisplay.set(2);
+			this.appState.currentPageSet.update((val) => { 
+				let newVal = val / 2; 
+				if(val % 2) {
+					newVal = (val - 1) / 2
+				}
+				return newVal;
+			});
+		} else {
+			this.appState.currentPageSet.update((val) => val * 2);
+			this.widgets.book.pagesInDisplay.set(1);
+		}
+	}
 
   private displayBookItem(itemRef: ItemRef, item: Item) {
     this.appState.currentItem.update(() => item);

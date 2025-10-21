@@ -11,22 +11,31 @@ import { Library } from '../model/library';
 @Component({
   selector: 'book',
   imports: [],
+	host: {
+		'[class.one-page]': 'app.widgets.book.pagesInDisplay() === 1',
+		'[class.two-page]': 'app.widgets.book.pagesInDisplay() === 2',
+	},
   template: `
 	@if(bookCbt.hasValue()) {
-		@let leftPageNo = app.appState.currentPageSet() * 2;
-		@let rightPageNo = app.appState.currentPageSet() * 2 + 1;
+		@let pagesInDisplay = app.widgets.book.pagesInDisplay();
+		@let leftPageNo = app.appState.currentPageSet() * pagesInDisplay;
+		@let rightPageNo = leftPageNo + 1;
+
+		@let showRightPage = pagesInDisplay === 2 && 
+			bookCbt.value().length > rightPageNo;
+
 		@if(bookCbt.value().length > leftPageNo) {
 			<img #leftPage
 				style="width: 100%"
 				[src]="bookCbt.value()[leftPageNo].fullPage"
 			/>
 		}
-		@if(bookCbt.value().length > rightPageNo) {
+		@if(showRightPage) {
 			<img #rightPage
 				style="width: 100%"
 				[src]="bookCbt.value()[rightPageNo].fullPage"
 			/>
-		}
+		} 
 
 	} @else {
 		<div>Loading...</div>
