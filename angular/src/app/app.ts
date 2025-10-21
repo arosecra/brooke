@@ -43,17 +43,35 @@ import { Settings } from './settings';
   ],
   template: `
     <mat-toolbar color="primary">
-      <button icon-button (click)="appState.showSettingsManual.set(true)">
+      <button matMiniFab >
         <mat-icon fontSet="material-symbols-outlined">newsstand</mat-icon>
       </button>
       <h1>Brooke</h1>
       <breadcrumb></breadcrumb>
       <span class="spacer"></span>
-      <!-- modify collection button -->
-      <!-- book toc -->
-      <!-- book options -->
-      <!-- <book-page-turner></book-page-turner> -->
+      
+
+			@if (!widgets.panel.showBook() || !widgets.panel.showSeries()) {
+				<button matMiniFab> <!-- modify collection / category button -->
+					<mat-icon fontSet="material-symbols-outlined">library_books</mat-icon>
+				</button>
+			}
+      
       @if (widgets.panel.showBook()) {
+				<button matMiniFab> <!-- book options -->
+					<mat-icon fontSet="material-symbols-outlined">book_2</mat-icon>
+				</button>
+				<button matMiniFab> <!-- book toc -->
+					<mat-icon fontSet="material-symbols-outlined">toc</mat-icon>
+				</button>
+				<button matMiniFab> <!-- one or two page -->
+					<mat-icon fontSet="material-symbols-outlined">two_pager</mat-icon>
+				</button>
+				<button matMiniFab> <!-- png & md side by side -->
+					<mat-icon fontSet="material-symbols-outlined">compare</mat-icon>
+				</button>
+
+
         <mat-paginator
           (page)="handlePaginationEvent($event)"
           [length]="appState.currentItem()?.bookDetails?.numberOfPages"
@@ -66,6 +84,9 @@ import { Settings } from './settings';
         >
         </mat-paginator>
       }
+			<button matMiniFab (click)="appState.showSettingsManual.set(true)">
+        <mat-icon fontSet="material-symbols-outlined">settings</mat-icon>
+      </button>
     </mat-toolbar>
     <main>
       @if (widgets.panel.showLoading()) {

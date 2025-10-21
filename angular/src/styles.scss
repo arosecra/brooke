@@ -14,10 +14,7 @@ html {
   @include mat.color-variants-backwards-compatibility($theme);
   @include mat.theme(
     (
-      color: (
-        primary: mat.$azure-palette,
-        tertiary: mat.$blue-palette,
-      ),
+      color: mat.$azure-palette,
       typography: Roboto,
       density: 0,
     )
@@ -40,16 +37,16 @@ body {
 
   @include mat.toolbar-overrides(
     (
-      container-background-color: var(--mat-sys-primary),
-      container-text-color: var(--mat-sys-primary-container),
+      container-background-color: var(--mat-sys-primary-container),
+      container-text-color: var(--mat-sys-on-primary-container),
     )
   );
   @include mat.paginator-overrides(
     (
-      container-background-color: var(--mat-sys-primary),
-      container-text-color: var(--mat-sys-primary-container),
-      enabled-icon-color: var(--mat-sys-primary-container),
-      disabled-icon-color: var(--mat-sys-primary-container),
+      container-background-color: var(--mat-sys-primary-container),
+      container-text-color: var(--mat-sys-on-primary-container),
+      enabled-icon-color: var(--mat-sys-on-primary-container),
+      disabled-icon-color: var(--mat-sys-on-primary-container),
       container-text-weight: 800,
     )
   );
@@ -89,9 +86,9 @@ book {
 // }
 
 breadcrumb {
-  --mat-chip-label-text-color: white;
-  --mat-chip-outline-color: white;
-  --mat-chip-with-trailing-icon-trailing-icon-color: white;
+  --mat-chip-label-text-color: var(--mat-sys-on-primary-container);
+  --mat-chip-outline-color: var(--mat-sys-on-primary-container);
+  --mat-chip-with-trailing-icon-trailing-icon-color: var(--mat-sys-on-primary-container);
   align-items: center;
   column-gap: var(--o-gap);
   display: inline-flex;
@@ -117,7 +114,7 @@ item-card {
   height: 350px;
   border: 1px solid black;
   padding: 8px;
-  background: lightgrey;
+  background: var(--mat-sys-surface-bright);
 }
 
 item-card > img {

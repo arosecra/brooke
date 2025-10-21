@@ -27,7 +27,7 @@ import { MatAnchor } from "@angular/material/button";
           }}
         </strong>
       </p>
-      <button matButton="elevated" (click)="openItem()">Open</button>
+      <button matButton="tonal" (click)="openItem()">Open</button>
       <!-- @if (app.appState.currentCollection()?.openType === 'book') {
         <button (click)="copyToBooxTablet()">Boox</button>
         <button (click)="copyToKindleScribe()">Scribe</button>
