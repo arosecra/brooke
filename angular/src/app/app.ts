@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import {
 	Component,
 	computed,
+	effect,
 	HostListener,
 	inject,
 	resource,
@@ -12,7 +13,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { BookDetails, CachedFile, Item, ItemRef, NewCategory, NewCollection } from './app-model';
+import { BookDetails } from './model/book-details';
+import { ItemRef } from './model/item-ref';
+import { CachedFile } from './model/cached-file';
+import { Item } from './model/item';
+import { Category } from './model/category';
+import { Collection } from './model/collection';
 import { Breadcrumb } from './breadcrumb';
 import { LibraryDB } from './db/library-db';
 import { Files } from './fs/library-fs';
@@ -113,7 +119,7 @@ export class App {
       }),
 
       showSettings: computed(() => {
-        return !!this.appState.showSettingsManual() || !!this.appState.settingsRequired();
+        return !!this.appState.showSettingsManual() || !!this.appState.showSettingsRequired();
       }),
 
       showLoading: computed(() => {
@@ -123,8 +129,8 @@ export class App {
   };
 
   appState = {
-    currentCollection: signal<NewCollection | undefined>(undefined),
-    currentCategory: signal<NewCategory | undefined>(undefined),
+    currentCollection: signal<Collection | undefined>(undefined),
+    currentCategory: signal<Category | undefined>(undefined),
     currentSeries: signal<ItemRef | undefined>(undefined),
     currentItem: signal<Item | undefined>(undefined),
     currentPageSet: signal<number>(0),
@@ -132,15 +138,17 @@ export class App {
 
     showSettingsManual: signal<boolean>(false),
 
-    settingsRequired: computed(() => {
+    showSettingsRequired: computed(() => {
 			const library = this.resources.storedLibrary.value();
 
 			const hasCollections = library?.collections && library?.collections?.length > 0;
-			const hasCollectionMissingPermissions = library?.collections.some((val) => {
+			const hasCollectionMissingPermissions = !!library?.collections.some((val) => {
 				return !val.hasPermission;
 			});
 
-      return !library?.cacheDirectory?.hasPermission || !hasCollections || hasCollectionMissingPermissions;
+      return (!!library?.cacheDirectory && !library?.cacheDirectory?.hasPermission) 
+				|| !hasCollections 
+				|| hasCollectionMissingPermissions;
     }),
   };
 
@@ -152,12 +160,39 @@ export class App {
     })
   };
 
-  actions = {
-    openItem: (item: Item) => {},
-    onCategoryButtonClick: () => {},
-  };
+	constructor() {
 
-  onCategoryButtonClick(category: NewCategory) {
+		// const loc = this.location.path().split('/');
+		// if(loc.length > 0) {
+
+		// }
+
+		// effect(() => {
+		// 	const col =	this.appState.currentCollection();
+		// 	const cat = this.appState.currentCategory();
+		// 	const itm = this.appState.currentItem();
+		// 	const pg = this.appState.currentPageSet();
+		// 	if(col) {
+		// 		if(cat) {
+		// 			if(itm) {
+		// 				if(pg) {
+		// 					this.location.replaceState(`${col.name}/${cat.name}/${itm.name}/${pg}`);
+		// 				} else {
+		// 					this.location.replaceState(`${col.name}/${cat.name}/${itm.name}`);
+		// 				}
+		// 			} else {
+		// 					this.location.replaceState(`${col.name}/${cat.name}`);
+		// 			}
+		// 		} else {
+		// 					this.location.replaceState(`${col.name}`);
+		// 		}
+		// 	} else {
+    // 		this.location.replaceState('');
+		// 	}
+		// });
+	}
+
+  onCategoryButtonClick(category: Category) {
     if (this.appState.currentCategory()?.name === category.name) {
       this.appState.currentCategory.update(() => undefined);
     } else {
@@ -206,18 +241,17 @@ export class App {
   }
 
 	displayItem(itemRef: ItemRef, item: Item) {
-				if (this.appState.currentCollection()?.openType === 'book') {
-					this.displayBookItem(itemRef, item);
-				} else {
-					// this.displayVideoItem(item);
-				}
-
+		if (this.appState.currentCollection()?.openType === 'book') {
+			this.displayBookItem(itemRef, item);
+		} else {
+			// this.displayVideoItem(item);
+		}
 	}
 
   goToPageSet(newPageNo: number) {
     this.appState.currentPageSet.set(newPageNo);
 
-    this.location.replaceState('test');
+    // this.location.replaceState('test');
 		window.scrollTo({top: 0})
   }
 
@@ -246,7 +280,7 @@ export class App {
 
   cacheItem(itemRef: ItemRef, item: Item) {
 		const library = this.resources.storedLibrary.value() as Library;
-		const collection = library.collections.find((value) => value.name === item.collectionName) as NewCollection;
+		const collection = library.collections.find((value) => value.name === item.collectionName) as Collection;
 		this.files.cacheFile(library, collection, item).then((res) => {
 			let newCachedItem: CachedFile = {
 				collectionName: item.collectionName,
@@ -263,7 +297,6 @@ export class App {
       });
 
 			this.appDb.addLibrary(libraryUpdates);
-
 			this.resources.storedLibrary.reload();
 
 			this.displayItem(itemRef, item);

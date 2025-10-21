@@ -1,6 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { Library } from '../model/library';
-import { CachedFile, NewCategory, NewCollection, Item, Setting } from '../app-model';
+import { CachedFile } from '../model/cached-file';
+import { Item } from '../model/item';
+import { Setting } from '../model/setting';
+import { Category } from '../model/category';
+import { Collection } from '../model/collection';
 import { openDB } from './pidb';
 import { Files } from '../fs/library-fs';
 
@@ -35,8 +39,8 @@ export class LibraryDB {
     let tx = db.transaction(['collections', 'categories', 'items', 'settings', 'cache'], 'readonly');
 
     let res = new Library({
-      collections: await this.getAll<NewCollection[]>(tx, 'collections'),
-      categories: await this.getAll<NewCategory[]>(tx, 'categories'),
+      collections: await this.getAll<Collection[]>(tx, 'collections'),
+      categories: await this.getAll<Category[]>(tx, 'categories'),
       items: await this.getAll<Item[]>(tx, 'items'),
       settings: await this.getAll<Setting[]>(tx, 'settings'),
 			cachedItems: await this.getAll<CachedFile[]>(tx, 'cache'),
@@ -58,8 +62,8 @@ export class LibraryDB {
     const db = await openDB('db', 1, onUpgradeNeeded);
     let tx = db.transaction(['collections', 'categories', 'items', 'settings', 'cache'], 'readwrite');
 
-    this.addAll<NewCollection>(tx, library.collections, 'collections');
-    this.addAll<NewCategory>(tx, library.categories, 'categories');
+    this.addAll<Collection>(tx, library.collections, 'collections');
+    this.addAll<Category>(tx, library.categories, 'categories');
     this.addAll<Item>(tx, library.items, 'items');
     this.addAll<Setting>(tx, library.settings, 'settings');
     this.addAll<CachedFile>(tx, library.cachedItems, 'cache');

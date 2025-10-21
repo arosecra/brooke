@@ -2,12 +2,15 @@ import { Component, inject, input, OnInit, ViewEncapsulation } from '@angular/co
 import { App } from '../app';
 import { NgClass } from '@angular/common';
 import { ItemNamePipe } from './itemName.pipe';
-import { ItemRef, Item } from '../app-model';
+import { ItemRef } from '../model/item-ref';
+import { Item } from '../model/item';
+import { MatAnchor } from "@angular/material/button";
 
 @Component({
   selector: 'item-card',
-  imports: [NgClass, ItemNamePipe],
+  imports: [NgClass, ItemNamePipe, MatAnchor],
   template: `
+		@if(item()) {
     <img
       [ngClass]="{
         'aspect-video': app.appState.currentCollection()?.openType === 'video',
@@ -24,12 +27,13 @@ import { ItemRef, Item } from '../app-model';
           }}
         </strong>
       </p>
-      <button (click)="openItem()">Open</button>
-      @if (app.appState.currentCollection()?.openType === 'book') {
+      <button matButton="elevated" (click)="openItem()">Open</button>
+      <!-- @if (app.appState.currentCollection()?.openType === 'book') {
         <button (click)="copyToBooxTablet()">Boox</button>
         <button (click)="copyToKindleScribe()">Scribe</button>
-      }
+      } -->
     </div>
+		}
   `,
   styles: ``,
   encapsulation: ViewEncapsulation.None,

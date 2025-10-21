@@ -1,5 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Item, NewCollection, NewCategory } from '../app-model';
+import { Item } from '../model/item';
+import { Category } from '../model/category';
+import { Collection } from '../model/collection';
 
 @Pipe({
   name: 'itemName',
@@ -8,8 +10,8 @@ import { Item, NewCollection, NewCategory } from '../app-model';
 export class ItemNamePipe implements PipeTransform {
   transform(
     value: Item | string | undefined,
-    collection?: NewCollection | undefined,
-    category?: NewCategory | undefined,
+    collection?: Collection | undefined,
+    category?: Category | undefined,
     replaceCategoryName?: boolean,
     ...args: unknown[]
   ): unknown {

@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { FSEntry } from './fs-entry';
 import YAML from 'yaml';
-import { NewCollection, Item } from '../app-model';
+import { Item } from '../model/item';
+import { Collection } from '../model/collection';
 import { Library } from '../model/library';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Files {
-	async cacheFile(library: Library, collection: NewCollection, item: Item) {
+	async cacheFile(library: Library, collection: Collection, item: Item) {
 		let cacheDirectory = library?.settingsByName['cacheDirectory'].value as FileSystemDirectoryHandle;
 
 		let cdPermission = await this.hasReadWritePermission(cacheDirectory);

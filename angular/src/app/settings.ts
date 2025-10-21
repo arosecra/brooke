@@ -3,7 +3,9 @@ import { App } from './app';
 import { LibraryDB } from './db/library-db';
 import { MatButtonModule } from '@angular/material/button';
 import { Files } from './fs/library-fs';
-import { NewCategory, NewCollection, Item } from './app-model';
+import { Item } from './model/item';
+import { Category } from './model/category';
+import { Collection } from './model/collection';
 import { FSEntry } from './fs/fs-entry';
 import { Library } from './model/library';
 import { MatIconModule } from '@angular/material/icon';
@@ -97,10 +99,10 @@ export class Settings {
     let collectionFSEntry = currentDirectory['/collection.yaml'];
     let categoriesFSEntry = currentDirectory['/categories.yaml'];
 
-    let collection = await this.files.getYAMLFileContents<NewCollection>(
+    let collection = await this.files.getYAMLFileContents<Collection>(
       collectionFSEntry.handle as FileSystemFileHandle,
     );
-    let category = await this.files.getYAMLFileContents<NewCategory[]>(
+    let category = await this.files.getYAMLFileContents<Category[]>(
       categoriesFSEntry.handle as FileSystemFileHandle,
     );
 
