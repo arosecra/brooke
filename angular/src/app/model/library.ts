@@ -1,12 +1,5 @@
 import { NewCollection, NewCategory, Item, Setting, CachedFile, CacheDirectory } from '../app-model';
-
-export declare interface LibraryOptions {
-  collections: NewCollection[];
-  categories: NewCategory[];
-  items: Item[];
-  settings: Setting[];
-	cachedItems: CachedFile[];
-}
+import { LibraryOptions } from './library-options';
 
 export class Library {
   collections: NewCollection[];

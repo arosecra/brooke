@@ -67,6 +67,16 @@ export class Files {
     return true;
   }
 
+	async bytesToBase64DataUrl(bytes: any, type = "image/webp"): Promise<string> {
+		return await new Promise((resolve, reject) => {
+			const reader = Object.assign(new FileReader(), {
+				onload: () => resolve(reader.result as string),
+				onerror: () => reject(reader.error),
+			});
+			reader.readAsDataURL(new File([bytes], "", { type }));
+		});
+	}
+
   async getFiles(directoryHandle: FileSystemDirectoryHandle) {
     return this._iterateFiles(directoryHandle, '', {});
   }

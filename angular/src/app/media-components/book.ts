@@ -45,8 +45,8 @@ export class Book implements OnInit {
 	pageOrder: string[] = []
 
 	ngOnInit() {
-		let cacheDirectory = this.app.resources.storedLibrary.value()?.settingsByName['cacheDirectory'].value as FileSystemDirectoryHandle;
-		// const extract = tarStream.extract();
+		const library = this.app.resources.storedLibrary.value()
+		const cacheDirectory = library?.cacheDirectory?.handle as FileSystemDirectoryHandle;
 		const collection = this.app.appState.currentCollection();
 		const item = this.app.appState.currentItem();
 
@@ -75,7 +75,7 @@ export class Book implements OnInit {
 								this.pages[name] = { name } as Page;
 							}
 
-							this.bytesToBase64DataUrl(file.data).then((val) => {
+							this.appFs.bytesToBase64DataUrl(file.data).then((val) => {
 								if(type === 'fullPage') this.pages[name].fullPage = val;
 								if(type === 'markdown') this.pages[name].markdown = val;
 								if(type === 'thumbnail') this.pages[name].thumbnail = val;
@@ -99,16 +99,6 @@ export class Book implements OnInit {
 			});
 		});
 
-	}
-
-	async bytesToBase64DataUrl(bytes: any, type = "image/webp"): Promise<string> {
-		return await new Promise((resolve, reject) => {
-			const reader = Object.assign(new FileReader(), {
-				onload: () => resolve(reader.result as string),
-				onerror: () => reject(reader.error),
-			});
-			reader.readAsDataURL(new File([bytes], "", { type }));
-		});
 	}
 }
 
