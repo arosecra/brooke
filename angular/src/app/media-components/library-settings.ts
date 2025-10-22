@@ -41,7 +41,7 @@ export class LibrarySettings implements OnInit {
 		const categories = library?.categories;
 
 		if(items && categories) {
-			this.uncategorizedItems.filter((item) => 
+			this.uncategorizedItems = items.filter((item) => 
 				!categories.some((category) => 
 					category.items.some((itemRef) => itemRef.name === item.name)
 				)
