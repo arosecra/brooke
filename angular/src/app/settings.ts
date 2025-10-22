@@ -116,6 +116,7 @@ export class Settings {
 		this.busy.set(true);
 		this.busyMessage.set("Requesting Permission");
 		permissable.hasPermission = await this.files.getReadWritePermission(permissable.handle);
+		this.app.resources.storedLibrary.reload();
 		this.busy.set(false);
 	}
 

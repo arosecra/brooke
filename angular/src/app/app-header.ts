@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { App } from './app';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { Breadcrumb } from './breadcrumb';
+import { AppBreadcrumb } from './app-breadcrumb';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { BookToC } from './media-components/book-toc';
 
@@ -11,19 +11,19 @@ import { BookToC } from './media-components/book-toc';
   selector: 'app-header',
   imports: [
 		MatButtonModule, MatIconModule, MatToolbarModule, MatPaginatorModule,
-		BookToC, Breadcrumb, 
+		BookToC, AppBreadcrumb, 
 	],
   template: `
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="row-flex row-flex-align-center">
   <button matMiniFab >
     <mat-icon fontSet="material-symbols-outlined">newsstand</mat-icon>
   </button>
   <h1>Brooke</h1>
-  <breadcrumb></breadcrumb>
+  <app-breadcrumb class="row-flex row-flex-align-center"></app-breadcrumb>
   <span class="spacer"></span>
   
 	@if (!app.widgets.panel.showBook() && !app.widgets.panel.showSeries()) {
-		<button matMiniFab title="Modify Categories">
+		<button matMiniFab (click)="app.appState.showLibraryEditorManual.set(true)" title="Modify Categories">
 			<mat-icon fontSet="material-symbols-outlined">library_books</mat-icon>
 		</button>
 		<button matMiniFab title="Write Categories">

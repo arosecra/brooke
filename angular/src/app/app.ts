@@ -1,38 +1,30 @@
 import { Location } from '@angular/common';
 import {
-	Component,
-	computed,
-	HostListener,
-	inject,
-	resource,
-	signal,
-	ViewEncapsulation
+  Component, computed, HostListener, inject,
+  resource, signal, ViewEncapsulation,
 } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { BookDetails } from './model/book-details';
-import { ItemRef } from './model/item-ref';
-import { CachedFile } from './model/cached-file';
-import { Item } from './model/item';
-import { Category } from './model/category';
-import { Collection } from './model/collection';
-import { Breadcrumb } from './breadcrumb';
+import { PageEvent } from '@angular/material/paginator';
+import { AppHeader } from './app-header';
 import { LibraryDB } from './db/library-db';
 import { Files } from './fs/library-fs';
 import { Book } from './media-components/book';
 import { CollectionBrowser } from './media-components/collection-browser';
 import { Series } from './media-components/series';
+import { BookDetails } from './model/book-details';
+import { CachedFile } from './model/cached-file';
+import { Category } from './model/category';
+import { Collection } from './model/collection';
+import { Item } from './model/item';
+import { ItemRef } from './model/item-ref';
 import { Library } from './model/library';
 import { Settings } from './settings';
-import { AppHeader } from './app-header';
+import { LibrarySettings } from './media-components/library-settings';
 
 @Component({
   selector: 'app',
-  imports: [ AppHeader, Book, CollectionBrowser, Series, Settings ],
+  imports: [AppHeader, Book, CollectionBrowser, Series, Settings, LibrarySettings],
   template: `
-    <app-header/>
+    <app-header class="row-flex row-flex-align-center"/>
     <main>
       @if (widgets.panel.showLoading()) {
         <div>Loading</div>
@@ -42,6 +34,8 @@ import { AppHeader } from './app-header';
         <book></book>
       } @else if (widgets.panel.showSeries()) {
         <series></series>
+      } @else if (widgets.panel.showLibrarySettings()) {
+        <library-settings></library-settings>
       } @else {
         <collection-browser></collection-browser>
       }
@@ -54,7 +48,7 @@ import { AppHeader } from './app-header';
 export class App {
   location = inject(Location);
   appDb = inject(LibraryDB);
-	files = inject(Files);
+  files = inject(Files);
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
@@ -68,7 +62,7 @@ export class App {
   }
 
   handlePaginationEvent(e: PageEvent) {
-		// console.log(e);
+    // console.log(e);
     this.goToPageSet(e.pageIndex);
   }
 
@@ -88,13 +82,15 @@ export class App {
         return !!this.appState.showSettingsManual() || !!this.appState.showSettingsRequired();
       }),
 
+			showLibrarySettings: computed(() => this.appState.showLibraryEditorManual()),
+
       showLoading: computed(() => {
         return this.resources.storedLibrary.isLoading();
       }),
     },
-		book: {
-			pagesInDisplay: signal<number>(2)
-		}
+    book: {
+      pagesInDisplay: signal<number>(2),
+    },
   };
 
   appState = {
@@ -106,18 +102,21 @@ export class App {
     currentBookDetails: signal<BookDetails | undefined>(undefined),
 
     showSettingsManual: signal<boolean>(false),
+		showLibraryEditorManual: signal<boolean>(false),
 
     showSettingsRequired: computed(() => {
-			const library = this.resources.storedLibrary.value();
+      const library = this.resources.storedLibrary.value();
 
-			const hasCollections = library?.collections && library?.collections?.length > 0;
-			const hasCollectionMissingPermissions = !!library?.collections.some((val) => {
-				return !val.hasPermission;
-			});
+      const hasCollections = library?.collections && library?.collections?.length > 0;
+      const hasCollectionMissingPermissions = !!library?.collections.some((val) => {
+        return !val.hasPermission;
+      });
 
-      return (!!library?.cacheDirectory && !library?.cacheDirectory?.hasPermission) 
-				|| !hasCollections 
-				|| hasCollectionMissingPermissions;
+      return (
+        (!!library?.cacheDirectory && !library?.cacheDirectory?.hasPermission) ||
+        !hasCollections ||
+        hasCollectionMissingPermissions
+      );
     }),
   };
 
@@ -126,40 +125,14 @@ export class App {
       loader: async ({ params, abortSignal }): Promise<Library> => {
         return await this.appDb.getLibrary();
       },
-    })
+    }),
   };
 
-	constructor() {
-
-		// const loc = this.location.path().split('/');
-		// if(loc.length > 0) {
-
-		// }
-
-		// effect(() => {
-		// 	const col =	this.appState.currentCollection();
-		// 	const cat = this.appState.currentCategory();
-		// 	const itm = this.appState.currentItem();
-		// 	const pg = this.appState.currentPageSet();
-		// 	if(col) {
-		// 		if(cat) {
-		// 			if(itm) {
-		// 				if(pg) {
-		// 					this.location.replaceState(`${col.name}/${cat.name}/${itm.name}/${pg}`);
-		// 				} else {
-		// 					this.location.replaceState(`${col.name}/${cat.name}/${itm.name}`);
-		// 				}
-		// 			} else {
-		// 					this.location.replaceState(`${col.name}/${cat.name}`);
-		// 			}
-		// 		} else {
-		// 					this.location.replaceState(`${col.name}`);
-		// 		}
-		// 	} else {
-    // 		this.location.replaceState('');
-		// 	}
-		// });
-	}
+  constructor() {
+    // const loc = this.location.path().split('/');
+    // if(loc.length > 0) {
+    // }
+  }
 
   onCategoryButtonClick(category: Category) {
     if (this.appState.currentCategory()?.name === category.name) {
@@ -169,6 +142,7 @@ export class App {
     }
     this.appState.currentSeries.update(() => undefined);
     this.appState.currentItem.update(() => undefined);
+    this.setLocation();
   }
 
   openHome() {
@@ -176,18 +150,25 @@ export class App {
     this.appState.currentCategory.set(undefined);
     this.appState.currentSeries.set(undefined);
     this.appState.currentItem.set(undefined);
+    this.setLocation();
   }
 
-  openCollection() {
+  openCollection(collection?: Collection) {
+		if(collection)
+			this.appState.currentCollection.set(collection);
     this.appState.currentCategory.set(undefined);
     this.appState.currentSeries.set(undefined);
     this.appState.currentItem.set(undefined);
+    this.setLocation();
   }
 
-  openCategory() {
+  openCategory(category?: Category) {
+		if(category)
+    	this.appState.currentCategory.set(category);
     this.appState.currentSeries.set(undefined);
     this.appState.currentItem.set(undefined);
-		this.appState.currentPageSet.set(0);
+    this.appState.currentPageSet.set(0);
+    this.setLocation();
   }
 
   openItem(itemRef: ItemRef, item: Item) {
@@ -204,24 +185,50 @@ export class App {
       if (!isCached) {
         this.cacheItem(itemRef, item);
       } else {
-				this.displayItem(itemRef, item);
+        this.displayItem(itemRef, item);
       }
     }
   }
 
-	displayItem(itemRef: ItemRef, item: Item) {
-		if (this.appState.currentCollection()?.openType === 'book') {
-			this.displayBookItem(itemRef, item);
-		} else {
-			// this.displayVideoItem(item);
-		}
+	setLocation() {
+			const col =	this.appState.currentCollection()?.name?.toLowerCase();
+    	const cat = this.appState.currentCategory()?.name?.toLowerCase();
+    	const itm = this.appState.currentItem()?.name?.toLowerCase();
+    	const pg = this.appState.currentPageSet();
+    	if(col) {
+    		if(cat) {
+    			if(itm) {
+    				if(pg) {
+    					this.location.replaceState(`${col}/${cat}/${itm}/${pg}`);
+    				} else {
+    					this.location.replaceState(`${col}/${cat}/${itm}`);
+    				}
+    			} else {
+    					this.location.replaceState(`${col}/${cat}`);
+    			}
+    		} else {
+    					this.location.replaceState(`${col}`);
+    		}
+    	} else {
+    		this.location.replaceState('');
+    	}
 	}
+
+  displayItem(itemRef: ItemRef, item: Item) {
+    if (this.appState.currentCollection()?.openType === 'book') {
+      this.displayBookItem(itemRef, item);
+    } else {
+      // this.displayVideoItem(item);
+    }
+    this.setLocation();
+  }
 
   goToPageSet(newPageNo: number) {
     this.appState.currentPageSet.set(newPageNo);
+    this.setLocation();
 
     // this.location.replaceState('test');
-		window.scrollTo({top: 0})
+    window.scrollTo({ top: 0 });
   }
 
   goToNextPage() {
@@ -232,21 +239,21 @@ export class App {
     this.goToPageSet(this.appState.currentPageSet() - 1);
   }
 
-	toggleOneOrTwoPageMode() {
-		if(this.widgets.book.pagesInDisplay() === 1) {
-			this.widgets.book.pagesInDisplay.set(2);
-			this.appState.currentPageSet.update((val) => { 
-				let newVal = val / 2; 
-				if(val % 2) {
-					newVal = (val - 1) / 2
-				}
-				return newVal;
-			});
-		} else {
-			this.appState.currentPageSet.update((val) => val * 2);
-			this.widgets.book.pagesInDisplay.set(1);
-		}
-	}
+  toggleOneOrTwoPageMode() {
+    if (this.widgets.book.pagesInDisplay() === 1) {
+      this.widgets.book.pagesInDisplay.set(2);
+      this.appState.currentPageSet.update((val) => {
+        let newVal = val / 2;
+        if (val % 2) {
+          newVal = (val - 1) / 2;
+        }
+        return newVal;
+      });
+    } else {
+      this.appState.currentPageSet.update((val) => val * 2);
+      this.widgets.book.pagesInDisplay.set(1);
+    }
+  }
 
   private displayBookItem(itemRef: ItemRef, item: Item) {
     this.appState.currentItem.update(() => item);
@@ -264,16 +271,18 @@ export class App {
   // }
 
   cacheItem(itemRef: ItemRef, item: Item) {
-		const library = this.resources.storedLibrary.value() as Library;
-		const collection = library.collections.find((value) => value.name === item.collectionName) as Collection;
-		this.files.cacheFile(library, collection, item).then((res) => {
-			let newCachedItem: CachedFile = {
-				collectionName: item.collectionName,
-				itemName: item.name,
-				filename: res as string
-			}
+    const library = this.resources.storedLibrary.value() as Library;
+    const collection = library.collections.find(
+      (value) => value.name === item.collectionName,
+    ) as Collection;
+    this.files.cacheFile(library, collection, item).then((res) => {
+      let newCachedItem: CachedFile = {
+        collectionName: item.collectionName,
+        itemName: item.name,
+        filename: res as string,
+      };
 
-			let libraryUpdates = new Library({
+      let libraryUpdates = new Library({
         collections: [],
         categories: [],
         items: [],
@@ -281,10 +290,10 @@ export class App {
         cachedItems: [newCachedItem],
       });
 
-			this.appDb.addLibrary(libraryUpdates);
-			this.resources.storedLibrary.reload();
+      this.appDb.addLibrary(libraryUpdates);
+      this.resources.storedLibrary.reload();
 
-			this.displayItem(itemRef, item);
-		});
+      this.displayItem(itemRef, item);
+    });
   }
 }

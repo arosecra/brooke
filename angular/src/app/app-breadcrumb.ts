@@ -6,7 +6,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatChipAndRemove } from './media-components/mat-chip-and-remove';
 
 @Component({
-  selector: 'breadcrumb',
+  selector: 'app-breadcrumb',
   imports: [MatIconModule, MatButtonModule, MatChipsModule, MatChipAndRemove],
   template: `
     @if (app.appState.currentCollection()) {
@@ -30,10 +30,17 @@ import { MatChipAndRemove } from './media-components/mat-chip-and-remove';
         (removed)="app.openCategory()"
       />
     }
+    @if (app.appState.currentItem()) {
+      <mat-icon fontSet="material-symbols-outlined">chevron_right</mat-icon>
+      <mat-chip-and-remove
+        [label]="app.appState.currentItem()?.name"
+        (removed)="app.openCategory()"
+      />
+    }
   `,
   styles: ``,
   encapsulation: ViewEncapsulation.None,
 })
-export class Breadcrumb {
+export class AppBreadcrumb {
   app = inject(App);
 }

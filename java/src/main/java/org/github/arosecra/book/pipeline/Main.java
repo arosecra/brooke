@@ -182,8 +182,8 @@ public class Main {
 
 	private static MasterSchedule setupMasterSchedule() {
 		RootFolder lightNovels = new RootFolder("Light Novels", RemoteFolder.getLeafFolders("\\\\syn01\\syn01public\\Scans\\Light_Novels_Repository"));
-//		RootFolder fiction = new RootFolder("Fiction", RemoteFolder.getLeafFolders("\\\\syn01\\syn01public\\Scans\\Fiction_Repository"));
-//		RootFolder nonfiction = new RootFolder("Non Fiction", RemoteFolder.getLeafFolders("\\\\syn01\\syn01public\\Scans\\NonFiction_Repository"));
+		RootFolder fiction = new RootFolder("Fiction", RemoteFolder.getLeafFolders("\\\\syn01\\syn01public\\Scans\\Fiction_Repository"));
+		RootFolder nonfiction = new RootFolder("Non Fiction", RemoteFolder.getLeafFolders("\\\\syn01\\syn01public\\Scans\\NonFiction_Repository"));
 //		RootFolder graphicNovels = new RootFolder("Graphic Novels", RemoteFolder.getLeafFolders("\\\\syn01\\syn01public\\Scans\\Graphic_Novel_Repository"));
 //		RootFolder magazines = new RootFolder("Magazines", RemoteFolder.getLeafFolders("\\\\syn01\\syn01public\\Scans\\Magazine_Repository"));
 //		RootFolder researchPapers = new RootFolder("Research Papers", RemoteFolder.getLeafFolders("\\\\syn01\\syn01public\\Scans\\Research_Papers_Repository"));
@@ -240,6 +240,16 @@ public class Main {
 				.schedule(bookCbtDetailsPipeline, lightNovels) //
 				.schedule(bookCoverThumbnailPipeline, lightNovels) //
 				.schedule(bookCbtPipeline, lightNovels) //
+				//
+//				.schedule(bookOcrPropPipeline, nonfiction) //
+				.schedule(bookCbtDetailsPipeline, fiction) //
+				.schedule(bookCoverThumbnailPipeline, fiction) //
+				.schedule(bookCbtPipeline, fiction) //
+				//
+//				.schedule(bookOcrPropPipeline, nonfiction) //
+				.schedule(bookCbtDetailsPipeline, nonfiction) //
+				.schedule(bookCoverThumbnailPipeline, nonfiction) //
+				.schedule(bookCbtPipeline, nonfiction) //
 		;
 		return ms;
 	}
