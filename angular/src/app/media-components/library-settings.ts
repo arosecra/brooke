@@ -1,10 +1,11 @@
 import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { App } from '../app';
 import { Item } from '../model/item';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'library-settings',
-  imports: [],
+  imports: [MatButtonModule],
   template: `
 		<!--
 			3 things we can do. - Change the Category an item is in
@@ -24,6 +25,7 @@ import { Item } from '../model/item';
 		} @else {
 			<div>There are no uncategorized items</div>
 		}
+		<button mat-raised-button (click)="app.appState.showLibraryEditorManual.set(false)">Done</button>
   `,
   styles: ``,
   encapsulation: ViewEncapsulation.None,
