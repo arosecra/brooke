@@ -13,7 +13,6 @@ public class ConvertBookImageToWebpStep implements JobStep {
 	@Override
 	public void execute(Pipeline pipeline, JobFolder job) throws IOException {
 		convertFolder(job.destFolder);
-		convertFolder(new File(job.destFolder, ".thumbnails"));
 	}
 	
 	private void convertFolder(File folder) {

@@ -16,7 +16,7 @@ public class CreateCoverThumbnailStep implements JobStep {
 	public void execute(Pipeline pipeline, JobFolder job) throws IOException {
 		File remoteThumbnail = new File(job.destFolder, "thumbnail.png");
 		
-		for(File file : job.destFolder.listFiles()) {
+		for(File file : job.tempFolder.listFiles()) {
 			if(file.getName().endsWith("png")) {
 				byte[] img = Files.readAllBytes(file.toPath());
 				byte[] resizedImg = Images.resizeImageToWidth(img, 250);

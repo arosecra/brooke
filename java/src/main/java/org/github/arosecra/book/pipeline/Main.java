@@ -45,7 +45,7 @@ public class Main {
 	}
 
 	private static void executeMasterSchedule(MasterSchedule ms) throws IOException {
-		ExecutorService executor = Executors.newFixedThreadPool(6);
+		ExecutorService executor = Executors.newFixedThreadPool(3);
 		
 		
 		for(Schedule schedule : ms.schedules) {
@@ -53,6 +53,15 @@ public class Main {
 			for(int i = 0; i < schedule.workRequired.size(); i++) {
 				RemoteFolder rf = schedule.workRequired.get(i);
 				JobSubStep jss = new JobSubStep(schedule.pipeline.name, rf.folder, i, schedule.workRequired.size());
+				
+				//for debugging
+//				jss.start();
+//				jss.printStartLn();
+//                SinglePipelineExecutor single = new SinglePipelineExecutor();
+//                single.executePipelineForFolder(schedule, rf);
+//				jss.printStart();
+//				jss.endAndPrint();
+				
 				
 	            executor.submit(() -> {
 					
