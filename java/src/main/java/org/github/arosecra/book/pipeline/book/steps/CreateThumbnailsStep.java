@@ -16,14 +16,19 @@ public class CreateThumbnailsStep implements JobStep {
 	public void execute(Pipeline pipeline, JobFolder job) throws IOException {
 		File thumbnailsFolder = new File(job.destFolder, ".thumbnails");
 		thumbnailsFolder.mkdirs();
-		
-		for(File file : job.destFolder.listFiles()) {
-			if(file.getName().endsWith("png")) {
-				byte[] img = Files.readAllBytes(file.toPath());
-				byte[] resizedImg = Images.resizeImageToWidth(img, 250);
-				Files.write(new File(thumbnailsFolder, file.getName()).toPath(), resizedImg, StandardOpenOption.CREATE_NEW);
+
+		for (File file : job.destFolder.listFiles()) {
+			if (file.getName().endsWith("png")) {
+				this.handleSingleFile(thumbnailsFolder, file, job);
+				System.gc();
 			}
 		}
 	}
-	
+
+	private void handleSingleFile(File thumbnailsFolder, File file, JobFolder job) throws IOException {
+		byte[] img = Files.readAllBytes(file.toPath());
+		byte[] resizedImg = Images.resizeImageToWidth(img, 250);
+		Files.write(new File(thumbnailsFolder, file.getName()).toPath(), resizedImg, StandardOpenOption.CREATE_NEW);
+	}
+
 }

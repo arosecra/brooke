@@ -27,25 +27,30 @@ public class ModifyBookImageStep implements JobStep {
 
 	@Override
 	public void execute(Pipeline pipeline, JobFolder job) throws IOException {
-		for (File file : job.tempFolder.listFiles()) {
-
-			File outputFile = new File(job.destFolder, file.getName());
-			BufferedImage originalImage = ImageIO.read(file);
-			if (isColor(originalImage)) {
+		File[] fileList = job.tempFolder.listFiles();
+		for (int i = 0; i < fileList.length; i++) {
+			File file = fileList[i];
+			this.handleSingleFile(file, job);
+            System.gc();
+		}
+	}
+	
+	private void handleSingleFile(File file, JobFolder job) throws IOException {
+		File outputFile = new File(job.destFolder, file.getName());
+		BufferedImage originalImage = ImageIO.read(file);
+		if (isColor(originalImage)) {
+			Files.move(file.toPath(), Path.of(job.destFolder.toPath().toString(), file.getName()),
+					StandardCopyOption.REPLACE_EXISTING);
+		} else {
+			double skew = imageMagickDeskewRadians(file);
+			if (skew != 0) {
+				rotateImage(originalImage, skew, outputFile);
+				file.delete();
+			} else {
 				Files.move(file.toPath(), Path.of(job.destFolder.toPath().toString(), file.getName()),
 						StandardCopyOption.REPLACE_EXISTING);
-			} else {
-				double skew = imageMagickDeskewRadians(file);
-				if (skew != 0) {
-					rotateImage(originalImage, skew, outputFile);
-					file.delete();
-				} else {
-					Files.move(file.toPath(), Path.of(job.destFolder.toPath().toString(), file.getName()),
-							StandardCopyOption.REPLACE_EXISTING);
-				}
 			}
 		}
-
 	}
 
 	private void rotateImage(BufferedImage image, double skew, File outputFile) throws IOException {

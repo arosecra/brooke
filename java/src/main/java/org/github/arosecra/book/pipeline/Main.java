@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.github.arosecra.book.pipeline.book.steps.ConvertBookImageToWebpStep;
 import org.github.arosecra.book.pipeline.book.steps.CreateCBTDetails;
@@ -43,67 +45,88 @@ public class Main {
 	}
 
 	private static void executeMasterSchedule(MasterSchedule ms) throws IOException {
+		ExecutorService executor = Executors.newFixedThreadPool(6);
+		
+		
 		for(Schedule schedule : ms.schedules) {
 			System.out.println("Processing " + schedule.workRequired.size() + " folders through pipeline " + schedule.pipeline.name);
 			for(int i = 0; i < schedule.workRequired.size(); i++) {
 				RemoteFolder rf = schedule.workRequired.get(i);
 				JobSubStep jss = new JobSubStep(schedule.pipeline.name, rf.folder, i, schedule.workRequired.size());
-				jss.start();
-				jss.printStartLn();
-				executePipelineForFolder(schedule, schedule.workRequired.get(i));
-				jss.printStart();
-				jss.endAndPrint();
+				
+	            executor.submit(() -> {
+					
+					jss.start();
+					jss.printStartLn();
+	                try {
+		                SinglePipelineExecutor single = new SinglePipelineExecutor();
+		                single.executePipelineForFolder(schedule, rf);
+						jss.printStart();
+						jss.endAndPrint();
+	                } catch (Exception e) {
+	                    Thread.currentThread().interrupt();
+	                }
+	            });
+	            
+	            
+	            System.gc();
+				
+				
+//				executePipelineForFolder(schedule, schedule.workRequired.get(i));
 			}
 		}
-	}
-
-	private static void executePipelineForFolder(Schedule schedule, RemoteFolder rf) throws IOException {
-		JobFolder jf = createJobFolder(rf);
-		copySourceFilesLocally(schedule, rf, jf);
-		executeSteps(schedule, rf, jf);
-		copyProducedFilesToRemote(schedule, rf, jf);
-		rf.contents = rf.folder.listFiles();
-		Try.deleteFolder(jf.workFolder.toPath());
-	}
-
-	private static void executeSteps(Schedule schedule, RemoteFolder rf, JobFolder jf) throws IOException {
-		for(int i = 0; i < schedule.pipeline.steps.size(); i++) {
-			JobStep js = schedule.pipeline.steps.get(i);
-			JobSubStep jss = new JobSubStep(js.getClass().getSimpleName(), rf.folder, i, schedule.pipeline.steps.size());
-			jss.start();
-			jss.printStartLn();
-			js.execute(schedule.pipeline, jf);
-			jss.printStart();
-			jss.endAndPrint();
-		}
-	}
-
-	private static void copyProducedFilesToRemote(Schedule schedule, RemoteFolder rf, JobFolder jf) throws IOException {
-		for(File file : jf.destFolder.listFiles()) {
-			if(file.getName().matches(schedule.pipeline.produces)) {
-				Files.copy(file.toPath(), Path.of(rf.folder.getAbsolutePath(), file.getName()), StandardCopyOption.REPLACE_EXISTING);
-			}
-		}
-	}
-
-	private static void copySourceFilesLocally(Schedule schedule, RemoteFolder rf, JobFolder jf) throws IOException {
-		for(File file : rf.contents) {
-			if(file.getName().matches(schedule.pipeline.uses)) {
-				Files.copy(file.toPath(), Path.of(jf.sourceFolder.getAbsolutePath(), file.getName()), StandardCopyOption.REPLACE_EXISTING);
-			}
-		}
-	}
-
-	private static JobFolder createJobFolder(RemoteFolder rf) {
-		JobFolder jf = new JobFolder();
-		jf.remoteFolder = rf;
 		
-		jf.workFolder = createFileAndMkdirs(new File(WORK_DIRECTORY), rf.folder.getName());
-		jf.sourceFolder = createFileAndMkdirs(jf.workFolder, "source");
-		jf.destFolder = createFileAndMkdirs(jf.workFolder, "dest");
-		jf.tempFolder = createFileAndMkdirs(jf.workFolder, "temp");
-		return jf;
+		
+		executor.shutdown();
 	}
+
+//	private static void executePipelineForFolder(Schedule schedule, RemoteFolder rf) throws IOException {
+//		JobFolder jf = createJobFolder(rf);
+//		copySourceFilesLocally(schedule, rf, jf);
+//		executeSteps(schedule, rf, jf);
+//		copyProducedFilesToRemote(schedule, rf, jf);
+//		rf.contents = rf.folder.listFiles();
+//		Try.deleteFolder(jf.workFolder.toPath());
+//	}
+//
+//	private static void executeSteps(Schedule schedule, RemoteFolder rf, JobFolder jf) throws IOException {
+//		for(int i = 0; i < schedule.pipeline.steps.size(); i++) {
+//			JobStep js = schedule.pipeline.steps.get(i);
+//			JobSubStep jss = new JobSubStep(js.getClass().getSimpleName(), rf.folder, i, schedule.pipeline.steps.size());
+//			jss.start();
+//			jss.printStartLn();
+//			js.execute(schedule.pipeline, jf);
+//			jss.printStart();
+//			jss.endAndPrint();
+//		}
+//	}
+//
+//	private static void copyProducedFilesToRemote(Schedule schedule, RemoteFolder rf, JobFolder jf) throws IOException {
+//		for(File file : jf.destFolder.listFiles()) {
+//			if(file.getName().matches(schedule.pipeline.produces)) {
+//				Files.copy(file.toPath(), Path.of(rf.folder.getAbsolutePath(), file.getName()), StandardCopyOption.REPLACE_EXISTING);
+//			}
+//		}
+//	}
+//
+//	private static void copySourceFilesLocally(Schedule schedule, RemoteFolder rf, JobFolder jf) throws IOException {
+//		for(File file : rf.contents) {
+//			if(file.getName().matches(schedule.pipeline.uses)) {
+//				Files.copy(file.toPath(), Path.of(jf.sourceFolder.getAbsolutePath(), file.getName()), StandardCopyOption.REPLACE_EXISTING);
+//			}
+//		}
+//	}
+//
+//	private static JobFolder createJobFolder(RemoteFolder rf) {
+//		JobFolder jf = new JobFolder();
+//		jf.remoteFolder = rf;
+//		
+//		jf.workFolder = createFileAndMkdirs(new File(WORK_DIRECTORY), rf.folder.getName());
+//		jf.sourceFolder = createFileAndMkdirs(jf.workFolder, "source");
+//		jf.destFolder = createFileAndMkdirs(jf.workFolder, "dest");
+//		jf.tempFolder = createFileAndMkdirs(jf.workFolder, "temp");
+//		return jf;
+//	}
 
 	private static void summarize(MasterSchedule ms) {
 		for(Schedule schedule : ms.schedules) {
@@ -117,11 +140,11 @@ public class Main {
 		}
 	}
 	
-	private static File createFileAndMkdirs(File base, String name) {
-		File ret = new File(base, name);
-		ret.mkdirs();
-		return ret;
-	}
+//	private static File createFileAndMkdirs(File base, String name) {
+//		File ret = new File(base, name);
+//		ret.mkdirs();
+//		return ret;
+//	}
 
 	private static void printSummary(MasterSchedule ms) {
 		System.out.println(String.format("%24s %48s %8s", //
@@ -254,4 +277,62 @@ public class Main {
 		return ms;
 	}
 
+}
+
+
+class SinglePipelineExecutor extends Thread {
+
+	public void executePipelineForFolder(Schedule schedule, RemoteFolder rf) throws IOException {
+		JobFolder jf = createJobFolder(rf);
+		copySourceFilesLocally(schedule, rf, jf);
+		executeSteps(schedule, rf, jf);
+		copyProducedFilesToRemote(schedule, rf, jf);
+		rf.contents = rf.folder.listFiles();
+		Try.deleteFolder(jf.workFolder.toPath());
+	}
+
+	private void executeSteps(Schedule schedule, RemoteFolder rf, JobFolder jf) throws IOException {
+		for(int i = 0; i < schedule.pipeline.steps.size(); i++) {
+			JobStep js = schedule.pipeline.steps.get(i);
+			JobSubStep jss = new JobSubStep(js.getClass().getSimpleName(), rf.folder, i, schedule.pipeline.steps.size());
+			jss.start();
+			jss.printStartLn();
+			js.execute(schedule.pipeline, jf);
+			jss.printStart();
+			jss.endAndPrint();
+		}
+	}
+
+	private void copyProducedFilesToRemote(Schedule schedule, RemoteFolder rf, JobFolder jf) throws IOException {
+		for(File file : jf.destFolder.listFiles()) {
+			if(file.getName().matches(schedule.pipeline.produces)) {
+				Files.copy(file.toPath(), Path.of(rf.folder.getAbsolutePath(), file.getName()), StandardCopyOption.REPLACE_EXISTING);
+			}
+		}
+	}
+
+	private void copySourceFilesLocally(Schedule schedule, RemoteFolder rf, JobFolder jf) throws IOException {
+		for(File file : rf.contents) {
+			if(file.getName().matches(schedule.pipeline.uses)) {
+				Files.copy(file.toPath(), Path.of(jf.sourceFolder.getAbsolutePath(), file.getName()), StandardCopyOption.REPLACE_EXISTING);
+			}
+		}
+	}
+
+	private JobFolder createJobFolder(RemoteFolder rf) {
+		JobFolder jf = new JobFolder();
+		jf.remoteFolder = rf;
+		
+		jf.workFolder = createFileAndMkdirs(new File(Main.WORK_DIRECTORY), rf.folder.getName());
+		jf.sourceFolder = createFileAndMkdirs(jf.workFolder, "source");
+		jf.destFolder = createFileAndMkdirs(jf.workFolder, "dest");
+		jf.tempFolder = createFileAndMkdirs(jf.workFolder, "temp");
+		return jf;
+	}
+	
+	private File createFileAndMkdirs(File base, String name) {
+		File ret = new File(base, name);
+		ret.mkdirs();
+		return ret;
+	}
 }
