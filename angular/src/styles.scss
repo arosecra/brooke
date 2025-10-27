@@ -89,6 +89,21 @@ book.one-page {
   align-items: end;
 }
 
+book .thumbnails {
+	display: flex;
+  flex-wrap: wrap;
+  align-content: flex-end;
+	align-items:flex-end;
+	justify-content: center;
+  gap: 16px;
+}
+
+book .thumbnails mat-card-subtitle {
+	display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
 // book-page-turner {
 // 	color: white;
 // 	display: inline-flex;
@@ -115,7 +130,7 @@ h5 {
   text-wrap-mode: nowrap;
 }
 
-mat-toolbar {
+mat-toolbar-row {
   column-gap: 8px;
 }
 

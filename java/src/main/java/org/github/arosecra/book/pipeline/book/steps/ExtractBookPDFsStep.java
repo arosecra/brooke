@@ -45,7 +45,7 @@ public class ExtractBookPDFsStep implements JobStep {
 			if (file.getName().endsWith("pdf") && file.getName().contains("covers")) {
 				JobSubStep jss = new JobSubStep("Extract", job.workFolder, 1, pdfCount);
 				jss.startAndPrint();
-				extractPdf(file, job.tempFolder.getAbsolutePath() + "\\" + job.workFolder.getName() + "-000-%03d.png",
+				extractPdf(file, job.tempFolder.getAbsolutePath() + "\\" + job.workFolder.getName() + "-000-8-%03d.png",
 						300, "png16m");
 				jss.endAndPrint();
 			}
@@ -54,17 +54,19 @@ public class ExtractBookPDFsStep implements JobStep {
 		for (int i = 0; i < workFiles.length; i++) {
 			File file = workFiles[i];
 			if (file.getName().endsWith("pdf") && !file.getName().contains("covers")) {
-				String prefix = String.format("%03d", i + 1);
+				String prefix = String.format("-%03d", i + 1);
 				String colorSpace = "pngmono";
+				String colorPrefix = "-1";
 				int size = 1200;
 				if (file.getName().contains("color")) {
 					size = 300;
 					colorSpace = "png16m";
+					colorPrefix = "-8";
 				}
 				JobSubStep jss = new JobSubStep("Extract", job.workFolder, i + 2, pdfCount);
 				jss.startAndPrint();
 				extractPdf(file,
-						job.tempFolder.getAbsolutePath() + "\\" + job.workFolder.getName() + "-" + prefix + "-%03d.png",
+						job.tempFolder.getAbsolutePath() + "\\" + job.workFolder.getName() + prefix + colorPrefix + "-%03d.png",
 						size, colorSpace);
 				jss.endAndPrint();
 			}

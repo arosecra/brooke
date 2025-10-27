@@ -45,7 +45,7 @@ public class Main {
 	}
 
 	private static void executeMasterSchedule(MasterSchedule ms) throws IOException {
-		ExecutorService executor = Executors.newFixedThreadPool(3);
+		ExecutorService executor = Executors.newFixedThreadPool(2);
 		
 		
 		for(Schedule schedule : ms.schedules) {
@@ -55,27 +55,27 @@ public class Main {
 				JobSubStep jss = new JobSubStep(schedule.pipeline.name, rf.folder, i, schedule.workRequired.size());
 				
 				//for debugging
-//				jss.start();
-//				jss.printStartLn();
-//                SinglePipelineExecutor single = new SinglePipelineExecutor();
-//                single.executePipelineForFolder(schedule, rf);
-//				jss.printStart();
-//				jss.endAndPrint();
+				jss.start();
+				jss.printStartLn();
+                SinglePipelineExecutor single = new SinglePipelineExecutor();
+                single.executePipelineForFolder(schedule, rf);
+				jss.printStart();
+				jss.endAndPrint();
 				
 				
-	            executor.submit(() -> {
-					
-					jss.start();
-					jss.printStartLn();
-	                try {
-		                SinglePipelineExecutor single = new SinglePipelineExecutor();
-		                single.executePipelineForFolder(schedule, rf);
-						jss.printStart();
-						jss.endAndPrint();
-	                } catch (Exception e) {
-	                    Thread.currentThread().interrupt();
-	                }
-	            });
+//	            executor.submit(() -> {
+//					
+//					jss.start();
+//					jss.printStartLn();
+//	                try {
+//		                SinglePipelineExecutor single = new SinglePipelineExecutor();
+//		                single.executePipelineForFolder(schedule, rf);
+//						jss.printStart();
+//						jss.endAndPrint();
+//	                } catch (Exception e) {
+//	                    Thread.currentThread().interrupt();
+//	                }
+//	            });
 	            
 	            
 	            System.gc();
@@ -268,7 +268,7 @@ public class Main {
 		;
 		
 		MasterSchedule ms = new MasterSchedule() //
-				.schedule(bookOcrPropPipeline, lightNovels) //
+//				.schedule(bookOcrPropPipeline, lightNovels) //
 				.schedule(bookCbtDetailsPipeline, lightNovels) //
 				.schedule(bookCoverThumbnailPipeline, lightNovels) //
 				.schedule(bookCbtPipeline, lightNovels) //

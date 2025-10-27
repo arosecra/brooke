@@ -8,4 +8,8 @@ export declare interface BookDetails {
 	compression: number;
 
 	tocEntries: ToCEntry[];
+	
+	imagePages?: string[];
+	excludePages?: string[];
+	blankPages?: string[];
 }

@@ -28,13 +28,14 @@ public class OCRProperties {
 	}
 
 	public static OCRProperties fromProperties(File file) {
-		Properties ocrProperties = new Properties();
+		OCRProperties res = new OCRProperties();
+		if(file.exists()) {
+			Properties ocrProperties = new Properties();
 		try (InputStream is = new BufferedInputStream(new FileInputStream(file))) {
 			ocrProperties.load(is);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		OCRProperties res = new OCRProperties();
 		if(ocrProperties.get("excludePages") != null) {
 			String[] propsExcluded = ocrProperties.get("excludePages").toString().split(",");
 			res.excludedPages = Arrays.asList(propsExcluded);
@@ -47,6 +48,7 @@ public class OCRProperties {
 		if(ocrProperties.get("blankPages") != null) {
 			String[] propsBlank = ocrProperties.get("blankPages").toString().split(",");
 			res.blankPages = Arrays.asList(propsBlank);			
+		}
 		}
 
 		return res;

@@ -6,36 +6,72 @@ import { Files } from '../fs/library-fs';
 import { Item } from '../model/item';
 import { Collection } from '../model/collection';
 import { Library } from '../model/library';
-
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'book',
-  imports: [],
+  imports: [MatCardModule, MatButtonModule, MatButtonToggleModule, MatIconModule, FormsModule],
 	host: {
-		'[class.one-page]': 'app.widgets.book.pagesInDisplay() === 1',
-		'[class.two-page]': 'app.widgets.book.pagesInDisplay() === 2',
+		'[class.one-page]': '!app.widgets.book.thumbnailView() && app.widgets.book.pagesInDisplay() === 1',
+		'[class.two-page]': '!app.widgets.book.thumbnailView() && app.widgets.book.pagesInDisplay() === 2',
 	},
   template: `
 	@if(bookCbt.hasValue()) {
-		@let pagesInDisplay = app.widgets.book.pagesInDisplay();
-		@let leftPageNo = app.appState.currentPageSet() * pagesInDisplay;
-		@let rightPageNo = leftPageNo + 1;
+		@if(!app.widgets.book.thumbnailView()) {
+			@let pagesInDisplay = app.widgets.book.pagesInDisplay();
+			@let leftPageNo = app.appState.currentPageSet() * pagesInDisplay;
+			@let rightPageNo = leftPageNo + 1;
 
-		@let showRightPage = pagesInDisplay === 2 && 
-			bookCbt.value().length > rightPageNo;
+			@let showRightPage = pagesInDisplay === 2 && 
+				bookCbt.value().length > rightPageNo;
 
-		@if(bookCbt.value().length > leftPageNo) {
-			<img #leftPage
-				style="width: 100%"
-				[src]="bookCbt.value()[leftPageNo].fullPage"
-			/>
+			@if(bookCbt.value().length > leftPageNo) {
+				<img #leftPage
+					style="width: 100%"
+					[src]="bookCbt.value()[leftPageNo].fullPage"
+				/>
+			}
+			@if(showRightPage) {
+				<img #rightPage
+					style="width: 100%"
+					[src]="bookCbt.value()[rightPageNo].fullPage"
+				/>
+			} 
+
+		} @else {
+			<div class="thumbnails">
+		<!-- TODO add bookmark button to indicate this is a TOC target -->
+				@for(page of bookCbt.value(); track $index) {
+					<mat-card>
+						<mat-card-header>
+							<mat-card-title>{{page.name}}</mat-card-title>
+							<mat-card-subtitle>{{$index}}
+								<button matMiniFab > <!-- save ocr details -->
+									<mat-icon fontSet="material-symbols-outlined">bookmark</mat-icon>
+								</button>
+
+
+							</mat-card-subtitle>
+						</mat-card-header>
+						<img mat-card-image
+							[src]="page.thumbnail"
+						/>
+						<mat-card-actions>
+							<mat-button-toggle-group name="page-type-{{$index}}" [(ngModel)]="page.type">
+								<mat-button-toggle value="Text"> Text </mat-button-toggle>
+								<mat-button-toggle value="Image"> Image </mat-button-toggle>
+								<mat-button-toggle value="Blank"> Blank </mat-button-toggle>
+								<mat-button-toggle value="Exclude"> Exclude </mat-button-toggle>
+							</mat-button-toggle-group>
+						</mat-card-actions>
+					</mat-card>
+				}
+			</div>
 		}
-		@if(showRightPage) {
-			<img #rightPage
-				style="width: 100%"
-				[src]="bookCbt.value()[rightPageNo].fullPage"
-			/>
-		} 
 
 	} @else {
 		<div>Loading...</div>
@@ -74,12 +110,25 @@ export class Book {
 
 					for(let i = 0; i < webpFiles.length; i++) {
 						const file = webpFiles[i];
+						const basename = file.name.replaceAll('.webp', '');
 						let base64 = await this.appFs.bytesToBase64DataUrl(file.data);
 						let page = {
+							name: basename,
 							fullPage: base64
 						} as Page;
+
+						if(item?.bookDetails?.blankPages?.includes(basename)) {
+							page.type = 'Blank';
+						} else if(item?.bookDetails?.imagePages?.includes(basename)) {
+							page.type = 'Image';
+						} else if(item?.bookDetails?.excludePages?.includes(basename)) {
+							page.type = 'Exclude';
+						} else {
+							page.type = 'Text';
+						}
+
 						pages.push(page);
-						pagesByName[file.name.replaceAll('.webp', '')] = page;
+						pagesByName[basename] = page;
 					}
 
 					for(let i = 0; i < thumbnailFiles.length; i++) {
@@ -96,8 +145,6 @@ export class Book {
 						pagesByName[name].markdown = decoder.decode(file.data);
 					}
 					resolve(pages);
-
-					
 				});
       },
     });
@@ -126,7 +173,9 @@ export class Book {
 }
 
 export declare interface Page {
+	name: string;
 	markdown: string;
 	thumbnail: string;
 	fullPage: string;
+	type: 'Text' | 'Image' | 'Blank' | 'Exclude' 
 }

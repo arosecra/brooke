@@ -20,7 +20,8 @@ public class CreateThumbnailsStep implements JobStep {
 			"mogrify", 
 			"-path", thumbnailsFolder.getAbsolutePath(),
 			"-format", "webp",
-			"-thumbnail", "250x", "*.png"
+			"-depth", "1",
+			"-adaptive-resize", "250x>", "*.png"
 			    
 		}, job.destFolder, System.out);
 	}

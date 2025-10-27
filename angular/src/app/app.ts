@@ -46,6 +46,9 @@ import { LibrarySettings } from './media-components/library-settings';
   providers: [],
 })
 export class App {
+updateItem() {
+throw new Error('Method not implemented.');
+}
   location = inject(Location);
   appDb = inject(LibraryDB);
   files = inject(Files);
@@ -90,6 +93,7 @@ export class App {
     },
     book: {
       pagesInDisplay: signal<number>(2),
+			thumbnailView: signal<boolean>(false),
     },
   };
 
@@ -238,6 +242,10 @@ export class App {
   goToPreviousPage() {
     this.goToPageSet(this.appState.currentPageSet() - 1);
   }
+
+	toggleThumbnailView() {
+		this.widgets.book.thumbnailView.update((val) => !val);
+	}
 
   toggleOneOrTwoPageMode() {
     if (this.widgets.book.pagesInDisplay() === 1) {

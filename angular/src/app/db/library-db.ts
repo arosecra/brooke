@@ -51,9 +51,11 @@ export class LibraryDB {
       );
     }
 		const setting = res.settings?.find((val) => val.name === 'cacheDirectory');
-		res.cacheDirectory = {
-			handle: setting?.value,
-			hasPermission:  setting && await this.files.hasReadWritePermission(setting.value)
+		if(setting) {
+			res.cacheDirectory = {
+				handle: setting?.value,
+				hasPermission:  setting && await this.files.hasReadWritePermission(setting.value)
+			}
 		}
     return res;
   }

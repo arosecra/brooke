@@ -20,8 +20,12 @@ public class ConvertBookImageToWebpStep implements JobStep {
 			if(inputFile.getName().endsWith("png")) {
 				File outputFile = new File(folder, inputFile.getName().replace(".png", ".webp"));
 
-				CommandLine.run(new String[] { "C:\\Software\\libwebp\\bin\\cwebp", "-lossless",
-						inputFile.getAbsolutePath(), "-o", outputFile.getAbsolutePath() });
+				CommandLine.run(new String[] { // 
+						"C:\\Software\\libwebp\\bin\\cwebp", //
+						"-lossless",
+						inputFile.getAbsolutePath(), //
+						"-o", //
+						outputFile.getAbsolutePath() });
 				inputFile.delete();
 				
 			}

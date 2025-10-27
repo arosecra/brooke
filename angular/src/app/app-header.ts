@@ -15,6 +15,7 @@ import { BookToC } from './media-components/book-toc';
 	],
   template: `
 <mat-toolbar color="primary" class="row-flex row-flex-align-center">
+	<mat-toolbar-row>
   <button matMiniFab >
     <mat-icon fontSet="material-symbols-outlined">newsstand</mat-icon>
   </button>
@@ -32,6 +33,9 @@ import { BookToC } from './media-components/book-toc';
 	}
   
   @if (app.widgets.panel.showBook()) {
+		<button matMiniFab (click)="app.toggleThumbnailView()" title="Thumbnails"> <!-- ocr details / thumbnail view -->
+			<mat-icon fontSet="material-symbols-outlined">dataset</mat-icon>
+		</button>
 		<button matMiniFab title="Book Options"> <!-- book options -->
 			<mat-icon fontSet="material-symbols-outlined">book_2</mat-icon>
 		</button>
@@ -60,6 +64,16 @@ import { BookToC } from './media-components/book-toc';
 	<button matMiniFab (click)="app.appState.showSettingsManual.set(true)">
     <mat-icon fontSet="material-symbols-outlined">settings</mat-icon>
   </button>
+	</mat-toolbar-row>
+	@if(app.widgets.book.thumbnailView()) {
+		<mat-toolbar-row>
+  		<span class="spacer"></span>
+			
+			<button matMiniFab (click)="app.updateItem()" title="Save" > <!-- save ocr details -->
+				<mat-icon fontSet="material-symbols-outlined">save</mat-icon>
+			</button>
+		</mat-toolbar-row>
+	}
 </mat-toolbar>
   `,
   styles: ``,
