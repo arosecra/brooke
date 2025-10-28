@@ -22,6 +22,8 @@ export class SinglePipelineExecutor {
 		copySourceFilesLocally(schedule, itemFolder, job);
 		executeSteps(schedule, itemFolder, job);
 		copyProducedFilesToRemote(schedule, itemFolder, job);
+
+		fs.rmdirSync(job.workFolder, { recursive: true })
 	}
 }
 
