@@ -5,7 +5,7 @@ import * as fs from 'fs';
 import { node } from "../util/node";
 
 export class BookDeskewImageStep implements JobStep {
-	execute(pipeline: Pipeline, job: JobFolder): void {
+	execute(job: JobFolder): void {
 		const files = fs.readdirSync(job.tempFolder);
 		files.forEach((file) => {
 			if(file.includes('-8-')) {

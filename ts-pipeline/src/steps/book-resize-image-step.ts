@@ -6,7 +6,7 @@ import * as child_process from "child_process";
 import { node } from "../util/node";
 
 export class BookResizeImageStep implements JobStep {
-  execute(pipeline: Pipeline, job: JobFolder): void {
+  execute(job: JobFolder): void {
     node.execFileSync( //
 			"D:\\Software\\ImageMagick\\magick.exe", //
 			[

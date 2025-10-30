@@ -5,7 +5,7 @@ import * as fs from 'fs';
 import { node } from "../util/node";
 
 export class MovieExtractMkvDetailsStep implements JobStep {
-	execute(pipeline: Pipeline, job: JobFolder): void {
+	execute(job: JobFolder): void {
 		fs.readdirSync(job.sourceFolder).filter((file) => file.endsWith('mkv')).forEach((file) => {
 
 			const json = node.execFileSync(

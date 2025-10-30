@@ -5,7 +5,7 @@ import { node } from "../util/node";
 
 
 export class BookCreateThumbnailsStep implements JobStep {
-	execute(pipeline: Pipeline, job: JobFolder): void {
+	execute(job: JobFolder): void {
 		const thumbnailFolder = node.pathJoin(job.destFolder, '.thumbnails');
 		node.mkdirs(thumbnailFolder);
 
@@ -13,7 +13,7 @@ export class BookCreateThumbnailsStep implements JobStep {
 			'D:\\Software\\ImageMagick\\magick.exe',
 			[ 'mogrify',
 				'-path', thumbnailFolder,
-				'-format', 'png',
+				'-format', 'webp',
 				'-thumbnail', '250x>',
 				'*-8-*.png'
 			], {

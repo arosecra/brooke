@@ -1,6 +1,9 @@
 import { RootFolder } from "./src/model/root-folder";
 import * as fs from 'fs';
 import * as path from 'path';
+import cluster from 'cluster';
+import process from 'process';
+import os from 'os';
 import { Pipeline } from "./src/model/pipeline";
 import { MasterSchedule } from "./src/model/master-schedule";
 import { BookExtractPDFsStep } from "./src/steps/book-extract-pdfs-step";
@@ -12,6 +15,7 @@ import { BookConvertPngToWebpStep } from "./src/steps/book-convert-png-to-webp-s
 import { BookTarToCbtStep } from "./src/steps/book-tar-to-cbt-step";
 import { BookCreateCbtDetailsStep } from "./src/steps/book-create-cbt-details-step";
 import { BookCreateCoverThumbnailStep } from "./src/steps/book-create-cover-thumbnail-step";
+import { Task } from "./src/model/task";
 
 function getLeafFolders(folder: string): string[] {
 
@@ -81,32 +85,36 @@ function setupMasterSchedule() {
 		.addStep(new BookTarToCbtStep()) //
 	;
 	
-	return new MasterSchedule() //
+	return new MasterSchedule([
+		bookCoverThumbnailPipeline,
+		bookCbtPipeline	
+	]) //
 			// .schedule(bookOcrPropPipeline, lightNovels) //
 			// .schedule(bookCbtDetailsPipeline, lightNovels) //
-			.schedule(bookCoverThumbnailPipeline, lightNovels) //
-			.schedule(bookCbtPipeline, lightNovels) //
+			.schedule(bookCoverThumbnailPipeline.name, lightNovels) //
+			.schedule(bookCbtPipeline.name, lightNovels) //
 			//
 //			.schedule(bookOcrPropPipeline, nonfiction) //
 			// .schedule(bookCbtDetailsPipeline, fiction) //
-			.schedule(bookCoverThumbnailPipeline, fiction) //
-			.schedule(bookCbtPipeline, fiction) //
+			.schedule(bookCoverThumbnailPipeline.name, fiction) //
+			.schedule(bookCbtPipeline.name, fiction) //
 			//
 //			.schedule(bookOcrPropPipeline, nonfiction) //
 			// .schedule(bookCbtDetailsPipeline, nonfiction) //
-			.schedule(bookCoverThumbnailPipeline, nonfiction) //
-			.schedule(bookCbtPipeline, nonfiction) //
+			.schedule(bookCoverThumbnailPipeline.name, nonfiction) //
+			.schedule(bookCbtPipeline.name, nonfiction) //
 	;
 
 }
 
-function summarize(ms: MasterSchedule) {
+function determineTasks(ms: MasterSchedule) {
 	ms.schedules.forEach((schedule) => {
 		schedule.rootFolder.itemFolders.forEach((itemFolder) => {
-			const producesExists = schedule.doesRemoteProducesExist(schedule.pipeline, itemFolder);
-			const usesExists = schedule.doesRemoteUsesExists(schedule.pipeline, itemFolder);
+			const pipeline = ms.pipelineByName(schedule.pipelineName);
+			const producesExists = ms.doesRemoteProducesExist(pipeline, itemFolder);
+			const usesExists = ms.doesRemoteUsesExists(pipeline, itemFolder);
 			if(!producesExists && usesExists) {
-				schedule.workRequired.push(itemFolder);
+				ms.addTask(new Task(pipeline.name, itemFolder), schedule);
 			}
 		})
 	})
@@ -129,7 +137,7 @@ function printSummary(ms: MasterSchedule) {
 		console.log(
 			format(
 				schedule.rootFolder.rootFolder, 
-				schedule.pipeline.name, 
+				schedule.pipelineName, 
 				schedule.workRequired.length
 			)
 		);
@@ -140,31 +148,67 @@ function printSummary(ms: MasterSchedule) {
 
 }
 
-function executeMasterSchedule(ms: MasterSchedule) {
-	for(let i = 0; i < ms.schedules.length; i++) {
-		const schedule = ms.schedules[i]
-		for(let j = 0; j < schedule.workRequired.length; j++) {
-			const wr = schedule.workRequired[j];
+// function executeMasterSchedule(ms: MasterSchedule) {
+// 	for(let i = 0; i < ms.schedules.length; i++) {
+// 		const schedule = ms.schedules[i]
+// 		for(let j = 0; j < schedule.workRequired.length; j++) {
+// 			const wr = schedule.workRequired[j];
 
-			let executor = new SinglePipelineExecutor();
-				// JobSubStep jss = new JobSubStep(schedule.pipeline.name, rf.folder, i, schedule.workRequired.size());
-				// jss.start();
-				// jss.printStartLn();
-			executor.executePiplineForFolder(schedule, wr);
-				// 			jss.printStart();
-				// jss.endAndPrint();
-			// throw new Error('done with one');
-		}
-	}
-}
+// 			let executor = new SinglePipelineExecutor();
+// 				// JobSubStep jss = new JobSubStep(schedule.pipeline.name, rf.folder, i, schedule.workRequired.size());
+// 				// jss.start();
+// 				// jss.printStartLn();
+// 			executor.executeTask(ms.pipelineByName(schedule.pipelineName), wr.itemFolder);
+// 				// 			jss.printStart();
+// 				// jss.endAndPrint();
+// 			// throw new Error('done with one');
+// 		}
+// 	}
+// }
+
+const threads = 4; //os.cpus().length;
 
 const ms = setupMasterSchedule();
-summarize(ms);
-printSummary(ms);
-executeMasterSchedule(ms);
-/*
-let ms: MasterSchedule = setupMasterSchedule();		
-summarize(ms);
-printSummary(ms);
-executeMasterSchedule(ms);
-*/
+if(cluster.isPrimary) {
+	determineTasks(ms);
+	printSummary(ms);
+
+	// ms.tasks.forEach((task) => console.log(task.itemFolder));
+
+	for(let id = 0; id < threads; id++) {
+		const firstTask = ms.firstUnassignedTask();
+		if(firstTask) {
+			firstTask.assigned = true;
+			const worker = cluster.fork();
+			worker.on('message', (msg: any) => {
+				if(msg?.request) {
+					const newTask = ms.firstUnassignedTask();
+					if(newTask) {
+						newTask.assigned = true;
+						worker.send({ task: newTask });
+					} else {
+						worker.send({ shutdown: true });
+					}
+				}
+			});
+			worker.on('online', () => worker.send({ task: firstTask }));
+		}
+	}
+
+} else {
+
+	process.on('message', (msg: any) => {
+		if(msg.task) {
+			const task: Task = msg.task as Task;
+			console.log(String(process.pid).padStart(8, ' '), 'executing ' + task.itemFolder);
+			new SinglePipelineExecutor()
+				.executeTask(ms.pipelineByName(task.pipelineName), task.itemFolder);
+			process.send!({ request: true });
+		} else if (msg.shutdown) {
+			process.exit();
+		}
+	})
+
+
+	
+}

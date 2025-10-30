@@ -5,7 +5,7 @@ import * as fs from 'fs';
 import { node } from "../util/node";
 
 export class BookRunOcrStep implements JobStep {
-	execute(pipeline: Pipeline, job: JobFolder): void {
+	execute(job: JobFolder): void {
 		fs.readdirSync(job.destFolder).filter((file) => file.endsWith('.png')).forEach((file) => {
 			node.execFileSync(
 				"D:\Software\Python\Python313\Scripts\uv.exe",

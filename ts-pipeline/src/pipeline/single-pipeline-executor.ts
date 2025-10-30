@@ -1,11 +1,10 @@
-import { pipeline } from "stream";
-import { JobFolder } from "../model/job-folder";
-import { Schedule } from "../model/schedule";
 import * as fs from 'fs';
 import * as path from 'path';
+import { JobFolder } from "../model/job-folder";
+import { Pipeline } from "../model/pipeline";
 
 export class SinglePipelineExecutor {
-	executePiplineForFolder(schedule: Schedule, itemFolder: string) {
+	executeTask(pipeline: Pipeline, itemFolder: string) {
 		let job = new JobFolder();
 		job.remoteFolder = itemFolder;
 
@@ -19,17 +18,17 @@ export class SinglePipelineExecutor {
 		})
 
 		
-		copySourceFilesLocally(schedule, itemFolder, job);
-		executeSteps(schedule, itemFolder, job);
-		copyProducedFilesToRemote(schedule, itemFolder, job);
+		copySourceFilesLocally(pipeline, itemFolder, job);
+		executeSteps(pipeline, itemFolder, job);
+		copyProducedFilesToRemote(pipeline, itemFolder, job);
 
 		fs.rmdirSync(job.workFolder, { recursive: true })
 	}
 }
 
-function copySourceFilesLocally(schedule: Schedule, itemFolder: string, job: JobFolder) {
+function copySourceFilesLocally(pipeline: Pipeline, itemFolder: string, job: JobFolder) {
 	fs.readdirSync(itemFolder).forEach((file) => {
-		if(file.match(schedule.pipeline.uses)) {
+		if(file.match(pipeline.uses)) {
 			fs.copyFileSync(path.join(itemFolder, file), path.join(job.sourceFolder, file));
 		}
 	});
@@ -37,22 +36,22 @@ function copySourceFilesLocally(schedule: Schedule, itemFolder: string, job: Job
 }
 
 
-function executeSteps(schedule: Schedule, itemFolder: string, job: JobFolder) {
-	for(let i = 0; i < schedule.pipeline.steps.length; i++) {
-		let jobStep = schedule.pipeline.steps[i];
+function executeSteps(pipeline: Pipeline, itemFolder: string, job: JobFolder) {
+	for(let i = 0; i < pipeline.steps.length; i++) {
+		let jobStep = pipeline.steps[i];
 			// 		JobSubStep jss = new JobSubStep(js.getClass().getSimpleName(), rf.folder, i, schedule.pipeline.steps.size());
 			// jss.start();
 			// jss.printStartLn();
-		jobStep.execute(schedule.pipeline, job);
+		jobStep.execute(job);
 			// 		jss.printStart();
 			// jss.endAndPrint();
 	}
 }
 
 
-function copyProducedFilesToRemote(schedule: Schedule, itemFolder: string, job: JobFolder) {
+function copyProducedFilesToRemote(pipeline: Pipeline, itemFolder: string, job: JobFolder) {
 	fs.readdirSync(job.destFolder).forEach((file) => {
-		if(file.match(schedule.pipeline.produces)) {
+		if(file.match(pipeline.produces)) {
 			fs.copyFileSync(path.join(job.destFolder, file), path.join(itemFolder, file));
 		}
 	});

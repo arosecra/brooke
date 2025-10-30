@@ -1,29 +1,14 @@
-import { Pipeline } from "./pipeline";
 import { RootFolder } from "./root-folder";
-import * as fs from 'fs';
-import * as path from 'path';
+import { Task } from "./task";
 
 export class Schedule {
 
-	public workRequired: string[] = [];
+	public workRequired: Task[] = [];
 
 	constructor(
-		public pipeline: Pipeline, 
+		public pipelineName: string, 
 		public rootFolder: RootFolder
 	) {}
 
 
-	doesRemoteUsesExists(pipeline: Pipeline, rf: string): boolean {
-		return fs.readdirSync(rf).some((file) => {
-			const basename = path.basename(file);
-			return basename.match(pipeline.uses);
-		});
-	}
-
-	doesRemoteProducesExist(pipeline: Pipeline, rf: string): boolean {
-		return fs.readdirSync(rf).some((file) => {
-			const basename = path.basename(file);
-			return basename.match(pipeline.produces);
-		});
-	}
 }
