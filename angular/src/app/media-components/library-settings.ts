@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'library-settings',
   imports: [MatButtonModule],
   template: `
+		@let appState = app.appState();
 		<!--
 			3 things we can do. - Change the Category an item is in
                           - Add a Category
@@ -17,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 			For each item, have a drop down for the category
 			Also have a button to add a new category
 		-->
+	@if(appState) {
 		<h3>Uncategorized Items</h3>
 		@if(uncategorizedItems.length > 0) {
 			@for(uncatItem of uncategorizedItems; track uncatItem.collectionName + uncatItem.name) {
@@ -25,7 +27,8 @@ import { MatButtonModule } from '@angular/material/button';
 		} @else {
 			<div>There are no uncategorized items</div>
 		}
-		<button mat-raised-button (click)="app.appState.showLibraryEditorManual.set(false)">Done</button>
+		<button mat-raised-button (click)="appState.showLibraryEditorManual.set(false)">Done</button>
+	}
   `,
   styles: ``,
   encapsulation: ViewEncapsulation.None,
@@ -36,7 +39,7 @@ export class LibrarySettings implements OnInit {
 	uncategorizedItems: Item[] = [];
 
 	ngOnInit() {
-		const library = this.app.resources.storedLibrary.value();
+		const library = this.app.resources()?.storedLibrary.value();
 		const items = library?.items;
 		const categories = library?.categories;
 

@@ -16,8 +16,8 @@ import { App } from '../app';
     <div>
       <img
         style="width: 100%"
-        src="/rest/large-thumbnail/{{ app.appState.currentCollection()?.name }}/{{
-          app.appState.currentSeries()?.name
+        src="/rest/large-thumbnail/{{ app.appState()?.currentCollection()?.name }}/{{
+          app.appState()?.currentSeries()?.name
         }}"
       />
     </div>

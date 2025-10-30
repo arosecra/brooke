@@ -23,7 +23,7 @@ import { CacheDirectory } from './model/cache-directory';
 		} @else {
     	<h3>Collections</h3>
 
-			<table mat-table [dataSource]="app.resources.storedLibrary.value()?.collections || []">
+			<table mat-table [dataSource]="app.resources()?.storedLibrary?.value()?.collections || []">
 
 				<ng-container matColumnDef="name">
 					<th mat-header-cell *matHeaderCellDef> Name </th>
@@ -64,7 +64,7 @@ import { CacheDirectory } from './model/cache-directory';
 			<button mat-raised-button (click)="addNewCollection()">Add Collection</button>
 
 			<h3>Cache Directory</h3>
-			@let cacheDirectory = app.resources.storedLibrary.value()?.cacheDirectory;
+			@let cacheDirectory = app.resources()?.storedLibrary?.value()?.cacheDirectory;
 			@if(!cacheDirectory) {
 				<button mat-raised-button (click)="setLocalCacheDirectory()">Set Local Directory</button>
 			} @else {
@@ -96,7 +96,7 @@ import { CacheDirectory } from './model/cache-directory';
 			}
 			
 
-			<button mat-raised-button (click)="app.appState.showSettingsManual.set(false)">Done</button>
+			<button mat-raised-button (click)="app.appState()?.showSettingsManual?.set(false)">Done</button>
 
 		}
 
@@ -116,7 +116,7 @@ export class Settings {
 		this.busy.set(true);
 		this.busyMessage.set("Requesting Permission");
 		permissable.hasPermission = await this.files.getReadWritePermission(permissable.handle);
-		this.app.resources.storedLibrary.reload();
+		this.app.resources()?.storedLibrary.reload();
 		this.busy.set(false);
 	}
 
@@ -136,7 +136,7 @@ export class Settings {
 			this.busyMessage.set("Removing Collection");
 		}
 		await this.appDB.removeCollection(collection);
-    this.app.resources.storedLibrary.reload();
+    this.app.resources()?.storedLibrary.reload();
 		if(!alreadyBusy) {
 			this.busy.set(false);
 		}
@@ -242,7 +242,7 @@ export class Settings {
 
     await this.appDB.addLibrary(library);
 
-    this.app.resources.storedLibrary.reload();
+    this.app.resources()?.storedLibrary.reload();
 		
 		this.busy.set(false);
 	}

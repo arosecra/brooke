@@ -98,10 +98,20 @@ book .thumbnails {
   gap: 16px;
 }
 
+book .thumbnails mat-card {
+	align-items: center
+}
+
 book .thumbnails mat-card-subtitle {
 	display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
+}
+
+book .thumbnails mat-card-actions {
+	align-items: flex-start;
+	flex-direction: column;
+	row-gap: 16px;
 }
 
 // book-page-turner {

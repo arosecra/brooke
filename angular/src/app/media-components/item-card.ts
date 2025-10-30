@@ -10,11 +10,13 @@ import { MatAnchor } from "@angular/material/button";
   selector: 'item-card',
   imports: [NgClass, ItemNamePipe, MatAnchor],
   template: `
-		@if(item()) {
+		@let appState = app.appState();
+		@let itm = item();
+		@if(appState && itm) {
     <img
       [ngClass]="{
-        'aspect-video': app.appState.currentCollection()?.openType === 'video',
-        'aspect-auto': app.appState.currentCollection()?.openType === 'book',
+        'aspect-video': appState.currentCollection()?.openType === 'video',
+        'aspect-auto': appState.currentCollection()?.openType === 'book',
       }"
       [src]="item().thumbnail"
     />
@@ -23,7 +25,7 @@ import { MatAnchor } from "@angular/material/button";
         <strong>
           {{
             item()
-              | itemName: app.appState.currentCollection() : app.appState.currentCategory() : true
+              | itemName: appState.currentCollection() : appState.currentCategory() : true
           }}
         </strong>
       </p>

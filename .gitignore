@@ -13,3 +13,4 @@ electron/error.log
 /.metadata/
 java/.classpath
 java/.project
+*.pem
