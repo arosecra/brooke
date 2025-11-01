@@ -13,7 +13,10 @@ import { BookToC } from './media-components/book-toc';
 		MatButtonModule, MatIconModule, MatToolbarModule, MatPaginatorModule,
 		BookToC, AppBreadcrumb, 
 	],
-  template: `
+  template: `	
+@let widgets = app.widgets();
+@let appState = app.appState();
+@if(widgets && appState) {
 <mat-toolbar color="primary" class="row-flex row-flex-align-center">
 	<mat-toolbar-row>
   <button matMiniFab >
@@ -23,8 +26,8 @@ import { BookToC } from './media-components/book-toc';
   <app-breadcrumb class="row-flex row-flex-align-center"></app-breadcrumb>
   <span class="spacer"></span>
   
-	@if (!app.widgets.panel.showBook() && !app.widgets.panel.showSeries()) {
-		<button matMiniFab (click)="app.appState.showLibraryEditorManual.set(true)" title="Modify Categories">
+	@if (!widgets.panel.showBook() && !widgets.panel.showSeries()) {
+		<button matMiniFab (click)="appState.showLibraryEditorManual.set(true)" title="Modify Categories">
 			<mat-icon fontSet="material-symbols-outlined">library_books</mat-icon>
 		</button>
 		<button matMiniFab title="Write Categories">
@@ -32,7 +35,7 @@ import { BookToC } from './media-components/book-toc';
 		</button>
 	}
   
-  @if (app.widgets.panel.showBook()) {
+  @if (widgets.panel.showBook()) {
 		<button matMiniFab (click)="app.toggleThumbnailView()" title="Thumbnails"> <!-- ocr details / thumbnail view -->
 			<mat-icon fontSet="material-symbols-outlined">dataset</mat-icon>
 		</button>
@@ -51,21 +54,21 @@ import { BookToC } from './media-components/book-toc';
 		</button>
     <mat-paginator
       (page)="app.handlePaginationEvent($event)"
-      [length]="app.appState.currentItem()?.bookDetails?.numberOfPages"
-      [pageSize]="app.widgets.book.pagesInDisplay()"
+      [length]="appState.currentItem()?.bookDetails?.numberOfPages"
+      [pageSize]="widgets.book.pagesInDisplay()"
       [disabled]="false"
       [showFirstLastButtons]="true"
-			[pageIndex]="app.appState.currentPageSet()"
+			[pageIndex]="appState.currentPageSet()"
       [hidePageSize]="true"
       aria-label="Select page"
     >
     </mat-paginator>
   }
-	<button matMiniFab (click)="app.appState.showSettingsManual.set(true)">
+	<button matMiniFab (click)="appState.showSettingsManual.set(true)">
     <mat-icon fontSet="material-symbols-outlined">settings</mat-icon>
   </button>
 	</mat-toolbar-row>
-	@if(app.widgets.book.thumbnailView()) {
+	@if(widgets.book.thumbnailView()) {
 		<mat-toolbar-row>
   		<span class="spacer"></span>
 			
@@ -75,6 +78,7 @@ import { BookToC } from './media-components/book-toc';
 		</mat-toolbar-row>
 	}
 </mat-toolbar>
+		}
   `,
   styles: ``,
   encapsulation: ViewEncapsulation.None,

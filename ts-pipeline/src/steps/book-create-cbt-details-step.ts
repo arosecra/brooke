@@ -10,7 +10,7 @@ export class BookCreateCbtDetailsStep implements JobStep {
 
 	//gs -q -dNODISPLAY --permit-file-read="document.pdf" -c "(document.pdf) (r) file runpdfbegin pdfpagecount = quit"
 
-	execute(pipeline: Pipeline, job: JobFolder): void {
+	execute(job: JobFolder): void {
 
 		const files = fs.readdirSync(job.tempFolder).filter((file) => file.endsWith('png'));
 

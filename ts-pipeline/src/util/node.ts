@@ -8,9 +8,9 @@ export class node {
 
 	static execFileSync(file: string, args: string[], opts?: any) {
 		const dir = opts?.cwd ? ` in ${opts.cwd}` : '';
-		const cmd = `Running> ${file} ${args.join(' ')}${dir}`
+		// const cmd = `Running> ${file} ${args.join(' ')}${dir}`
 
-		console.log(cmd);
+		// console.log(cmd);
 		return child_process.execFileSync(file, args, opts);
 	} 
 

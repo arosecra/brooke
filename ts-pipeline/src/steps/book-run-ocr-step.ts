@@ -32,10 +32,7 @@ export class BookRunOcrStep implements JobStep {
 					console.log(String(out));
 				} catch (err) {
 					console.error(String(out));
-				}
-			}
 
-		});
 
 			//once done, base64 intern figures
 			//     will have to re-develop

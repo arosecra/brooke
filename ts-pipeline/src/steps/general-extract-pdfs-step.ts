@@ -7,7 +7,7 @@ import * as path from 'path';
 import { node } from "../util/node";
 
 export class GeneralExtractPDFsStep implements JobStep {
-	execute(pipeline: Pipeline, job: JobFolder): void {
+	execute(job: JobFolder): void {
 		const workFiles = fs.readdirSync(job.sourceFolder);
 		let reOrdered = [];
 

@@ -9,10 +9,12 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'collection-browser',
   imports: [ItemCard, MatButtonModule, MatChipsModule, MatIconModule, MatButtonModule],
   template: `
-    @if (app.resources.storedLibrary.hasValue()) {
-      @let library = app.resources.storedLibrary.value();
-      @let currentCollection = app.appState.currentCollection();
-      @let currentCategory = app.appState.currentCategory();
+		@let appState = app.appState();
+		@let resources = app.resources();
+    @if (appState && resources && resources.storedLibrary.hasValue()) {
+      @let library = resources.storedLibrary.value();
+      @let currentCollection = appState.currentCollection();
+      @let currentCategory = appState.currentCategory();
 
       @if (!currentCollection) {
         <h2>Collections</h2>

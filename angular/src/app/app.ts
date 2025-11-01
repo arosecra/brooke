@@ -1,16 +1,21 @@
 import { Location } from '@angular/common';
 import {
-  Component, computed, HostListener, inject,
-  resource, signal, ViewEncapsulation,
+	Component,
+	HostListener, inject,
+	viewChild, ViewEncapsulation
 } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { AppHeader } from './app-header';
+import { AppResources } from './app-resources.service';
+import { AppState } from './app-state.service';
+import { AppWidgets } from './app-widgets.service';
+import { CbtService } from './cbt/cbt.service';
 import { LibraryDB } from './db/library-db';
 import { Files } from './fs/library-fs';
 import { Book } from './media-components/book';
 import { CollectionBrowser } from './media-components/collection-browser';
+import { LibrarySettings } from './media-components/library-settings';
 import { Series } from './media-components/series';
-import { BookDetails } from './model/book-details';
 import { CachedFile } from './model/cached-file';
 import { Category } from './model/category';
 import { Collection } from './model/collection';
@@ -18,27 +23,33 @@ import { Item } from './model/item';
 import { ItemRef } from './model/item-ref';
 import { Library } from './model/library';
 import { Settings } from './settings';
-import { LibrarySettings } from './media-components/library-settings';
 
 @Component({
   selector: 'app',
-  imports: [AppHeader, Book, CollectionBrowser, Series, Settings, LibrarySettings],
+  imports: [AppHeader, Book, CollectionBrowser, Series, Settings, LibrarySettings, AppState, AppResources, AppWidgets],
   template: `
+		<app-state></app-state>
+		<app-resources></app-resources>
+		<app-widgets></app-widgets>
     <app-header class="row-flex row-flex-align-center"/>
     <main>
-      @if (widgets.panel.showLoading()) {
-        <div>Loading</div>
-      } @else if (widgets.panel.showSettings()) {
-        <settings></settings>
-      } @else if (widgets.panel.showBook()) {
-        <book></book>
-      } @else if (widgets.panel.showSeries()) {
-        <series></series>
-      } @else if (widgets.panel.showLibrarySettings()) {
-        <library-settings></library-settings>
-      } @else {
-        <collection-browser></collection-browser>
-      }
+			@let wdgts = widgets();
+			@if(wdgts) {
+				@if (wdgts.panel.showLoading()) {
+					<div>Loading</div>
+				} @else if (wdgts.panel.showSettings()) {
+					<settings></settings>
+				} @else if (wdgts.panel.showBook()) {
+					<book></book>
+				} @else if (wdgts.panel.showSeries()) {
+					<series></series>
+				} @else if (wdgts.panel.showLibrarySettings()) {
+					<library-settings></library-settings>
+				} @else {
+					<collection-browser></collection-browser>
+				}
+
+			}
     </main>
   `,
   styles: ``,
@@ -49,13 +60,13 @@ export class App {
 updateItem() {
 throw new Error('Method not implemented.');
 }
-  location = inject(Location);
-  appDb = inject(LibraryDB);
-  files = inject(Files);
+  private location = inject(Location);
+  private appDb = inject(LibraryDB);
+  private files = inject(Files);
 
   @HostListener('document:keydown', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
-    if (this.widgets.panel.showBook()) {
+  protected handleKeyboardEvent(event: KeyboardEvent) {
+    if (this.widgets()?.panel.showBook()) {
       if (event.key === 'ArrowRight') {
         this.goToNextPage();
       } else if (event.key === 'ArrowLeft') {
@@ -64,73 +75,15 @@ throw new Error('Method not implemented.');
     }
   }
 
+  widgets = viewChild(AppWidgets);
+  appState = viewChild(AppState);
+  resources = viewChild(AppResources);
+
   handlePaginationEvent(e: PageEvent) {
     // console.log(e);
     this.goToPageSet(e.pageIndex);
   }
 
-  widgets = {
-    panel: {
-      showBook: computed(() => {
-        return (
-          this.appState.currentItem() && this.appState.currentCollection()?.openType === 'book'
-        );
-      }),
-
-      showSeries: computed(() => {
-        return !!this.appState.currentSeries();
-      }),
-
-      showSettings: computed(() => {
-        return !!this.appState.showSettingsManual() || !!this.appState.showSettingsRequired();
-      }),
-
-			showLibrarySettings: computed(() => this.appState.showLibraryEditorManual()),
-
-      showLoading: computed(() => {
-        return this.resources.storedLibrary.isLoading();
-      }),
-    },
-    book: {
-      pagesInDisplay: signal<number>(2),
-			thumbnailView: signal<boolean>(false),
-    },
-  };
-
-  appState = {
-    currentCollection: signal<Collection | undefined>(undefined),
-    currentCategory: signal<Category | undefined>(undefined),
-    currentSeries: signal<ItemRef | undefined>(undefined),
-    currentItem: signal<Item | undefined>(undefined),
-    currentPageSet: signal<number>(0),
-    currentBookDetails: signal<BookDetails | undefined>(undefined),
-
-    showSettingsManual: signal<boolean>(false),
-		showLibraryEditorManual: signal<boolean>(false),
-
-    showSettingsRequired: computed(() => {
-      const library = this.resources.storedLibrary.value();
-
-      const hasCollections = library?.collections && library?.collections?.length > 0;
-      const hasCollectionMissingPermissions = !!library?.collections.some((val) => {
-        return !val.hasPermission;
-      });
-
-      return (
-        (!!library?.cacheDirectory && !library?.cacheDirectory?.hasPermission) ||
-        !hasCollections ||
-        hasCollectionMissingPermissions
-      );
-    }),
-  };
-
-  resources = {
-    storedLibrary: resource<Library, void>({
-      loader: async ({ params, abortSignal }): Promise<Library> => {
-        return await this.appDb.getLibrary();
-      },
-    }),
-  };
 
   constructor() {
     // const loc = this.location.path().split('/');
@@ -139,50 +92,50 @@ throw new Error('Method not implemented.');
   }
 
   onCategoryButtonClick(category: Category) {
-    if (this.appState.currentCategory()?.name === category.name) {
-      this.appState.currentCategory.update(() => undefined);
+    if (this.appState()?.currentCategory()?.name === category.name) {
+      this.appState()?.currentCategory.update(() => undefined);
     } else {
-      this.appState.currentCategory.update(() => category);
+      this.appState()?.currentCategory.update(() => category);
     }
-    this.appState.currentSeries.update(() => undefined);
-    this.appState.currentItem.update(() => undefined);
+    this.appState()?.currentSeries.update(() => undefined);
+    this.appState()?.currentItem.update(() => undefined);
     this.setLocation();
   }
 
   openHome() {
-    this.appState.currentCollection.set(undefined);
-    this.appState.currentCategory.set(undefined);
-    this.appState.currentSeries.set(undefined);
-    this.appState.currentItem.set(undefined);
+    this.appState()?.currentCollection.set(undefined);
+    this.appState()?.currentCategory.set(undefined);
+    this.appState()?.currentSeries.set(undefined);
+    this.appState()?.currentItem.set(undefined);
     this.setLocation();
   }
 
   openCollection(collection?: Collection) {
 		if(collection)
-			this.appState.currentCollection.set(collection);
-    this.appState.currentCategory.set(undefined);
-    this.appState.currentSeries.set(undefined);
-    this.appState.currentItem.set(undefined);
+			this.appState()?.currentCollection.set(collection);
+    this.appState()?.currentCategory.set(undefined);
+    this.appState()?.currentSeries.set(undefined);
+    this.appState()?.currentItem.set(undefined);
     this.setLocation();
   }
 
   openCategory(category?: Category) {
 		if(category)
-    	this.appState.currentCategory.set(category);
-    this.appState.currentSeries.set(undefined);
-    this.appState.currentItem.set(undefined);
-    this.appState.currentPageSet.set(0);
+    	this.appState()?.currentCategory.set(category);
+    this.appState()?.currentSeries.set(undefined);
+    this.appState()?.currentItem.set(undefined);
+    this.appState()?.currentPageSet.set(0);
     this.setLocation();
   }
 
   openItem(itemRef: ItemRef, item: Item) {
-    if (this.appState.currentCollection()?.openType === 'video' && itemRef.series) {
-      this.appState.currentSeries.update(() => itemRef);
-      this.appState.currentItem.update(() => undefined);
+    if (this.appState()?.currentCollection()?.openType === 'video' && itemRef.series) {
+      this.appState()?.currentSeries.update(() => itemRef);
+      this.appState()?.currentItem.update(() => undefined);
     } else {
-      let isCached = this.resources.storedLibrary.value()?.cachedItems.some((value) => {
+      let isCached = this.resources()?.storedLibrary.value()?.cachedItems.some((value) => {
         return (
-          value.collectionName === this.appState.currentCollection()?.name &&
+          value.collectionName === this.appState()?.currentCollection()?.name &&
           value.itemName === item.name
         );
       });
@@ -195,10 +148,10 @@ throw new Error('Method not implemented.');
   }
 
 	setLocation() {
-			const col =	this.appState.currentCollection()?.name?.toLowerCase();
-    	const cat = this.appState.currentCategory()?.name?.toLowerCase();
-    	const itm = this.appState.currentItem()?.name?.toLowerCase();
-    	const pg = this.appState.currentPageSet();
+			const col =	this.appState()?.currentCollection()?.name?.toLowerCase();
+    	const cat = this.appState()?.currentCategory()?.name?.toLowerCase();
+    	const itm = this.appState()?.currentItem()?.name?.toLowerCase();
+    	const pg = this.appState()?.currentPageSet();
     	if(col) {
     		if(cat) {
     			if(itm) {
@@ -219,7 +172,7 @@ throw new Error('Method not implemented.');
 	}
 
   displayItem(itemRef: ItemRef, item: Item) {
-    if (this.appState.currentCollection()?.openType === 'book') {
+    if (this.appState()?.currentCollection()?.openType === 'book') {
       this.displayBookItem(itemRef, item);
     } else {
       // this.displayVideoItem(item);
@@ -228,7 +181,7 @@ throw new Error('Method not implemented.');
   }
 
   goToPageSet(newPageNo: number) {
-    this.appState.currentPageSet.set(newPageNo);
+    this.appState()?.currentPageSet.set(newPageNo);
     this.setLocation();
 
     // this.location.replaceState('test');
@@ -236,21 +189,23 @@ throw new Error('Method not implemented.');
   }
 
   goToNextPage() {
-    this.goToPageSet(this.appState.currentPageSet() + 1);
+		const appState = this.appState();
+		if(appState) this.goToPageSet(appState.currentPageSet() + 1);
   }
 
   goToPreviousPage() {
-    this.goToPageSet(this.appState.currentPageSet() - 1);
+		const appState = this.appState();
+    if(appState) this.goToPageSet(appState.currentPageSet() - 1);
   }
 
 	toggleThumbnailView() {
-		this.widgets.book.thumbnailView.update((val) => !val);
+		this.widgets()?.book.thumbnailView.update((val) => !val);
 	}
 
   toggleOneOrTwoPageMode() {
-    if (this.widgets.book.pagesInDisplay() === 1) {
-      this.widgets.book.pagesInDisplay.set(2);
-      this.appState.currentPageSet.update((val) => {
+    if (this.widgets()?.book.pagesInDisplay() === 1) {
+      this.widgets()?.book.pagesInDisplay.set(2);
+      this.appState()?.currentPageSet.update((val) => {
         let newVal = val / 2;
         if (val % 2) {
           newVal = (val - 1) / 2;
@@ -258,28 +213,28 @@ throw new Error('Method not implemented.');
         return newVal;
       });
     } else {
-      this.appState.currentPageSet.update((val) => val * 2);
-      this.widgets.book.pagesInDisplay.set(1);
+      this.appState()?.currentPageSet.update((val) => val * 2);
+      this.widgets()?.book.pagesInDisplay.set(1);
     }
   }
 
   private displayBookItem(itemRef: ItemRef, item: Item) {
-    this.appState.currentItem.update(() => item);
+    this.appState()?.currentItem.update(() => item);
 
-    this.appState.currentBookDetails.update(() => undefined);
-    this.appState.currentPageSet.update(() => 0);
+    this.appState()?.currentBookDetails.update(() => undefined);
+    this.appState()?.currentPageSet.update(() => 0);
   }
 
   // private displayVideoItem(item: any) {
   //   this.brookeServerService
-  //     .openVideo(this.appState.currentCollection()?.name ?? 'undefined', item.name)
+  //     .openVideo(this.appState()?.currentCollection()?.name ?? 'undefined', item.name)
   //     .subscribe(() => {
-  //       this.appState.currentItem.update(() => item);
+  //       this.appState()?.currentItem.update(() => item);
   //     });
   // }
 
   cacheItem(itemRef: ItemRef, item: Item) {
-    const library = this.resources.storedLibrary.value() as Library;
+    const library = this.resources()?.storedLibrary.value() as Library;
     const collection = library.collections.find(
       (value) => value.name === item.collectionName,
     ) as Collection;
@@ -299,7 +254,7 @@ throw new Error('Method not implemented.');
       });
 
       this.appDb.addLibrary(libraryUpdates);
-      this.resources.storedLibrary.reload();
+      this.resources()?.storedLibrary.reload();
 
       this.displayItem(itemRef, item);
     });

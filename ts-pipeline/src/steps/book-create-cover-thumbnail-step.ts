@@ -8,7 +8,7 @@ export class BookCreateCoverThumbnailStep implements JobStep {
 	
 	constructor(public width: number, public name: string = 'thumbnail.webp') {}
 	
-	execute(pipeline: Pipeline, job: JobFolder): void {
+	execute(job: JobFolder): void {
 		node.execFileSync(
 			'D:\\Software\\ImageMagick\\magick.exe',
 			[ 'mogrify',

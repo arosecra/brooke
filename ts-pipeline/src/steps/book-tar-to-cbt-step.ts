@@ -5,7 +5,7 @@ import * as path from 'path';
 import { node } from "../util/node";
 
 export class BookTarToCbtStep implements JobStep {
-	execute(pipeline: Pipeline, job: JobFolder): void {
+	execute(job: JobFolder): void {
 		node.execFileSync(
 			'D:\\software\\7za\\7za.exe',
 			[ 'a',
