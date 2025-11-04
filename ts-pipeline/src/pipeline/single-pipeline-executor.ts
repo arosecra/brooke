@@ -22,14 +22,18 @@ export class SinglePipelineExecutor {
 		executeSteps(pipeline, itemFolder, job);
 		copyProducedFilesToRemote(pipeline, itemFolder, job);
 
-		fs.rmdirSync(job.workFolder, { recursive: true })
+		// fs.rmdirSync(job.workFolder, { recursive: true })
 	}
 }
 
 function copySourceFilesLocally(pipeline: Pipeline, itemFolder: string, job: JobFolder) {
 	fs.readdirSync(itemFolder).forEach((file) => {
-		if(file.match(pipeline.uses)) {
-			fs.copyFileSync(path.join(itemFolder, file), path.join(job.sourceFolder, file));
+		const uses = pipeline.uses;
+		for(let i = 0; i < uses.length; i++) {
+			const use = uses[i];
+			if(file.match(use)) {
+				fs.copyFileSync(path.join(itemFolder, file), path.join(job.sourceFolder, file));
+			}
 		}
 	});
 

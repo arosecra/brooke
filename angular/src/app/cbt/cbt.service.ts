@@ -1,19 +1,76 @@
 import { inject, Injectable } from '@angular/core';
-import { parseTar } from "nanotar";
+import { parseTar } from 'nanotar';
 import { Files } from '../fs/library-fs';
-import { CacheDirectory } from '../model/cache-directory';
-import { Page } from '../model/page';
-import { Collection } from '../model/collection';
 import { Item } from '../model/item';
-import { Library } from '../model/library';
+import { Page } from '../model/page';
+import { BlobReader, Data64URIWriter, Entry, TextWriter, ZipReader } from '@zip.js/zip.js';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CbtService {
-	appFs = inject(Files);
+  appFs = inject(Files);
 
-	
+  loadCbzZipjs(item: Item, cacheFileHandle: FileSystemFileHandle): Promise<Page[]> {
+    return new Promise(async (resolve, reject) => {
+      let pages: Page[] = [];
+      let pagesByName: Record<string, Page> = {};
+
+      const cacheFile = await cacheFileHandle.getFile();
+      const cacheFileBuff = await cacheFile.arrayBuffer();
+
+      const zipFileReader = new BlobReader(new Blob([cacheFileBuff]));
+
+      const zipReader = new ZipReader(zipFileReader);
+
+      const entries = await zipReader.getEntries();
+      let { webpFiles, thumbnailFiles, mdFiles } = this.separateEntries(entries);
+      for (let i = 0; i < webpFiles.length; i++) {
+        const file = webpFiles[i];
+        const basename = file.filename.replaceAll('.webp', '').replaceAll('.png', '');
+        let base64 = await file.getData(new Data64URIWriter('image/webp'));
+        let page = {
+          name: basename,
+          fullPage: base64,
+        } as Page;
+
+        if (item?.bookDetails?.blankPages?.includes(basename)) {
+          page.type = 'Blank';
+        } else if (item?.bookDetails?.imagePages?.includes(basename)) {
+          page.type = 'Image';
+        } else {
+          page.type = 'Text';
+        }
+
+        pages.push(page);
+        pagesByName[basename] = page;
+      }
+
+      if (item?.bookDetails?.tocEntries) {
+        for (let i = 0; i < item.bookDetails.tocEntries.length; i++) {
+          let tocEntry = item.bookDetails.tocEntries[i];
+          pages[tocEntry.pageNumber].bookmarkName = tocEntry.name;
+        }
+      }
+
+      // for (let i = 0; i < thumbnailFiles.length; i++) {
+      //   const file = thumbnailFiles[i];
+      //   let name = file.filename.replace('.thumbnails/', '').replaceAll('.webp', '').replaceAll('.png', '');
+      //   let base64 = await file.getData(new Data64URIWriter());
+      //   pagesByName[name].thumbnail = base64;
+      // }
+
+      // for (let i = 0; i < mdFiles.length; i++) {
+      //   const file = mdFiles[i];
+      //   let name = file.filename.replace('.md/', '').replaceAll('.md', '');
+      //   pagesByName[name].markdown = await file.getData(new TextWriter());
+      // }
+
+      await zipReader.close();
+      resolve(pages);
+    });
+  }
+
   loadCbt(item: Item | undefined, cacheFileHandle: FileSystemFileHandle): Promise<Page[]> {
     return new Promise(async (resolve, reject) => {
       let pages: Page[] = [];
@@ -38,8 +95,6 @@ export class CbtService {
           page.type = 'Blank';
         } else if (item?.bookDetails?.imagePages?.includes(basename)) {
           page.type = 'Image';
-        } else if (item?.bookDetails?.excludePages?.includes(basename)) {
-          page.type = 'Exclude';
         } else {
           page.type = 'Text';
         }
@@ -48,9 +103,19 @@ export class CbtService {
         pagesByName[basename] = page;
       }
 
+      if (item?.bookDetails?.tocEntries) {
+        for (let i = 0; i < item.bookDetails.tocEntries.length; i++) {
+          let tocEntry = item.bookDetails.tocEntries[i];
+          pages[tocEntry.pageNumber].bookmarkName = tocEntry.name;
+        }
+      }
+
       for (let i = 0; i < thumbnailFiles.length; i++) {
         const file = thumbnailFiles[i];
-        let name = file.name.replace('.thumbnails/', '').replaceAll('.webp', '').replaceAll('.png', '');
+        let name = file.name
+          .replace('.thumbnails/', '')
+          .replaceAll('.webp', '')
+          .replaceAll('.png', '');
         let base64 = await this.appFs.bytesToBase64DataUrl(file.data);
         pagesByName[name].thumbnail = base64;
       }
@@ -65,24 +130,43 @@ export class CbtService {
     });
   }
 
-	
-	separateFiles(files: any[]) {
-		let mdFiles = [];
-		let thumbnailFiles = [];
-		let webpFiles = [];
+  separateFiles(files: any[]) {
+    let mdFiles = [];
+    let thumbnailFiles = [];
+    let webpFiles = [];
 
-		for(let i = 0; i < files.length; i++) {
-			const file = files[i];
-			if(file.data) {
-				if(file.name.startsWith('.md')) {
-					mdFiles.push(file);
-				} else if(file.name.startsWith('.thumbnails')) {
-					thumbnailFiles.push(file);
-				} else {
-					webpFiles.push(file);
-				}
-			}
-		}
-		return {webpFiles, thumbnailFiles, mdFiles};
-	}
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      if (file.data) {
+        if (file.name.startsWith('.md')) {
+          mdFiles.push(file);
+        } else if (file.name.startsWith('.thumbnails')) {
+          thumbnailFiles.push(file);
+        } else {
+          webpFiles.push(file);
+        }
+      }
+    }
+    return { webpFiles, thumbnailFiles, mdFiles };
+  }
+
+  separateEntries(files: Entry[]) {
+    let mdFiles = [];
+    let thumbnailFiles = [];
+    let webpFiles = [];
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      if (!file.directory) {
+        if (file.filename.startsWith('.ocr')) {
+          if (file.filename.endsWith('.md')) mdFiles.push(file);
+        } else if (file.filename.startsWith('.thumbnails')) {
+          thumbnailFiles.push(file);
+        } else {
+          webpFiles.push(file);
+        }
+      }
+    }
+    return { webpFiles, thumbnailFiles, mdFiles };
+  }
 }

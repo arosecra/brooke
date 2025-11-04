@@ -5,7 +5,7 @@ export class Pipeline {
 
 	public steps: JobStep[] = [];
 	public name: string;
-	public uses: string;
+	public uses: string[] = [];
 	public produces: string;
 	public remoteDirectory: string;
 	
@@ -24,8 +24,8 @@ export class Pipeline {
 		return this;
 	}
 	
-	public setUses(uses: string): Pipeline {
-		this.uses = uses;
+	public setUses(uses: string[]): Pipeline {
+		this.uses.push(...uses);
 		return this;
 	}
 	

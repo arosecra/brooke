@@ -46,7 +46,7 @@ import { CacheDirectory } from './model/cache-directory';
 				<ng-container matColumnDef="actions">
 					<th mat-header-cell *matHeaderCellDef> Actions </th>
     			<td mat-cell *matCellDef="let row">  
-						<div  class="row-flex">
+						<div  class="flex">
 						<button matMiniFab (click)="removeCollection(row)" title="Remove">
 							<mat-icon fontSet="material-symbols-outlined">close</mat-icon>
 						</button> 
@@ -262,6 +262,7 @@ export class Settings {
       name: fsEntry.name.replace('.' + fileExtension, ''),
       collectionName,
       pathFromCategoryRoot: fsEntry.parentPath,
+			handle: fsEntry.handle as FileSystemFileHandle
     };
     let thumbnailFile = currentDirectory[`${fsEntry.parentPath}/thumbnail.png`]
       ?.handle as FileSystemFileHandle;

@@ -18,7 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 
       @if (!currentCollection) {
         <h2>Collections</h2>
-        <div class="row-flex">
+        <div class="flex">
           @for (collection of library.collections; track collection.name) {
             <button matButton="tonal" (click)="app.openCollection(collection)">
               {{ collection.name.replaceAll('_', ' ') }}
@@ -29,7 +29,7 @@ import { MatIconModule } from '@angular/material/icon';
 
       @if (currentCollection && !currentCategory) {
         <h2>Categories</h2>
-        <div class="row-flex">
+        <div class="flex">
           @for (category of library.categories; track $index) {
             @if (category.collectionName === currentCollection.name) {
               <button matButton="tonal" (click)="app.openCategory(category)">
@@ -41,7 +41,7 @@ import { MatIconModule } from '@angular/material/icon';
       }
 
       @if (currentCollection && currentCategory) {
-        <div class="row-flex">
+        <div class="flex">
           @for (itemRef of currentCategory.items; track itemRef.name) {
 						@let itemCollectionAndName = currentCollection.name + '_' + itemRef.name;
             <item-card [itemRef]="itemRef" [item]="library.itemsByCollectionAndName[itemCollectionAndName]"></item-card>

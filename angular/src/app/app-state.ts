@@ -16,7 +16,7 @@ import { ItemRef } from './model/item-ref';
   providers: [],
 })
 export class AppState {
-  app = inject(App);
+  private app = inject(App);
 
   currentCollection = signal<Collection | undefined>(undefined);
   currentCategory = signal<Category | undefined>(undefined);

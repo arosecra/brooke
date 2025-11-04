@@ -4,37 +4,47 @@ import { NgClass } from '@angular/common';
 import { ItemNamePipe } from './itemName.pipe';
 import { ItemRef } from '../model/item-ref';
 import { Item } from '../model/item';
-import { MatAnchor } from "@angular/material/button";
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'item-card',
-  imports: [NgClass, ItemNamePipe, MatAnchor],
+  imports: [ItemNamePipe, MatButtonModule, MatIconModule, MatCardModule],
   template: `
 		@let appState = app.appState();
 		@let itm = item();
 		@if(appState && itm) {
-    <img
-      [ngClass]="{
-        'aspect-video': appState.currentCollection()?.openType === 'video',
-        'aspect-auto': appState.currentCollection()?.openType === 'book',
-      }"
-      [src]="item().thumbnail"
-    />
-    <div>
-      <p>
-        <strong>
-          {{
+			<mat-card>
+				<mat-card-header>
+					<mat-card-title>{{
             item()
               | itemName: appState.currentCollection() : appState.currentCategory() : true
           }}
-        </strong>
-      </p>
-      <button matButton="tonal" (click)="openItem()">Open</button>
-      <!-- @if (app.appState.currentCollection()?.openType === 'book') {
-        <button (click)="copyToBooxTablet()">Boox</button>
-        <button (click)="copyToKindleScribe()">Scribe</button>
-      } -->
-    </div>
+					</mat-card-title>
+				</mat-card-header>
+				<img mat-card-image [src]="item().thumbnail"/>
+				<mat-card-actions>
+					<div>
+						<button matMiniFab (click)="openItem()"> 
+							<mat-icon fontSet="material-symbols-outlined" >file_open</mat-icon>
+						</button>
+						<button matMiniFab (click)="downloadForOffline()" miniAsync> 
+							<mat-icon fontSet="material-symbols-outlined" >download_for_offline</mat-icon>
+						</button>
+						<button matMiniFab (click)="openItemDetails()" title="details"> 
+							<mat-icon fontSet="material-symbols-outlined">notes</mat-icon>
+						</button>
+						@if(appState.currentCollection()?.openType === 'book') {
+							<button matMiniFab (click)="app.toggleThumbnailView()" title="Thumbnails">
+								<mat-icon fontSet="material-symbols-outlined">dataset</mat-icon>
+							</button> 
+
+						}
+					</div>
+				</mat-card-actions>
+			</mat-card>
+
 		}
   `,
   styles: ``,
@@ -45,12 +55,21 @@ export class ItemCard {
   itemRef = input.required<ItemRef>();
   item = input.required<Item>();
 
+	downloadForOffline() {
+
+	}
+
   openItem() {
     this.app.openItem(this.itemRef(), this.item());
   }
 
   copyToBooxTablet() {
     // this.app.copyToDevice(this.item, 'boox');
+		return new Promise((resolve, reject) => {
+			setTimeout(() => {
+				resolve('done');
+			}, 30*1000);
+		});
   }
 
   copyToKindleScribe() {

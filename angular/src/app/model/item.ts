@@ -6,6 +6,7 @@ export declare interface Item {
 	name: string;
 	collectionName: string;
 	pathFromCategoryRoot: string;
+	handle?: FileSystemFileHandle;
 	thumbnail?: string;
 	largeThumbnail?: string;
 	series?: boolean;

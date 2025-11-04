@@ -1,15 +1,10 @@
 import { Location } from '@angular/common';
-import {
-	Component,
-	HostListener, inject,
-	viewChild, ViewEncapsulation
-} from '@angular/core';
+import { Component, HostListener, inject, viewChild, ViewEncapsulation } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { AppHeader } from './app-header';
-import { AppResources } from './app-resources.service';
-import { AppState } from './app-state.service';
-import { AppWidgets } from './app-widgets.service';
-import { CbtService } from './cbt/cbt.service';
+import { AppResources } from './app-resources';
+import { AppState } from './app-state';
+import { AppWidgets } from './app-widgets';
 import { LibraryDB } from './db/library-db';
 import { Files } from './fs/library-fs';
 import { Book } from './media-components/book';
@@ -23,33 +18,47 @@ import { Item } from './model/item';
 import { ItemRef } from './model/item-ref';
 import { Library } from './model/library';
 import { Settings } from './settings';
+import YAML from 'yaml';
+import { BookDetails } from './model/book-details';
+import { AppActions } from './app-actions';
 
 @Component({
   selector: 'app',
-  imports: [AppHeader, Book, CollectionBrowser, Series, Settings, LibrarySettings, AppState, AppResources, AppWidgets],
+  imports: [
+    AppHeader,
+    Book,
+    CollectionBrowser,
+    Series,
+    Settings,
+    LibrarySettings,
+    AppState,
+    AppResources,
+    AppWidgets,
+    AppActions,
+  ],
   template: `
-		<app-state></app-state>
-		<app-resources></app-resources>
-		<app-widgets></app-widgets>
-    <app-header class="row-flex row-flex-align-center"/>
+    <app-state></app-state>
+    <app-resources></app-resources>
+    <app-widgets></app-widgets>
+    <app-header class="flex flex-align-center" />
+    <app-actions></app-actions>
     <main>
-			@let wdgts = widgets();
-			@if(wdgts) {
-				@if (wdgts.panel.showLoading()) {
-					<div>Loading</div>
-				} @else if (wdgts.panel.showSettings()) {
-					<settings></settings>
-				} @else if (wdgts.panel.showBook()) {
-					<book></book>
-				} @else if (wdgts.panel.showSeries()) {
-					<series></series>
-				} @else if (wdgts.panel.showLibrarySettings()) {
-					<library-settings></library-settings>
-				} @else {
-					<collection-browser></collection-browser>
-				}
-
-			}
+      @let wdgts = widgets();
+      @if (wdgts) {
+        @if (wdgts.panel.showLoading()) {
+          <div>Loading</div>
+        } @else if (wdgts.panel.showSettings()) {
+          <settings></settings>
+        } @else if (wdgts.panel.showBook()) {
+          <book></book>
+        } @else if (wdgts.panel.showSeries()) {
+          <series></series>
+        } @else if (wdgts.panel.showLibrarySettings()) {
+          <library-settings></library-settings>
+        } @else {
+          <collection-browser></collection-browser>
+        }
+      }
     </main>
   `,
   styles: ``,
@@ -57,12 +66,13 @@ import { Settings } from './settings';
   providers: [],
 })
 export class App {
-updateItem() {
-throw new Error('Method not implemented.');
-}
   private location = inject(Location);
   private appDb = inject(LibraryDB);
   private files = inject(Files);
+
+  widgets = viewChild(AppWidgets);
+  appState = viewChild(AppState);
+  resources = viewChild(AppResources);
 
   @HostListener('document:keydown', ['$event'])
   protected handleKeyboardEvent(event: KeyboardEvent) {
@@ -75,20 +85,56 @@ throw new Error('Method not implemented.');
     }
   }
 
-  widgets = viewChild(AppWidgets);
-  appState = viewChild(AppState);
-  resources = viewChild(AppResources);
-
   handlePaginationEvent(e: PageEvent) {
     // console.log(e);
     this.goToPageSet(e.pageIndex);
   }
 
-
   constructor() {
     // const loc = this.location.path().split('/');
     // if(loc.length > 0) {
     // }
+  }
+
+  async updateItem() {
+    const library = this.resources()?.storedLibrary.value();
+    const collection = this.appState()?.currentCollection();
+    const book = this.resources()?.bookCbt.value();
+    const item = this.appState()?.currentItem();
+    if (collection && book && item) {
+      if (!item.bookDetails) {
+        item.bookDetails = {} as BookDetails;
+      }
+      item.bookDetails.blankPages = [];
+      item.bookDetails.imagePages = [];
+      item.bookDetails.tocEntries = [];
+
+      for (let i = 0; i < book.length; i++) {
+        const page = book[i];
+        if (page.type === 'Blank') {
+          item.bookDetails.blankPages.push(page.name);
+        } else if (page.type === 'Image') {
+          item.bookDetails.imagePages.push(page.name);
+        }
+
+        if (page.bookmarkName) {
+          item.bookDetails.tocEntries.push({
+            name: page.bookmarkName,
+            pageNumber: i,
+          });
+        }
+      }
+
+      const itemHandle = await this.files.getDirectoryHandle(
+        collection.handle,
+        item.pathFromCategoryRoot,
+      );
+      const cbtDetailsHandle = await itemHandle.getFileHandle('cbtDetails.yaml', { create: true });
+      const writableStream = await cbtDetailsHandle.createWritable();
+      await writableStream.write(YAML.stringify(item.bookDetails));
+      writableStream.close();
+
+    }
   }
 
   onCategoryButtonClick(category: Category) {
@@ -111,8 +157,7 @@ throw new Error('Method not implemented.');
   }
 
   openCollection(collection?: Collection) {
-		if(collection)
-			this.appState()?.currentCollection.set(collection);
+    if (collection) this.appState()?.currentCollection.set(collection);
     this.appState()?.currentCategory.set(undefined);
     this.appState()?.currentSeries.set(undefined);
     this.appState()?.currentItem.set(undefined);
@@ -120,8 +165,7 @@ throw new Error('Method not implemented.');
   }
 
   openCategory(category?: Category) {
-		if(category)
-    	this.appState()?.currentCategory.set(category);
+    if (category) this.appState()?.currentCategory.set(category);
     this.appState()?.currentSeries.set(undefined);
     this.appState()?.currentItem.set(undefined);
     this.appState()?.currentPageSet.set(0);
@@ -133,43 +177,45 @@ throw new Error('Method not implemented.');
       this.appState()?.currentSeries.update(() => itemRef);
       this.appState()?.currentItem.update(() => undefined);
     } else {
-      let isCached = this.resources()?.storedLibrary.value()?.cachedItems.some((value) => {
-        return (
-          value.collectionName === this.appState()?.currentCollection()?.name &&
-          value.itemName === item.name
-        );
-      });
-      if (!isCached) {
-        this.cacheItem(itemRef, item);
-      } else {
-        this.displayItem(itemRef, item);
-      }
+      this.displayItem(itemRef, item);
+
+      // let isCached = this.resources()?.storedLibrary.value()?.cachedItems.some((value) => {
+      // 	return (
+      // 		value.collectionName === this.appState()?.currentCollection()?.name &&
+      // 		value.itemName === item.name
+      // 	);
+      // });
+      // if (!isCached) {
+      // 	this.cacheItem(itemRef, item);
+      // } else {
+      // 	this.displayItem(itemRef, item);
+      // }
     }
   }
 
-	setLocation() {
-			const col =	this.appState()?.currentCollection()?.name?.toLowerCase();
-    	const cat = this.appState()?.currentCategory()?.name?.toLowerCase();
-    	const itm = this.appState()?.currentItem()?.name?.toLowerCase();
-    	const pg = this.appState()?.currentPageSet();
-    	if(col) {
-    		if(cat) {
-    			if(itm) {
-    				if(pg) {
-    					this.location.replaceState(`${col}/${cat}/${itm}/${pg}`);
-    				} else {
-    					this.location.replaceState(`${col}/${cat}/${itm}`);
-    				}
-    			} else {
-    					this.location.replaceState(`${col}/${cat}`);
-    			}
-    		} else {
-    					this.location.replaceState(`${col}`);
-    		}
-    	} else {
-    		this.location.replaceState('');
-    	}
-	}
+  setLocation() {
+    const col = this.appState()?.currentCollection()?.name?.toLowerCase();
+    const cat = this.appState()?.currentCategory()?.name?.toLowerCase();
+    const itm = this.appState()?.currentItem()?.name?.toLowerCase();
+    const pg = this.appState()?.currentPageSet();
+    if (col) {
+      if (cat) {
+        if (itm) {
+          if (pg) {
+            this.location.replaceState(`${col}/${cat}/${itm}/${pg}`);
+          } else {
+            this.location.replaceState(`${col}/${cat}/${itm}`);
+          }
+        } else {
+          this.location.replaceState(`${col}/${cat}`);
+        }
+      } else {
+        this.location.replaceState(`${col}`);
+      }
+    } else {
+      this.location.replaceState('');
+    }
+  }
 
   displayItem(itemRef: ItemRef, item: Item) {
     if (this.appState()?.currentCollection()?.openType === 'book') {
@@ -189,18 +235,18 @@ throw new Error('Method not implemented.');
   }
 
   goToNextPage() {
-		const appState = this.appState();
-		if(appState) this.goToPageSet(appState.currentPageSet() + 1);
+    const appState = this.appState();
+    if (appState) this.goToPageSet(appState.currentPageSet() + 1);
   }
 
   goToPreviousPage() {
-		const appState = this.appState();
-    if(appState) this.goToPageSet(appState.currentPageSet() - 1);
+    const appState = this.appState();
+    if (appState) this.goToPageSet(appState.currentPageSet() - 1);
   }
 
-	toggleThumbnailView() {
-		this.widgets()?.book.thumbnailView.update((val) => !val);
-	}
+  toggleThumbnailView() {
+    this.widgets()?.book.thumbnailView.update((val) => !val);
+  }
 
   toggleOneOrTwoPageMode() {
     if (this.widgets()?.book.pagesInDisplay() === 1) {
@@ -223,6 +269,7 @@ throw new Error('Method not implemented.');
 
     this.appState()?.currentBookDetails.update(() => undefined);
     this.appState()?.currentPageSet.update(() => 0);
+		this.resources()?.bookCbt.reload();
   }
 
   // private displayVideoItem(item: any) {

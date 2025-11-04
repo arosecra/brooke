@@ -10,7 +10,7 @@ import { App } from './app';
   providers: [],
 })
 export class AppWidgets {
-  app = inject(App);
+  private app = inject(App);
 
   panel = {
     showBook: computed(() => {

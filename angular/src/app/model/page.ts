@@ -4,5 +4,8 @@ export declare interface Page {
 	markdown: string;
 	thumbnail: string;
 	fullPage: string;
-	type: 'Text' | 'Image' | 'Blank' | 'Exclude';
+	type: PageType;
+	bookmarkName?: string;
 }
+
+export declare type PageType = 'Text' | 'Image' | 'Blank' | 'Exclude';
