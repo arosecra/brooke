@@ -10,7 +10,7 @@
     "lint": "ng lint"
   },
   "prettier": {
-    "printWidth": 100,
+    "printWidth": 120,
     "singleQuote": true,
     "overrides": [
       {
@@ -32,9 +32,11 @@
     "@angular/platform-browser": "^20.3.6",
     "@angular/router": "^20.3.6",
     "@angular/service-worker": "^20.3.6",
-    "@zip.js/zip.js": "^2.8.8",
+    "katex": "^0.16.25",
     "material-symbols": "^0.34.1",
     "nanotar": "^0.2.0",
+    "ngx-remark": "^0.2.0",
+    "remark": "^15.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "yaml": "^2.8.1"

@@ -1,24 +1,31 @@
 import { NgStyle } from '@angular/common';
 import {
-	Component,
-	input,
-	signal,
-	ViewEncapsulation
+  Component,
+  effect,
+  inject,
+  Injector,
+  input,
+  resource,
+  Resource,
+  signal,
+  ViewEncapsulation,
+  ResourceStatus,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { App } from '../app';
 
 @Component({
-  selector: 'mini-fab-async',
+  selector: 'bbutton',
   imports: [MatIconModule, MatButtonModule, NgStyle, MatProgressSpinnerModule],
   host: {
     '(click)': 'onClick($event)',
   },
   template: `
-    <button matMiniFab [disabled]="busy() && !globalBusy()">
-      <mat-icon fontSet="material-symbols-outlined" [class.spin]="busy() && !globalBusy()">
-        @if (busy() && !globalBusy()) {
+    <button matMiniFab [disabled]="busy() && !g()">
+      <mat-icon fontSet="material-symbols-outlined" [class.spin]="busy() && !g()">
+        @if (busy() && !g()) {
           progress_activity
         } @else {
           <ng-content />
@@ -26,7 +33,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
       </mat-icon>
     </button>
 
-    @if (globalBusy()) {
+    @if (g()) {
       <div
         class="overlay"
         [ngStyle]="{ display: busy() ? 'block' : 'none' }"
@@ -73,31 +80,41 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   encapsulation: ViewEncapsulation.None,
   providers: [],
 })
-//Different wait modes
-//////////////////////
-// function returns a promise
-// function reloads / reloads a resource
-// 
-export class MiniFabAsync {
-  busy = signal<boolean>(false);
 
-  o = input.required<any>();
-  m = input.required<() => ( Promise<any> | void )>();
+/**
+ * just thoughts...
+ * 1- convert this to a directive
+ * 2- each action will have a id
+ * 3- buttons can share action ids (image click vs button click)
+ * 4- have the directive change the icon if there is a mat-icon
+ * 5- if there's no click handler, register one & execute action on click
+ * 6- 
+ * .- but... 
+ *      does that mean i need a global action execution thingy?
+ *      if so, that'll be my man in the middle to capture the promise
+ *      but i'll probably need a global registry of signals that
+ *      represent the status of the action (idle/busy)
+ *      
+ * .- may not be able to determine if the host has a click handler
+ */
 
-  globalBusy = input<boolean>(false);
-  promise = input<boolean>(true);
+export class PromiseButton {
+  app = inject(App);
+  injector = inject(Injector);
 
-	onClick(event: MouseEvent): void {
-    if (this.promise()) {
-      this.busy.set(true);
-      const pr = this.m().call(this.o());
-			if(pr) {
-				pr.then(() => {
-					this.busy.set(false);
-				});
-			}
-    } else {
-      this.m().call(this.o());
-    }
+  protected busy = signal<boolean>(false);
+
+  o = input<any>();
+  m = input.required<() => Promise<any>>();
+  g = input<boolean>(false);
+
+  onClick(event: MouseEvent): void {
+    this.busy.set(true);
+    let obj = this.o() || this.app;
+    let pr = this.m().call(obj);
+
+    pr?.then(() => {
+      this.busy.set(false);
+    }) || this.busy.set(false);
   }
 }

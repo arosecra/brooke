@@ -34,5 +34,7 @@ export class AppWidgets {
   book = {
     pagesInDisplay: signal<number>(2),
     thumbnailView: signal<boolean>(false),
+    markdownView: signal<boolean>(false),
+    sideBySide: signal<boolean>(false),
   };
 }

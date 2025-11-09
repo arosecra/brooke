@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, HostListener, inject, viewChild, ViewEncapsulation } from '@angular/core';
+import { Component, HostListener, inject, Injector, viewChild, ViewEncapsulation } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { AppHeader } from './app-header';
 import { AppResources } from './app-resources';
@@ -21,6 +21,7 @@ import { Settings } from './settings';
 import YAML from 'yaml';
 import { BookDetails } from './model/book-details';
 import { AppActions } from './app-actions';
+import { resourceStatusToPromise } from './util/res-status-to-promise';
 
 @Component({
   selector: 'app',
@@ -69,10 +70,11 @@ export class App {
   private location = inject(Location);
   private appDb = inject(LibraryDB);
   private files = inject(Files);
+	private injector = inject(Injector);
 
-  widgets = viewChild(AppWidgets);
-  appState = viewChild(AppState);
-  resources = viewChild(AppResources);
+  widgets = viewChild.required(AppWidgets);
+  appState = viewChild.required(AppState);
+  resources = viewChild.required(AppResources);
 
   @HostListener('document:keydown', ['$event'])
   protected handleKeyboardEvent(event: KeyboardEvent) {
@@ -153,6 +155,8 @@ export class App {
     this.appState()?.currentCategory.set(undefined);
     this.appState()?.currentSeries.set(undefined);
     this.appState()?.currentItem.set(undefined);
+    this.widgets()?.book.thumbnailView.set(false);
+		this.resources()?.bookCbt.reload();
     this.setLocation();
   }
 
@@ -161,6 +165,8 @@ export class App {
     this.appState()?.currentCategory.set(undefined);
     this.appState()?.currentSeries.set(undefined);
     this.appState()?.currentItem.set(undefined);
+    this.widgets()?.book.thumbnailView.set(false);
+		this.resources()?.bookCbt.reload();
     this.setLocation();
   }
 
@@ -169,15 +175,18 @@ export class App {
     this.appState()?.currentSeries.set(undefined);
     this.appState()?.currentItem.set(undefined);
     this.appState()?.currentPageSet.set(0);
+    this.widgets()?.book.thumbnailView.set(false);
+		this.resources()?.bookCbt.reload();
     this.setLocation();
   }
 
-  openItem(itemRef: ItemRef, item: Item) {
+  openItem(itemRef: ItemRef, item: Item): Promise<any> {
+		let res: Promise<any> = Promise.resolve(true)
     if (this.appState()?.currentCollection()?.openType === 'video' && itemRef.series) {
       this.appState()?.currentSeries.update(() => itemRef);
       this.appState()?.currentItem.update(() => undefined);
     } else {
-      this.displayItem(itemRef, item);
+      res = this.displayItem(itemRef, item);
 
       // let isCached = this.resources()?.storedLibrary.value()?.cachedItems.some((value) => {
       // 	return (
@@ -191,7 +200,13 @@ export class App {
       // 	this.displayItem(itemRef, item);
       // }
     }
+		return res;
   }
+	
+	openItemThumbnails(itemRef: ItemRef, item: Item) {
+    this.widgets()?.book.thumbnailView.set(true);
+		return this.displayBookItem(itemRef, item);
+	}
 
   setLocation() {
     const col = this.appState()?.currentCollection()?.name?.toLowerCase();
@@ -217,13 +232,15 @@ export class App {
     }
   }
 
-  displayItem(itemRef: ItemRef, item: Item) {
+  displayItem(itemRef: ItemRef, item: Item): Promise<any> {
+		let res: Promise<any> = Promise.resolve(true);
     if (this.appState()?.currentCollection()?.openType === 'book') {
-      this.displayBookItem(itemRef, item);
+      res = this.displayBookItem(itemRef, item);
     } else {
       // this.displayVideoItem(item);
     }
     this.setLocation();
+		return res;
   }
 
   goToPageSet(newPageNo: number) {
@@ -248,6 +265,21 @@ export class App {
     this.widgets()?.book.thumbnailView.update((val) => !val);
   }
 
+	toggleMarkdownView() {
+    this.widgets()?.book.markdownView.update((val) => !val);
+	}
+
+	toggleSideBySide() {
+		const sideBySide = this.widgets()?.book.sideBySide();
+		const pageMode = this.widgets()?.book.pagesInDisplay();
+		const pageModeToggleRequired = (!sideBySide && pageMode === 2) || (sideBySide && pageMode === 1)
+
+    if(pageModeToggleRequired) {
+			this.toggleOneOrTwoPageMode();
+		} 
+		this.widgets()?.book.sideBySide.set(!sideBySide);
+	}
+
   toggleOneOrTwoPageMode() {
     if (this.widgets()?.book.pagesInDisplay() === 1) {
       this.widgets()?.book.pagesInDisplay.set(2);
@@ -265,11 +297,15 @@ export class App {
   }
 
   private displayBookItem(itemRef: ItemRef, item: Item) {
-    this.appState()?.currentItem.update(() => item);
+    this.appState().currentItem.update(() => item);
 
-    this.appState()?.currentBookDetails.update(() => undefined);
-    this.appState()?.currentPageSet.update(() => 0);
-		this.resources()?.bookCbt.reload();
+    this.appState().currentBookDetails.update(() => undefined);
+    this.appState().currentPageSet.update(() => 0);
+		this.resources().bookCbt.reload();
+		return resourceStatusToPromise(this.resources().bookCbt, this.injector).then(() => {
+			//TODO wait until now to show the item
+			//     will need to change the widgets to not be computed
+		})
   }
 
   // private displayVideoItem(item: any) {

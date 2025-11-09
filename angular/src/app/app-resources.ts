@@ -52,9 +52,9 @@ export class AppResources {
 					)
 
 					if(cacheFileHandle) {
-						this.cbt.loadCbt(item, cacheFileHandle).then((val) => resolve(val));
+						this.cbt.loadCbtGz(item, cacheFileHandle).then((val) => resolve(val));
 					} else if (itemHandle) {
-						this.cbt.loadCbt(item, itemHandle).then((val) => resolve(val));
+						this.cbt.loadCbtGz(item, itemHandle).then((val) => resolve(val));
 					} else {
 						reject('could not find file');
 					}

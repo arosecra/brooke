@@ -4,24 +4,27 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatChipAndRemove } from './media-components/mat-chip-and-remove';
+import { ItemNamePipe } from "./media-components/itemName.pipe";
 
 @Component({
   selector: 'app-breadcrumb',
-  imports: [MatIconModule, MatButtonModule, MatChipsModule, MatChipAndRemove],
+  imports: [MatIconModule, MatButtonModule, MatChipsModule, MatChipAndRemove, ItemNamePipe],
   template: `
 		@let appState = app.appState();
 		@if(appState) {
 			@if (appState.currentCollection()) {
+				@let collectionLabel = appState.currentItem() ? '...' : appState.currentCollection()?.name;
 				<mat-icon fontSet="material-symbols-outlined">chevron_right</mat-icon>
 				<mat-chip-and-remove
-					[label]="appState.currentCollection()?.name"
+					[label]="collectionLabel"
 					(removed)="app.openHome()"
 				/>
 			}
 			@if (appState.currentCategory()) {
+				@let categoryLabel = appState.currentSeries() || appState.currentItem() ? '...' : appState.currentCategory()?.name;
 				<mat-icon fontSet="material-symbols-outlined">chevron_right</mat-icon>
 				<mat-chip-and-remove
-					[label]="appState.currentCategory()?.name"
+					[label]="categoryLabel"
 					(removed)="app.openCollection()"
 				/>
 			}

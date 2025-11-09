@@ -9,13 +9,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { Page, PageType } from '../model/page';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { RemarkModule } from 'ngx-remark';
 
 @Component({
   selector: 'book',
-  imports: [MatCardModule, MatButtonModule, MatButtonToggleModule, MatIconModule, FormsModule, MatFormFieldModule, MatInputModule],
+  imports: [MatCardModule, MatButtonModule, MatButtonToggleModule, MatIconModule, FormsModule, MatFormFieldModule, MatInputModule, RemarkModule],
 	host: {
-		'[class.one-page]': '!app.widgets()?.book?.thumbnailView() && app.widgets()?.book?.pagesInDisplay() === 1',
-		'[class.two-page]': '!app.widgets()?.book?.thumbnailView() && app.widgets()?.book?.pagesInDisplay() === 2',
+		'[class.one-page]': '!app.widgets()?.book?.thumbnailView() && app.widgets()?.book?.pagesInDisplay() === 1 && !app.widgets()?.book?.sideBySide()',
+		'[class.two-page]': '!app.widgets()?.book?.thumbnailView() && (app.widgets()?.book?.pagesInDisplay() === 2 || app.widgets()?.book?.sideBySide())',
 	},
   template: `
 	@let widgets = app.widgets();
@@ -29,20 +30,44 @@ import { MatInputModule } from '@angular/material/input';
 			@let leftPageNo = appState.currentPageSet() * pagesInDisplay;
 			@let rightPageNo = leftPageNo + 1;
 
-			@let showRightPage = pagesInDisplay === 2 && 
-				bookCbt.length > rightPageNo;
+			@let showRightPage = widgets.book.sideBySide() || (pagesInDisplay === 2 && bookCbt.length > rightPageNo);
 
 			@if(bookCbt.length > leftPageNo) {
-				<img #leftPage
-					style="width: 100%"
-					[src]="bookCbt[leftPageNo].fullPage"
-				/>
-			}
+				
+				@if(widgets.book.sideBySide()) {
+					<remark [markdown]="bookCbt[leftPageNo].markdown">
+						<div *remarkTemplate="'paragraph'; let node" [remarkNode]="node"></div>
+						<p *remarkTemplate="'text'; let node">{{ node.value }}</p>
+					</remark>
+				} @else if(!widgets.book.markdownView() || !bookCbt[leftPageNo].markdown) {
+					<img #leftPage
+						style="width: 100%"
+						[src]="bookCbt[leftPageNo].fullPage"
+					/>
+				} @else {
+					<remark [markdown]="bookCbt[leftPageNo].markdown">
+						<div *remarkTemplate="'paragraph'; let node" [remarkNode]="node"></div>
+						<p *remarkTemplate="'text'; let node">{{ node.value }}</p>
+					</remark>
+				}
+			} 
 			@if(showRightPage) {
-				<img #rightPage
-					style="width: 100%"
-					[src]="bookCbt[rightPageNo].fullPage"
-				/>
+				@if(widgets.book.sideBySide()) {
+					<img #rightPage
+											style="width: 100%"
+											[src]="bookCbt[leftPageNo].fullPage"
+										/>
+				} @else if(!widgets.book.markdownView() || !bookCbt[rightPageNo].markdown) {
+					<img #rightPage
+						style="width: 100%"
+						[src]="bookCbt[rightPageNo].fullPage"
+					/>
+				} @else {
+					<remark [markdown]="bookCbt[rightPageNo].markdown">
+						<div *remarkTemplate="'paragraph'; let node" [remarkNode]="node"></div>
+						<p *remarkTemplate="'text'; let node">{{ node.value }}</p>
+					</remark>
+				}
 			} 
 
 		} @else {

@@ -24,7 +24,7 @@ import { BookToC } from './media-components/book-toc';
 			<mat-icon fontSet="material-symbols-outlined">newsstand</mat-icon>
 		</button>
 		<h1>Brooke</h1>
-		<app-breadcrumb class="flex flex-align-center"></app-breadcrumb>
+		<app-breadcrumb class="flex flex-align-center flex-no-gap"></app-breadcrumb>
 		<span class="spacer"></span>
 		
 		@if (!widgets.panel.showBook() && !widgets.panel.showSeries()) {
@@ -34,9 +34,15 @@ import { BookToC } from './media-components/book-toc';
 			<button matMiniFab title="Write Categories">
 				<mat-icon fontSet="material-symbols-outlined">sync_arrow_up</mat-icon>
 			</button>
+			<button matMiniFab (click)="appState.showSettingsManual.set(true)">
+				<mat-icon fontSet="material-symbols-outlined">settings</mat-icon>
+			</button>
 		}
 		
 		@if (widgets.panel.showBook()) {
+			<button matMiniFab (click)="app.toggleMarkdownView()" title="View Markdown">
+				<mat-icon fontSet="material-symbols-outlined">markdown</mat-icon>
+			</button>
 			<button matMiniFab (click)="app.toggleThumbnailView()" title="Thumbnails"> <!-- ocr details / thumbnail view -->
 				<mat-icon fontSet="material-symbols-outlined">dataset</mat-icon>
 			</button>
@@ -50,7 +56,7 @@ import { BookToC } from './media-components/book-toc';
 			<button matMiniFab (click)="app.toggleOneOrTwoPageMode()" title="Toggle Page Mode">
 				<mat-icon fontSet="material-symbols-outlined">two_pager</mat-icon>
 			</button>
-			<button matMiniFab title="Compare Markdown and Image">
+			<button matMiniFab (click)="app.toggleSideBySide()" title="Compare Markdown and Image">
 				<mat-icon fontSet="material-symbols-outlined">compare</mat-icon>
 			</button>
 			@if (resources.bookCbt.hasValue()) {
@@ -67,9 +73,6 @@ import { BookToC } from './media-components/book-toc';
 				</mat-paginator>
 			}
 		}
-		<button matMiniFab (click)="appState.showSettingsManual.set(true)">
-			<mat-icon fontSet="material-symbols-outlined">settings</mat-icon>
-		</button>
 	</mat-toolbar-row>
 	@if(widgets.book.thumbnailView()) {
 		<mat-toolbar-row>

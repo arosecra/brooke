@@ -78,15 +78,20 @@ body {
 	justify-items: center;
 }
 
+.flex-no-gap {
+	gap: 0px;
+}
+
 app {
 }
 
 book.two-page {
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: calc((100% - 14px) / 2) calc((100% - 14px) / 2);
   grid-gap: 10px;
   grid-template-rows: auto;
-  align-items: end;
+  align-items: start;
+	font-size: 18px;
 }
 
 book.one-page {
@@ -94,7 +99,8 @@ book.one-page {
   grid-template-columns: 100%;
   grid-gap: 10px;
   grid-template-rows: auto;
-  align-items: end;
+  align-items: start;
+	font-size: 18px;
 }
 
 book .thumbnails {
@@ -104,6 +110,12 @@ book .thumbnails {
 	align-items:flex-end;
 	justify-content: center;
   gap: 16px;
+}
+
+book p {
+	text-indent: 16px;
+	margin-block-end: 8px;
+	margin-block-start: 0;
 }
 
 book .thumbnails mat-card {

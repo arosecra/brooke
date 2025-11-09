@@ -14,7 +14,7 @@ export class ItemNamePipe implements PipeTransform {
     category?: Category | undefined,
     replaceCategoryName?: boolean,
     ...args: unknown[]
-  ): unknown {
+  ): string {
     let result = value ? (typeof value === 'string' ? value : value.name) : '';
     let categoryName = category?.name ?? '';
     if (replaceCategoryName && categoryName.length > 1) {
