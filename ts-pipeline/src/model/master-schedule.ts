@@ -43,6 +43,16 @@ export class MasterSchedule {
 		});
 	}
 
+	doesPropertyCheckPass(pipeline: Pipeline, rf: string): boolean {
+		if(!pipeline.propertyCheck) return true;
+		return fs.readdirSync(rf).some((file) => {
+			const basename = path.basename(file);
+			const match = basename.match(pipeline.produces);
+			if(match)	return pipeline.propertyCheck(path.join(rf, file));
+			else false;
+		});
+	}
+
 	firstUnassignedTask(): Task | undefined {
 		return this.tasks.find((task) => !task.assigned);
 	}
@@ -59,7 +69,16 @@ export class MasterSchedule {
 				const pipelineMatches = !pipelines || pipelines.includes(pipeline.name)
 				const producesExists = this.doesRemoteProducesExist(pipeline, itemFolder);
 				const usesExists = this.doesRemoteUsesExists(pipeline, itemFolder);
-				if (!producesExists && usesExists && pipelineMatches) {
+
+				let produceMissing = !producesExists;
+				if(!!pipeline.propertyCheck && usesExists && producesExists) {
+					produceMissing = !this.doesPropertyCheckPass(pipeline, itemFolder);
+				} 
+				const taskApplicable = produceMissing && usesExists && pipelineMatches;
+
+				console.log(producesExists, usesExists, pipelineMatches, produceMissing, taskApplicable, itemFolder);
+
+				if (taskApplicable) {
 					if(this.tasks.length < max || max === 0) {
 						this.addTask(new Task(pipeline.name, itemFolder), schedule);
 					}

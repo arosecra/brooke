@@ -4,7 +4,8 @@ import { Pipeline } from "../model/pipeline";
 import * as fs from 'fs';
 import * as path from 'path';
 import { node } from "../util/node";
-import { parse } from 'yaml'
+import { parse } from 'yaml';
+const zlib = require('zlib');
 
 export class BookRunOcrStep implements JobStep {
 	execute(job: JobFolder): void {
@@ -13,6 +14,9 @@ export class BookRunOcrStep implements JobStep {
 
 		const ocrFolder = node.pathJoin(job.destFolder, '.ocr');
 		fs.mkdirSync(ocrFolder, { recursive: true });
+		fs.mkdirSync(node.pathJoin(ocrFolder, 'content_list'), { recursive: true });
+		fs.mkdirSync(node.pathJoin(ocrFolder, 'md'), { recursive: true });
+		fs.mkdirSync(node.pathJoin(ocrFolder, 'model'), { recursive: true });
 
 		fs.readdirSync(job.destFolder).filter((file) => file.includes('-1-')).forEach((file) => {
 			const baseFilename = path.basename(file);
@@ -39,8 +43,15 @@ export class BookRunOcrStep implements JobStep {
 				for(let i = 0; i < ocrFiles.length; i++) {
 					const ocrFile = ocrFiles[i];
 					const inputPath = node.pathJoin(ocrOutput, ocrFiles[i]);
-					const outputPath = node.pathJoin(ocrFolder, path.basename(ocrFile))
-					if(ocrFile.endsWith('json')) {
+
+					let folder = "md";
+          if (ocrFile.includes("content_list")) {
+            folder = "content_list";
+          } else if (ocrFile.includes("model")) {
+            folder = "model";
+          } 
+					const outputPath = node.pathJoin(ocrFolder, folder, path.basename(ocrFile));
+					if(ocrFile.endsWith('json') && !ocrFile.includes('middle')) {
 						fs.copyFileSync(inputPath, outputPath)
 					} else if(ocrFile.endsWith('md')) {
 						let modifiedLines = this.internImages(inputPath, ocrOutput, dataPrefix);
@@ -50,6 +61,22 @@ export class BookRunOcrStep implements JobStep {
 
 			}			
 		});
+
+		//D:\Software\7za\7za.exe a -ttar D:\scans\pipeline_temp\Is_it_Wrong_to_Pick_Up_Girls_in_a_Dungeon_01\dest\dest.tar D:\scans\pipeline_temp\Is_it_Wrong_to_Pick_Up_Girls_in_a_Dungeon_01\dest\.ocr.zip
+	}
+
+	async compressData(data: any) {
+		const textEncoder = new TextEncoder();
+		const readableStream = new ReadableStream({
+			start(controller) {
+				controller.enqueue(textEncoder.encode(data));
+				controller.close();
+			},
+		});
+
+		const compressedStream = readableStream.pipeThrough(new CompressionStream('gzip'));
+		const compressedBlob = await new Response(compressedStream).blob();
+		return compressedBlob;
 	}
 
 	private internImages(ocrFile: string, ocrOutput: string, dataPrefix: string) {

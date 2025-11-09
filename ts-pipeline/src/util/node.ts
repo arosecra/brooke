@@ -11,7 +11,7 @@ export class node {
 		const cmd = `Running> ${file} ${args.join(' ')}${dir}`
 
 		console.log(cmd);
-		return child_process.execFileSync(file, args, opts);
+		return String(child_process.execFileSync(file, args, opts));
 	} 
 
 	static fsMove(source: string, dest: string) {

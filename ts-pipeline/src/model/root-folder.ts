@@ -12,7 +12,7 @@ export class RootFolder {
 		public assigned: boolean = false,
 		public complete: boolean = false
 	) {
-		this.itemFolders = this.getLeafFolders(rootFolder);
+		this.itemFolders = this.getLeafFolders(remoteFolder);
 	}
 
 	private getLeafFolders(folder: string): string[] {

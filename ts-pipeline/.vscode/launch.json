@@ -13,6 +13,7 @@
         "--transpile-only"
       ],
       "program": "${workspaceRoot}/main.ts",
+			"args": ["--threads", "1", "--summarize", "true"],
       "cwd": "${workspaceRoot}",
       "internalConsoleOptions": "openOnSessionStart",
       "skipFiles": ["<node_internals>/**", "node_modules/**"]

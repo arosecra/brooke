@@ -18,6 +18,11 @@ import { BookCreateCoverThumbnailStep } from "./src/steps/book-create-cover-thum
 import { Task } from "./src/model/task";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
+import { BookTarToCbtGzStep } from "./src/steps/book-tar-to-cbt-gz-step copy";
+import { OcrUntarCbtGzStep } from "./src/steps/ocr-extract-cbts-step";
+import { BookRunOcrStep } from "./src/steps/book-run-ocr-step";
+import { node } from "./src/util/node";
+import * as child_process from 'child_process';
 
 const argv = yargs(hideBin(process.argv))
   .option("tasks", {
@@ -39,6 +44,12 @@ const argv = yargs(hideBin(process.argv))
 		type: 'string',
 		description: 'Pipeline'
 	})
+	.option('summary', {
+		type: "boolean",
+		description: "summarize work to complete and exit",
+		default: false
+	})
+	.help()
   .parseSync();
 
 function getLeafFolders(folder: string): string[] {
@@ -63,13 +74,16 @@ function getLeafFolders(folder: string): string[] {
 
 function setupMasterSchedule() {
   const lightNovels = new RootFolder(
-		"Light Novels", "\\\\syn01\\syn01public\\Scans\\Light_Novels_Repository"
-	);
+    "Light Novels",
+    "\\\\syn01\\syn01public\\Scans\\Light_Novels_Repository"
+  );
   const fiction = new RootFolder(
-    "Fiction", "\\\\syn01\\syn01public\\Scans\\Fiction_Repository"
+    "Fiction",
+    "\\\\syn01\\syn01public\\Scans\\Fiction_Repository"
   );
   const nonfiction = new RootFolder(
-    "Non Fiction", "\\\\syn01\\syn01public\\Scans\\NonFiction_Repository"
+    "Non Fiction",
+    "\\\\syn01\\syn01public\\Scans\\NonFiction_Repository"
   );
   //	const graphicNovels = new RootFolder("Graphic Novels", getLeafFolders("\\\\syn01\\syn01public\\Scans\\Graphic_Novel_Repository"));
   //	const magazines = new RootFolder("Magazines", getLeafFolders("\\\\syn01\\syn01public\\Scans\\Magazine_Repository"));
@@ -78,14 +92,21 @@ function setupMasterSchedule() {
   //	const anime = new RootFolder("Research Papers", getLeafFolders("\\\\syn01\\syn01public\\Scans\\Research_Papers_Repository"));
   //	const movies = new RootFolder("Research Papers", getLeafFolders("\\\\syn01\\syn01public\\Scans\\Research_Papers_Repository"));
 
-  // const bookOcrPropPipeline = new Pipeline() //
-  // 	.setName("Book OCR Properties Pipeline") //
-  // 	.setUses(".*.pdf")
-  // 	.setProduces("ocr.properties")
-  // 	.addStep(new ExtractBookPDFsStep())
-  // 	.addStep(new CreateOCRPropertiesStep())
-  // ;
 
+  const bookOcrPipeline = new Pipeline() //
+    .setName("Book OCR") //
+    .setUses([".*.cbt.gz", ".*.yaml"]) //
+    .setProduces(".*.cbt.gz") //
+    .setPropertyCheck((file: string) => {
+			const pout = String(child_process.execFileSync("tar", ["-ztf", file]));
+      const list = pout.split("\r\n");
+      return list.some((line) => line.trim().endsWith(".md"));
+    }) //
+    .addStep(new OcrUntarCbtGzStep())
+    .addStep(new BookRunOcrStep())
+    .addStep(new BookTarToCbtGzStep())
+	;
+		
   const bookCbtDetailsPipeline = new Pipeline() //
     .setName("Book CBT Details") //
     .setUses([".*.pdf"])
@@ -94,56 +115,89 @@ function setupMasterSchedule() {
     .addStep(new BookExtractPDFsStep())
     // .addStep(new DeleteExcludedPagesStep())
     .addStep(new BookCreateCbtDetailsStep());
+
   const bookCoverThumbnailPipeline = new Pipeline()
     .setName("Cover Thumbnail") //
     .setUses([".*cover[s].pdf"]) //
     .setProduces("thumbnail.png") //
     .addStep(new BookExtractPDFsStep()) //
     .addStep(new BookCreateCoverThumbnailStep(250));
+
+  const bookGzipCbtsPipeline = new Pipeline() //
+    .setName("Book Gzip CBTs") //
+    .setUses([".*.cbt"]) //
+    .setProduces(".*.cbt.gz")
+    .addStep(new OcrUntarCbtGzStep())
+    .addStep(new BookTarToCbtGzStep());
+
   const bookCbtPipeline = new Pipeline() //
     .setName("Book CBT") //
     .setUses([".*.pdf"]) //
-    .setProduces(".*.cbt") //
+    .setProduces(".*.cbt.gz") //
     .addStep(new BookExtractPDFsStep()) //
     .addStep(new BookResizeImageStep()) //
     .addStep(new BookDeskewImageStep()) //
     .addStep(new BookCreateThumbnailsStep()) //
     .addStep(new BookConvertPngToWebpStep()) //
     // //		.addStep(new RunOCRStep()) //
-    .addStep(new BookTarToCbtStep()); //
+    .addStep(new BookTarToCbtGzStep()); //
+
   return (
-    new MasterSchedule([bookCoverThumbnailPipeline, bookCbtPipeline]) //
+    new MasterSchedule([
+      bookCoverThumbnailPipeline,
+      bookCbtPipeline,
+      bookGzipCbtsPipeline,
+      bookOcrPipeline,
+    ]) //
       // .schedule(bookOcrPropPipeline, lightNovels) //
       // .schedule(bookCbtDetailsPipeline, lightNovels) //
-      .schedule(bookCoverThumbnailPipeline.name, lightNovels) //
-      .schedule(bookCbtPipeline.name, lightNovels) //
+      // .schedule(bookGzipCbtsPipeline.name, lightNovels) //
+      .schedule(bookOcrPipeline.name, lightNovels) //
+      // .schedule(bookCoverThumbnailPipeline.name, lightNovels) //
+      // .schedule(bookCbtPipeline.name, lightNovels) //
       //
       //			.schedule(bookOcrPropPipeline, nonfiction) //
       // .schedule(bookCbtDetailsPipeline, fiction) //
-      .schedule(bookCoverThumbnailPipeline.name, fiction) //
-      .schedule(bookCbtPipeline.name, fiction) //
+      // .schedule(bookGzipCbtsPipeline.name, fiction) //
+      // .schedule(bookCoverThumbnailPipeline.name, fiction) //
+      // .schedule(bookCbtPipeline.name, fiction) //
       //
       //			.schedule(bookOcrPropPipeline, nonfiction) //
       // .schedule(bookCbtDetailsPipeline, nonfiction) //
-      .schedule(bookCoverThumbnailPipeline.name, nonfiction) //
-      .schedule(bookCbtPipeline.name, nonfiction) //
+      // .schedule(bookGzipCbtsPipeline.name, nonfiction) //
+      // .schedule(bookCoverThumbnailPipeline.name, nonfiction) //
+      // .schedule(bookCbtPipeline.name, nonfiction) //
   );
 }
-
 
 let threads = os.cpus().length;
 if (argv.threads > 0) {
   threads = argv.threads;
 }
+if(argv.summary) {
+	threads = 1;
+}
 
 const ms = setupMasterSchedule();
+
+// ms.doesPropertyCheckPass(
+// 	ms.pipelineByName("Book OCR"), 
+// 	'\\\\syn01\\syn01public\\Scans\\Light_Novels_Repository\\I\\Is_it_Wrong_to_Pick_Up_Girls_in_a_Dungeon\\Is_it_Wrong_to_Pick_Up_Girls_in_a_Dungeon_01'
+// )
+
+
 if (threads === 1) {
   ms.determineTasks(argv.tasks, argv.pipelines);
   ms.printSummary();
 
+	if(argv.summary) {
+		process.exit();
+	}
+
   for (let i = 0; i < ms.tasks.length; i++) {
     const task = ms.tasks[i];
     new SinglePipelineExecutor().executeTask(
+			argv,
       ms.pipelineByName(task.pipelineName),
       task.itemFolder
     );
@@ -181,6 +235,7 @@ if (threads === 1) {
           "executing " + task.itemFolder
         );
         new SinglePipelineExecutor().executeTask(
+					argv,
           ms.pipelineByName(task.pipelineName),
           task.itemFolder
         );

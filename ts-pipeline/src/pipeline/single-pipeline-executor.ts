@@ -2,9 +2,10 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { JobFolder } from "../model/job-folder";
 import { Pipeline } from "../model/pipeline";
+import { Args } from '../model/args';
 
 export class SinglePipelineExecutor {
-	executeTask(pipeline: Pipeline, itemFolder: string) {
+	executeTask(args: Args, pipeline: Pipeline, itemFolder: string) {
 		let job = new JobFolder();
 		job.remoteFolder = itemFolder;
 
@@ -22,7 +23,7 @@ export class SinglePipelineExecutor {
 		executeSteps(pipeline, itemFolder, job);
 		copyProducedFilesToRemote(pipeline, itemFolder, job);
 
-		// fs.rmdirSync(job.workFolder, { recursive: true })
+		fs.rmdirSync(job.workFolder, { recursive: true })
 	}
 }
 

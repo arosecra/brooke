@@ -3,17 +3,19 @@ import { JobStep } from "../model/job-step";
 import { Pipeline } from "../model/pipeline";
 import * as path from 'path';
 import { node } from "../util/node";
+import { cwd } from "process";
 
-export class BookTarToCb7Step implements JobStep {
+export class BookTarToCbtGzStep implements JobStep {
 	execute(job: JobFolder): void {
 		node.execFileSync(
-			'D:\\software\\7za\\7za.exe',
-			[ 'a',
-				'-t7z',
-				'-o' + job.destFolder,
-				node.pathJoin(job.destFolder, path.basename(job.workFolder) + '.cb7'),
-				node.pathJoin(job.destFolder, '*')
-			]
+			'tar',
+			[ '-czf',
+				path.basename(job.workFolder) + '.cbt.gz',
+				'--exclude=*.gz',
+				'*'
+			], {
+				cwd: job.destFolder
+			}
 		)
 
 	}

@@ -17,8 +17,9 @@ import { BookCreateCbtDetailsStep } from "./src/steps/book-create-cbt-details-st
 import { BookCreateCoverThumbnailStep } from "./src/steps/book-create-cover-thumbnail-step";
 import { Task } from "./src/model/task";
 import { BookRunOcrStep } from "./src/steps/book-run-ocr-step";
-import { OcrExtractPDFsStep } from "./src/steps/ocr-extract-cbts-step";
-import { BookTarToCb7Step } from "./src/steps/book-tar-to-cb7-step";
+import { OcrUntarCbtGzStep } from "./src/steps/ocr-extract-cbts-step";
+import { BookTarToCbtGzStep } from "./src/steps/book-tar-to-cbt-gz-step copy";
+import { node } from "./src/util/node";
 
 function getLeafFolders(folder: string): string[] {
 
@@ -96,11 +97,17 @@ function setupMasterSchedule() {
 
 	const bookOcrPipeline = new Pipeline() //
 		.setName("Book OCR") //
-		.setUses([".*.cbt", ".*.yaml"]) //
-		.setProduces(".*.cb7")
-		.addStep(new OcrExtractPDFsStep())
+		.setUses([".*.cbt.gz", ".*.yaml"]) //
+		.setProduces(".*.cbt.gz") //
+		.setPropertyCheck((file: string) => {
+			const list = node.execFileSync('tar', ['-ztf', file]);
+			return list.split('\n').some((line) => line.endsWith('.md'))
+		}) //
+		.addStep(new OcrUntarCbtGzStep())
 		.addStep(new BookRunOcrStep())
-		.addStep(new BookTarToCb7Step());
+		.addStep(new BookTarToCbtGzStep())
+		// .addStep(new BookTarToCb7Step())
+		;
 	
 	return new MasterSchedule([
 		bookOcrPipeline	
@@ -132,7 +139,7 @@ if(threads === 1) {
 	for(let i = 0; i < ms.tasks.length; i++) {
 		const task = ms.tasks[i];
 		new SinglePipelineExecutor()
-				.executeTask(ms.pipelineByName(task.pipelineName), task.itemFolder);
+				.executeTask({} as any, ms.pipelineByName(task.pipelineName), task.itemFolder);
 	}
 } else {
 	if(cluster.isPrimary) {
@@ -165,7 +172,7 @@ if(threads === 1) {
 				const task: Task = msg.task as Task;
 				console.log(String(process.pid).padStart(8, ' '), 'executing ' + task.itemFolder);
 				new SinglePipelineExecutor()
-					.executeTask(ms.pipelineByName(task.pipelineName), task.itemFolder);
+					.executeTask({} as any, ms.pipelineByName(task.pipelineName), task.itemFolder);
 				process.send!({ request: true });
 			} else if (msg.shutdown) {
 				process.exit();

@@ -7,6 +7,7 @@ export class Pipeline {
 	public name: string;
 	public uses: string[] = [];
 	public produces: string;
+	public propertyCheck: (file: string) => boolean;
 	public remoteDirectory: string;
 	
 	public addStep(step: JobStep): Pipeline {
@@ -31,6 +32,11 @@ export class Pipeline {
 	
 	public setProduces(produces: string): Pipeline {
 		this.produces = produces;
+		return this;
+	}
+
+	public setPropertyCheck(propertyCheck: (file: string) => boolean): Pipeline {
+		this.propertyCheck = propertyCheck;
 		return this;
 	}
 
