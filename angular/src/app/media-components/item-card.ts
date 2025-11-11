@@ -1,18 +1,16 @@
-import { Component, inject, input, OnInit, ViewEncapsulation } from '@angular/core';
-import { App } from '../app';
-import { NgClass } from '@angular/common';
-import { ItemNamePipe } from './itemName.pipe';
-import { ItemRef } from '../model/item-ref';
-import { Item } from '../model/item';
+import { Component, inject, input, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
-import { PromiseButton } from '../mini-components/pbutton';
-import { TestDir } from '../mini-components/test-dir';
+import { MatIconModule } from '@angular/material/icon';
+import { App } from '../app';
+import { Action } from '../mini-components/action';
+import { Item } from '../model/item';
+import { ItemRef } from '../model/item-ref';
+import { ItemNamePipe } from './itemName.pipe';
 
 @Component({
   selector: 'item-card',
-  imports: [ItemNamePipe, MatButtonModule, MatIconModule, MatCardModule, PromiseButton, TestDir],
+  imports: [ItemNamePipe, MatButtonModule, MatIconModule, MatCardModule, Action],
   template: `
     @let appState = app.appState();
     @let itm = item();
@@ -25,23 +23,16 @@ import { TestDir } from '../mini-components/test-dir';
             }}
           </mat-card-title>
         </mat-card-header>
-        <img mat-card-image [src]="item().thumbnail" />
+				<action mat-card-image [img]="item().thumbnail" [m]="openItem" [o]="this">file_open</action>
         <mat-card-actions>
           <div>
-            <button matMiniFab (click)="openItem()" name="open">
-              <mat-icon fontSet="material-symbols-outlined">file_open</mat-icon>
-            </button>
-            <button matMiniFab (click)="downloadForOffline()" miniAsync>
-              <mat-icon fontSet="material-symbols-outlined">download_for_offline</mat-icon>
-            </button>
-            <button matMiniFab (click)="openItemDetails()" title="details">
-              <mat-icon fontSet="material-symbols-outlined">notes</mat-icon>
-            </button>
-            @if (appState.currentCollection()?.openType === 'book') {
-              <button matMiniFab (click)="openItemThumbnails()" title="Thumbnails" >
-                <mat-icon fontSet="material-symbols-outlined">dataset</mat-icon>
-              </button>
-            }
+						<action [m]="openItem" [o]="this">file_open</action>
+						<action [m]="downloadForOffline" [o]="this">download_for_offline</action>
+						<action [m]="openItemDetails" [o]="this">notes</action>
+							@if (appState.currentCollection()?.openType === 'book') {
+								<action [m]="openItemThumbnails" [o]="this" title="Thumbnails">dataset</action>
+								<action [m]="openItemMarkdown" [o]="this" title="Markdown">markdown</action>
+							}
           </div>
         </mat-card-actions>
       </mat-card>
@@ -55,14 +46,20 @@ export class ItemCard {
   itemRef = input.required<ItemRef>();
   item = input.required<Item>();
 
-  downloadForOffline() {}
+  downloadForOffline() {
+		return Promise.resolve(true);
+	}
 
   openItem() {
-    this.app.openItem(this.itemRef(), this.item());
+    return this.app.openItem(this.itemRef(), this.item());
   }
 
   openItemThumbnails() {
     return this.app.openItemThumbnails(this.itemRef(), this.item());
+  }
+
+  openItemMarkdown() {
+    return this.app.openItemMarkdown(this.itemRef(), this.item());
   }
 
   copyToBooxTablet() {
@@ -86,5 +83,6 @@ export class ItemCard {
     // 	item: this.item.name,
     // }
     // this.router.navigate(['/book-detail'], { queryParams: queryParams });
+		return Promise.resolve(true);
   }
 }

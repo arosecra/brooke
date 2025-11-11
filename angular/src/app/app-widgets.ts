@@ -12,23 +12,27 @@ import { App } from './app';
 export class AppWidgets {
   private app = inject(App);
 
+	busy = signal<boolean>(false)
+
   panel = {
     showBook: computed(() => {
-      return this.app.appState()?.currentItem() && this.app.appState()?.currentCollection()?.openType === 'book';
+      return this.app.appState().currentItem() 
+				&& this.app.appState().currentCollection()?.openType === 'book'
+				&& this.app.resources().bookCbt.hasValue();
     }),
 
     showSeries: computed(() => {
-      return !!this.app.appState()?.currentSeries();
+      return !!this.app.appState().currentSeries();
     }),
 
     showSettings: computed(() => {
-      return !!this.app.appState()?.showSettingsManual() || !!this.app.appState()?.showSettingsRequired();
+      return !!this.app.appState().showSettingsManual() || !!this.app.appState().showSettingsRequired();
     }),
 
-    showLibrarySettings: computed(() => this.app.appState()?.showLibraryEditorManual()),
+    showLibrarySettings: computed(() => this.app.appState().showLibraryEditorManual()),
 
     showLoading: computed(() => {
-      return this.app.resources()?.storedLibrary.isLoading();
+      return this.app.resources().storedLibrary.isLoading();
     }),
   };
   book = {

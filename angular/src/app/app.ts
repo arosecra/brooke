@@ -207,6 +207,11 @@ export class App {
     this.widgets()?.book.thumbnailView.set(true);
 		return this.displayBookItem(itemRef, item);
 	}
+	
+	openItemMarkdown(itemRef: ItemRef, item: Item) {
+    this.widgets()?.book.markdownView.set(true);
+		return this.displayBookItem(itemRef, item);
+	}
 
   setLocation() {
     const col = this.appState()?.currentCollection()?.name?.toLowerCase();
