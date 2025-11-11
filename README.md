@@ -7,6 +7,7 @@ updated todo:
 	- convert thumbnails to webp. for anime collection, should save ~100mb. good for indexeddb
 	- don't convert image to base64, just use a blob. may need to create a page component (probably good for md too)
 	- add Component suffix to all components (too many double ups... book and book, for instance)
+		- also to filenames
 	- implement BookToC
 	- finish and use web-fs and web-path utilities
 	- item name pipe can maybe just be a function? it's kinda unwieldy to use. and being the only pipe...
@@ -17,6 +18,17 @@ updated todo:
 		- just get the cached files when the app starts / another resource
 	- implement download buttons
 	- move settings code to library-fs class (after finishing and using web-fs/web-path)
+
+	- while app is loading / library is loading, improve the way app displays
+	- convert buttons to use action
+		- settings
+		- etc?
+
+	- consider moving images to separate indexeddb, only pulling the ones i need or lazy loading
+		- only keep so many categories/series worth of files cached
+		- or, alternatively, show placeholder & have an img component that'll pull the image itself
+	
+	- attempt to standardize image sizes. pad transparency onto images to fill height gap?
 	
 
 ToDo:
