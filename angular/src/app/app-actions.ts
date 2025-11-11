@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal, ViewEncapsulation } from '@angular/core';
-import { App } from './app';
+import { AppComponent } from './app';
 
 @Component({
   selector: 'app-actions',
@@ -9,7 +9,7 @@ import { App } from './app';
   encapsulation: ViewEncapsulation.None,
   providers: [],
 })
-export class AppActions {
-  private app = inject(App);
+export class AppActionsComponent {
+  private app = inject(AppComponent);
 
 }

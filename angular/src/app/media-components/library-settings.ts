@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
-import { App } from '../app';
+import { AppComponent } from '../app';
 import { Item } from '../model/item';
 import { MatButtonModule } from '@angular/material/button';
 
@@ -33,8 +33,8 @@ import { MatButtonModule } from '@angular/material/button';
   styles: ``,
   encapsulation: ViewEncapsulation.None,
 })
-export class LibrarySettings implements OnInit {
-  app = inject(App);
+export class LibrarySettingsComponent implements OnInit {
+  app = inject(AppComponent);
 
 	uncategorizedItems: Item[] = [];
 

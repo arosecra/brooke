@@ -1,5 +1,5 @@
 import { Component, inject, resource, ViewEncapsulation } from '@angular/core';
-import { App } from './app';
+import { AppComponent } from './app';
 import { CbtService } from './cbt/cbt.service';
 import { LibraryDB } from './db/library-db';
 import { Collection } from './model/collection';
@@ -16,9 +16,9 @@ import { Files } from './fs/library-fs';
   encapsulation: ViewEncapsulation.None,
   providers: [],
 })
-export class AppResources {
+export class AppResourcesComponent {
   private appDb = inject(LibraryDB);
-  private app = inject(App);
+  private app = inject(AppComponent);
   private cbt = inject(CbtService);
 	private files = inject(Files);
 

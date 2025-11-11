@@ -17,7 +17,7 @@ import { ItemNamePipe } from './itemName.pipe';
   styles: ``,
   encapsulation: ViewEncapsulation.None,
 })
-export class MatChipAndRemove {
+export class MatChipAndRemoveComponent {
   label = input<string | undefined>();
   removed = output<boolean>();
 

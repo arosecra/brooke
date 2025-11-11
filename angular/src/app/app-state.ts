@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal, ViewEncapsulation } from '@angular/core';
-import { App } from './app';
+import { AppComponent } from './app';
 import { BookDetails } from './model/book-details';
 import { Category } from './model/category';
 import { Collection } from './model/collection';
@@ -15,8 +15,8 @@ import { ItemRef } from './model/item-ref';
   encapsulation: ViewEncapsulation.None,
   providers: [],
 })
-export class AppState {
-  private app = inject(App);
+export class AppStateComponent {
+  private app = inject(AppComponent);
 
   currentCollection = signal<Collection | undefined>(undefined);
   currentCategory = signal<Category | undefined>(undefined);

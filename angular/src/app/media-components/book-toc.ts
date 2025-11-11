@@ -1,7 +1,7 @@
 import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { App } from '../app';
+import { AppComponent } from '../app';
 
 @Component({
   selector: 'book-toc',
@@ -14,6 +14,6 @@ import { App } from '../app';
   styles: ``,
   encapsulation: ViewEncapsulation.None,
 })
-export class BookToC {
-  app = inject(App);
+export class BookToCComponent {
+  app = inject(AppComponent);
 }

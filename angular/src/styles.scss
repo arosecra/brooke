@@ -66,12 +66,16 @@ body {
   gap: 8px;
 }
 
-.column-flex {
+.flex-column {
 	flex-direction: column;
 }
 
 .flex-align-center {
 	align-items: center;
+}
+
+.flex-align-content-center {
+	align-content: center;
 }
 
 .flex-justify-center {
@@ -170,13 +174,30 @@ item-card mat-card {
 	justify-content: space-between;
 }
 
-item-card img {
+item-card .childitem {
+  display: flex;
+  flex-direction: row;
+	justify-content: space-between;
+	row-gap: 16px;
+}
+
+.books item-card img {
   max-width: 250px;
+  object-fit: scale-down;
+}
+
+.videos item-card img  {
+  max-width: 350px;
   object-fit: scale-down;
 }
 
 
 item-card mat-card-actions > div {
+	display: flex;
+	gap: var(--o-gap);
+}
+
+childitem-card mat-card-actions > div {
 	display: flex;
 	gap: var(--o-gap);
 }

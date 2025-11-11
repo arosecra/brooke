@@ -113,14 +113,14 @@ export class Files {
     return '/' + parts.join('/');
   }
 
-  async getImageFileContents(file: FileSystemFileHandle): Promise<string> {
-    let f = await file.getFile();
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
+  async getImageFileContents(file: FileSystemFileHandle): Promise<File> {
+    return await file.getFile();
+    // return new Promise((resolve, reject) => {
+    //   const reader = new FileReader();
 
-      reader.addEventListener('loadend', () => resolve(reader.result as string));
-      reader.readAsDataURL(f);
-    });
+    //   reader.addEventListener('loadend', () => resolve(reader.result as string));
+    //   reader.readAsArrayBuffer(f);
+    // });
   }
 
   async getTextFileContents(file: FileSystemFileHandle) {

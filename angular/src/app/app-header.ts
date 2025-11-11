@@ -1,17 +1,17 @@
 import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { App } from './app';
+import { AppComponent } from './app';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { AppBreadcrumb } from './app-breadcrumb';
+import { AppBreadcrumbComponent } from './app-breadcrumb';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { BookToC } from './media-components/book-toc';
+import { BookToCComponent } from './media-components/book-toc';
 
 @Component({
   selector: 'app-header',
   imports: [
 		MatButtonModule, MatIconModule, MatToolbarModule, MatPaginatorModule,
-		BookToC, AppBreadcrumb, 
+		BookToCComponent, AppBreadcrumbComponent, 
 	],
   template: `	
 @let widgets = app.widgets();
@@ -27,7 +27,7 @@ import { BookToC } from './media-components/book-toc';
 		<app-breadcrumb class="flex flex-align-center flex-no-gap"></app-breadcrumb>
 		<span class="spacer"></span>
 		
-		@if (!widgets.panel.showBook() && !widgets.panel.showSeries()) {
+		@if (!widgets.panel.showBook()) {
 			<button matMiniFab (click)="appState.showLibraryEditorManual.set(true)" title="Modify Categories">
 				<mat-icon fontSet="material-symbols-outlined">library_books</mat-icon>
 			</button>
@@ -89,7 +89,7 @@ import { BookToC } from './media-components/book-toc';
   styles: ``,
   encapsulation: ViewEncapsulation.None,
 })
-export class AppHeader {
-  app = inject(App);
+export class AppHeaderComponent {
+  app = inject(AppComponent);
   
 }

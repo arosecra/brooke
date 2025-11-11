@@ -3,13 +3,12 @@ import {
 	Component,
 	inject,
 	input,
-	signal,
 	ViewEncapsulation
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { App } from '../app';
+import { AppComponent } from '../app';
 
 @Component({
   selector: 'action',
@@ -24,7 +23,7 @@ import { App } from '../app';
 		}
 		<button 
 			matMiniFab
-			[disabled]="app.widgets().busy()" 
+			[disabled]="app.widgets().busy() || !!disabled()" 
 			[class.button-overlay]="!!imgVal"
 		>
 			<div [class.button-overlay-circle]="!!imgVal">
@@ -49,7 +48,7 @@ import { App } from '../app';
   	    (click)="$event.stopPropagation()"
   	  >
   	    <div class="overlay-content">
-  	      <div class="flex flex-align-center flex-justify-center column-flex">
+  	      <div class="flex flex-align-center flex-justify-center flex-column">
   	        <div><h2>Busy</h2></div>
   	        <div>Please Wait</div>
   	        <mat-spinner></mat-spinner>
@@ -84,23 +83,18 @@ import { App } from '../app';
 	height: 32px; 
 	width: 32px; 
 	line-height: 32px;
-	// position: relative;
-  // top: calc(50% - 32px);
-  // left: calc(50% - 32px);
 }
 	
 	`,
   encapsulation: ViewEncapsulation.None,
   providers: [],
 })
-export class Action {
-  app = inject(App);
-
-  protected static busy = signal<boolean>(false);
+export class ActionComponent {
+  app = inject(AppComponent);
 
   o = input<any>();
   m = input.required<() => Promise<any>>();
-
+	disabled = input<boolean>(false);
   img = input<string>();
 
   onClick(): void {

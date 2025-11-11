@@ -1,14 +1,14 @@
 import { Component, inject, ViewEncapsulation } from '@angular/core';
-import { App } from './app';
+import { AppComponent } from './app';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatChipAndRemove } from './media-components/mat-chip-and-remove';
+import { MatChipAndRemoveComponent } from './media-components/mat-chip-and-remove';
 import { ItemNamePipe } from "./media-components/itemName.pipe";
 
 @Component({
   selector: 'app-breadcrumb',
-  imports: [MatIconModule, MatButtonModule, MatChipsModule, MatChipAndRemove, ItemNamePipe],
+  imports: [MatIconModule, MatButtonModule, MatChipsModule, MatChipAndRemoveComponent, ItemNamePipe],
   template: `
 		@let appState = app.appState();
 		@if(appState) {
@@ -47,6 +47,6 @@ import { ItemNamePipe } from "./media-components/itemName.pipe";
   styles: ``,
   encapsulation: ViewEncapsulation.None,
 })
-export class AppBreadcrumb {
-  app = inject(App);
+export class AppBreadcrumbComponent {
+  app = inject(AppComponent);
 }

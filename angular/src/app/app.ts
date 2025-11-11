@@ -1,41 +1,41 @@
 import { Location } from '@angular/common';
 import { Component, HostListener, inject, Injector, viewChild, ViewEncapsulation } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { AppHeader } from './app-header';
-import { AppResources } from './app-resources';
-import { AppState } from './app-state';
-import { AppWidgets } from './app-widgets';
+import { AppHeaderComponent } from './app-header';
+import { AppResourcesComponent } from './app-resources';
+import { AppStateComponent } from './app-state';
+import { AppWidgetsComponent } from './app-widgets';
 import { LibraryDB } from './db/library-db';
 import { Files } from './fs/library-fs';
-import { Book } from './media-components/book';
-import { CollectionBrowser } from './media-components/collection-browser';
-import { LibrarySettings } from './media-components/library-settings';
-import { Series } from './media-components/series';
+import { BookComponent } from './media-components/book';
+import { CollectionBrowserComponent } from './media-components/collection-browser';
+import { LibrarySettingsComponent } from './media-components/library-settings';
+import { SeriesComponent } from './media-components/series';
 import { CachedFile } from './model/cached-file';
 import { Category } from './model/category';
 import { Collection } from './model/collection';
 import { Item } from './model/item';
 import { ItemRef } from './model/item-ref';
 import { Library } from './model/library';
-import { Settings } from './settings';
+import { SettingsComponent } from './settings';
 import YAML from 'yaml';
 import { BookDetails } from './model/book-details';
-import { AppActions } from './app-actions';
+import { AppActionsComponent } from './app-actions';
 import { resourceStatusToPromise } from './util/res-status-to-promise';
 
 @Component({
   selector: 'app',
   imports: [
-    AppHeader,
-    Book,
-    CollectionBrowser,
-    Series,
-    Settings,
-    LibrarySettings,
-    AppState,
-    AppResources,
-    AppWidgets,
-    AppActions,
+    AppHeaderComponent,
+    BookComponent,
+    CollectionBrowserComponent,
+    SeriesComponent,
+    SettingsComponent,
+    LibrarySettingsComponent,
+    AppStateComponent,
+    AppResourcesComponent,
+    AppWidgetsComponent,
+    AppActionsComponent,
   ],
   template: `
     <app-state></app-state>
@@ -44,17 +44,12 @@ import { resourceStatusToPromise } from './util/res-status-to-promise';
     <app-header class="flex flex-align-center" />
     <app-actions></app-actions>
     <main>
-      @let wdgts = widgets();
-      @if (wdgts) {
-        @if (wdgts.panel.showLoading()) {
-          <div>Loading</div>
-        } @else if (wdgts.panel.showSettings()) {
+      @if (widgets()) {
+        @if (widgets().panel.showSettings()) {
           <settings></settings>
-        } @else if (wdgts.panel.showBook()) {
+        } @else if (widgets().panel.showBook()) {
           <book></book>
-        } @else if (wdgts.panel.showSeries()) {
-          <series></series>
-        } @else if (wdgts.panel.showLibrarySettings()) {
+        } @else if (widgets().panel.showLibrarySettings()) {
           <library-settings></library-settings>
         } @else {
           <collection-browser></collection-browser>
@@ -66,15 +61,15 @@ import { resourceStatusToPromise } from './util/res-status-to-promise';
   encapsulation: ViewEncapsulation.None,
   providers: [],
 })
-export class App {
+export class AppComponent {
   private location = inject(Location);
   private appDb = inject(LibraryDB);
   private files = inject(Files);
 	private injector = inject(Injector);
 
-  widgets = viewChild.required(AppWidgets);
-  appState = viewChild.required(AppState);
-  resources = viewChild.required(AppResources);
+  widgets = viewChild.required(AppWidgetsComponent);
+  appState = viewChild.required(AppStateComponent);
+  resources = viewChild.required(AppResourcesComponent);
 
   @HostListener('document:keydown', ['$event'])
   protected handleKeyboardEvent(event: KeyboardEvent) {

@@ -1,5 +1,5 @@
 import { Component, inject, ViewEncapsulation } from '@angular/core';
-import { App } from '../app';
+import { AppComponent } from '../app';
 
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -111,8 +111,8 @@ import { RemarkModule } from 'ngx-remark';
   styles: ``,
   encapsulation: ViewEncapsulation.None,
 })
-export class Book {
-  app = inject(App);
+export class BookComponent {
+  app = inject(AppComponent);
 
 	cycleImageType(page: Page) {
 		const types: PageType[] = ['Text', 'Image', 'Blank'];

@@ -1,13 +1,14 @@
 import { Component, inject, ViewEncapsulation } from '@angular/core';
-import { App } from '../app';
-import { ItemCard } from './item-card';
+import { AppComponent } from '../app';
+import { ItemCardComponent } from './item-card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import { SeriesComponent } from './series';
 
 @Component({
   selector: 'collection-browser',
-  imports: [ItemCard, MatButtonModule, MatChipsModule, MatIconModule, MatButtonModule],
+  imports: [ItemCardComponent, MatButtonModule, MatChipsModule, MatIconModule, MatButtonModule, SeriesComponent],
   template: `
 		@let appState = app.appState();
 		@let resources = app.resources();
@@ -15,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
       @let library = resources.storedLibrary.value();
       @let currentCollection = appState.currentCollection();
       @let currentCategory = appState.currentCategory();
+      @let currentSeries = appState.currentSeries();
 
       @if (!currentCollection) {
         <h2>Collections</h2>
@@ -40,19 +42,27 @@ import { MatIconModule } from '@angular/material/icon';
         </div>
       }
 
-      @if (currentCollection && currentCategory) {
-        <div class="flex">
+      @if (currentCollection && currentCategory && !currentSeries) {
+        <div class="flex" 
+					[class.books]="currentCollection.openType === 'book'" 
+				  [class.videos]="currentCollection.openType !== 'book'">
           @for (itemRef of currentCategory.items; track itemRef.name) {
 						@let itemCollectionAndName = currentCollection.name + '_' + itemRef.name;
             <item-card [itemRef]="itemRef" [item]="library.itemsByCollectionAndName[itemCollectionAndName]"></item-card>
           }
         </div>
       }
-    }
+
+			@if(currentCollection && currentSeries) {
+				@let seriesCollectionAndName = currentCollection!.name + '_' + app.appState().currentSeries()?.name;
+				@let seriesItem = library!.itemsByCollectionAndName[seriesCollectionAndName];
+				<series-card [seriesItemRef]="currentSeries" [seriesItem]="seriesItem"></series-card>
+			}
+		}
   `,
   styles: ``,
   encapsulation: ViewEncapsulation.None,
 })
-export class CollectionBrowser {
-  app = inject(App);
+export class CollectionBrowserComponent {
+  app = inject(AppComponent);
 }

@@ -1,5 +1,5 @@
 import { Component, inject, signal, ViewEncapsulation } from '@angular/core';
-import { App } from './app';
+import { AppComponent } from './app';
 import { LibraryDB } from './db/library-db';
 import { MatButtonModule } from '@angular/material/button';
 import { Files } from './fs/library-fs';
@@ -104,8 +104,8 @@ import { CacheDirectory } from './model/cache-directory';
   styles: ``,
   encapsulation: ViewEncapsulation.None,
 })
-export class Settings {
-  app = inject(App);
+export class SettingsComponent {
+  app = inject(AppComponent);
   appDB = inject(LibraryDB);
   files = inject(Files);
 
@@ -214,14 +214,14 @@ export class Settings {
       let isSeries = thumbnailFile || largeThumbnailFile;
 
       if (isSeries) {
-        let seriesItem = itemsByPath[seriesFSEntry.parentPath];
+        let seriesItem = itemsByPath[seriesFSEntry.path];
         if (!seriesItem) {
           seriesItem = await this.createSeriesItem(
             currentDirectory,
             seriesFSEntry,
             collection.name,
           );
-          itemsByPath[seriesFSEntry.parentPath] = seriesItem;
+          itemsByPath[seriesFSEntry.path] = seriesItem;
         }
         seriesItem.childItems?.push(item);
       } else {
@@ -259,11 +259,13 @@ export class Settings {
     fileExtension: string,
   ) {
     let item: Item = {
-      name: fsEntry.name.replace('.' + fileExtension, ''),
-      collectionName,
-      pathFromCategoryRoot: fsEntry.parentPath,
-			handle: fsEntry.handle as FileSystemFileHandle
-    };
+			name: fsEntry.name.replace('.' + fileExtension, ''),
+			collectionName,
+			pathFromCategoryRoot: fsEntry.parentPath,
+			handle: fsEntry.handle as FileSystemFileHandle,
+			series: false,
+			childItems: []
+		};
     let thumbnailFile = currentDirectory[`${fsEntry.parentPath}/thumbnail.png`]
       ?.handle as FileSystemFileHandle;
     let largeThumbnailFile = currentDirectory[`${fsEntry.parentPath}/large_thumbnail.png`]
@@ -274,9 +276,9 @@ export class Settings {
     if (thumbnailFile) {
       item.thumbnail = await this.files.getImageFileContents(thumbnailFile);
     }
-    if (largeThumbnailFile) {
-      item.largeThumbnail = await this.files.getImageFileContents(largeThumbnailFile);
-    }
+    // if (largeThumbnailFile) {
+    //   item.largeThumbnail = await this.files.getImageFileContents(largeThumbnailFile);
+    // }
     if (cbtDetailsFile) {
       item.bookDetails = await this.files.getYAMLFileContents(cbtDetailsFile);
     }
@@ -289,23 +291,23 @@ export class Settings {
     collectionName: string,
   ) {
     let item: Item = {
-      name: fsEntry.name,
-      collectionName,
-      series: true,
-      pathFromCategoryRoot: fsEntry.parentPath,
-      childItems: [],
-    };
-    let thumbnailFile = currentDirectory[`${fsEntry.parentPath}/thumbnail.png`]
+			name: fsEntry.name,
+			collectionName,
+			series: true,
+			pathFromCategoryRoot: fsEntry.path,
+			childItems: []
+		};
+    let thumbnailFile = currentDirectory[`${fsEntry.path}/thumbnail.png`]
       ?.handle as FileSystemFileHandle;
-    let largeThumbnailFile = currentDirectory[`${fsEntry.parentPath}/large_thumbnail.png`]
-      ?.handle as FileSystemFileHandle;
+    // let largeThumbnailFile = currentDirectory[`${fsEntry.path}/large_thumbnail.png`]
+    //   ?.handle as FileSystemFileHandle;
 
     if (thumbnailFile) {
       item.thumbnail = await this.files.getImageFileContents(thumbnailFile);
     }
-    if (largeThumbnailFile) {
-      item.largeThumbnail = await this.files.getImageFileContents(largeThumbnailFile);
-    }
+    // if (largeThumbnailFile) {
+    //   item.largeThumbnail = await this.files.getImageFileContents(largeThumbnailFile);
+    // }
     return item;
   }
 }

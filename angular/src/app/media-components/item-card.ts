@@ -1,21 +1,23 @@
-import { Component, inject, input, ViewEncapsulation } from '@angular/core';
+import { Component, inject, input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { App } from '../app';
-import { Action } from '../mini-components/action';
+import { AppComponent } from '../app';
+import { ActionComponent } from '../mini-components/action';
 import { Item } from '../model/item';
 import { ItemRef } from '../model/item-ref';
 import { ItemNamePipe } from './itemName.pipe';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @Component({
   selector: 'item-card',
-  imports: [ItemNamePipe, MatButtonModule, MatIconModule, MatCardModule, Action],
+  imports: [ItemNamePipe, MatButtonModule, MatIconModule, MatCardModule, ActionComponent, MatBadgeModule],
   template: `
     @let appState = app.appState();
     @let itm = item();
+		@let mainActionItem = appState.currentCollection()?.openType === 'book' ? 'file_open' : 'play_arrow';
     @if (appState && itm) {
-      <mat-card>
+      <mat-card [class.childitem]="seriesItemRef()">
         <mat-card-header>
           <mat-card-title
             >{{
@@ -23,11 +25,14 @@ import { ItemNamePipe } from './itemName.pipe';
             }}
           </mat-card-title>
         </mat-card-header>
-				<action mat-card-image [img]="item().thumbnail" [m]="openItem" [o]="this">file_open</action>
+				@if(imageUrl) {
+					<action mat-card-image [img]="imageUrl" [m]="openItem" [o]="this">{{mainActionItem}}</action>
+				}
         <mat-card-actions>
           <div>
-						<action [m]="openItem" [o]="this">file_open</action>
-						<action [m]="downloadForOffline" [o]="this">download_for_offline</action>
+						<action [m]="openItem" [o]="this">{{mainActionItem}}</action>
+						<action [matBadge]="item().childItems?.length" matBadgeSize="large" [matBadgeHidden]="!item().childItems?.length" 
+							 [m]="downloadForOffline" [o]="this">download_for_offline</action>
 						<action [m]="openItemDetails" [o]="this">notes</action>
 							@if (appState.currentCollection()?.openType === 'book') {
 								<action [m]="openItemThumbnails" [o]="this" title="Thumbnails">dataset</action>
@@ -41,10 +46,25 @@ import { ItemNamePipe } from './itemName.pipe';
   styles: ``,
   encapsulation: ViewEncapsulation.None,
 })
-export class ItemCard {
-  app = inject(App);
+export class ItemCardComponent implements OnInit, OnDestroy {
+  app = inject(AppComponent);
   itemRef = input.required<ItemRef>();
   item = input.required<Item>();
+	seriesItemRef = input<ItemRef>();
+	seriesItem = input<Item>();
+
+	imageUrl: string;
+
+	ngOnInit(): void {
+		const item = this.item();
+		if(item?.thumbnail) {
+			this.imageUrl = URL.createObjectURL(item.thumbnail);
+		}
+	}
+	ngOnDestroy(): void {
+		if(this.imageUrl) URL.revokeObjectURL(this.imageUrl);
+	}
+
 
   downloadForOffline() {
 		return Promise.resolve(true);

@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal, ViewEncapsulation } from '@angular/core';
-import { App } from './app';
+import { AppComponent } from './app';
 
 @Component({
   selector: 'app-widgets',
@@ -9,8 +9,8 @@ import { App } from './app';
   encapsulation: ViewEncapsulation.None,
   providers: [],
 })
-export class AppWidgets {
-  private app = inject(App);
+export class AppWidgetsComponent {
+  private app = inject(AppComponent);
 
 	busy = signal<boolean>(false)
 
@@ -21,19 +21,11 @@ export class AppWidgets {
 				&& this.app.resources().bookCbt.hasValue();
     }),
 
-    showSeries: computed(() => {
-      return !!this.app.appState().currentSeries();
-    }),
-
     showSettings: computed(() => {
       return !!this.app.appState().showSettingsManual() || !!this.app.appState().showSettingsRequired();
     }),
 
-    showLibrarySettings: computed(() => this.app.appState().showLibraryEditorManual()),
-
-    showLoading: computed(() => {
-      return this.app.resources().storedLibrary.isLoading();
-    }),
+    showLibrarySettings: computed(() => this.app.appState().showLibraryEditorManual())
   };
   book = {
     pagesInDisplay: signal<number>(2),
