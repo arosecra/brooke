@@ -24,6 +24,8 @@ updated todo:
 		- settings
 		- etc?
 
+	- make the thumbnail view a separate component, add a showThumbnail() to panel instead of book
+
 	- consider moving images to separate indexeddb, only pulling the ones i need or lazy loading
 		- only keep so many categories/series worth of files cached
 		- or, alternatively, show placeholder & have an img component that'll pull the image itself
