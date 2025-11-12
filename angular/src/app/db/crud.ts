@@ -1,32 +1,34 @@
-export abstract class CRUD<T> {
-  addAll(db: IDBDatabase, values: T[], tx: IDBTransaction) {
-    let req = tx.objectStore(this.getStoreName());
+export class CRUD {
+  static addAll<T>(tx: IDBTransaction, values: T[], objectStoreName: string) {
+		const requests: Promise<void>[] = [];
+    let req = tx.objectStore(objectStoreName);
     for (let i = 0; i < values.length; i++) {
-      const t = values[i];
-      req.put(t);
+			requests.push(new Promise<void>((resolve) => {
+      	const request = req.put(values[i]);
+      	request.onsuccess = (e) => resolve();
+			}));
     }
+		return Promise.all(requests);
   }
 
-  getAll(db: IDBDatabase, tx: IDBTransaction): Promise<T[]> {
+  static getAll<T>(db: IDBDatabase, tx: IDBTransaction, storeName: string): Promise<T[]> {
     return new Promise<T[]>((resolve) => {
-      const request = tx.objectStore(this.getStoreName()).getAll();
+      const request = tx.objectStore(storeName).getAll();
       request.onsuccess = (e) => resolve(request.result as T[]);
     });
   }
 
-  remove(db: IDBDatabase, tx: IDBTransaction, key: IDBValidKey): Promise<T[]> {
-    return new Promise<T[]>((resolve) => {
-      const request = tx.objectStore(this.getStoreName()).delete(key);
-      request.onsuccess = (e) => resolve([] as T[]);
+  static remove(db: IDBDatabase, tx: IDBTransaction, storeName: string, key: IDBValidKey): Promise<boolean> {
+    return new Promise<boolean>((resolve) => {
+      const request = tx.objectStore(storeName).delete(key);
+      request.onsuccess = (e) => resolve(true);
     });
   }
 
-  removeAll(db: IDBDatabase, tx: IDBTransaction): Promise<T[]> {
-    return new Promise<T[]>((resolve) => {
-      const request = tx.objectStore(this.getStoreName()).clear();
-      request.onsuccess = (e) => resolve([] as T[]);
+  static removeAll(db: IDBDatabase, tx: IDBTransaction, storeName: string): Promise<boolean> {
+    return new Promise<boolean>((resolve) => {
+      const request = tx.objectStore(storeName).clear();
+      request.onsuccess = (e) => resolve(true);
     });
   }
-
-  abstract getStoreName(): string;
 }

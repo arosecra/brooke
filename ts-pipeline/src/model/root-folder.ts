@@ -28,6 +28,9 @@ export class RootFolder {
 				let hasChildDirs = fs
 					.readdirSync(p, { withFileTypes: true })
 					.some((childFile) => childFile.isDirectory());
+				let hasCoverPdf = fs
+					.readdirSync(p)
+					.some((childFile) => childFile.match('.*cover[s]?.pdf'));
 				return !hasChildDirs;
 			})
 			.map((file) => path.join(file.parentPath, file.name));

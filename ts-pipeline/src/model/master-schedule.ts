@@ -76,7 +76,7 @@ export class MasterSchedule {
 				} 
 				const taskApplicable = produceMissing && usesExists && pipelineMatches;
 
-				console.log(producesExists, usesExists, pipelineMatches, produceMissing, taskApplicable, itemFolder);
+				// console.log(producesExists, usesExists, pipelineMatches, produceMissing, taskApplicable, itemFolder);
 
 				if (taskApplicable) {
 					if(this.tasks.length < max || max === 0) {

@@ -208,8 +208,8 @@ export class SettingsComponent {
 
       let seriesPath = this.files.getParentDirectoryForDirectoryPath(fsEntry.parentPath);
       let seriesFSEntry = currentDirectory[seriesPath];
-      let thumbnailFile = currentDirectory[`${seriesPath}/thumbnail.png`]?.handle;
-      let largeThumbnailFile = currentDirectory[`${seriesPath}/large_thumbnail.png`]?.handle;
+      let thumbnailFile = currentDirectory[`${seriesPath}/thumbnail.webp`]?.handle;
+      let largeThumbnailFile = currentDirectory[`${seriesPath}/large_thumbnail.webp`]?.handle;
 
       let isSeries = thumbnailFile || largeThumbnailFile;
 
@@ -266,9 +266,9 @@ export class SettingsComponent {
 			series: false,
 			childItems: []
 		};
-    let thumbnailFile = currentDirectory[`${fsEntry.parentPath}/thumbnail.png`]
+    let thumbnailFile = currentDirectory[`${fsEntry.parentPath}/thumbnail.webp`]
       ?.handle as FileSystemFileHandle;
-    let largeThumbnailFile = currentDirectory[`${fsEntry.parentPath}/large_thumbnail.png`]
+    let largeThumbnailFile = currentDirectory[`${fsEntry.parentPath}/large_thumbnail.webp`]
       ?.handle as FileSystemFileHandle;
     let cbtDetailsFile = currentDirectory[`${fsEntry.parentPath}/cbtDetails.yaml`]
       ?.handle as FileSystemFileHandle;
@@ -297,9 +297,9 @@ export class SettingsComponent {
 			pathFromCategoryRoot: fsEntry.path,
 			childItems: []
 		};
-    let thumbnailFile = currentDirectory[`${fsEntry.path}/thumbnail.png`]
+    let thumbnailFile = currentDirectory[`${fsEntry.path}/thumbnail.webp`]
       ?.handle as FileSystemFileHandle;
-    // let largeThumbnailFile = currentDirectory[`${fsEntry.path}/large_thumbnail.png`]
+    // let largeThumbnailFile = currentDirectory[`${fsEntry.path}/large_thumbnail.webp`]
     //   ?.handle as FileSystemFileHandle;
 
     if (thumbnailFile) {

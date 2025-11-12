@@ -4,7 +4,6 @@ Custom book reader for personal use
 updated todo:
 ----------------
 - ui:
-	- convert thumbnails to webp. for anime collection, should save ~100mb. good for indexeddb
 	- don't convert image to base64, just use a blob. may need to create a page component (probably good for md too)
 	- add Component suffix to all components (too many double ups... book and book, for instance)
 		- also to filenames
@@ -26,11 +25,15 @@ updated todo:
 
 	- make the thumbnail view a separate component, add a showThumbnail() to panel instead of book
 
-	- consider moving images to separate indexeddb, only pulling the ones i need or lazy loading
+	- consider moving thumbnails to separate indexeddb table, only pulling the ones i need or lazy loading
+		- should save a lot of memory at runtime
 		- only keep so many categories/series worth of files cached
 		- or, alternatively, show placeholder & have an img component that'll pull the image itself
+		- or, get all images for a category when category is clicked
+		- start by saving them separately as well as together. migrate away after that
 	
 	- attempt to standardize image sizes. pad transparency onto images to fill height gap?
+		-need to handle series thumbnails in pipeline
 	
 
 ToDo:

@@ -182,12 +182,14 @@ item-card .childitem {
 }
 
 .books item-card img {
-  max-width: 250px;
+  width: 250px;
+  height: 400px;
   object-fit: scale-down;
 }
 
 .videos item-card img  {
-  max-width: 350px;
+  width: 350px;
+  height: 350px;
   object-fit: scale-down;
 }
 

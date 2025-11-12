@@ -1,40 +1,15 @@
-import { RootFolder } from "./src/model/root-folder";
+import cluster from 'cluster';
 import * as fs from 'fs';
 import * as path from 'path';
-import cluster from 'cluster';
 import process from 'process';
-import os from 'os';
-import { Pipeline } from "./src/model/pipeline";
 import { MasterSchedule } from "./src/model/master-schedule";
-import { BookExtractPDFsStep } from "./src/steps/book-extract-pdfs-step";
-import { SinglePipelineExecutor } from "./src/pipeline/single-pipeline-executor";
-import { BookResizeImageStep } from "./src/steps/book-resize-image-step";
-import { BookDeskewImageStep } from "./src/steps/book-deskew-image-step";
-import { BookCreateThumbnailsStep } from "./src/steps/book-create-thumbnails-step";
-import { BookConvertPngToWebpStep } from "./src/steps/book-convert-png-to-webp-step";
-import { BookCreateCoverThumbnailStep } from "./src/steps/book-create-cover-thumbnail-step";
+import { Pipeline } from "./src/model/pipeline";
+import { RootFolder } from "./src/model/root-folder";
 import { Task } from "./src/model/task";
-import { BookRunOcrStep } from "./src/steps/book-run-ocr-step";
-import { OcrUntarCbtGzStep } from "./src/steps/ocr-extract-cbts-step";
-import { BookTarToCbtGzStep } from "./src/steps/book-tar-to-cbt-gz-step copy";
-import { node } from "./src/util/node";
+import { SinglePipelineExecutor } from "./src/pipeline/single-pipeline-executor";
+import { BookCreateCoverThumbnailStep } from "./src/steps/book-create-cover-thumbnail-step";
+import { BookExtractPDFsStep } from "./src/steps/book-extract-pdfs-step";
 
-function getLeafFolders(folder: string): string[] {
-
-	let dirs = fs.readdirSync(folder, {
-		withFileTypes: true,
-		recursive: true
-	})
-	.filter((file) => file.isDirectory())
-	.filter((file) => {
-		//check if the directory has directories
-		let p = path.join(file.parentPath, file.name);
-		let hasChildDirs = fs.readdirSync(p, { withFileTypes: true }).some((childFile) => childFile.isDirectory());
-		return !hasChildDirs;
-	}).map((file) => path.join(file.parentPath, file.name));
-
-	return dirs;
-}
 
 function setupMasterSchedule() {
 
@@ -72,13 +47,13 @@ function setupMasterSchedule() {
 // 		.addStep(new BookCreateCbtDetailsStep())
 // 	;
 	
-// 	const bookCoverThumbnailPipeline = new Pipeline()
-// 		.setName("Cover Thumbnail") //
-// 		.setUses(".*cover[s].pdf") //
-// 		.setProduces("thumbnail.png") //
-// 		.addStep(new BookExtractPDFsStep()) //
-// 		.addStep(new BookCreateCoverThumbnailStep(250))
-// 	;
+	const bookCoverThumbnailPipeline = new Pipeline()
+		.setName("Cover Thumbnail") //
+		.setUses([".*cover[s].pdf"]) //
+		.setProduces("thumbnail.webp") //
+		.addStep(new BookExtractPDFsStep()) //
+		.addStep(new BookCreateCoverThumbnailStep(250, 400))
+	;
 	
 // 	const bookCbtPipeline = new Pipeline() //
 // 		.setName("Book CBT") //
@@ -93,35 +68,35 @@ function setupMasterSchedule() {
 // 		.addStep(new BookTarToCbtStep()) //
 // 	;
 
-	const bookOcrPipeline = new Pipeline() //
-		.setName("Book OCR") //
-		.setUses([".*.cbt.gz", ".*.yaml"]) //
-		.setProduces(".*.cbt.gz") //
-		.setPropertyCheck((file: string) => {
-			const list = node.execFileSync('tar', ['-ztf', file]);
-			return list.split('\n').some((line) => line.endsWith('.md'))
-		}) //
-		.addStep(new OcrUntarCbtGzStep())
-		.addStep(new BookRunOcrStep())
-		.addStep(new BookTarToCbtGzStep())
-		// .addStep(new BookTarToCb7Step())
-		;
+	// const bookOcrPipeline = new Pipeline() //
+	// 	.setName("Book OCR") //
+	// 	.setUses([".*.cbt.gz", ".*.yaml"]) //
+	// 	.setProduces(".*.cbt.gz") //
+	// 	.setPropertyCheck((file: string) => {
+	// 		const list = node.execFileSync('tar', ['-ztf', file]);
+	// 		return list.split('\n').some((line) => line.endsWith('.md'))
+	// 	}) //
+	// 	.addStep(new OcrUntarCbtGzStep())
+	// 	.addStep(new BookRunOcrStep())
+	// 	.addStep(new BookTarToCbtGzStep())
+	// 	// .addStep(new BookTarToCb7Step())
+	// 	;
 
 	
 	return new MasterSchedule([
-		bookOcrPipeline	
+		bookCoverThumbnailPipeline	
 	]) //
 			// .schedule(bookOcrPropPipeline, lightNovels) //
 			// .schedule(bookCbtDetailsPipeline, lightNovels) //
-			.schedule(bookOcrPipeline.name, lightNovels) //
+			.schedule(bookCoverThumbnailPipeline.name, lightNovels) //
 			//
 //			.schedule(bookOcrPropPipeline, nonfiction) //
 			// .schedule(bookCbtDetailsPipeline, fiction) //
-			.schedule(bookOcrPipeline.name, fiction) //
+			.schedule(bookCoverThumbnailPipeline.name, fiction) //
 			//
 //			.schedule(bookOcrPropPipeline, nonfiction) //
 			// .schedule(bookCbtDetailsPipeline, nonfiction) //
-			.schedule(bookOcrPipeline.name, nonfiction) //
+			.schedule(bookCoverThumbnailPipeline.name, nonfiction) //
 	;
 
 }

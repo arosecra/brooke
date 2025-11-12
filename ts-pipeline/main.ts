@@ -12,8 +12,6 @@ import { BookResizeImageStep } from "./src/steps/book-resize-image-step";
 import { BookDeskewImageStep } from "./src/steps/book-deskew-image-step";
 import { BookCreateThumbnailsStep } from "./src/steps/book-create-thumbnails-step";
 import { BookConvertPngToWebpStep } from "./src/steps/book-convert-png-to-webp-step";
-import { BookTarToCbtStep } from "./src/steps/book-tar-to-cbt-step";
-import { BookCreateCbtDetailsStep } from "./src/steps/book-create-cbt-details-step";
 import { BookCreateCoverThumbnailStep } from "./src/steps/book-create-cover-thumbnail-step";
 import { Task } from "./src/model/task";
 import yargs from "yargs";
@@ -21,7 +19,6 @@ import { hideBin } from "yargs/helpers";
 import { BookTarToCbtGzStep } from "./src/steps/book-tar-to-cbt-gz-step copy";
 import { OcrUntarCbtGzStep } from "./src/steps/ocr-extract-cbts-step";
 import { BookRunOcrStep } from "./src/steps/book-run-ocr-step";
-import { node } from "./src/util/node";
 import * as child_process from 'child_process';
 
 const argv = yargs(hideBin(process.argv))
@@ -52,25 +49,6 @@ const argv = yargs(hideBin(process.argv))
 	.help()
   .parseSync();
 
-function getLeafFolders(folder: string): string[] {
-  let dirs = fs
-    .readdirSync(folder, {
-      withFileTypes: true,
-      recursive: true,
-    })
-    .filter((file) => file.isDirectory())
-    .filter((file) => {
-      //check if the directory has directories
-      let p = path.join(file.parentPath, file.name);
-      let hasChildDirs = fs
-        .readdirSync(p, { withFileTypes: true })
-        .some((childFile) => childFile.isDirectory());
-      return !hasChildDirs;
-    })
-    .map((file) => path.join(file.parentPath, file.name));
-
-  return dirs;
-}
 
 function setupMasterSchedule() {
   const lightNovels = new RootFolder(
@@ -85,13 +63,12 @@ function setupMasterSchedule() {
     "Non Fiction",
     "\\\\syn01\\syn01public\\Scans\\NonFiction_Repository"
   );
-  //	const graphicNovels = new RootFolder("Graphic Novels", getLeafFolders("\\\\syn01\\syn01public\\Scans\\Graphic_Novel_Repository"));
-  //	const magazines = new RootFolder("Magazines", getLeafFolders("\\\\syn01\\syn01public\\Scans\\Magazine_Repository"));
-  //	const researchPapers = new RootFolder("Research Papers", getLeafFolders("\\\\syn01\\syn01public\\Scans\\Research_Papers_Repository"));
+  const graphicNovels = new RootFolder("Graphic Novels", "\\\\syn01\\syn01public\\Scans\\Graphic_Novels_Repository");
+  const magazines = new RootFolder("Magazines", "\\\\syn01\\syn01public\\Scans\\Magazine_Repository");
+  const researchPapers = new RootFolder("Research Papers", "\\\\syn01\\syn01public\\Scans\\Research_Papers_Repository");
 
-  //	const anime = new RootFolder("Research Papers", getLeafFolders("\\\\syn01\\syn01public\\Scans\\Research_Papers_Repository"));
-  //	const movies = new RootFolder("Research Papers", getLeafFolders("\\\\syn01\\syn01public\\Scans\\Research_Papers_Repository"));
-
+  const anime = new RootFolder("Anime", "\\\\syn01\\syn01public\\Anime");
+  const movies = new RootFolder("Movies", "\\\\drobo5n2\\public\\Movies");
 
   const bookOcrPipeline = new Pipeline() //
     .setName("Book OCR") //
@@ -106,22 +83,13 @@ function setupMasterSchedule() {
     .addStep(new BookRunOcrStep())
     .addStep(new BookTarToCbtGzStep())
 	;
-		
-  const bookCbtDetailsPipeline = new Pipeline() //
-    .setName("Book CBT Details") //
-    .setUses([".*.pdf"])
-    .setProduces("cbtDetails.yaml")
-    // .addStep(new ReadOCRPropertiesStep()) //
-    .addStep(new BookExtractPDFsStep())
-    // .addStep(new DeleteExcludedPagesStep())
-    .addStep(new BookCreateCbtDetailsStep());
 
   const bookCoverThumbnailPipeline = new Pipeline()
-    .setName("Cover Thumbnail") //
+    .setName("Book Cover Thumbnail") //
     .setUses([".*cover[s].pdf"]) //
-    .setProduces("thumbnail.png") //
+    .setProduces("thumbnail.webp") //
     .addStep(new BookExtractPDFsStep()) //
-    .addStep(new BookCreateCoverThumbnailStep(250));
+    .addStep(new BookCreateCoverThumbnailStep(250, 400));
 
   const bookGzipCbtsPipeline = new Pipeline() //
     .setName("Book Gzip CBTs") //
@@ -139,8 +107,21 @@ function setupMasterSchedule() {
     .addStep(new BookDeskewImageStep()) //
     .addStep(new BookCreateThumbnailsStep()) //
     .addStep(new BookConvertPngToWebpStep()) //
-    // //		.addStep(new RunOCRStep()) //
     .addStep(new BookTarToCbtGzStep()); //
+		
+  const singlePdfThumbnailPipeline = new Pipeline()
+    .setName("Single PDF Cover Thumbnail") //
+    .setUses([".*.pdf"]) //
+    .setProduces("thumbnail.webp") //
+    .addStep(new BookExtractPDFsStep()) //
+    .addStep(new BookCreateCoverThumbnailStep(250, 400));
+
+  const movieThumbnailPipeline = new Pipeline()
+    .setName("Movie Cover Thumbnail") //
+    .setUses([".*cover[s].pdf"]) //
+    .setProduces("thumbnail.webp") //
+    .addStep(new BookExtractPDFsStep()) //
+    .addStep(new BookCreateCoverThumbnailStep(350, 350));
 
   return (
     new MasterSchedule([
@@ -148,25 +129,30 @@ function setupMasterSchedule() {
       bookCbtPipeline,
       bookGzipCbtsPipeline,
       bookOcrPipeline,
+			singlePdfThumbnailPipeline, 
+			movieThumbnailPipeline, 
     ]) //
-      // .schedule(bookOcrPropPipeline, lightNovels) //
-      // .schedule(bookCbtDetailsPipeline, lightNovels) //
-      // .schedule(bookGzipCbtsPipeline.name, lightNovels) //
-      .schedule(bookOcrPipeline.name, lightNovels) //
-      // .schedule(bookCoverThumbnailPipeline.name, lightNovels) //
+      .schedule(bookCoverThumbnailPipeline.name, lightNovels) //
       // .schedule(bookCbtPipeline.name, lightNovels) //
+      // .schedule(bookOcrPipeline.name, lightNovels) //
       //
-      //			.schedule(bookOcrPropPipeline, nonfiction) //
-      // .schedule(bookCbtDetailsPipeline, fiction) //
-      // .schedule(bookGzipCbtsPipeline.name, fiction) //
-      // .schedule(bookCoverThumbnailPipeline.name, fiction) //
+      .schedule(bookCoverThumbnailPipeline.name, fiction) //
       // .schedule(bookCbtPipeline.name, fiction) //
+      // .schedule(bookOcrPipeline.name, fiction) //
       //
-      //			.schedule(bookOcrPropPipeline, nonfiction) //
-      // .schedule(bookCbtDetailsPipeline, nonfiction) //
-      // .schedule(bookGzipCbtsPipeline.name, nonfiction) //
-      // .schedule(bookCoverThumbnailPipeline.name, nonfiction) //
+      .schedule(bookCoverThumbnailPipeline.name, nonfiction) //
       // .schedule(bookCbtPipeline.name, nonfiction) //
+      // .schedule(bookOcrPipeline.name, nonfiction) //
+      //
+      .schedule(bookCoverThumbnailPipeline.name, graphicNovels) //
+      //
+      .schedule(singlePdfThumbnailPipeline.name, magazines) //
+      //
+      .schedule(singlePdfThumbnailPipeline.name, researchPapers) //
+      //
+      .schedule(movieThumbnailPipeline.name, anime) //
+      //
+      .schedule(movieThumbnailPipeline.name, movies) //
   );
 }
 
@@ -191,6 +177,9 @@ if (threads === 1) {
   ms.printSummary();
 
 	if(argv.summary) {
+		ms.tasks.forEach((task) => {
+			console.log(task.pipelineName, task.itemFolder);
+		})
 		process.exit();
 	}
 
