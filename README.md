@@ -68,8 +68,26 @@ updated todo:
 
 	- update for responsive
 		- only one page by default when less than 1k width
-		- hide the breadcrumb
-		- figure out what to do with the menu
+		- breadcrumb in separate toolbar row
+		- make the newstand icon show other topbar rows
+		- no buttons on main topbar, move them to other topbars on mobile
+		- some buttons do not show at all - 
+			- do not show the 1/2 page button
+			- do not show the side by side button
+			- do not show the thumbs button
+			- do not show the book options icon
+		- main topbar is newstand button, fullscreen 
+		- don't show paginator
+		- clicking the page on the right goes to next page
+		- clicking on the page on the left goes back
+		- change how paginator displays in mobile,
+			- don't show 1-1 of 283, just show 1 of 283
+			- don't show next / previous, just start / end
+			- if possible, move the start / end to another topbar row
+		- less of a margin on the left / right
+
+
+			
 	
 
 ToDo:

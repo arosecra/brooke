@@ -1,17 +1,31 @@
-import { Component, inject, ViewEncapsulation } from '@angular/core';
+import { Component, inject, Injectable, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AppComponent } from './app';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AppBreadcrumbComponent } from './app-breadcrumb';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { BookToCComponent } from './media-components/book-toc';
+
+@Injectable()
+export class CustomPaginatorIntl extends MatPaginatorIntl {
+
+  override getRangeLabel = (page: number, pageSize: number, length: number): string => {
+    if (length === 0) {
+      return `Page 1 of 1`;
+    }
+    return `Page ${page * pageSize + 1} of ${length}`;
+  }
+}
 
 @Component({
   selector: 'app-header',
   imports: [
 		MatButtonModule, MatIconModule, MatToolbarModule, MatPaginatorModule,
 		BookToCComponent, AppBreadcrumbComponent, 
+	],
+	providers: [
+		{provide: MatPaginatorIntl, useClass: CustomPaginatorIntl }
 	],
   template: `	
 @let widgets = app.widgets();
@@ -65,7 +79,7 @@ import { BookToCComponent } from './media-components/book-toc';
 					[length]="resources.bookCbt.value().length"
 					[pageSize]="widgets.book.pagesInDisplay()"
 					[disabled]="false"
-					[showFirstLastButtons]="true"
+					[showFirstLastButtons]="false"
 					[pageIndex]="appState.currentPageSet()"
 					[hidePageSize]="true"
 					aria-label="Select page"
