@@ -1,6 +1,6 @@
 {
-  "name": "brooke-ui",
-  "short_name": "brooke-ui",
+  "name": "brooke",
+  "short_name": "brooke",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",

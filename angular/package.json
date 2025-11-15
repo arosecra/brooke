@@ -46,6 +46,7 @@
     "@angular/cli": "^20.3.6",
     "@angular/compiler-cli": "^20.3.6",
     "@types/wicg-file-system-access": "^2023.10.6",
+    "angular-cli-ghpages": "^2.0.3",
     "angular-eslint": "20.4.0",
     "eslint": "^9.33.0",
     "eslint-config-prettier": "^10.1.8",

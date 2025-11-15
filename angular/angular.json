@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "brooke-ui": {
+    "brooke": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -15,6 +15,7 @@
           "options": {
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
+						"outputPath": "dist/brooke",
             "assets": [
               {
                 "glob": "**/*",
@@ -57,11 +58,11 @@
 					},
           "configurations": {
             "production": {
-              "buildTarget": "brooke-ui:build:production"							
+              "buildTarget": "brooke:build:production"							
             },
             "development": {
               "proxyConfig": "./proxy.conf.json",
-              "buildTarget": "brooke-ui:build:development",
+              "buildTarget": "brooke:build:development",
 							"ssl": true
             }
           },
@@ -83,6 +84,9 @@
           "options": {
             "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
