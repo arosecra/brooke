@@ -76,18 +76,20 @@ updated todo:
 			- do not show the side by side button
 			- do not show the thumbs button
 			- do not show the book options icon
-		- main topbar is newstand button, fullscreen 
+		- main topbar is newstand button, fullscreen, paginator
 		- don't show paginator
 		- clicking the page on the right goes to next page
 		- clicking on the page on the left goes back
 		- change how paginator displays in mobile,
 			- don't show 1-1 of 283, just show 1 of 283
 			- don't show next / previous, just start / end
-			- if possible, move the start / end to another topbar row
+			- hide start / end on mobile
 		- less of a margin on the left / right
 
+		- add gestures (swipe specifically)
 
-			
+
+		- implement paginator getRangeLabel to change the 1-1 of 283 to just 1 of 283 or 1,2 of 283
 	
 
 ToDo:
