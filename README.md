@@ -65,6 +65,11 @@ updated todo:
 	
 	- attempt to standardize image sizes. pad transparency onto images to fill height gap?
 		-need to handle series thumbnails in pipeline
+
+	- update for responsive
+		- only one page by default when less than 1k width
+		- hide the breadcrumb
+		- figure out what to do with the menu
 	
 
 ToDo:
