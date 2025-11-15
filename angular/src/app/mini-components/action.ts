@@ -22,11 +22,11 @@ import { AppComponent } from '../app';
       <img [src]="imgVal" />
     }
     @if (tonal()) {
-      <button matButton="tonal" [disabled]="app.widgets().busy() || !!disabled()">
+      <button matButton="tonal" [disabled]="app.widgets().busy() || !!disabled()" [attr.title]="title()">
           {{ tonal() }}
       </button>
     } @else {
-			<button matMiniFab [disabled]="app.widgets().busy() || !!disabled()" [class.button-overlay]="!!imgVal">
+			<button matMiniFab [disabled]="app.widgets().busy() || !!disabled()" [class.button-overlay]="!!imgVal"  [attr.title]="title()">
 				<div [class.button-overlay-circle]="!!imgVal">
 					<mat-icon
 						fontSet="material-symbols-outlined"
@@ -96,9 +96,11 @@ export class ActionComponent {
   o = input<any>();
   m = input.required<(...args: any[]) => Promise<any>>();
   p = input<any[]>();
-  disabled = input<boolean>(false);
   img = input<string>();
   tonal = input<string>();
+	
+  disabled = input<boolean>(false);
+	title = input<string>('');
 
   onClick(): void {
     this.app.widgets().busy.set(true);

@@ -42,6 +42,12 @@ import { Thumbnail } from '../model/thumbnail';
 								<action [m]="openItemThumbnails" [o]="this" title="Thumbnails">dataset</action>
 								<action [m]="openItemMarkdown" [o]="this" title="Markdown">markdown</action>
 							}
+								<a href="vlc://file:///storage/emulated/0/Download/Heat.mkv">Open 1</a>
+								<a href="vlc://file:///Download/Heat.mkv">Open 2</a>
+								<a href="vlc://file://storage/emulated/0/Download/Heat.mkv">Open 3</a>
+								<a href="vlc://file://Download/Heat.mkv">Open 4</a>
+								<a href="file:///storage/emulated/0/Download/Heat.mkv">Open 5</a>
+								<a href="file:///Download/Heat.mkv">Open 6s</a>
           </div>
         </mat-card-actions>
       </mat-card>

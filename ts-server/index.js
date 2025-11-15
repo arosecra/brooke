@@ -20,7 +20,7 @@ const app = express();
 //   res.send('Hello Omer! Welcome to dev.to!');
 // });
 
-app.use(express.static(path.join(__dirname, '..', 'angular', 'dist', 'brooke', 'browser')));
+app.use(express.static(path.join(__dirname, '..', 'angular', 'dist', 'brooke-ui', 'browser')));
 
 // Listen both http & https ports
 const httpsServer = https.createServer({
