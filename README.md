@@ -46,7 +46,8 @@ updated todo:
 
 	- add voice commands
 
-	- create a dummy page for videos.  make a ton of URLs for them so that we can 
+	- create a dummy page for videos.  make a ton of URLs for them so that we can figure out
+	  how to launch vlc
 
 	- make the thumbnail view a separate component, add a showThumbnail() to panel instead of book
 
