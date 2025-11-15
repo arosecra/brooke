@@ -5,6 +5,7 @@ import { Category } from './model/category';
 import { Collection } from './model/collection';
 import { Item } from './model/item';
 import { ItemRef } from './model/item-ref';
+import { Thumbnail } from './model/thumbnail';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class AppStateComponent {
 
   currentCollection = signal<Collection | undefined>(undefined);
   currentCategory = signal<Category | undefined>(undefined);
+	currentCategoryThumbnails = signal<Record<string, Thumbnail>>({});
   currentSeries = signal<ItemRef | undefined>(undefined);
   currentItem = signal<Item | undefined>(undefined);
   currentPageSet = signal<number>(0);

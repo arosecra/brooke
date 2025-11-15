@@ -5,10 +5,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { SeriesComponent } from './series';
+import { ActionComponent } from '../mini-components/action';
 
 @Component({
   selector: 'collection-browser',
-  imports: [ItemCardComponent, MatButtonModule, MatChipsModule, MatIconModule, MatButtonModule, SeriesComponent],
+  imports: [ItemCardComponent, MatButtonModule, MatChipsModule, MatIconModule, MatButtonModule, SeriesComponent, ActionComponent],
   template: `
 		@let appState = app.appState();
 		@let resources = app.resources();
@@ -22,9 +23,10 @@ import { SeriesComponent } from './series';
         <h2>Collections</h2>
         <div class="flex">
           @for (collection of library.collections; track collection.name) {
-            <button matButton="tonal" (click)="app.openCollection(collection)">
+						<action tonal="{{ collection.name.replaceAll('_', ' ') }}" [m]="app.openCollection" [p]="[collection]"></action>
+            <!-- <button matButton="tonal" (click)="app.openCollection(collection)">
               {{ collection.name.replaceAll('_', ' ') }}
-            </button>
+            </button> -->
           }
         </div>
       }
@@ -34,9 +36,10 @@ import { SeriesComponent } from './series';
         <div class="flex">
           @for (category of library.categories; track $index) {
             @if (category.collectionName === currentCollection.name) {
-              <button matButton="tonal" (click)="app.openCategory(category)">
+							<action tonal="{{ category.name.replaceAll('_', ' ') }}" [m]="app.openCategory" [p]="[category]"></action>
+              <!-- <button matButton="tonal" >
                 {{ category.name.replaceAll('_', ' ') }}
-              </button>
+              </button> -->
             }
           }
         </div>
@@ -48,7 +51,9 @@ import { SeriesComponent } from './series';
 				  [class.videos]="currentCollection.openType !== 'book'">
           @for (itemRef of currentCategory.items; track itemRef.name) {
 						@let itemCollectionAndName = currentCollection.name + '_' + itemRef.name;
-            <item-card [itemRef]="itemRef" [item]="library.itemsByCollectionAndName[itemCollectionAndName]"></item-card>
+            <item-card [itemRef]="itemRef" [item]="library.itemsByCollectionAndName[itemCollectionAndName]"
+							[thumbnail]="appState.currentCategoryThumbnails()[itemRef.name]"
+						></item-card>
           }
         </div>
       }
@@ -56,7 +61,9 @@ import { SeriesComponent } from './series';
 			@if(currentCollection && currentSeries) {
 				@let seriesCollectionAndName = currentCollection!.name + '_' + app.appState().currentSeries()?.name;
 				@let seriesItem = library!.itemsByCollectionAndName[seriesCollectionAndName];
-				<series-card [seriesItemRef]="currentSeries" [seriesItem]="seriesItem"></series-card>
+				<series-card [seriesItemRef]="currentSeries" [seriesItem]="seriesItem"
+					[thumbnail]="appState.currentCategoryThumbnails()[seriesItem.name]"
+				></series-card>
 			}
 		}
   `,

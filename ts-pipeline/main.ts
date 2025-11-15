@@ -132,27 +132,27 @@ function setupMasterSchedule() {
 			singlePdfThumbnailPipeline, 
 			movieThumbnailPipeline, 
     ]) //
-      .schedule(bookCoverThumbnailPipeline.name, lightNovels) //
-      // .schedule(bookCbtPipeline.name, lightNovels) //
+      // .schedule(bookCoverThumbnailPipeline.name, lightNovels) //
+      .schedule(bookCbtPipeline.name, lightNovels) //
       // .schedule(bookOcrPipeline.name, lightNovels) //
       //
-      .schedule(bookCoverThumbnailPipeline.name, fiction) //
-      // .schedule(bookCbtPipeline.name, fiction) //
+      // .schedule(bookCoverThumbnailPipeline.name, fiction) //
+      .schedule(bookCbtPipeline.name, fiction) //
       // .schedule(bookOcrPipeline.name, fiction) //
       //
-      .schedule(bookCoverThumbnailPipeline.name, nonfiction) //
-      // .schedule(bookCbtPipeline.name, nonfiction) //
+      // .schedule(bookCoverThumbnailPipeline.name, nonfiction) //
+      .schedule(bookCbtPipeline.name, nonfiction) //
       // .schedule(bookOcrPipeline.name, nonfiction) //
       //
-      .schedule(bookCoverThumbnailPipeline.name, graphicNovels) //
+      // .schedule(bookCoverThumbnailPipeline.name, graphicNovels) //
       //
-      .schedule(singlePdfThumbnailPipeline.name, magazines) //
+      // .schedule(singlePdfThumbnailPipeline.name, magazines) //
       //
-      .schedule(singlePdfThumbnailPipeline.name, researchPapers) //
+      // .schedule(singlePdfThumbnailPipeline.name, researchPapers) //
       //
-      .schedule(movieThumbnailPipeline.name, anime) //
+      // .schedule(movieThumbnailPipeline.name, anime) //
       //
-      .schedule(movieThumbnailPipeline.name, movies) //
+      // .schedule(movieThumbnailPipeline.name, movies) //
   );
 }
 
@@ -165,12 +165,6 @@ if(argv.summary) {
 }
 
 const ms = setupMasterSchedule();
-
-// ms.doesPropertyCheckPass(
-// 	ms.pipelineByName("Book OCR"), 
-// 	'\\\\syn01\\syn01public\\Scans\\Light_Novels_Repository\\I\\Is_it_Wrong_to_Pick_Up_Girls_in_a_Dungeon\\Is_it_Wrong_to_Pick_Up_Girls_in_a_Dungeon_01'
-// )
-
 
 if (threads === 1) {
   ms.determineTasks(argv.tasks, argv.pipelines);

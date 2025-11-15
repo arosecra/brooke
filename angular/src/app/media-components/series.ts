@@ -3,6 +3,7 @@ import { AppComponent } from '../app';
 import { Item } from '../model/item';
 import { ItemRef } from '../model/item-ref';
 import { ItemCardComponent } from './item-card';
+import { Thumbnail } from '../model/thumbnail';
 
 @Component({
   selector: 'series-card',
@@ -29,13 +30,14 @@ export class SeriesComponent implements OnInit, OnDestroy {
 
 	seriesItem = input.required<Item>();
 	seriesItemRef = input.required<ItemRef>();
+	thumbnail = input<Thumbnail>();
 
 	imageUrl: string;
 
 	ngOnInit(): void {
-		const item = this.seriesItem();
-		if(item?.thumbnail) {
-			this.imageUrl = URL.createObjectURL(item.thumbnail);
+		const thumbnail = this.thumbnail();
+		if(thumbnail?.thumbnail) {
+			this.imageUrl = URL.createObjectURL(thumbnail.thumbnail);
 		}
 	}
 	ngOnDestroy(): void {

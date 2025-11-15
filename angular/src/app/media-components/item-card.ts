@@ -8,12 +8,14 @@ import { Item } from '../model/item';
 import { ItemRef } from '../model/item-ref';
 import { ItemNamePipe } from './itemName.pipe';
 import { MatBadgeModule } from '@angular/material/badge';
+import { Thumbnail } from '../model/thumbnail';
 
 @Component({
   selector: 'item-card',
   imports: [ItemNamePipe, MatButtonModule, MatIconModule, MatCardModule, ActionComponent, MatBadgeModule],
   template: `
     @let appState = app.appState();
+		@let appResource = app.resources();
     @let itm = item();
 		@let mainActionItem = appState.currentCollection()?.openType === 'book' ? 'file_open' : 'play_arrow';
     @if (appState && itm) {
@@ -32,7 +34,9 @@ import { MatBadgeModule } from '@angular/material/badge';
           <div>
 						<action [m]="openItem" [o]="this">{{mainActionItem}}</action>
 						<action [matBadge]="item().childItems?.length" matBadgeSize="large" [matBadgeHidden]="!item().childItems?.length" 
-							 [m]="downloadForOffline" [o]="this">download_for_offline</action>
+							 [m]="downloadForOffline" [o]="this"
+							 [disabled]="!appResource.storedLibrary.value()?.cacheDirectory"
+						>download_for_offline</action>
 						<action [m]="openItemDetails" [o]="this">notes</action>
 							@if (appState.currentCollection()?.openType === 'book') {
 								<action [m]="openItemThumbnails" [o]="this" title="Thumbnails">dataset</action>
@@ -52,12 +56,13 @@ export class ItemCardComponent implements OnInit, OnDestroy {
   item = input.required<Item>();
 	seriesItemRef = input<ItemRef>();
 	seriesItem = input<Item>();
+	thumbnail = input<Thumbnail>();
 
 	imageUrl: string;
 
 	ngOnInit(): void {
-		const item = this.item();
-		if(item?.thumbnail) {
+		const item = this.thumbnail();
+		if(item) {
 			this.imageUrl = URL.createObjectURL(item.thumbnail);
 		}
 	}
@@ -67,7 +72,7 @@ export class ItemCardComponent implements OnInit, OnDestroy {
 
 
   downloadForOffline() {
-		return Promise.resolve(true);
+		return this.app.cacheItem(this.itemRef(), this.item());
 	}
 
   openItem() {

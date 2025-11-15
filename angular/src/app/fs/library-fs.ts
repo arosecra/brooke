@@ -30,6 +30,7 @@ export class Files {
 		}
 		return cacheFile?.name;
 	}
+
   async getFileHandle(handle: FileSystemDirectoryHandle, arg1: string) {
     try {
       let parts = arg1.split('/').filter((val) => val !== '');

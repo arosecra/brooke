@@ -5,13 +5,13 @@ import { Setting } from './setting';
 import { Category } from './category';
 import { Collection } from './collection';
 import { LibraryOptions } from './library-options';
+import { Thumbnail } from './thumbnail';
 
 export class Library {
   collections: Collection[];
   categories: Category[];
   items: Item[];
   settings: Setting[];
-	cachedItems: CachedFile[];
 	cacheDirectory: CacheDirectory | null = null;
 
   itemsByCollectionAndName: Record<string, Item> = {};
@@ -22,7 +22,6 @@ export class Library {
     this.categories = options?.categories ? [...options.categories] : [];
     this.items = options?.items ? [...options.items] : [];
     this.settings = options?.settings ? [...options.settings] : [];
-    this.cachedItems = options?.cachedItems ? [...options.cachedItems] : [];
 
     for (let i = 0; options && i < options.items.length; i++) {
       const item = options.items[i];
@@ -47,7 +46,6 @@ export class Library {
       categories: this.categories,
       items: this.items,
       settings: this.settings,
-			cachedItems: this.cachedItems,
     });
   }
 
@@ -57,7 +55,6 @@ export class Library {
       categories: [...this.categories, category],
       items: this.items,
       settings: this.settings,
-			cachedItems: this.cachedItems,
     });
   }
 }

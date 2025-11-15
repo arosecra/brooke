@@ -7,8 +7,6 @@ export declare interface Item {
 	collectionName: string;
 	pathFromCategoryRoot: string;
 	handle?: FileSystemFileHandle;
-	thumbnail?: File;
-	largeThumbnail?: string;
 	series: boolean;
 	vlcOptions?: VLCOptions;
 	bookDetails?: BookDetails;

@@ -1,12 +1,12 @@
 import { inject, Injectable } from '@angular/core';
 import { Library } from '../model/library';
-import { CachedFile } from '../model/cached-file';
 import { Item } from '../model/item';
 import { Setting } from '../model/setting';
 import { Category } from '../model/category';
 import { Collection } from '../model/collection';
 import { openDB } from './pidb';
 import { Files } from '../fs/library-fs';
+import { Thumbnail } from '../model/thumbnail';
 
 export function onUpgradeNeeded(this: IDBOpenDBRequest, event: IDBVersionChangeEvent) {
   let db = this.result;
@@ -16,15 +16,14 @@ export function onUpgradeNeeded(this: IDBOpenDBRequest, event: IDBVersionChangeE
       db.createObjectStore('categories', { keyPath: ['collectionName', 'name'] });
       db.createObjectStore('items', { keyPath: ['collectionName', 'name'] });
       db.createObjectStore('settings', { keyPath: 'name' });
-      db.createObjectStore('cache', { keyPath: ['collectionName', 'itemName'] });
+      db.createObjectStore('thumbnails', { keyPath: ['collectionName', 'categoryName', 'itemName'] });
       break;
-    // version 0 means that the client had no database
-    // perform initialization
     case 1:
-    // client had version 1
-    // update
+			break;
   }
 }
+
+export const TABLE_NAMES = ['collections', 'categories', 'items', 'settings', 'thumbnails'];
 
 @Injectable({
   providedIn: 'root',
@@ -36,14 +35,13 @@ export class LibraryDB {
 
   async getLibrary() {
     const db = await openDB('db', 1, onUpgradeNeeded);
-    let tx = db.transaction(['collections', 'categories', 'items', 'settings', 'cache'], 'readonly');
+    let tx = db.transaction(TABLE_NAMES, 'readonly');
 
     let res = new Library({
       collections: await this.getAll<Collection[]>(tx, 'collections'),
       categories: await this.getAll<Category[]>(tx, 'categories'),
       items: await this.getAll<Item[]>(tx, 'items'),
-      settings: await this.getAll<Setting[]>(tx, 'settings'),
-			cachedItems: await this.getAll<CachedFile[]>(tx, 'cache'),
+      settings: await this.getAll<Setting[]>(tx, 'settings')
     });
     for (let i = 0; i < res.collections.length; i++) {
       res.collections[i].hasPermission = await this.files.hasReadWritePermission(
@@ -62,13 +60,76 @@ export class LibraryDB {
 
   async addLibrary(library: Library) {
     const db = await openDB('db', 1, onUpgradeNeeded);
-    let tx = db.transaction(['collections', 'categories', 'items', 'settings', 'cache'], 'readwrite');
+    let tx = db.transaction(TABLE_NAMES, 'readwrite');
 
     this.addAll<Collection>(tx, library.collections, 'collections');
     this.addAll<Category>(tx, library.categories, 'categories');
     this.addAll<Item>(tx, library.items, 'items');
     this.addAll<Setting>(tx, library.settings, 'settings');
-    this.addAll<CachedFile>(tx, library.cachedItems, 'cache');
+
+    tx.commit();
+
+    return new Promise<boolean>((resolve) => {
+      tx.oncomplete = (e) => resolve(true);
+    });
+  }
+
+  async addCollection(collection: Collection) {
+    const db = await openDB('db', 1, onUpgradeNeeded);
+    let tx = db.transaction(TABLE_NAMES, 'readwrite');
+
+    this.addAll<Collection>(tx, [collection], 'collections');
+
+    tx.commit();
+
+    return new Promise<boolean>((resolve) => {
+      tx.oncomplete = (e) => resolve(true);
+    });
+  }
+
+  async addCategory(category: Category[]) {
+    const db = await openDB('db', 1, onUpgradeNeeded);
+    let tx = db.transaction(TABLE_NAMES, 'readwrite');
+
+    this.addAll<Category>(tx, category, 'categories');
+
+    tx.commit();
+
+    return new Promise<boolean>((resolve) => {
+      tx.oncomplete = (e) => resolve(true);
+    });
+  }
+
+  async addItems(items: Item[]) {
+    const db = await openDB('db', 1, onUpgradeNeeded);
+    let tx = db.transaction(TABLE_NAMES, 'readwrite');
+
+    this.addAll<Item>(tx, items, 'items');
+
+    tx.commit();
+
+    return new Promise<boolean>((resolve) => {
+      tx.oncomplete = (e) => resolve(true);
+    });
+  }
+
+	async addThumbnails(thumbnails: Thumbnail[]) {
+    const db = await openDB('db', 1, onUpgradeNeeded);
+    let tx = db.transaction(TABLE_NAMES, 'readwrite');
+    this.addAll<Thumbnail>(tx, thumbnails, 'thumbnails');
+
+    tx.commit();
+
+    return new Promise<boolean>((resolve) => {
+      tx.oncomplete = (e) => resolve(true);
+    });
+	}
+
+  async addSetting(setting: Setting) {
+    const db = await openDB('db', 1, onUpgradeNeeded);
+    let tx = db.transaction(TABLE_NAMES, 'readwrite');
+
+    this.addAll<Setting>(tx, [setting], 'settings');
 
     tx.commit();
 
@@ -79,8 +140,24 @@ export class LibraryDB {
 
 	async removeCollection(collection: Collection) {
     const db = await openDB('db', 1, onUpgradeNeeded);
-    let tx = db.transaction(['collections', 'categories', 'items', 'settings', 'cache'], 'readwrite');
+    let tx = db.transaction(TABLE_NAMES, 'readwrite');
 		await this.remove(tx, 'collections', collection.name);
+	}
+
+	async getThumbnailsForCollectionAndCategory(collectionName: string, categoryName: string) {
+    const db = await openDB('db', 1, onUpgradeNeeded);
+    let tx = db.transaction(TABLE_NAMES, 'readwrite');
+		const lowerBoundKey = [collectionName, categoryName];
+    const upperBoundKey = [collectionName, categoryName, []]; 
+    const keyRange = IDBKeyRange.bound(lowerBoundKey, upperBoundKey);
+		return new Promise<Record<string, Thumbnail>>((resolve) => {
+      const request = tx.objectStore('thumbnails').getAll(keyRange);
+      request.onsuccess = (e) => {
+				const r: Record<string, Thumbnail> = {};
+				request.result.forEach((thumbnail) => r[thumbnail.itemName] = thumbnail)
+				resolve(r);
+			}
+    });
 	}
 
   remove(tx: IDBTransaction, objectStoreName: string, key: IDBValidKey): Promise<boolean> {

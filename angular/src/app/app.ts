@@ -155,24 +155,40 @@ export class AppComponent {
     this.setLocation();
   }
 
-  openCollection(collection?: Collection) {
-    if (collection) this.appState()?.currentCollection.set(collection);
-    this.appState()?.currentCategory.set(undefined);
-    this.appState()?.currentSeries.set(undefined);
-    this.appState()?.currentItem.set(undefined);
-    this.widgets()?.book.thumbnailView.set(false);
-		this.resources()?.bookCbt.reload();
-    this.setLocation();
+  openCollection(collection?: Collection): Promise<boolean> {
+		return new Promise<boolean>((resolve) => {
+			if (collection) this.appState()?.currentCollection.set(collection);
+			this.appState().currentCategory.set(undefined);
+			this.appState().currentCategoryThumbnails.set({});
+			this.appState().currentSeries.set(undefined);
+			this.appState().currentItem.set(undefined);
+			this.widgets().book.thumbnailView.set(false);
+			this.resources()?.bookCbt.reload();
+			this.setLocation();
+			resolve(true);
+		})
   }
 
-  openCategory(category?: Category) {
-    if (category) this.appState()?.currentCategory.set(category);
-    this.appState()?.currentSeries.set(undefined);
-    this.appState()?.currentItem.set(undefined);
-    this.appState()?.currentPageSet.set(0);
-    this.widgets()?.book.thumbnailView.set(false);
-		this.resources()?.bookCbt.reload();
-    this.setLocation();
+  openCategory(category?: Category): Promise<boolean> {
+		return new Promise<boolean>((resolve) => {
+			this.appState().currentSeries.set(undefined);
+			this.appState().currentItem.set(undefined);
+			this.appState().currentPageSet.set(0);
+			this.widgets().book.thumbnailView.set(false);
+			this.resources().bookCbt.reload();
+			this.setLocation();
+			
+			if (category) {
+				this.appDb.getThumbnailsForCollectionAndCategory(this.appState().currentCollection()!.name, category.name).then((thumbnails) => {
+					this.appState().currentCategoryThumbnails.set(thumbnails);
+					this.appState().currentCategory.set(category);
+					resolve(true);
+				})
+			} else {
+				resolve(true);
+			}
+
+		})
   }
 
   openItem(itemRef: ItemRef, item: Item): Promise<any> {
@@ -321,25 +337,25 @@ export class AppComponent {
     const collection = library.collections.find(
       (value) => value.name === item.collectionName,
     ) as Collection;
-    this.files.cacheFile(library, collection, item).then((res) => {
-      let newCachedItem: CachedFile = {
-        collectionName: item.collectionName,
-        itemName: item.name,
-        filename: res as string,
-      };
+    return this.files.cacheFile(library, collection, item); //.then((res) => {
+      // let newCachedItem: CachedFile = {
+      //   collectionName: item.collectionName,
+      //   itemName: item.name,
+      //   filename: res as string,
+      // };
 
-      let libraryUpdates = new Library({
-        collections: [],
-        categories: [],
-        items: [],
-        settings: [],
-        cachedItems: [newCachedItem],
-      });
+      // let libraryUpdates = new Library({
+      //   collections: [],
+      //   categories: [],
+      //   items: [],
+      //   settings: [],
+      //   cachedItems: [newCachedItem],
+      // });
 
-      this.appDb.addLibrary(libraryUpdates);
-      this.resources()?.storedLibrary.reload();
+      // this.appDb.addLibrary(libraryUpdates);
+      // this.resources()?.storedLibrary.reload();
 
-      this.displayItem(itemRef, item);
-    });
+      // this.displayItem(itemRef, item);
+    //});
   }
 }

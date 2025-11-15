@@ -1,4 +1,13 @@
 export class CRUD {
+	
+  static add<T>(tx: IDBTransaction, values: T, objectStoreName: string) {
+    let req = tx.objectStore(objectStoreName);
+		return new Promise<void>((resolve) => {
+      	const request = req.put(values);
+      	request.onsuccess = (e) => resolve();
+			});
+  }
+
   static addAll<T>(tx: IDBTransaction, values: T[], objectStoreName: string) {
 		const requests: Promise<void>[] = [];
     let req = tx.objectStore(objectStoreName);

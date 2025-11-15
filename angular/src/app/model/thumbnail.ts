@@ -1,6 +1,7 @@
 
 export declare interface Thumbnail {
-	name: string;
+	itemName: string;
 	collectionName: string;
-	thumbnail?: File;
+	categoryName: string;
+	thumbnail: File;
 }

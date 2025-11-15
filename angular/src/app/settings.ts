@@ -11,6 +11,7 @@ import { Library } from './model/library';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { CacheDirectory } from './model/cache-directory';
+import { Thumbnail } from './model/thumbnail';
 
 @Component({
   selector: 'settings',
@@ -149,19 +150,11 @@ export class SettingsComponent {
 		this.busyMessage.set("Setting cache directory");
 
 		await this.files.getReadWritePermission(handle);
-
-    let library = new Library({
-      collections: [],
-      categories: [],
-      items: [],
-      settings: [{
+		
+    await this.appDB.addSetting({
 				name: 'cacheDirectory',
 				value: handle
-			}],
-			cachedItems: []
-    });
-
-    await this.appDB.addLibrary(library);
+			});
 		this.busy.set(false);
 
 	}
@@ -189,62 +182,103 @@ export class SettingsComponent {
     collection.handle = handle;
 
     category.forEach((cat) => (cat.collectionName = collection.name));
-    console.log(collection, category);
+		let itemToCategory: Record<string, Category> = {};
+		category.forEach((cat) => {
+			cat.items.forEach((itemRef) => {
+				itemToCategory[itemRef.name] = cat;
+				itemRef.childItems?.forEach((itemRef) => {
+					itemToCategory[itemRef.name] = cat;
+				})
+			})
+		})
 
     let fileExtensionFSEntries = Object.values(currentDirectory).filter((fsEntry) => {
       return fsEntry.name.endsWith(`${collection.itemExtension}`);
     });
     console.log(fileExtensionFSEntries);
 
-    let itemsByPath: Record<string, Item> = {};
-    for (let i = 0; i < fileExtensionFSEntries.length; i++) {
-      let fsEntry = fileExtensionFSEntries[i];
-      let item: Item = await this.createItem(
-        currentDirectory,
-        fsEntry,
-        collection.name,
-        collection.itemExtension,
-      );
-
-      let seriesPath = this.files.getParentDirectoryForDirectoryPath(fsEntry.parentPath);
-      let seriesFSEntry = currentDirectory[seriesPath];
-      let thumbnailFile = currentDirectory[`${seriesPath}/thumbnail.webp`]?.handle;
-      let largeThumbnailFile = currentDirectory[`${seriesPath}/large_thumbnail.webp`]?.handle;
-
-      let isSeries = thumbnailFile || largeThumbnailFile;
-
-      if (isSeries) {
-        let seriesItem = itemsByPath[seriesFSEntry.path];
-        if (!seriesItem) {
-          seriesItem = await this.createSeriesItem(
-            currentDirectory,
-            seriesFSEntry,
-            collection.name,
-          );
-          itemsByPath[seriesFSEntry.path] = seriesItem;
-        }
-        seriesItem.childItems?.push(item);
-      } else {
-        itemsByPath[item.pathFromCategoryRoot] = item;
-      }
-    }
-    console.log(itemsByPath);
-
-    let allItems = Object.values(itemsByPath);
+    let {items, thumbs} = await this.findItemsFromFiles(fileExtensionFSEntries, currentDirectory, collection, itemToCategory);
 
     let library = new Library({
       collections: [collection],
       categories: category,
-      items: allItems,
-      settings: [],
-			cachedItems: []
+      items: items,
+      settings: []
     });
 
     await this.appDB.addLibrary(library);
+		await this.appDB.addThumbnails(thumbs);
 
     this.app.resources()?.storedLibrary.reload();
 		
 		this.busy.set(false);
+	}
+
+	private async findItemsFromFiles(
+		fileExtensionFSEntries: FSEntry[], 
+		currentDirectory: Record<string, FSEntry>, 
+		collection: Collection, 
+		itemToCategory: Record<string, Category>	
+	) {
+		let itemsByPath: Record<string, Item> = {};
+		let thumbs: Thumbnail[] = [];
+		for (let i = 0; i < fileExtensionFSEntries.length; i++) {
+			let fsEntry = fileExtensionFSEntries[i];
+
+			let seriesPath = this.files.getParentDirectoryForDirectoryPath(fsEntry.parentPath);
+			let seriesFSEntry = currentDirectory[seriesPath];
+			let seriesThumbnailFile = currentDirectory[`${seriesPath}/thumbnail.webp`]?.handle;
+
+			if(seriesThumbnailFile) {
+				let seriesItem = itemsByPath[seriesFSEntry.path];
+				if (!seriesItem) {
+					seriesItem = await this.createSeriesItem(
+						currentDirectory,
+						seriesFSEntry,
+						collection.name
+					);
+					itemsByPath[seriesFSEntry.path] = seriesItem;
+
+					thumbs.push({
+						itemName: seriesItem.name,
+						collectionName: collection.name,
+						categoryName: itemToCategory[seriesItem.name]?.name ?? 'unassigned',
+						thumbnail: await this.files.getImageFileContents(seriesThumbnailFile as FileSystemFileHandle)
+					});
+				}
+				seriesItem.childItems?.push(await this.createItem(
+					currentDirectory,
+					fsEntry,
+					collection.name,
+					collection.itemExtension
+				));
+
+			} else {
+				
+				let item: Item = await this.createItem(
+					currentDirectory,
+					fsEntry,
+					collection.name,
+					collection.itemExtension
+				);
+				itemsByPath[item.pathFromCategoryRoot] = item;
+
+				let thumbnailFile = currentDirectory[`${fsEntry.parentPath}/thumbnail.webp`]
+					?.handle as FileSystemFileHandle;
+				if (thumbnailFile) {
+					thumbs.push({
+						itemName: item.name,
+						collectionName: collection.name,
+						categoryName: itemToCategory[item.name]?.name ?? 'unassigned',
+						thumbnail: await this.files.getImageFileContents(thumbnailFile)
+					})
+				}
+			}
+
+		}
+
+		const items = Object.values(itemsByPath);
+		return {items, thumbs};
 	}
 
   async addNewCollection() {
@@ -266,19 +300,9 @@ export class SettingsComponent {
 			series: false,
 			childItems: []
 		};
-    let thumbnailFile = currentDirectory[`${fsEntry.parentPath}/thumbnail.webp`]
-      ?.handle as FileSystemFileHandle;
-    let largeThumbnailFile = currentDirectory[`${fsEntry.parentPath}/large_thumbnail.webp`]
-      ?.handle as FileSystemFileHandle;
     let cbtDetailsFile = currentDirectory[`${fsEntry.parentPath}/cbtDetails.yaml`]
       ?.handle as FileSystemFileHandle;
 
-    if (thumbnailFile) {
-      item.thumbnail = await this.files.getImageFileContents(thumbnailFile);
-    }
-    // if (largeThumbnailFile) {
-    //   item.largeThumbnail = await this.files.getImageFileContents(largeThumbnailFile);
-    // }
     if (cbtDetailsFile) {
       item.bookDetails = await this.files.getYAMLFileContents(cbtDetailsFile);
     }
@@ -297,17 +321,6 @@ export class SettingsComponent {
 			pathFromCategoryRoot: fsEntry.path,
 			childItems: []
 		};
-    let thumbnailFile = currentDirectory[`${fsEntry.path}/thumbnail.webp`]
-      ?.handle as FileSystemFileHandle;
-    // let largeThumbnailFile = currentDirectory[`${fsEntry.path}/large_thumbnail.webp`]
-    //   ?.handle as FileSystemFileHandle;
-
-    if (thumbnailFile) {
-      item.thumbnail = await this.files.getImageFileContents(thumbnailFile);
-    }
-    // if (largeThumbnailFile) {
-    //   item.largeThumbnail = await this.files.getImageFileContents(largeThumbnailFile);
-    // }
     return item;
   }
 }
