@@ -34,6 +34,7 @@ updated todo:
 	- disable download button if already downloaded
 
 	- add text to speech if there's markdown
+		- allow it to auto next page
 
 	- add fullscreen
 
