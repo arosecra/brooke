@@ -37,8 +37,7 @@ updated todo:
 		- etc?
 	- disable download button if already downloaded
 
-	- add text to speech if there's markdown
-		- allow it to auto next page
+	- convert settings to a Record<string, any>, create an interface for what the value is supposed to be (string, etc)
 
 	- add fullscreen
 
@@ -91,9 +90,6 @@ updated todo:
 		- less of a margin on the left / right
 
 		- add gestures (swipe specifically)
-
-
-		- implement paginator getRangeLabel to change the 1-1 of 283 to just 1 of 283 or 1,2 of 283
 	
 
 ToDo:

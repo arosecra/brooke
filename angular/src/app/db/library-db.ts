@@ -7,6 +7,7 @@ import { Collection } from '../model/collection';
 import { openDB } from './pidb';
 import { Files } from '../fs/library-fs';
 import { Thumbnail } from '../model/thumbnail';
+import { Orator } from '../web/orator';
 
 export function onUpgradeNeeded(this: IDBOpenDBRequest, event: IDBVersionChangeEvent) {
   let db = this.result;
@@ -48,13 +49,16 @@ export class LibraryDB {
         res.collections[i].handle,
       );
     }
-		const setting = res.settings?.find((val) => val.name === 'cacheDirectory');
-		if(setting) {
+		const cacheSetting = res.settings?.find((val) => val.name === 'cacheDirectory');
+		if(cacheSetting) {
 			res.cacheDirectory = {
-				handle: setting?.value,
-				hasPermission:  setting && await this.files.hasReadWritePermission(setting.value)
+				handle: cacheSetting?.value,
+				hasPermission:  cacheSetting && await this.files.hasReadWritePermission(cacheSetting.value)
 			}
 		}
+		const voiceSetting = res.settings?.find((val) => val.name === 'voice');
+		res.voice = voiceSetting?.value ?? new Orator().getVoices().find((voice: SpeechSynthesisVoice) => voice.default)?.name;
+		
     return res;
   }
 
@@ -144,6 +148,33 @@ export class LibraryDB {
 		await this.remove(tx, 'collections', collection.name);
 	}
 
+	async removeCategories(collection: Collection) {
+    const db = await openDB('db', 1, onUpgradeNeeded);
+    let tx = db.transaction(TABLE_NAMES, 'readwrite');
+		const lowerBoundKey = [collection.name];
+    const upperBoundKey = [collection.name, []];
+    const keyRange = IDBKeyRange.bound(lowerBoundKey, upperBoundKey);
+		await this.remove(tx, 'categories', keyRange);
+	}
+
+	async removeItems(collection: Collection) {
+    const db = await openDB('db', 1, onUpgradeNeeded);
+    let tx = db.transaction(TABLE_NAMES, 'readwrite');
+		const lowerBoundKey = [collection.name];
+    const upperBoundKey = [collection.name, []];
+    const keyRange = IDBKeyRange.bound(lowerBoundKey, upperBoundKey);
+		await this.remove(tx, 'items', keyRange);
+	}
+
+	async removeThumbnails(collection: Collection) {
+    const db = await openDB('db', 1, onUpgradeNeeded);
+    let tx = db.transaction(TABLE_NAMES, 'readwrite');
+		const lowerBoundKey = [collection.name];
+    const upperBoundKey = [collection.name, [], []]; 
+    const keyRange = IDBKeyRange.bound(lowerBoundKey, upperBoundKey);
+		await this.remove(tx, 'thumbnails', keyRange);
+	}
+
 	async getThumbnailsForCollectionAndCategory(collectionName: string, categoryName: string) {
     const db = await openDB('db', 1, onUpgradeNeeded);
     let tx = db.transaction(TABLE_NAMES, 'readwrite');
@@ -160,7 +191,7 @@ export class LibraryDB {
     });
 	}
 
-  remove(tx: IDBTransaction, objectStoreName: string, key: IDBValidKey): Promise<boolean> {
+  remove(tx: IDBTransaction, objectStoreName: string, key: IDBKeyRange | IDBValidKey): Promise<boolean> {
     return new Promise<boolean>((resolve) => {
       const request = tx.objectStore(objectStoreName).delete(key);
       request.onsuccess = (e) => resolve(true);

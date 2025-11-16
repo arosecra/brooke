@@ -17,11 +17,12 @@ import { Collection } from './model/collection';
 import { Item } from './model/item';
 import { ItemRef } from './model/item-ref';
 import { Library } from './model/library';
-import { SettingsComponent } from './settings';
+import { SettingsComponent } from './settings/settings';
 import YAML from 'yaml';
 import { BookDetails } from './model/book-details';
 import { AppActionsComponent } from './app-actions';
 import { resourceStatusToPromise } from './util/res-status-to-promise';
+import { Orator } from './web/orator';
 
 @Component({
   selector: 'app',
@@ -29,7 +30,6 @@ import { resourceStatusToPromise } from './util/res-status-to-promise';
     AppHeaderComponent,
     BookComponent,
     CollectionBrowserComponent,
-    SeriesComponent,
     SettingsComponent,
     LibrarySettingsComponent,
     AppStateComponent,
@@ -222,6 +222,34 @@ export class AppComponent {
 	openItemMarkdown(itemRef: ItemRef, item: Item) {
     this.widgets()?.book.markdownView.set(true);
 		return this.displayBookItem(itemRef, item);
+	}
+
+	async textToSpeech() {
+
+		let pagesInDisplay = this.widgets().book.pagesInDisplay();
+		let i = this.appState().currentPageSet() * this.widgets().book.pagesInDisplay();
+		const book = this.resources().bookCbt.value();
+		const voice = this.resources().storedLibrary.value()?.voice;
+		if(book && voice) {
+			let orator = new Orator();
+			for(i; i < book.length; i += pagesInDisplay) {
+				if(!book[i].markdown) {
+					await orator.read('No text for page ' + i, voice);
+				} else {
+					await orator.readMarkdown(book[i].markdown, voice);
+				}
+				if(pagesInDisplay === 2 && i+1 < book.length) {
+					const rPage = i+1;
+					if(!book[rPage].markdown) {
+						await orator.read('No text for page ' + rPage, voice);
+					} else {
+					await orator.readMarkdown(book[rPage].markdown, voice);
+					}
+				}
+				this.goToNextPage();
+			}
+
+		}
 	}
 
   setLocation() {
