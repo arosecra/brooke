@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal, ViewEncapsulation } from '@angular/core';
-import { AppComponent } from './app';
+import { AppComponent } from './app.component';
 import { BookDetails } from './model/book-details';
 import { Category } from './model/category';
 import { Collection } from './model/collection';

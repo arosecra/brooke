@@ -1,5 +1,5 @@
 import { Component, inject, Injector, signal, ViewEncapsulation } from '@angular/core';
-import { AppComponent } from '../app';
+import { AppComponent } from '../app.component';
 import { LibraryDB } from '../db/library-db';
 import { MatButtonModule } from '@angular/material/button';
 import { Files } from '../fs/library-fs';

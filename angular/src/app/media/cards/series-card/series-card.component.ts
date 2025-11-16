@@ -1,5 +1,5 @@
 import { Component, inject, input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { AppComponent } from '../../../app';
+import { AppComponent } from '../../../app.component';
 import { Item } from '../../../model/item';
 import { ItemRef } from '../../../model/item-ref';
 import { ItemCardComponent } from '../item-card/item-card.component';

@@ -1,5 +1,5 @@
 import { Component, inject, ViewEncapsulation } from '@angular/core';
-import { AppComponent } from '../../app';
+import { AppComponent } from '../../app.component';
 import { ItemCardComponent } from '../cards/item-card/item-card.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';

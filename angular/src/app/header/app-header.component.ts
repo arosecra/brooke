@@ -1,11 +1,11 @@
 import { Component, inject, Injectable, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { AppComponent } from './app';
+import { AppComponent } from '../app.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { AppBreadcrumbComponent } from './app-breadcrumb';
+import { AppBreadcrumbComponent } from './app-breadcrumb.component';
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
-import { BookToCComponent } from './media/book-toc/book-toc.component';
+import { BookToCComponent } from '../media/book-toc/book-toc.component';
 
 @Injectable()
 export class CustomPaginatorIntl extends MatPaginatorIntl {

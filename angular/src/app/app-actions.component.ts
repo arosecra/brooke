@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal, ViewEncapsulation } from '@angular/core';
-import { AppComponent } from './app';
+import { AppComponent } from './app.component';
 
 @Component({
   selector: 'app-actions',

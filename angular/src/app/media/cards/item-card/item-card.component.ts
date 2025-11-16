@@ -2,7 +2,7 @@ import { Component, inject, input, OnDestroy, OnInit, ViewEncapsulation } from '
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { AppComponent } from '../../../app';
+import { AppComponent } from '../../../app.component';
 import { ActionComponent } from '../../../shared/action';
 import { Item } from '../../../model/item';
 import { ItemRef } from '../../../model/item-ref';

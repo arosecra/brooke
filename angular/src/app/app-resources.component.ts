@@ -1,5 +1,5 @@
 import { Component, inject, resource, ViewEncapsulation } from '@angular/core';
-import { AppComponent } from './app';
+import { AppComponent } from './app.component';
 import { CbtService } from './cbt/cbt.service';
 import { LibraryDB } from './db/library-db';
 import { Collection } from './model/collection';

@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
-import { AppComponent } from '../app';
+import { AppComponent } from '../app.component';
 import { Item } from '../model/item';
 import { MatButtonModule } from '@angular/material/button';
 

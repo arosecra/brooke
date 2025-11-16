@@ -1,10 +1,10 @@
 import { Component, inject, ViewEncapsulation } from '@angular/core';
-import { AppComponent } from './app';
+import { AppComponent } from '../app.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatChipAndRemoveComponent } from './shared/mat-chip-and-remove.component';
-import { ItemNamePipe } from "./media/itemName.pipe";
+import { MatChipAndRemoveComponent } from '../shared/mat-chip-and-remove.component';
+import { ItemNamePipe } from "../media/itemName.pipe";
 
 @Component({
   selector: 'app-breadcrumb',
