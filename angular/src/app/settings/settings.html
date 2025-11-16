@@ -45,29 +45,32 @@
 <button mat-raised-button (click)="addNewCollection()" [disabled]="busy()">Add Collection</button>
 
 <h3>Synthesized Voice</h3>
-<mat-form-field>
-  <mat-label>Voice</mat-label>
-  <mat-select [(value)]="voice">
-    @for (option of orator.getVoices(); track option.name) {
-      <mat-option [value]="option">{{ option.name }} ({{ option.lang }})</mat-option>
-    }
-  </mat-select>
-</mat-form-field>
-<div class="flex">
-  <mat-form-field class="flex-grow">
-    <mat-label>Sample Text</mat-label>
-    <textarea matInput [(ngModel)]="sampleText"></textarea>
+@let library = app.resources().storedLibrary.value();
+@let voice = app.resources().storedLibrary.value()?.voice;
+@if (library) {
+  <mat-form-field>
+    <mat-label>Voice</mat-label>
+    <mat-select [(value)]="library.voice">
+      @for (option of orator.getVoices(); track option.name) {
+        <mat-option [value]="option.name">{{ option.name }} ({{ option.lang }})</mat-option>
+      }
+    </mat-select>
   </mat-form-field>
-	<div class="flex flex-column">
-		<button matMiniFab (click)="playSampleText()" title="Read Sample Text" [disabled]="busy()">
-			<mat-icon fontSet="material-symbols-outlined">play_circle</mat-icon>
-		</button>
-		<button matMiniFab (click)="saveVoice()" title="Save Voice" [disabled]="busy()">
-			<mat-icon fontSet="material-symbols-outlined">save</mat-icon>
-		</button>
-
-	</div>
-</div>
+  <div class="flex">
+    <mat-form-field class="flex-grow">
+      <mat-label>Sample Text</mat-label>
+      <textarea matInput [(ngModel)]="sampleText"></textarea>
+    </mat-form-field>
+    <div class="flex flex-column">
+      <button matMiniFab (click)="playSampleText()" title="Read Sample Text" [disabled]="busy()">
+        <mat-icon fontSet="material-symbols-outlined">play_circle</mat-icon>
+      </button>
+      <button matMiniFab (click)="saveVoice()" title="Save Voice" [disabled]="busy()">
+        <mat-icon fontSet="material-symbols-outlined">save</mat-icon>
+      </button>
+    </div>
+  </div>
+}
 
 <h3>Cache Directory</h3>
 @let cacheDirectory = app.resources().storedLibrary.value()?.cacheDirectory;

@@ -210,7 +210,7 @@ export class SettingsComponent {
   async playSampleText() {
     this.busy.set(true);
     this.busyMessage.set('');
-    this.orator.read(this.sampleText, this.voice.name).then(() => {
+    this.orator.read(this.sampleText, this.app.resources().storedLibrary.value()!.voice).then(() => {
       this.busy.set(false);
     });
   }
