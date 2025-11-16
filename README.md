@@ -10,9 +10,6 @@ updated todo:
 - ui:
 	- don't convert image to base64, just use a blob. may need to create a page component (probably good for md too)
 
-	- add Component suffix to all components (too many double ups... book and book, for instance)
-		- also to filenames
-
 	- implement BookToC
 
 	- finish and use web-fs and web-path utilities
@@ -107,7 +104,6 @@ ToDo:
 
 - overall: investigate that literate programming plugin
 
-- angular: Ability to add TOC entries
 - angular: Ability to add overlay graphics (bounding box, etc) for image algorithm testing
 - angular: add ui to edit the collections
 ? angular: add mp3 collection
