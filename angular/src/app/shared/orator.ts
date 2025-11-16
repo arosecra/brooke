@@ -1,7 +1,7 @@
 
 import remarkParse from 'remark-parse'
 import {unified} from 'unified'
-import { flatten } from '../shared/flatten-tree';
+import { flatten } from './flatten-tree';
 
 export class Orator {
 	processor: any;

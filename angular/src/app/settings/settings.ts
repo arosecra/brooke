@@ -15,7 +15,7 @@ import { Thumbnail } from '../model/thumbnail';
 import { resourceStatusToPromise } from '../shared/res-status-to-promise';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { Orator } from '../web/orator';
+import { Orator } from '../shared/orator';
 import { FormsModule } from '@angular/forms';
 
 @Component({

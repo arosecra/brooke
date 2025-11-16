@@ -11,7 +11,7 @@ import { LibraryDB } from './db/library-db';
 import { Files } from './fs/library-fs';
 import { BookComponent } from './media/book/book.component';
 import { CollectionBrowserComponent } from './media/collection-browser/collection-browser.component';
-import { LibrarySettingsComponent } from './media/library-settings';
+import { LibrarySettingsComponent } from './library-settings/library-settings.component';
 import { BookDetails } from './model/book-details';
 import { Category } from './model/category';
 import { Collection } from './model/collection';
@@ -20,7 +20,7 @@ import { ItemRef } from './model/item-ref';
 import { Library } from './model/library';
 import { SettingsComponent } from './settings/settings';
 import { resourceStatusToPromise } from './shared/res-status-to-promise';
-import { Orator } from './web/orator';
+import { Orator } from './shared/orator';
 
 @Component({
   selector: 'app',

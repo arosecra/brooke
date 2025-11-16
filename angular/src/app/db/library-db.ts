@@ -7,7 +7,7 @@ import { Collection } from '../model/collection';
 import { openDB } from './pidb';
 import { Files } from '../fs/library-fs';
 import { Thumbnail } from '../model/thumbnail';
-import { Orator } from '../web/orator';
+import { Orator } from '../shared/orator';
 
 export function onUpgradeNeeded(this: IDBOpenDBRequest, event: IDBVersionChangeEvent) {
   let db = this.result;
