@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { SeriesComponent } from '../cards/series-card/series-card.component';
-import { ActionComponent } from '../../shared/action';
+import { ActionComponent } from '../../shared/action.component';
 
 @Component({
   selector: 'collection-browser',

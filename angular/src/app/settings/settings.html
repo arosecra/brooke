@@ -100,11 +100,20 @@
   </table>
 }
 
-								<a href="vlc://file:///storage/emulated/0/Download/Heat.mkv">Open 1</a>
+								<!-- <a href="vlc://file:///storage/emulated/0/Download/Heat.mkv">Open 1</a>
 								<a href="vlc://file:///Download/Heat.mkv">Open 2</a>
 								<a href="vlc://file://storage/emulated/0/Download/Heat.mkv">Open 3</a>
 								<a href="vlc://file://Download/Heat.mkv">Open 4</a>
 								<a href="file:///storage/emulated/0/Download/Heat.mkv">Open 5</a>
-								<a href="file:///Download/Heat.mkv">Open 6</a>
+								<a href="file:///Download/Heat.mkv">Open 6</a> -->
+
+<div>
+	<label for="files">Select files</label>
+	<input id="files" type="file" multiple />
+</div>
+<button mat-raised-button  type="button" (click)="share()">Share</button>
+<button mat-raised-button  type="button" (click)="shareUrl('file:///Download/Heat.mkv')">Share Url 1</button>
+<button mat-raised-button  type="button" (click)="shareUrl('file:///storage/emulated/0/Download/Heat.mkv')">Share Url 2</button>
+<output id="output"></output>
 
 <button mat-raised-button (click)="app.appState().showSettingsManual.set(false)" [disabled]="busy()">Done</button>
