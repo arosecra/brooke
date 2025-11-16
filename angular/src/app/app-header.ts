@@ -54,6 +54,14 @@ export class CustomPaginatorIntl extends MatPaginatorIntl {
 		}
 		
 		@if (widgets.panel.showBook()) {
+
+			<button matMiniFab (click)="app.toggleFullScreen()" title="Fullscreen">
+				<mat-icon fontSet="material-symbols-outlined">
+					@if(widgets.fullscreen()) { fullscreen_exit } 
+					@else { fullscreen }
+				</mat-icon>
+			</button>
+
 			<button matMiniFab (click)="app.stopTextToSpeech()" title="Stop Text to Speech">
 				<mat-icon fontSet="material-symbols-outlined">stop</mat-icon>
 			</button>
@@ -110,6 +118,5 @@ export class CustomPaginatorIntl extends MatPaginatorIntl {
   encapsulation: ViewEncapsulation.None,
 })
 export class AppHeaderComponent {
-  app = inject(AppComponent);
-  
+  app = inject(AppComponent);  
 }

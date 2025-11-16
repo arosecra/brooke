@@ -38,8 +38,10 @@ updated todo:
 	- disable download button if already downloaded
 
 	- convert settings to a Record<string, any>, create an interface for what the value is supposed to be (string, etc)
+	
+	- make orator global / injectable. just a part of the state?  separate component?
 
-	- add fullscreen
+	- add wakelock while orating
 
 	- add offline or geo check to see if download is available
 		- and/or add background sync or fetch support for download

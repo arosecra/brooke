@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, HostListener, inject, Injector, viewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, Injector, viewChild, ViewEncapsulation } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { AppHeaderComponent } from './app-header';
 import { AppResourcesComponent } from './app-resources';
@@ -66,13 +66,14 @@ export class AppComponent {
   private appDb = inject(LibraryDB);
   private files = inject(Files);
 	private injector = inject(Injector);
+	private fullScreenTarget = inject(ElementRef);
 
   widgets = viewChild.required(AppWidgetsComponent);
   appState = viewChild.required(AppStateComponent);
   resources = viewChild.required(AppResourcesComponent);
 
 	orator: Orator;
-	
+
   @HostListener('document:keydown', ['$event'])
   protected handleKeyboardEvent(event: KeyboardEvent) {
     if (this.widgets()?.panel.showBook()) {
@@ -345,6 +346,16 @@ export class AppComponent {
       this.widgets()?.book.pagesInDisplay.set(1);
     }
   }
+
+	toggleFullScreen() {
+		if(window.document.fullscreenElement) {
+			window.document.exitFullscreen();
+			this.widgets().fullscreen.set(false);
+		} else {
+			this.fullScreenTarget.nativeElement.requestFullscreen();
+			this.widgets().fullscreen.set(true);
+		}
+	}
 
   private displayBookItem(itemRef: ItemRef, item: Item) {
     this.appState().currentItem.update(() => item);

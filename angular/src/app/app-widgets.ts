@@ -12,7 +12,8 @@ import { AppComponent } from './app';
 export class AppWidgetsComponent {
   private app = inject(AppComponent);
 
-	busy = signal<boolean>(false)
+	busy = signal<boolean>(false);
+	fullscreen = signal<boolean>(false);
 
   panel = {
     showBook: computed(() => {
