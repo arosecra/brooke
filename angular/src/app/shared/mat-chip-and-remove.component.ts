@@ -1,7 +1,7 @@
 import { Component, input, output, ViewEncapsulation } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
-import { ItemNamePipe } from '../media/itemName.pipe';
+import { ItemNamePipe } from './itemName.pipe';
 
 @Component({
   selector: 'mat-chip-and-remove',

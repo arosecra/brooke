@@ -6,7 +6,7 @@ import { AppComponent } from '../../../app.component';
 import { ActionComponent } from '../../../shared/action.component';
 import { Item } from '../../../model/item';
 import { ItemRef } from '../../../model/item-ref';
-import { ItemNamePipe } from '../../itemName.pipe';
+import { ItemNamePipe } from '../../../shared/itemName.pipe';
 import { MatBadgeModule } from '@angular/material/badge';
 import { Thumbnail } from '../../../model/thumbnail';
 
