@@ -1,11 +1,11 @@
 import { Component, inject, ViewEncapsulation } from '@angular/core';
-import { AppComponent } from '../app';
-import { ItemCardComponent } from './item-card';
+import { AppComponent } from '../../app';
+import { ItemCardComponent } from '../cards/item-card/item-card.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
-import { SeriesComponent } from './series';
-import { ActionComponent } from '../mini-components/action';
+import { SeriesComponent } from '../cards/series-card/series-card.component';
+import { ActionComponent } from '../../shared/action';
 
 @Component({
   selector: 'collection-browser',

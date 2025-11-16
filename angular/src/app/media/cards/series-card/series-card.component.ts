@@ -1,9 +1,9 @@
 import { Component, inject, input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { AppComponent } from '../app';
-import { Item } from '../model/item';
-import { ItemRef } from '../model/item-ref';
-import { ItemCardComponent } from './item-card';
-import { Thumbnail } from '../model/thumbnail';
+import { AppComponent } from '../../../app';
+import { Item } from '../../../model/item';
+import { ItemRef } from '../../../model/item-ref';
+import { ItemCardComponent } from '../item-card/item-card.component';
+import { Thumbnail } from '../../../model/thumbnail';
 
 @Component({
   selector: 'series-card',

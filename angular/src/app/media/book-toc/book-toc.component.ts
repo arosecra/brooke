@@ -1,7 +1,7 @@
 import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { AppComponent } from '../app';
+import { AppComponent } from '../../app';
 
 @Component({
   selector: 'book-toc',

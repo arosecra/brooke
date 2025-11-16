@@ -3,7 +3,7 @@ import { AppComponent } from './app';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatChipAndRemoveComponent } from './media/mat-chip-and-remove';
+import { MatChipAndRemoveComponent } from './shared/mat-chip-and-remove.component';
 import { ItemNamePipe } from "./media/itemName.pipe";
 
 @Component({

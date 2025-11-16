@@ -12,7 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { CacheDirectory } from '../model/cache-directory';
 import { Thumbnail } from '../model/thumbnail';
-import { resourceStatusToPromise } from '../util/res-status-to-promise';
+import { resourceStatusToPromise } from '../shared/res-status-to-promise';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Orator } from '../web/orator';

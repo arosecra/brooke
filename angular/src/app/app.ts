@@ -10,7 +10,7 @@ import { AppWidgetsComponent } from './app-widgets';
 import { LibraryDB } from './db/library-db';
 import { Files } from './fs/library-fs';
 import { BookComponent } from './media/book/book.component';
-import { CollectionBrowserComponent } from './media/collection-browser';
+import { CollectionBrowserComponent } from './media/collection-browser/collection-browser.component';
 import { LibrarySettingsComponent } from './media/library-settings';
 import { BookDetails } from './model/book-details';
 import { Category } from './model/category';
@@ -19,7 +19,7 @@ import { Item } from './model/item';
 import { ItemRef } from './model/item-ref';
 import { Library } from './model/library';
 import { SettingsComponent } from './settings/settings';
-import { resourceStatusToPromise } from './util/res-status-to-promise';
+import { resourceStatusToPromise } from './shared/res-status-to-promise';
 import { Orator } from './web/orator';
 
 @Component({

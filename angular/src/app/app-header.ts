@@ -5,7 +5,7 @@ import { AppComponent } from './app';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AppBreadcrumbComponent } from './app-breadcrumb';
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
-import { BookToCComponent } from './media/book-toc';
+import { BookToCComponent } from './media/book-toc/book-toc.component';
 
 @Injectable()
 export class CustomPaginatorIntl extends MatPaginatorIntl {

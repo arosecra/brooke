@@ -2,13 +2,13 @@ import { Component, inject, input, OnDestroy, OnInit, ViewEncapsulation } from '
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { AppComponent } from '../app';
-import { ActionComponent } from '../mini-components/action';
-import { Item } from '../model/item';
-import { ItemRef } from '../model/item-ref';
-import { ItemNamePipe } from './itemName.pipe';
+import { AppComponent } from '../../../app';
+import { ActionComponent } from '../../../shared/action';
+import { Item } from '../../../model/item';
+import { ItemRef } from '../../../model/item-ref';
+import { ItemNamePipe } from '../../itemName.pipe';
 import { MatBadgeModule } from '@angular/material/badge';
-import { Thumbnail } from '../model/thumbnail';
+import { Thumbnail } from '../../../model/thumbnail';
 
 @Component({
   selector: 'item-card',
