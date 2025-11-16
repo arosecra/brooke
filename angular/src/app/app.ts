@@ -71,6 +71,8 @@ export class AppComponent {
   appState = viewChild.required(AppStateComponent);
   resources = viewChild.required(AppResourcesComponent);
 
+	orator: Orator;
+	
   @HostListener('document:keydown', ['$event'])
   protected handleKeyboardEvent(event: KeyboardEvent) {
     if (this.widgets()?.panel.showBook()) {
@@ -231,25 +233,29 @@ export class AppComponent {
 		const book = this.resources().bookCbt.value();
 		const voice = this.resources().storedLibrary.value()?.voice;
 		if(book && voice) {
-			let orator = new Orator();
+			this.orator = new Orator();
 			for(i; i < book.length; i += pagesInDisplay) {
 				if(!book[i].markdown) {
-					await orator.read('No text for page ' + i, voice);
+					await this.orator.readBlank();
 				} else {
-					await orator.readMarkdown(book[i].markdown, voice);
+					await this.orator.readMarkdown(book[i].markdown, voice);
 				}
 				if(pagesInDisplay === 2 && i+1 < book.length) {
 					const rPage = i+1;
 					if(!book[rPage].markdown) {
-						await orator.read('No text for page ' + rPage, voice);
+						await this.orator.readBlank();
 					} else {
-					await orator.readMarkdown(book[rPage].markdown, voice);
+					await this.orator.readMarkdown(book[rPage].markdown, voice);
 					}
 				}
 				this.goToNextPage();
 			}
 
 		}
+	}
+
+	stopTextToSpeech() {
+		this.orator.stop();
 	}
 
   setLocation() {

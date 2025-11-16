@@ -54,6 +54,9 @@ export class CustomPaginatorIntl extends MatPaginatorIntl {
 		}
 		
 		@if (widgets.panel.showBook()) {
+			<button matMiniFab (click)="app.stopTextToSpeech()" title="Stop Text to Speech">
+				<mat-icon fontSet="material-symbols-outlined">stop</mat-icon>
+			</button>
 			<button matMiniFab (click)="app.textToSpeech()" title="Text to Speech">
 				<mat-icon fontSet="material-symbols-outlined">text_to_speech</mat-icon>
 			</button>

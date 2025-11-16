@@ -1,17 +1,20 @@
 
 import remarkParse from 'remark-parse'
 import {unified} from 'unified'
+import { flatten } from '../util/flatten-tree';
 
 export class Orator {
 	processor: any;
 	synthesis: SpeechSynthesis = window.speechSynthesis;
+	cancelled: boolean = false;
 
 	constructor() {
 		this.processor = unified().use(remarkParse);
 	}
 
 	stop() {
-
+		this.cancelled = true;
+		this.synthesis.cancel();
 	}
 
 	getVoices() {
@@ -19,7 +22,11 @@ export class Orator {
 	}
 
 	async readBlank() {
-
+		return new Promise((resolve) => {
+			setTimeout(() => {
+				resolve(true);
+			}, 3 * 1000);
+		});
 	}
 
   async read(text: string, voiceName: string) {
@@ -40,24 +47,12 @@ export class Orator {
 		const tree = await this.processor.run(root);
 		console.log(tree);
 
-		const paragraphs = this.flatten(tree).flat().map((child) => child.join(' '));
+		const paragraphs = flatten(tree, 'value', 'children').flat().map((child) => child.join(' '));
 
-		for(let i = 0; i < paragraphs.length; i++) {
+		for(let i = 0; i < paragraphs.length && !this.cancelled; i++) {
 			const paragraph = paragraphs[i];
-			console.log(paragraph);
 			await this.read(paragraph, voiceName);
 		}
 
-	}
-
-	flatten(node: any) {
-		const res = [];
-		if(node.value) {
-			res.push(node.value);
-		}
-		if(node.children) {
-			return [...res, node.children.map((child: any) => this.flatten(child))]
-		}
-		return res;
 	}
 }
