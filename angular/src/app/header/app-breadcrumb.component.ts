@@ -4,11 +4,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatChipAndRemoveComponent } from '../shared/mat-chip-and-remove.component';
-import { ItemNamePipe } from "../media/itemName.pipe";
 
 @Component({
   selector: 'app-breadcrumb',
-  imports: [MatIconModule, MatButtonModule, MatChipsModule, MatChipAndRemoveComponent, ItemNamePipe],
+  imports: [MatIconModule, MatButtonModule, MatChipsModule, MatChipAndRemoveComponent],
   template: `
 		@let appState = app.appState();
 		@if(appState) {

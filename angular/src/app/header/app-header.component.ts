@@ -6,17 +6,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { AppBreadcrumbComponent } from './app-breadcrumb.component';
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { BookToCComponent } from '../media/book-toc/book-toc.component';
-
-@Injectable()
-export class CustomPaginatorIntl extends MatPaginatorIntl {
-
-  override getRangeLabel = (page: number, pageSize: number, length: number): string => {
-    if (length === 0) {
-      return `Page 1 of 1`;
-    }
-    return `Page ${page * pageSize + 1} of ${length}`;
-  }
-}
+import { CustomPaginatorIntl } from './custom-paginator-intl.service';
 
 @Component({
   selector: 'app-header',
