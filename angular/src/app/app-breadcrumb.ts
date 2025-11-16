@@ -3,8 +3,8 @@ import { AppComponent } from './app';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatChipAndRemoveComponent } from './media-components/mat-chip-and-remove';
-import { ItemNamePipe } from "./media-components/itemName.pipe";
+import { MatChipAndRemoveComponent } from './media/mat-chip-and-remove';
+import { ItemNamePipe } from "./media/itemName.pipe";
 
 @Component({
   selector: 'app-breadcrumb',
