@@ -5,15 +5,16 @@ import * as fs from 'fs';
 import { node } from "../util/node";
 
 export class BookDeskewImageStep implements JobStep {
+	name = "BookDeskewImageStep";
 	execute(job: JobFolder): void {
-		const files = fs.readdirSync(job.tempFolder);
+		const files = fs.readdirSync(job.sourceFolder);
 		files.forEach((file) => {
 			if(file.includes('-8-')) {
-				node.fsMove(node.pathJoin(job.tempFolder, file), node.pathJoin(job.destFolder, file));
+				node.fsMove(node.pathJoin(job.sourceFolder, file), node.pathJoin(job.destFolder, file));
 			} else {
 				let skewDegrees = node.execFileSync(
 					"D:\\Software\\ImageMagick\\magick.exe",
-					[ node.pathJoin(job.tempFolder, file), //
+					[ node.pathJoin(job.sourceFolder, file), //
 						'-deskew', '40%', //
 						'-format', '%[deskew:angle]', //
 						'info:'
@@ -25,7 +26,7 @@ export class BookDeskewImageStep implements JobStep {
 				if(skewDegrees !== '0' && skewDegrees !== '-0') {
 					const skewOut = node.execFileSync(
 						"D:\\Software\\ImageMagick\\magick.exe",
-						[ 'convert', node.pathJoin(job.tempFolder, file),
+						[ 'convert', node.pathJoin(job.sourceFolder, file),
 							'-virtual-pixel', 'white', //
 							'-distort', 'SRT', skewDegrees, //
 							'-depth', '1', //
@@ -33,10 +34,10 @@ export class BookDeskewImageStep implements JobStep {
 							node.pathJoin(job.destFolder, file)
 						]
 					);
-					fs.rmSync(node.pathJoin(job.tempFolder, file));
+					fs.rmSync(node.pathJoin(job.sourceFolder, file));
 					console.log(String(skewOut));
 				} else {
-					node.fsMove(node.pathJoin(job.tempFolder, file), node.pathJoin(job.destFolder, file));
+					node.fsMove(node.pathJoin(job.sourceFolder, file), node.pathJoin(job.destFolder, file));
 				}
 			}
 		})

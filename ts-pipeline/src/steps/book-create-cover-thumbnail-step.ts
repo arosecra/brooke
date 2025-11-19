@@ -19,7 +19,7 @@ export class BookCreateCoverThumbnailStep implements JobStep {
 			[ path.join(job.tempFolder, sourceImg),
 				'-thumbnail', this.width+'x' + this.height + '>',
 				'-background', 'none',
-				'-extent', '250x400',
+				'-extent', `${this.width}x${this.height}`,
 				'-gravity', 'northwest',
 				'-format', 'webp',
 				path.join(job.destFolder, this.name)

@@ -3,6 +3,8 @@ import * as path from 'path';
 import { JobFolder } from "../model/job-folder";
 import { Pipeline } from "../model/pipeline";
 import { Args } from '../model/args';
+import { JobStep } from '../model/job-step';
+import { node } from '../util/node';
 
 export class SinglePipelineExecutor {
 	executeTask(args: Args, pipeline: Pipeline, itemFolder: string) {
@@ -10,54 +12,74 @@ export class SinglePipelineExecutor {
 		job.remoteFolder = itemFolder;
 
 		job.workFolder = path.join('D:/scans/pipeline_temp', path.basename(itemFolder));
-		job.sourceFolder = path.join(job.workFolder, 'source');
-		job.tempFolder = path.join(job.workFolder, 'temp');
-		job.destFolder = path.join(job.workFolder, 'dest');
+		fs.mkdirSync(job.workFolder, { recursive: true });
 
-		[job.workFolder, job.sourceFolder, job.tempFolder, job.destFolder].forEach((file) => {
-			fs.mkdirSync(file, { recursive: true })
-		})
+		let steps = [
+			new CopySourceFilesLocally(pipeline.uses),
+			...pipeline.steps,
+			new CopyProducedFilesToRemote(pipeline.produces)
+		]
 
+		executeSteps(steps, job);
+
+		if(args.delete) fs.rmdirSync(job.workFolder, { recursive: true })
+	}
+}
+
+
+function executeSteps(steps: JobStep[], job: JobFolder) {
+	let stepSourceFolders = ['remote', ...steps.map((step, index) => path.join(job.workFolder, `${index}_${step.name}`)), 'remote'];
+
+	let lastStepIndex = 0;
+	for(let i = steps.length - 1; i >= 0; i--) {
+		let folder = stepSourceFolders[i];
+		if(fs.existsSync(folder)) {
+			lastStepIndex = i;
+		}
+	}
+
+	let lastDest = stepSourceFolders[lastStepIndex];
+	fs.mkdirSync(lastDest, { recursive: true })
+	for(let i = lastStepIndex; i < steps.length; i++) {
+		let jobStep = steps[i];
+		job.sourceFolder = lastDest;
+		job.destFolder = stepSourceFolders[i+1];
+		fs.mkdirSync(job.destFolder, { recursive: true })
 		
-		copySourceFilesLocally(pipeline, itemFolder, job);
-		executeSteps(pipeline, itemFolder, job);
-		copyProducedFilesToRemote(pipeline, itemFolder, job);
-
-		fs.rmdirSync(job.workFolder, { recursive: true })
-	}
-}
-
-function copySourceFilesLocally(pipeline: Pipeline, itemFolder: string, job: JobFolder) {
-	fs.readdirSync(itemFolder).forEach((file) => {
-		const uses = pipeline.uses;
-		for(let i = 0; i < uses.length; i++) {
-			const use = uses[i];
-			if(file.match(use)) {
-				fs.copyFileSync(path.join(itemFolder, file), path.join(job.sourceFolder, file));
-			}
-		}
-	});
-
-}
-
-
-function executeSteps(pipeline: Pipeline, itemFolder: string, job: JobFolder) {
-	for(let i = 0; i < pipeline.steps.length; i++) {
-		let jobStep = pipeline.steps[i];
-			// 		JobSubStep jss = new JobSubStep(js.getClass().getSimpleName(), rf.folder, i, schedule.pipeline.steps.size());
-			// jss.start();
-			// jss.printStartLn();
 		jobStep.execute(job);
-			// 		jss.printStart();
-			// jss.endAndPrint();
+
+		node.rmdir(job.sourceFolder);
+		lastDest = job.destFolder;
 	}
 }
 
+class CopySourceFilesLocally implements JobStep {
+	name= 'CopySourceFilesLocally';
+	constructor(private uses: string[]) {}
 
-function copyProducedFilesToRemote(pipeline: Pipeline, itemFolder: string, job: JobFolder) {
-	fs.readdirSync(job.destFolder).forEach((file) => {
-		if(file.match(pipeline.produces)) {
-			fs.copyFileSync(path.join(job.destFolder, file), path.join(itemFolder, file));
-		}
-	});
+	execute(job: JobFolder): void {
+		fs.readdirSync(job.remoteFolder).forEach((file) => {
+			const uses = this.uses;
+			for(let i = 0; i < uses.length; i++) {
+				const use = uses[i];
+				if(file.match(use)) {
+					fs.copyFileSync(path.join(job.remoteFolder, file), path.join(job.destFolder, file));
+				}
+			}
+		});
+	}
+}
+
+class CopyProducedFilesToRemote implements JobStep {
+	name= "CopyProducedFilesToRemote";
+	constructor(private produces: string) {}
+
+	execute(job: JobFolder): void {
+		fs.readdirSync(job.sourceFolder).forEach((file) => {
+			if(file.match(this.produces)) {
+				fs.copyFileSync(path.join(job.sourceFolder, file), path.join(job.remoteFolder, file));
+			}
+		});
+	}
+	
 }

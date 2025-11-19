@@ -1,16 +1,19 @@
-import { JobFolder } from "../model/job-folder";
-import { JobStep } from "../model/job-step";
-import { Pipeline } from "../model/pipeline";
 import * as fs from 'fs';
 import * as path from 'path';
-import { node } from "../util/node";
 import { parse } from 'yaml';
-const zlib = require('zlib');
+import { JobFolder } from "../model/job-folder";
+import { JobStep } from "../model/job-step";
+import { node } from "../util/node";
 
 export class BookRunOcrStep implements JobStep {
+	name = 'BookRunOcrStep';
 	execute(job: JobFolder): void {
 		const detailsContent = fs.readFileSync(node.pathJoin(job.remoteFolder, 'cbtDetails.yaml'));
 		const cbtDetails = parse(String(detailsContent));
+
+		fs.readdirSync(job.sourceFolder).forEach((file) => {
+			node.fsMove(path.join(job.sourceFolder, file), path.join(job.destFolder, file));
+		})
 
 		const ocrFolder = node.pathJoin(job.destFolder, '.ocr');
 		fs.mkdirSync(ocrFolder, { recursive: true });
@@ -21,7 +24,7 @@ export class BookRunOcrStep implements JobStep {
 		fs.readdirSync(job.destFolder).filter((file) => file.includes('-1-')).forEach((file) => {
 			const baseFilename = path.basename(file);
 			const baseFilenameNoExt = path.basename(file).replace('.png', '').replace('.webp', '');
-			let expectedOcrOutput = node.pathJoin(job.tempFolder, baseFilenameNoExt);
+			let expectedOcrOutput = node.pathJoin(job.sourceFolder, baseFilenameNoExt);
 
 			const isPng = file.endsWith('png');
 			const isWebp = file.endsWith('webp');
@@ -106,7 +109,7 @@ export class BookRunOcrStep implements JobStep {
 			['-q',
 				'--directory', "D:\\projects\\mineru",
 				'run', 'mineru',
-				'-o', job.tempFolder, //
+				'-o', job.sourceFolder, //
 				'-l', 'en', //
 				'-d', 'cpu', //
 				'-b', 'pipeline', //

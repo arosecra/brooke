@@ -2,9 +2,11 @@ import { JobFolder } from "../model/job-folder";
 import { JobStep } from "../model/job-step";
 import { Pipeline } from "../model/pipeline";
 import { node } from "../util/node";
+import * as fs from 'fs';
 
 
 export class BookCreateThumbnailsStep implements JobStep {
+	name="BookCreateThumbnailsStep";
 	execute(job: JobFolder): void {
 		const thumbnailFolder = node.pathJoin(job.destFolder, '.thumbnails');
 		node.mkdirs(thumbnailFolder);
@@ -17,7 +19,7 @@ export class BookCreateThumbnailsStep implements JobStep {
 				'-thumbnail', '250x>',
 				'*-8-*.png'
 			], {
-				cwd: job.destFolder
+				cwd: job.sourceFolder
 			}
 		);
 
@@ -30,9 +32,13 @@ export class BookCreateThumbnailsStep implements JobStep {
 				'-adaptive-resize', '250x>',
 				'*-1-*.png'
 			], {
-				cwd: job.destFolder
+				cwd: job.sourceFolder
 			}
 		);
+
+		fs.readdirSync(job.sourceFolder).forEach((file) => {
+			node.fsMove(node.pathJoin(job.sourceFolder, file), node.pathJoin(job.destFolder, file));
+		})
 	}
 	
 }

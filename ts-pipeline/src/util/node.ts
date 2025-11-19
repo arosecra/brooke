@@ -4,7 +4,12 @@ import * as path from 'path';
 import * as fs from 'fs';
 
 export class node {
-
+	static rm(path: string) {
+		if(fs.existsSync(path)) fs.rmSync(path)
+	}
+	static rmdir(path: string) {
+		if(fs.existsSync(path)) fs.rmdirSync(path, { recursive: true })
+	}
 
 	static execFileSync(file: string, args: string[], opts?: any) {
 		const dir = opts?.cwd ? ` in ${opts.cwd}` : '';

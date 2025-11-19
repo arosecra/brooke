@@ -31,10 +31,10 @@ export class RootFolder {
 				let hasCoverPdf = fs
 					.readdirSync(p)
 					.some((childFile) => childFile.match('.*cover[s]?.pdf'));
-				return !hasChildDirs;
+				return !hasChildDirs || hasCoverPdf;
 			})
 			.map((file) => path.join(file.parentPath, file.name));
 	
-		return dirs;
+		return dirs.sort();
 	}
 }

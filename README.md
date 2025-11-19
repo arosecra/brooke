@@ -4,8 +4,8 @@ Custom book reader for personal use
 updated todo:
 ----------------
 -pipeline: 
-	- pipeline isn't picking up series folders for movies. fix
 	- generate webp thumbnails for movies
+
 
 - ui:
 	- don't convert image to base64, just use a blob. may need to create a page component (probably good for md too)
