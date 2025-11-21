@@ -1,0 +1,38 @@
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.flex-column {
+	flex-direction: column;
+}
+
+.flex-align-center {
+	align-items: center;
+}
+
+.flex-align-content-center {
+	align-content: center;
+}
+
+.flex-justify-center {
+	justify-items: center;
+}
+
+.flex-justify-content-center {
+	justify-content: center;
+}
+
+.flex-grow {
+	flex-grow: 1;
+}
+
+.flex-no-gap {
+	gap: 0px;
+}

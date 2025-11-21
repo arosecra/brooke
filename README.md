@@ -10,6 +10,8 @@ updated todo:
 - ui:
 	- don't convert image to base64, just use a blob. may need to create a page component (probably good for md too)
 
+	- since it seems that we can't share mkv, have buttons to create playlists, download / delete local videos
+
 	- implement BookToC
 
 	- finish and use web-fs and web-path utilities

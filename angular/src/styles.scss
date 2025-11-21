@@ -1,14 +1,11 @@
-// Include theming for Angular Material with `mat.theme()`.
-// This Sass mixin will define CSS variables that are used for styling Angular Material
-// components according to the Material 3 design spec.
-// Learn more about theming and how to use it for your application's
-// custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
-@import 'material-symbols/outlined.css';
-@import '@angular/material/prebuilt-themes/azure-blue.css';
+@use 'material-symbols/outlined.css';
+@use '@angular/material/prebuilt-themes/azure-blue.css';
+
+@use './styles/flex.scss';
+@use './styles/overlay.scss';
 
 $theme: mat.define-theme();
-
 html {
   @include mat.all-component-themes($theme);
   @include mat.color-variants-backwards-compatibility($theme);
@@ -56,46 +53,6 @@ body {
   display: none;
 }
 
-.spacer {
-  flex: 1 1 auto;
-}
-
-.flex {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.flex-column {
-	flex-direction: column;
-}
-
-.flex-align-center {
-	align-items: center;
-}
-
-.flex-align-content-center {
-	align-content: center;
-}
-
-.flex-justify-center {
-	justify-items: center;
-}
-
-.flex-justify-content-center {
-	justify-content: center;
-}
-
-.flex-grow {
-	flex-grow: 1;
-}
-
-.flex-no-gap {
-	gap: 0px;
-}
-
-app {
-}
 
 book.two-page {
   display: grid;
@@ -103,7 +60,7 @@ book.two-page {
   grid-gap: 10px;
   grid-template-rows: auto;
   align-items: start;
-	font-size: 18px;
+  font-size: 18px;
 }
 
 book.one-page {
@@ -112,57 +69,40 @@ book.one-page {
   grid-gap: 10px;
   grid-template-rows: auto;
   align-items: start;
-	font-size: 18px;
+  font-size: 18px;
 }
 
 book .thumbnails {
-	display: flex;
+  display: flex;
   flex-wrap: wrap;
   align-content: flex-end;
-	align-items:flex-end;
-	justify-content: center;
+  align-items: flex-end;
+  justify-content: center;
   gap: 16px;
 }
 
 book p {
-	text-indent: 16px;
-	margin-block-end: 8px;
-	margin-block-start: 0;
+  text-indent: 16px;
+  margin-block-end: 8px;
+  margin-block-start: 0;
 }
 
 book .thumbnails mat-card {
-	align-items: center
+  align-items: center;
 }
 
 book .thumbnails mat-card-actions {
-	align-items: flex-start;
-	flex-direction: column;
-	row-gap: 16px;
-}
-
-// book-page-turner {
-// 	color: white;
-// 	display: inline-flex;
-// 	align-items: center;
-// 	column-gap: 8px;
-// 	margin-right: 24px;
-// }
-
-breadcrumb {
-  --mat-chip-label-text-color: var(--mat-sys-on-primary-container);
-  --mat-chip-outline-color: var(--mat-sys-on-primary-container);
-  --mat-chip-with-trailing-icon-trailing-icon-color: var(--mat-sys-on-primary-container);
-  align-items: center;
-  column-gap: var(--o-gap);
-  display: inline-flex;
+  align-items: flex-start;
+  flex-direction: column;
+  row-gap: 16px;
 }
 
 collection-browser {
-	display:flex;
-	flex-direction: column;
-	justify-content: center;
-	gap: 8px;
-	width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
 }
 
 h2,
@@ -186,15 +126,15 @@ item-card {
 }
 
 item-card mat-card {
-	height: 100%;
-	justify-content: space-between;
+  height: 100%;
+  justify-content: space-between;
 }
 
 item-card .childitem {
   display: flex;
   flex-direction: row;
-	justify-content: space-between;
-	row-gap: 16px;
+  justify-content: space-between;
+  row-gap: 16px;
 }
 
 .books item-card img {
@@ -203,21 +143,20 @@ item-card .childitem {
   object-fit: scale-down;
 }
 
-.videos item-card img  {
+.videos item-card img {
   width: 350px;
   height: 350px;
   object-fit: scale-down;
 }
 
-
 item-card mat-card-actions > div {
-	display: flex;
-	gap: var(--o-gap);
+  display: flex;
+  gap: var(--o-gap);
 }
 
 childitem-card mat-card-actions > div {
-	display: flex;
-	gap: var(--o-gap);
+  display: flex;
+  gap: var(--o-gap);
 }
 
 main {
@@ -225,28 +164,6 @@ main {
   gap: var(--o-gap);
   padding-top: 8px;
   padding-left: 8px;
-}
-
-.overlay {
-	z-index: 3;
-	padding-top: 100px;
-  position: fixed;
-	display: none;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-	background-color: rgba(0, 0, 0, 0.7);
-}
-
-.overlay-content {
-	min-width: 66%;
-	    margin: auto;
-    background-color: #fff;
-    position: relative;
-    padding: 16px;
-    outline: 16px;
 }
 
 settings {
@@ -269,12 +186,12 @@ body {
 }
 
 .spin {
-	animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
 }
 
 @keyframes spin {
   from {
-    transform: rotate(0deg); 
+    transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);

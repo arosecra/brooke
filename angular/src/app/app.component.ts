@@ -35,27 +35,8 @@ import { Orator } from './shared/orator';
     AppWidgetsComponent,
     AppActionsComponent,
   ],
-  template: `
-    <app-state></app-state>
-    <app-resources></app-resources>
-    <app-widgets></app-widgets>
-    <app-header class="flex flex-align-center" />
-    <app-actions></app-actions>
-    <main>
-      @if (widgets()) {
-        @if (widgets().panel.showSettings()) {
-          <settings></settings>
-        } @else if (widgets().panel.showBook()) {
-          <book></book>
-        } @else if (widgets().panel.showLibrarySettings()) {
-          <library-settings></library-settings>
-        } @else {
-          <collection-browser></collection-browser>
-        }
-      }
-    </main>
-  `,
-  styles: ``,
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
   encapsulation: ViewEncapsulation.None,
   providers: [],
 })

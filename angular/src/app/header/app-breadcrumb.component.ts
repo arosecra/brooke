@@ -8,42 +8,8 @@ import { MatChipAndRemoveComponent } from '../shared/mat-chip-and-remove.compone
 @Component({
   selector: 'app-breadcrumb',
   imports: [MatIconModule, MatButtonModule, MatChipsModule, MatChipAndRemoveComponent],
-  template: `
-		@let appState = app.appState();
-		@if(appState) {
-			@if (appState.currentCollection()) {
-				@let collectionLabel = appState.currentItem() ? '...' : appState.currentCollection()?.name;
-				<mat-icon fontSet="material-symbols-outlined">chevron_right</mat-icon>
-				<mat-chip-and-remove
-					[label]="collectionLabel"
-					(removed)="app.openHome()"
-				/>
-			}
-			@if (appState.currentCategory()) {
-				@let categoryLabel = appState.currentSeries() || appState.currentItem() ? '...' : appState.currentCategory()?.name;
-				<mat-icon fontSet="material-symbols-outlined">chevron_right</mat-icon>
-				<mat-chip-and-remove
-					[label]="categoryLabel"
-					(removed)="app.openCollection()"
-				/>
-			}
-			@if (appState.currentSeries()) {
-				<mat-icon fontSet="material-symbols-outlined">chevron_right</mat-icon>
-				<mat-chip-and-remove
-					[label]="appState.currentSeries()?.name"
-					(removed)="app.openCategory()"
-				/>
-			}
-			@if (appState.currentItem()) {
-				<mat-icon fontSet="material-symbols-outlined">chevron_right</mat-icon>
-				<mat-chip-and-remove
-					[label]="appState.currentItem()?.name"
-					(removed)="app.openCategory()"
-				/>
-			}
-		}
-  `,
-  styles: ``,
+  templateUrl: './app-breadcrumb.component.html',
+  styleUrls: ['./app-breadcrumb.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class AppBreadcrumbComponent {
