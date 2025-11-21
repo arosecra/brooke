@@ -1,10 +1,7 @@
+import * as path from 'path';
 import { JobFolder } from "../model/job-folder";
 import { JobStep } from "../model/job-step";
-import { Pipeline } from "../model/pipeline";
-import * as path from 'path';
-import * as fs from 'fs';
 import { node } from "../util/node";
-import { cwd } from "process";
 
 export class BookTarToCbtGzStep implements JobStep {
 	name="BookTarToCbtGzStep";
