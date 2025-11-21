@@ -18,8 +18,8 @@ import { PageComponent } from '../page/page.component';
 		'[class.one-page]': '!app.widgets()?.book?.thumbnailView() && app.widgets()?.book?.pagesInDisplay() === 1 && !app.widgets()?.book?.sideBySide()',
 		'[class.two-page]': '!app.widgets()?.book?.thumbnailView() && (app.widgets()?.book?.pagesInDisplay() === 2 || app.widgets()?.book?.sideBySide())',
 	},
-  templateUrl: './book.component.html',
-  styleUrls: ['./book.component.scss'],
+  templateUrl: './lectern.component.html',
+  styleUrls: ['./lectern.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class BookComponent {

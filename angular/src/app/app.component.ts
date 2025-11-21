@@ -9,7 +9,7 @@ import { AppStateComponent } from './app-state.component';
 import { AppWidgetsComponent } from './app-widgets.component';
 import { LibraryDB } from './db/library-db';
 import { Files } from './fs/library-fs';
-import { BookComponent } from './media/book/book.component';
+import { BookComponent } from './media/lectern/lectern.component';
 import { CollectionBrowserComponent } from './media/collection-browser/collection-browser.component';
 import { LibrarySettingsComponent } from './library-settings/library-settings.component';
 import { BookDetails } from './model/book-details';
