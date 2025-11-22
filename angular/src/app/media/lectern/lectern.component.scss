@@ -1,0 +1,17 @@
+
+:host-context(.one-page) {
+	display: grid;
+  grid-gap: 10px;
+  grid-template-rows: auto;
+  align-items: start;
+  font-size: 18px;
+}
+
+:host-context(.two-page) {
+	display: grid;
+  grid-template-columns: calc((100% - 5px) / 2) calc((100% - 5px) / 2);
+  grid-gap: 10px;
+  grid-template-rows: auto;
+  align-items: start;
+  font-size: 18px;
+}

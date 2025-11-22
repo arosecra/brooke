@@ -3,7 +3,7 @@ import { Component, ElementRef, HostListener, inject, Injector, viewChild, ViewE
 import { PageEvent } from '@angular/material/paginator';
 import YAML from 'yaml';
 import { AppActionsComponent } from './app-actions.component';
-import { AppHeaderComponent } from './header/app-header.component';
+import { AppToolbarsComponent } from './toolbars/app-header.component';
 import { AppResourcesComponent } from './app-resources.component';
 import { AppStateComponent } from './app-state.component';
 import { AppWidgetsComponent } from './app-widgets.component';
@@ -26,7 +26,7 @@ import { MatDrawer, MatSidenav, MatSidenavModule } from '@angular/material/siden
 @Component({
   selector: 'app',
   imports: [
-    AppHeaderComponent,
+    AppToolbarsComponent,
     BookComponent,
     CollectionBrowserComponent,
     SettingsComponent,
@@ -53,7 +53,6 @@ export class AppComponent {
   widgets = viewChild.required(AppWidgetsComponent);
   appState = viewChild.required(AppStateComponent);
   resources = viewChild.required(AppResourcesComponent);
-	sidenav = viewChild.required<MatDrawer>('drawer');
 
 	orator: Orator = inject(Orator);
 
@@ -287,10 +286,6 @@ export class AppComponent {
     if (appState) this.goToPageSet(appState.currentPageSet() - 1);
 		return Promise.resolve(true);
   }
-	
-	toggleDrawer() {
-		this.sidenav().toggle();
-	}
 
   toggleThumbnailView(): Promise<boolean> {
     this.widgets()?.book.thumbnailView.update((val) => !val);

@@ -4,22 +4,26 @@ import { Pipeline } from "../model/pipeline";
 
 import * as child_process from "child_process";
 import { node } from "../util/node";
+import * as fs from 'fs';
 
 export class BookResizeImageStep implements JobStep {
 	name = "BookResizeImageStep";
   execute(job: JobFolder): void {
-    node.execFileSync( //
-			"D:\\Software\\ImageMagick\\magick.exe", //
-			[
-				"mogrify", //
-				"-path", job.destFolder, //
-				"-format", "png", //
-				"-resize", "1920x>", //
-				"*-8-*.png"
-			], {
-				cwd: job.sourceFolder
-			}
-		);
+		const hasCover = fs.readdirSync(job.sourceFolder).some((file) => file.includes('-8-'));
+		if(hasCover) {
+			node.execFileSync( //
+				"D:\\Software\\ImageMagick\\magick.exe", //
+				[
+					"mogrify", //
+					"-path", job.destFolder, //
+					"-format", "png", //
+					"-resize", "1920x>", //
+					"*-8-*.png"
+				], {
+					cwd: job.sourceFolder
+				}
+			);
+		}
 		
     node.execFileSync( //
 			"D:\\Software\\ImageMagick\\magick.exe", //

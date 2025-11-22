@@ -1,0 +1,16 @@
+:host {
+	--mat-sidenav-container-width: auto;
+}
+
+mat-toolbar-row {
+  column-gap: 8px;
+}
+
+.mat-drawer-inner-container {
+	width: auto !important;
+}
+
+.toolbar {
+	width: var(--mat-toolbar-mobile-height, 56px);
+	margin-top: 8px;
+}

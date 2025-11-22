@@ -2,10 +2,10 @@
 @use 'material-symbols/outlined.css';
 @use '@angular/material/prebuilt-themes/azure-blue.css';
 
-@use './styles/flex.scss';
-@use './styles/html.scss';
-@use './styles/overlay.scss';
-@use './styles/spin.scss';
+@forward './styles/flex.scss';
+@forward './styles/html.scss';
+@forward './styles/overlay.scss';
+@forward './styles/spin.scss';
 
 $theme: mat.define-theme();
 html {
@@ -59,8 +59,9 @@ body {
 	height: 100%;
 }
 
+
 .fh-body {
-	height: calc(100% - 56px);
+	height: calc(100vh - 16px - var(--mat-toolbar-mobile-height, 56px)) !important;
 }
 
 .fw {

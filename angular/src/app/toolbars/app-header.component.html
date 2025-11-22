@@ -1,0 +1,91 @@
+
+@let widgets = app.widgets();
+@let appState = app.appState();
+@let resources = app.resources();
+@if (widgets && appState && resources) {
+  <mat-toolbar color="primary" class="flex flex-align-center">
+    <mat-toolbar-row>
+      <mat-icon fontSet="material-symbols-outlined">newsstand</mat-icon>
+      <h1>Brooke</h1>
+      <app-breadcrumb class="flex flex-align-center flex-no-gap"></app-breadcrumb>
+      <span class="spacer"></span>
+
+      @if (!widgets.panel.showBook()) {
+        <button matMiniFab (click)="appState.showLibraryEditorManual.set(true)" title="Modify Categories">
+          <mat-icon fontSet="material-symbols-outlined">library_books</mat-icon>
+        </button>
+        <button matMiniFab title="Write Categories">
+          <mat-icon fontSet="material-symbols-outlined">sync_arrow_up</mat-icon>
+        </button>
+        <button matMiniFab (click)="appState.showSettingsManual.set(true)">
+          <mat-icon fontSet="material-symbols-outlined">settings</mat-icon>
+        </button>
+      }
+			@if (widgets.book.thumbnailView()) {
+				<button matMiniFab (click)="app.updateItem()" title="Save">
+					<!-- save ocr details -->
+					<mat-icon fontSet="material-symbols-outlined">save</mat-icon>
+				</button>
+			}
+
+      @if (widgets.panel.showBook()) {
+				<action [m]="app.toggleFullScreen" title="Fullscreen">
+          @if (widgets.fullscreen()) {
+            fullscreen_exit
+          } @else {
+            fullscreen
+          }
+				</action> 
+        @if (resources.bookCbt.hasValue()) {
+          <mat-paginator
+            (page)="app.handlePaginationEvent($event)"
+            [length]="resources.bookCbt.value().length"
+            [pageSize]="widgets.book.pagesInDisplay()"
+            [disabled]="false"
+            [showFirstLastButtons]="false"
+            [pageIndex]="appState.currentPageSet()"
+            [hidePageSize]="true"
+            aria-label="Select page"
+          >
+          </mat-paginator>
+        }
+      }
+    </mat-toolbar-row>
+  </mat-toolbar>
+}
+
+<mat-drawer-container class="example-container" hasBackdrop="false" class="fw fh-body">
+  <mat-drawer #drawer mode="push" class="width-auto" opened="true">
+		<div class="flex flex-column flex-align-center toolbar">
+			<action [m]="app.stopTextToSpeech" title="Stop Text to Speech" [disabled]="!orator.reading">
+				stop
+			</action>
+			<action [m]="app.textToSpeech" title="Text to Speech" [disabled]="orator.reading">
+				text_to_speech
+			</action>
+			<action [m]="app.toggleMarkdownView" title="View Markdown">
+				markdown
+			</action>
+			<action [m]="app.toggleThumbnailView" title="View Thumbnails">
+				dataset
+			</action>
+      <button matMiniFab title="Book Options">
+        <mat-icon fontSet="material-symbols-outlined">book_2</mat-icon>
+      </button>
+      <button matMiniFab title="Right to Left Mode">
+        <mat-icon fontSet="material-symbols-outlined">rotate_left</mat-icon>
+      </button>
+      <book-toc />
+			<action [m]="app.toggleOneOrTwoPageMode" title="Toggle Page Mode">
+				two_pager
+			</action>
+			<action [m]="app.toggleSideBySide" title="Compare Markdown and Image">
+				compare
+			</action>
+		</div>
+	</mat-drawer>
+  <mat-drawer-content class="fh-body">
+		<ng-content></ng-content>
+		
+  </mat-drawer-content>
+</mat-drawer-container>
