@@ -3,16 +3,25 @@
 <app-widgets></app-widgets>
 <app-header class="flex flex-align-center" />
 <app-actions></app-actions>
-<main>
-  @if (widgets()) {
-    @if (widgets().panel.showSettings()) {
-      <settings></settings>
-    } @else if (widgets().panel.showBook()) {
-      <lectern></lectern>
-    } @else if (widgets().panel.showLibrarySettings()) {
-      <library-settings></library-settings>
-    } @else {
-      <collection-browser></collection-browser>
-    }
-  }
-</main>
+
+<mat-drawer-container class="example-container" hasBackdrop="true" class="fw fh-body">
+  <mat-drawer #drawer mode="over" style="width: auto" class="fh">I'm a drawer</mat-drawer>
+  <mat-drawer-content>
+		<main>
+			@if (widgets()) {
+				@if (widgets().panel.showSettings()) {
+					<settings></settings>
+				} @else if (widgets().panel.showBook()) {
+					<lectern></lectern>
+				} @else if (widgets().panel.showLibrarySettings()) {
+					<library-settings></library-settings>
+				} @else {
+					<collection-browser></collection-browser>
+				}
+			}
+		</main>
+		
+  </mat-drawer-content>
+</mat-drawer-container>
+
+

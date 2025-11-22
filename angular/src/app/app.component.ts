@@ -21,6 +21,7 @@ import { Library } from './model/library';
 import { SettingsComponent } from './settings/settings';
 import { resourceStatusToPromise } from './shared/res-status-to-promise';
 import { Orator } from './audio/orator';
+import { MatDrawer, MatSidenav, MatSidenavModule } from '@angular/material/sidenav'
 
 @Component({
   selector: 'app',
@@ -34,6 +35,7 @@ import { Orator } from './audio/orator';
     AppResourcesComponent,
     AppWidgetsComponent,
     AppActionsComponent,
+		MatSidenavModule,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
@@ -51,6 +53,7 @@ export class AppComponent {
   widgets = viewChild.required(AppWidgetsComponent);
   appState = viewChild.required(AppStateComponent);
   resources = viewChild.required(AppResourcesComponent);
+	sidenav = viewChild.required<MatDrawer>('drawer');
 
 	orator: Orator = inject(Orator);
 
@@ -286,7 +289,7 @@ export class AppComponent {
   }
 	
 	toggleDrawer() {
-		throw new Error('Method not implemented.');
+		this.sidenav().toggle();
 	}
 
   toggleThumbnailView(): Promise<boolean> {

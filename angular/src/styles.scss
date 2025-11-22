@@ -59,6 +59,10 @@ body {
 	height: 100%;
 }
 
+.fh-body {
+	height: calc(100% - 56px);
+}
+
 .fw {
 	width: 100%;
 }
