@@ -1,10 +1,11 @@
+
 @let widgets = app.widgets();
 @let appState = app.appState();
 @let resources = app.resources();
 @if (widgets && appState && resources) {
   <mat-toolbar color="primary" class="flex flex-align-center">
     <mat-toolbar-row>
-      <button matMiniFab>
+      <button matMiniFab (click)="app.toggleDrawer()">
         <mat-icon fontSet="material-symbols-outlined">newsstand</mat-icon>
       </button>
       <h1>Brooke</h1>
@@ -24,44 +25,61 @@
       }
 
       @if (widgets.panel.showBook()) {
-        <button matMiniFab (click)="app.toggleFullScreen()" title="Fullscreen">
+				<action [m]="app.toggleFullScreen" title="Fullscreen">
+          @if (widgets.fullscreen()) {
+            fullscreen_exit
+          } @else {
+            fullscreen
+          }
+				</action> 
+        <!-- <button matMiniFab (click)="app.toggleFullScreen()" title="Fullscreen">
           <mat-icon fontSet="material-symbols-outlined">
-            @if (widgets.fullscreen()) {
-              fullscreen_exit
-            } @else {
-              fullscreen
-            }
           </mat-icon>
-        </button>
-
-        <button matMiniFab (click)="app.stopTextToSpeech()" title="Stop Text to Speech">
+        </button> -->
+				<action [m]="app.stopTextToSpeech" title="Stop Text to Speech" [disabled]="!orator.reading">
+					stop
+				</action>
+        <!-- <button matMiniFab (click)="app.stopTextToSpeech()" title="Stop Text to Speech" [disabled]="!orator.reading">
           <mat-icon fontSet="material-symbols-outlined">stop</mat-icon>
-        </button>
-        <button matMiniFab (click)="app.textToSpeech()" title="Text to Speech">
+        </button> -->
+				<action [m]="app.textToSpeech" title="Text to Speech" [disabled]="orator.reading">
+					text_to_speech
+				</action>
+        <!-- <button matMiniFab (click)="app.textToSpeech()" title="Text to Speech" [disabled]="orator.reading">
           <mat-icon fontSet="material-symbols-outlined">text_to_speech</mat-icon>
-        </button>
-        <button matMiniFab (click)="app.toggleMarkdownView()" title="View Markdown">
+        </button> -->
+				<action [m]="app.toggleMarkdownView" title="View Markdown">
+					markdown
+				</action>
+        <!-- <button matMiniFab (click)="app.toggleMarkdownView()" title="View Markdown">
           <mat-icon fontSet="material-symbols-outlined">markdown</mat-icon>
-        </button>
-        <button matMiniFab (click)="app.toggleThumbnailView()" title="Thumbnails">
-          <!-- ocr details / thumbnail view -->
+        </button> -->
+				<action [m]="app.toggleThumbnailView" title="View Thumbnails">
+					dataset
+				</action>
+        <!-- <button matMiniFab (click)="app.toggleThumbnailView()" title="Thumbnails">
           <mat-icon fontSet="material-symbols-outlined">dataset</mat-icon>
-        </button>
+        </button> -->
+				
         <button matMiniFab title="Book Options">
-          <!-- book options -->
           <mat-icon fontSet="material-symbols-outlined">book_2</mat-icon>
         </button>
         <button matMiniFab title="Right to Left Mode">
-          <!-- read in reverse -->
           <mat-icon fontSet="material-symbols-outlined">rotate_left</mat-icon>
         </button>
         <book-toc />
-        <button matMiniFab (click)="app.toggleOneOrTwoPageMode()" title="Toggle Page Mode">
+				<action [m]="app.toggleOneOrTwoPageMode" title="Toggle Page Mode">
+					two_pager
+				</action>
+        <!-- <button matMiniFab (click)="app.toggleOneOrTwoPageMode()" title="Toggle Page Mode">
           <mat-icon fontSet="material-symbols-outlined">two_pager</mat-icon>
-        </button>
-        <button matMiniFab (click)="app.toggleSideBySide()" title="Compare Markdown and Image">
+        </button> -->
+				<action [m]="app.toggleSideBySide" title="Compare Markdown and Image">
+					compare
+				</action>
+        <!-- <button matMiniFab (click)="app.toggleSideBySide()" title="Compare Markdown and Image">
           <mat-icon fontSet="material-symbols-outlined">compare</mat-icon>
-        </button>
+        </button> -->
         @if (resources.bookCbt.hasValue()) {
           <mat-paginator
             (page)="app.handlePaginationEvent($event)"

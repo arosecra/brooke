@@ -20,7 +20,7 @@ import { ItemRef } from './model/item-ref';
 import { Library } from './model/library';
 import { SettingsComponent } from './settings/settings';
 import { resourceStatusToPromise } from './shared/res-status-to-promise';
-import { Orator } from './shared/orator';
+import { Orator } from './audio/orator';
 
 @Component({
   selector: 'app',
@@ -41,6 +41,7 @@ import { Orator } from './shared/orator';
   providers: [],
 })
 export class AppComponent {
+
   private location = inject(Location);
   private appDb = inject(LibraryDB);
   private files = inject(Files);
@@ -51,7 +52,7 @@ export class AppComponent {
   appState = viewChild.required(AppStateComponent);
   resources = viewChild.required(AppResourcesComponent);
 
-	orator: Orator;
+	orator: Orator = inject(Orator);
 
   @HostListener('document:keydown', ['$event'])
   protected handleKeyboardEvent(event: KeyboardEvent) {
@@ -213,29 +214,20 @@ export class AppComponent {
 		const book = this.resources().bookCbt.value();
 		const voice = this.resources().storedLibrary.value()?.voice;
 		if(book && voice) {
-			this.orator = new Orator();
-			for(i; i < book.length; i += pagesInDisplay) {
-				if(!book[i].markdown) {
-					await this.orator.readBlank();
-				} else {
-					await this.orator.readMarkdown(book[i].markdown, voice);
-				}
-				if(pagesInDisplay === 2 && i+1 < book.length) {
-					const rPage = i+1;
-					if(!book[rPage].markdown) {
-						await this.orator.readBlank();
-					} else {
-					await this.orator.readMarkdown(book[rPage].markdown, voice);
-					}
-				}
-				this.goToNextPage();
-			}
-
+			this.orator.readBook(
+				book,
+				voice,
+				i,
+				pagesInDisplay,
+				this.goToNextPage.bind(this)
+			)
 		}
+		return Promise.resolve(true);
 	}
 
 	stopTextToSpeech() {
 		this.orator.stop();
+		return Promise.resolve(true);
 	}
 
   setLocation() {
@@ -281,25 +273,33 @@ export class AppComponent {
     window.scrollTo({ top: 0 });
   }
 
-  goToNextPage() {
+  goToNextPage(): Promise<boolean> {
     const appState = this.appState();
     if (appState) this.goToPageSet(appState.currentPageSet() + 1);
+		return Promise.resolve(true);
   }
 
-  goToPreviousPage() {
+  goToPreviousPage(): Promise<boolean> {
     const appState = this.appState();
     if (appState) this.goToPageSet(appState.currentPageSet() - 1);
+		return Promise.resolve(true);
   }
-
-  toggleThumbnailView() {
-    this.widgets()?.book.thumbnailView.update((val) => !val);
-  }
-
-	toggleMarkdownView() {
-    this.widgets()?.book.markdownView.update((val) => !val);
+	
+	toggleDrawer() {
+		throw new Error('Method not implemented.');
 	}
 
-	toggleSideBySide() {
+  toggleThumbnailView(): Promise<boolean> {
+    this.widgets()?.book.thumbnailView.update((val) => !val);
+		return Promise.resolve(true);
+  }
+
+	toggleMarkdownView(): Promise<boolean> {
+    this.widgets()?.book.markdownView.update((val) => !val);
+		return Promise.resolve(true);
+	}
+
+	toggleSideBySide(): Promise<boolean> {
 		const sideBySide = this.widgets()?.book.sideBySide();
 		const pageMode = this.widgets()?.book.pagesInDisplay();
 		const pageModeToggleRequired = (!sideBySide && pageMode === 2) || (sideBySide && pageMode === 1)
@@ -308,6 +308,7 @@ export class AppComponent {
 			this.toggleOneOrTwoPageMode();
 		} 
 		this.widgets()?.book.sideBySide.set(!sideBySide);
+		return Promise.resolve(true);
 	}
 
   toggleOneOrTwoPageMode() {
@@ -324,9 +325,10 @@ export class AppComponent {
       this.appState()?.currentPageSet.update((val) => val * 2);
       this.widgets()?.book.pagesInDisplay.set(1);
     }
+		return Promise.resolve(true);
   }
 
-	toggleFullScreen() {
+	toggleFullScreen(): Promise<boolean> {
 		if(window.document.fullscreenElement) {
 			window.document.exitFullscreen();
 			this.widgets().fullscreen.set(false);
@@ -334,6 +336,7 @@ export class AppComponent {
 			this.fullScreenTarget.nativeElement.requestFullscreen();
 			this.widgets().fullscreen.set(true);
 		}
+		return Promise.resolve(true);
 	}
 
   private displayBookItem(itemRef: ItemRef, item: Item) {

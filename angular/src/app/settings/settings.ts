@@ -15,8 +15,8 @@ import { Thumbnail } from '../model/thumbnail';
 import { resourceStatusToPromise } from '../shared/res-status-to-promise';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { Orator } from '../shared/orator';
 import { FormsModule } from '@angular/forms';
+import { Orator } from '../audio/orator';
 
 @Component({
   selector: 'settings',
@@ -32,7 +32,7 @@ export class SettingsComponent {
   files = inject(Files);
   injector = inject(Injector);
 
-  orator = new Orator();
+  orator = inject(Orator);
 
   busy = signal<boolean>(false);
   busyMessage = signal<string>('not busy');

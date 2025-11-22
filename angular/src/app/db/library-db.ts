@@ -7,7 +7,7 @@ import { Collection } from '../model/collection';
 import { openDB } from './pidb';
 import { Files } from '../fs/library-fs';
 import { Thumbnail } from '../model/thumbnail';
-import { Orator } from '../shared/orator';
+import { Orator } from '../audio/orator';
 
 export function onUpgradeNeeded(this: IDBOpenDBRequest, event: IDBVersionChangeEvent) {
   let db = this.result;
@@ -31,6 +31,7 @@ export const TABLE_NAMES = ['collections', 'categories', 'items', 'settings', 't
 })
 export class LibraryDB {
   files = inject(Files);
+	orator = inject(Orator);
 
   constructor() {}
 
@@ -57,7 +58,7 @@ export class LibraryDB {
 			}
 		}
 		const voiceSetting = res.settings?.find((val) => val.name === 'voice');
-		res.voice = voiceSetting?.value ?? new Orator().getVoices().find((voice: SpeechSynthesisVoice) => voice.default)?.name;
+		res.voice = voiceSetting?.value ?? this.orator.getVoices().find((voice: SpeechSynthesisVoice) => voice.default)?.name;
 		
     return res;
   }

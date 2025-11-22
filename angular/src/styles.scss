@@ -3,8 +3,9 @@
 @use '@angular/material/prebuilt-themes/azure-blue.css';
 
 @use './styles/flex.scss';
-@use './styles/h.scss';
+@use './styles/html.scss';
 @use './styles/overlay.scss';
+@use './styles/spin.scss';
 
 $theme: mat.define-theme();
 html {
@@ -54,23 +55,14 @@ body {
   display: none;
 }
 
-book.two-page {
-  display: grid;
-  grid-template-columns: calc((100% - 14px) / 2) calc((100% - 14px) / 2);
-  grid-gap: 10px;
-  grid-template-rows: auto;
-  align-items: start;
-  font-size: 18px;
+.fh {
+	height: 100%;
 }
 
-book.one-page {
-  display: grid;
-  grid-template-columns: 100%;
-  grid-gap: 10px;
-  grid-template-rows: auto;
-  align-items: start;
-  font-size: 18px;
+.fw {
+	width: 100%;
 }
+
 
 book .thumbnails {
   display: flex;
@@ -81,11 +73,7 @@ book .thumbnails {
   gap: 16px;
 }
 
-book p {
-  text-indent: 16px;
-  margin-block-end: 8px;
-  margin-block-start: 0;
-}
+
 
 book .thumbnails mat-card {
   align-items: center;
@@ -99,11 +87,6 @@ book .thumbnails mat-card-actions {
 
 
 
-mat-toolbar-row {
-  column-gap: 8px;
-}
-
-
 
 settings {
   display: flex;
@@ -111,28 +94,3 @@ settings {
   row-gap: var(--o-gap);
 }
 
-span {
-  text-wrap-mode: nowrap;
-}
-
-html,
-body {
-  height: 100%;
-}
-body {
-  margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
-}
-
-.spin {
-  animation: spin 2s linear infinite;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}

@@ -8,11 +8,15 @@ updated todo:
 
 
 - ui:
+	- convert all services to components (allows for hierarchal injection)
+
+	- consider injecting resource values. actions that use the resource will take the resource as a parameter
+
 	- don't convert image to base64, just use a blob. may need to create a page component (probably good for md too)
 
 	- since it seems that we can't share mkv, have buttons to create playlists, download / delete local videos
 
-	- implement BookToC
+	- implement BookToC, BookOptions, BookDetails
 
 	- finish and use web-fs and web-path utilities
 
@@ -40,13 +44,11 @@ updated todo:
 	- disable download button if already downloaded
 
 	- convert settings to a Record<string, any>, create an interface for what the value is supposed to be (string, etc)
-	
-	- make orator global / injectable. just a part of the state?  separate component?
 
 	- add wakelock while orating
 
-	- add offline or geo check to see if download is available
-		- and/or add background sync or fetch support for download
+	- add network interface check to see if we're on wifi / wired before we download
+		- maybe also location check
 
 	- add protocol handling for .cbt.gz files
 
@@ -65,10 +67,6 @@ updated todo:
 		- could, again, save on memory while running
 		- this might be a big structure change, not sure
 		- or maybe it just has less
-
-	- consider removing library type / resource. just grab what we want from the db when necessary
-		- may be less klunky, but need to look at how i'm loading/reloading data
-
 	
 	- attempt to standardize image sizes. pad transparency onto images to fill height gap?
 		-need to handle series thumbnails in pipeline
