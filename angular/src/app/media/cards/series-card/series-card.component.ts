@@ -22,8 +22,9 @@ import { Thumbnail } from '../../../model/thumbnail';
 			<img [src]="imageUrl" />
 		</div>
   `,
-  styles: ``,
-  encapsulation: ViewEncapsulation.None,
+  styles: `
+	`,
+
 })
 export class SeriesComponent implements OnInit, OnDestroy {
   app = inject(AppComponent);

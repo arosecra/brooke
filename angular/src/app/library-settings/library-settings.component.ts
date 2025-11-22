@@ -31,7 +31,7 @@ import { MatButtonModule } from '@angular/material/button';
 	}
   `,
   styles: ``,
-  encapsulation: ViewEncapsulation.None,
+
 })
 export class LibrarySettingsComponent implements OnInit {
   app = inject(AppComponent);

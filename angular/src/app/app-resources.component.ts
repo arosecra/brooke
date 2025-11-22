@@ -13,7 +13,7 @@ import { Files } from './fs/library-fs';
   imports: [],
   template: ``,
   styles: ``,
-  encapsulation: ViewEncapsulation.None,
+
   providers: [],
 })
 export class AppResourcesComponent {

@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
   imports: [],
   template: ``,
   styles: ``,
-  encapsulation: ViewEncapsulation.None,
+
   providers: [],
 })
 export class AppWidgetsComponent {

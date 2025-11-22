@@ -22,7 +22,7 @@ import { RemarkModule } from 'ngx-remark';
 		}
   `,
   styles: ``,
-  encapsulation: ViewEncapsulation.None,
+
 })
 export class VirtualPageComponent implements OnInit, OnDestroy {
   app = inject(AppComponent);

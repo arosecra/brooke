@@ -10,7 +10,7 @@ import { MatChipAndRemoveComponent } from '../shared/mat-chip-and-remove.compone
   imports: [MatIconModule, MatButtonModule, MatChipsModule, MatChipAndRemoveComponent],
   templateUrl: './app-breadcrumb.component.html',
   styleUrls: ['./app-breadcrumb.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+
 })
 export class AppBreadcrumbComponent {
   app = inject(AppComponent);

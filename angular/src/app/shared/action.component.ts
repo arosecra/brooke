@@ -87,7 +87,7 @@ import { AppComponent } from '../app.component';
       line-height: 32px;
     }
   `,
-  encapsulation: ViewEncapsulation.None,
+
   providers: [],
 })
 export class ActionComponent {

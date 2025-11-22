@@ -12,7 +12,7 @@ import { AppComponent } from '../../app.component';
 		</button>
   `,
   styles: ``,
-  encapsulation: ViewEncapsulation.None,
+
 })
 export class BookToCComponent {
   app = inject(AppComponent);

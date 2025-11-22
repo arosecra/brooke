@@ -23,7 +23,7 @@ import { FormsModule } from '@angular/forms';
   imports: [MatButtonModule, MatIconModule, MatTableModule, MatInputModule, MatSelectModule, FormsModule],
   templateUrl: './settings.html',
   styles: ``,
-  encapsulation: ViewEncapsulation.None,
+
 })
 export class SettingsComponent {
   sampleText: string = 'The quick brown fox jumped over the lazy dog';

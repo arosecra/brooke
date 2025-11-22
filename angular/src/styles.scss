@@ -3,6 +3,7 @@
 @use '@angular/material/prebuilt-themes/azure-blue.css';
 
 @use './styles/flex.scss';
+@use './styles/h.scss';
 @use './styles/overlay.scss';
 
 $theme: mat.define-theme();
@@ -53,7 +54,6 @@ body {
   display: none;
 }
 
-
 book.two-page {
   display: grid;
   grid-template-columns: calc((100% - 14px) / 2) calc((100% - 14px) / 2);
@@ -97,74 +97,13 @@ book .thumbnails mat-card-actions {
   row-gap: 16px;
 }
 
-collection-browser {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-}
 
-h2,
-h3,
-h4,
-h5 {
-  display: block;
-  width: 100%;
-  text-wrap-mode: nowrap;
-}
 
 mat-toolbar-row {
   column-gap: 8px;
 }
 
-item-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: var(--o-gap);
-}
 
-item-card mat-card {
-  height: 100%;
-  justify-content: space-between;
-}
-
-item-card .childitem {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  row-gap: 16px;
-}
-
-.books item-card img {
-  width: 250px;
-  height: 400px;
-  object-fit: scale-down;
-}
-
-.videos item-card img {
-  width: 350px;
-  height: 350px;
-  object-fit: scale-down;
-}
-
-item-card mat-card-actions > div {
-  display: flex;
-  gap: var(--o-gap);
-}
-
-childitem-card mat-card-actions > div {
-  display: flex;
-  gap: var(--o-gap);
-}
-
-main {
-  display: flex;
-  gap: var(--o-gap);
-  padding-top: 8px;
-  padding-left: 8px;
-}
 
 settings {
   display: flex;

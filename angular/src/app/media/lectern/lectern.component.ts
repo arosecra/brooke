@@ -31,7 +31,7 @@ import { VirtualPageComponent } from '../virtual-page/virtual-page.component';
   },
   templateUrl: './lectern.component.html',
   styleUrls: ['./lectern.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+
 })
 export class BookComponent {
   app = inject(AppComponent);

@@ -1,0 +1,15 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.books {
+	--item-card-width: 250px;
+}
+
+.videos {
+	--item-card-width: 350px;
+}	

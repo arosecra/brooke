@@ -11,8 +11,8 @@ import { ActionComponent } from '../../shared/action.component';
   selector: 'collection-browser',
   imports: [ItemCardComponent, MatButtonModule, MatChipsModule, MatIconModule, MatButtonModule, SeriesComponent, ActionComponent],
   templateUrl: './collection-browser.component.html', 
-  styles: ``,
-  encapsulation: ViewEncapsulation.None,
+  styleUrls: ['./collection-browser.component.scss'],
+
 })
 export class CollectionBrowserComponent {
   app = inject(AppComponent);

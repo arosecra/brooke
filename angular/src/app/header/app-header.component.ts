@@ -21,7 +21,7 @@ import { CustomPaginatorIntl } from './custom-paginator-intl.service';
   providers: [{ provide: MatPaginatorIntl, useClass: CustomPaginatorIntl }],
   templateUrl: './app-header.component.html',
   styles: ``,
-  encapsulation: ViewEncapsulation.None,
+
 })
 export class AppHeaderComponent {
   app = inject(AppComponent);

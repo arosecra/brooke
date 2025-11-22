@@ -15,7 +15,7 @@ import { ItemNamePipe } from './item-name.pipe';
     </mat-chip>
   `,
   styles: ``,
-  encapsulation: ViewEncapsulation.None,
+
 })
 export class MatChipAndRemoveComponent {
   label = input<string | undefined>();

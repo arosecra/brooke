@@ -13,7 +13,7 @@ import { Thumbnail } from './model/thumbnail';
   imports: [],
   template: ``,
   styles: ``,
-  encapsulation: ViewEncapsulation.None,
+
   providers: [],
 })
 export class AppStateComponent {
