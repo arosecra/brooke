@@ -221,7 +221,7 @@ export class SettingsComponent {
     this.appDB
       .addSetting({
         name: 'voice',
-        value: this.voice.name,
+        value: this.app.resources().storedLibrary.value()!.voice,
       })
       .then(() => {
         this.app.resources()?.storedLibrary.reload();
@@ -316,7 +316,7 @@ export class SettingsComponent {
 				});
 				output!.textContent = "Shared!";
 			} catch (error: any) {
-				output!.textContent = `Error: ${error.message}`;
+				output!.textContent = `Error: ${JSON.stringify(error)}`;
 			}
 		// } else {
 		// 	output!.textContent = `Your system doesn't support sharing these files.`;
