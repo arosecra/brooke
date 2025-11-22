@@ -12,10 +12,13 @@
     @let showRightPage = widgets.book.sideBySide() || (pagesInDisplay === 2 && bookCbt.length > rightPageNo);
 
     @if (bookCbt.length > leftPageNo) {
-      <page [page]="bookCbt[leftPageNo]" [preferMarkdown]="widgets.book.markdownView() || widgets.book.sideBySide()" />
+      <virtual-page
+        [page]="bookCbt[leftPageNo]"
+        [preferMarkdown]="widgets.book.markdownView() || widgets.book.sideBySide()"
+      />
     }
     @if (showRightPage) {
-      <page
+      <virtual-page
         [page]="widgets.book.sideBySide() ? bookCbt[leftPageNo] : bookCbt[rightPageNo]"
         [preferMarkdown]="widgets.book.markdownView()"
       />
@@ -56,6 +59,4 @@
       }
     </div>
   }
-} @else {
-  <div>Loading...</div>
 }

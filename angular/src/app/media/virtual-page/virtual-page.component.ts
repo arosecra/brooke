@@ -4,7 +4,7 @@ import { Page } from '../../model/page';
 import { RemarkModule } from 'ngx-remark';
 
 @Component({
-  selector: 'page',
+  selector: 'virtual-page',
   imports: [RemarkModule],
   template: `
 		@let imgMode = !preferMarkdown() || !page().markdown;
@@ -24,7 +24,7 @@ import { RemarkModule } from 'ngx-remark';
   styles: ``,
   encapsulation: ViewEncapsulation.None,
 })
-export class PageComponent implements OnInit, OnDestroy {
+export class VirtualPageComponent implements OnInit, OnDestroy {
   app = inject(AppComponent);
 
 	page = input.required<Page>();
