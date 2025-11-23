@@ -11,17 +11,20 @@ export class BookCreateThumbnailsStep implements JobStep {
 		const thumbnailFolder = node.pathJoin(job.destFolder, '.thumbnails');
 		node.mkdirs(thumbnailFolder);
 
-		node.execFileSync(
-			'D:\\Software\\ImageMagick\\magick.exe',
-			[ 'mogrify',
-				'-path', thumbnailFolder,
-				'-format', 'webp',
-				'-thumbnail', '250x>',
-				'*-8-*.png'
-			], {
-				cwd: job.sourceFolder
-			}
-		);
+		const hasCover = fs.readdirSync(job.sourceFolder).some((file) => file.includes('-8-'));
+		if(hasCover) {
+			node.execFileSync(
+				'D:\\Software\\ImageMagick\\magick.exe',
+				[ 'mogrify',
+					'-path', thumbnailFolder,
+					'-format', 'webp',
+					'-thumbnail', '250x>',
+					'*-8-*.png'
+				], {
+					cwd: job.sourceFolder
+				}
+			);
+		}
 
 		node.execFileSync(
 			'D:\\Software\\ImageMagick\\magick.exe',

@@ -7,9 +7,9 @@ import { AppComponent } from '../app.component';
 import { Orator } from '../audio/orator';
 import { BookToCComponent } from '../media/book-toc/book-toc.component';
 import { ActionComponent } from '../shared/action.component';
-import { AppBreadcrumbComponent } from './app-breadcrumb.component';
 import { CustomPaginatorIntl } from './custom-paginator-intl.service';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatChipAndRemoveComponent } from '../shared/mat-chip-and-remove.component';
 
 @Component({
   selector: 'app-toolbars',
@@ -19,9 +19,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatToolbarModule,
     MatPaginatorModule,
     BookToCComponent,
-    AppBreadcrumbComponent,
 		ActionComponent,
-		MatSidenavModule
+		MatSidenavModule, 
+		MatChipAndRemoveComponent
   ],
   providers: [{ provide: MatPaginatorIntl, useClass: CustomPaginatorIntl }],
   templateUrl: './app-header.component.html',

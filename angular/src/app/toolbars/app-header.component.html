@@ -7,7 +7,27 @@
     <mat-toolbar-row>
       <mat-icon fontSet="material-symbols-outlined">newsstand</mat-icon>
       <h1>Brooke</h1>
-      <app-breadcrumb class="flex flex-align-center flex-no-gap"></app-breadcrumb>
+      <!-- <app-breadcrumb class="flex flex-align-center flex-no-gap"></app-breadcrumb> -->
+			 @if(!widgets.isMobile()) {
+				  @if (appState.currentCollection()) {
+						@let collectionLabel = appState.currentItem() ? '...' : appState.currentCollection()?.name;
+						<mat-icon fontSet="material-symbols-outlined">chevron_right</mat-icon>
+						<mat-chip-and-remove [label]="collectionLabel" (removed)="app.openHome()" />
+					}
+					@if (appState.currentCategory()) {
+						@let categoryLabel = appState.currentSeries() || appState.currentItem() ? '...' : appState.currentCategory()?.name;
+						<mat-icon fontSet="material-symbols-outlined">chevron_right</mat-icon>
+						<mat-chip-and-remove [label]="categoryLabel" (removed)="app.openCollection()" />
+					}
+					@if (appState.currentSeries()) {
+						<mat-icon fontSet="material-symbols-outlined">chevron_right</mat-icon>
+						<mat-chip-and-remove [label]="appState.currentSeries()?.name" (removed)="app.openCategory()" />
+					}
+					@if (appState.currentItem()) {
+						<mat-icon fontSet="material-symbols-outlined">chevron_right</mat-icon>
+						<mat-chip-and-remove [label]="appState.currentItem()?.name" (removed)="app.openCategory()" />
+					}
+			 }
       <span class="spacer"></span>
 
       @if (!widgets.panel.showBook()) {
@@ -57,35 +77,45 @@
 <mat-drawer-container class="example-container" hasBackdrop="false" class="fw fh-body">
   <mat-drawer #drawer mode="push" class="width-auto" opened="true">
 		<div class="flex flex-column flex-align-center toolbar">
-			<action [m]="app.stopTextToSpeech" title="Stop Text to Speech" [disabled]="!orator.reading">
-				stop
-			</action>
-			<action [m]="app.textToSpeech" title="Text to Speech" [disabled]="orator.reading">
-				text_to_speech
-			</action>
+			@if(!orator.reading) {
+				<action [m]="app.textToSpeech" title="Text to Speech" [disabled]="orator.reading">
+					text_to_speech
+				</action>
+
+			} @else {
+				<action [m]="app.stopTextToSpeech" title="Stop Text to Speech" [disabled]="!orator.reading">
+					stop
+				</action>
+			}
 			<action [m]="app.toggleMarkdownView" title="View Markdown">
 				markdown
 			</action>
-			<action [m]="app.toggleThumbnailView" title="View Thumbnails">
-				dataset
-			</action>
+			@if(!app.widgets().isMobile()) {
+				<action [m]="app.toggleThumbnailView" title="View Thumbnails">
+					dataset
+				</action>
+			}
       <button matMiniFab title="Book Options">
         <mat-icon fontSet="material-symbols-outlined">book_2</mat-icon>
       </button>
-      <button matMiniFab title="Right to Left Mode">
+      <!-- <button matMiniFab title="Right to Left Mode">
         <mat-icon fontSet="material-symbols-outlined">rotate_left</mat-icon>
-      </button>
+      </button> -->
       <book-toc />
-			<action [m]="app.toggleOneOrTwoPageMode" title="Toggle Page Mode">
-				two_pager
-			</action>
-			<action [m]="app.toggleSideBySide" title="Compare Markdown and Image">
-				compare
-			</action>
+			@if(!app.widgets().isMobile()) {
+				<action [m]="app.toggleOneOrTwoPageMode" title="Toggle Page Mode">
+					two_pager
+				</action>
+				<action [m]="app.toggleSideBySide" title="Compare Markdown and Image">
+					compare
+				</action>
+			}
+      <button matMiniFab title="Close" (click)="app.openHome()">
+        <mat-icon fontSet="material-symbols-outlined">close</mat-icon>
+      </button>
 		</div>
 	</mat-drawer>
   <mat-drawer-content class="fh-body">
 		<ng-content></ng-content>
-		
   </mat-drawer-content>
 </mat-drawer-container>

@@ -1,5 +1,8 @@
 :host {
 	--mat-sidenav-container-width: auto;
+	--mat-chip-label-text-color: var(--mat-sys-on-primary-container);
+  --mat-chip-outline-color: var(--mat-sys-on-primary-container);
+  --mat-chip-with-trailing-icon-trailing-icon-color: var(--mat-sys-on-primary-container);
 }
 
 mat-toolbar-row {
