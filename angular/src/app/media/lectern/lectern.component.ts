@@ -1,4 +1,4 @@
-import { Component, inject, ViewEncapsulation } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AppComponent } from '../../app.component';
 
 import { FormsModule } from '@angular/forms';

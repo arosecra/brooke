@@ -1,4 +1,4 @@
-import { Component, computed, inject, linkedSignal, signal, ViewEncapsulation } from '@angular/core';
+import { Component, computed, inject, linkedSignal, signal } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { toSignal } from '@angular/core/rxjs-interop';

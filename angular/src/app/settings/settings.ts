@@ -1,4 +1,4 @@
-import { Component, inject, Injector, signal, ViewEncapsulation } from '@angular/core';
+import { Component, inject, Injector, signal } from '@angular/core';
 import { AppComponent } from '../app.component';
 import { LibraryDB } from '../db/library-db';
 import { MatButtonModule } from '@angular/material/button';

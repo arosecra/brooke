@@ -1,4 +1,4 @@
-import { Component, inject, input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, inject, input, OnDestroy, OnInit } from '@angular/core';
 import { AppComponent } from '../../app.component';
 import { Page } from '../../model/page';
 import { RemarkModule } from 'ngx-remark';

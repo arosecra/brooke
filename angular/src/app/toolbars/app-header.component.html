@@ -49,13 +49,6 @@
 			}
 
       @if (widgets.panel.showBook()) {
-				<action [m]="app.toggleFullScreen" title="Fullscreen">
-          @if (widgets.fullscreen()) {
-            fullscreen_exit
-          } @else {
-            fullscreen
-          }
-				</action> 
         @if (resources.bookCbt.hasValue()) {
           <mat-paginator
             (page)="app.handlePaginationEvent($event)"
@@ -77,6 +70,13 @@
 <mat-drawer-container class="example-container" hasBackdrop="false" class="fw fh-body">
   <mat-drawer #drawer mode="push" class="width-auto" opened="true">
 		<div class="flex flex-column flex-align-center toolbar">
+			<action [m]="app.toggleFullScreen" title="Fullscreen">
+        @if (widgets.fullscreen()) {
+          fullscreen_exit
+        } @else {
+          fullscreen
+        }
+			</action> 
 			@if(!orator.reading) {
 				<action [m]="app.textToSpeech" title="Text to Speech" [disabled]="orator.reading">
 					text_to_speech
@@ -95,13 +95,18 @@
 					dataset
 				</action>
 			}
-      <button matMiniFab title="Book Options">
+      <button matMiniFab title="Book Options" (click)="itemOptionsDrawer.toggle()">
         <mat-icon fontSet="material-symbols-outlined">book_2</mat-icon>
       </button>
       <!-- <button matMiniFab title="Right to Left Mode">
         <mat-icon fontSet="material-symbols-outlined">rotate_left</mat-icon>
       </button> -->
-      <book-toc />
+			<button matMiniFab title="Table of Contents" > <!-- book toc -->
+				<mat-icon fontSet="material-symbols-outlined">format_list_bulleted</mat-icon>
+			</button>
+			<button matMiniFab title="Add ToC Entry" > <!-- add to book toc -->
+				<mat-icon fontSet="material-symbols-outlined">format_list_bulleted_add</mat-icon>
+			</button>
 			@if(!app.widgets().isMobile()) {
 				<action [m]="app.toggleOneOrTwoPageMode" title="Toggle Page Mode">
 					two_pager
@@ -116,6 +121,16 @@
 		</div>
 	</mat-drawer>
   <mat-drawer-content class="fh-body">
-		<ng-content></ng-content>
+		<mat-drawer-container hasBackdrop="true" class="fw fh-body">
+			<mat-drawer #itemOptionsDrawer mode="over" class="width-auto" >
+					<!-- book options or toc go here -->
+				<div class="flex flex-column flex-align-center toolbar">
+				</div>
+			</mat-drawer>
+			<mat-drawer-content class="fh-body">
+				<ng-content></ng-content>
+			</mat-drawer-content>
+		</mat-drawer-container>
   </mat-drawer-content>
 </mat-drawer-container>
+

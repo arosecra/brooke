@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, ElementRef, HostListener, inject, Injector, viewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, Injector, viewChild } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import YAML from 'yaml';
 import { AppActionsComponent } from './app-actions.component';
