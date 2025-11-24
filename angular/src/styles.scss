@@ -68,31 +68,6 @@ body {
 	width: 100%;
 }
 
-
-book .thumbnails {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: flex-end;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 16px;
-}
-
-
-
-book .thumbnails mat-card {
-  align-items: center;
-}
-
-book .thumbnails mat-card-actions {
-  align-items: flex-start;
-  flex-direction: column;
-  row-gap: 16px;
-}
-
-
-
-
 settings {
   display: flex;
   flex-direction: column;
