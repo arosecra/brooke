@@ -9,7 +9,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { Page, PageType } from '../../model/page';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { VirtualPageComponent } from '../virtual-page/virtual-page.component';
 
 @Component({
   selector: 'gallery',
@@ -20,8 +19,7 @@ import { VirtualPageComponent } from '../virtual-page/virtual-page.component';
     MatIconModule,
     FormsModule,
     MatFormFieldModule,
-    MatInputModule,
-    VirtualPageComponent,
+    MatInputModule
   ],
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss'],
