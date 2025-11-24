@@ -1,13 +1,12 @@
 import { Component, computed, inject } from '@angular/core';
-import { AppComponent } from '../../app.component';
-
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { AppComponent } from '../../app.component';
 import { VirtualPageComponent } from '../virtual-page/virtual-page.component';
 
 @Component({
