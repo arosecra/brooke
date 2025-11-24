@@ -5,6 +5,8 @@ updated todo:
 ----------------
 -pipeline: 
 	- generate webp thumbnails for movies
+	- try other ocr
+		- perhaps we can compare ocr results?
 
 
 - ui:
@@ -17,7 +19,8 @@ updated todo:
 		- can inject all actionables
 		- can be named
 		- should be able to cleanup common action button component a bunch
-		- 
+		- can move 'action' from app to actionable component
+			- if so, how do i deal with shared actions (goToNextPage)?
 
 	- convert all services to components (allows for hierarchal injection)
 
@@ -90,6 +93,8 @@ updated todo:
 		- clicking the page on the right goes to next page
 		- clicking on the page on the left goes back
 		- add gestures (swipe specifically)
+
+	- editor for markdown, if i want to change / update it?
 	
 
 ToDo:

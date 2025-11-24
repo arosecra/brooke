@@ -273,7 +273,8 @@ export class AppComponent {
     this.setLocation();
 
     // this.location.replaceState('test');
-    window.scrollTo({ top: 0 });
+		const elements = document.getElementsByTagName('main');
+		if(elements?.length) elements[0].scrollIntoView();
   }
 
   goToNextPage(): Promise<boolean> {
