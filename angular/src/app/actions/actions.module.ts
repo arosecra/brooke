@@ -8,6 +8,7 @@ import { ToggleMarkdownViewActionComponent } from './toggle-markdown-view-action
 import { ToggleThumbnailViewActionComponent } from './toggle-thumbnail-view-action.component';
 import { ToggleNumPagesComponent } from './toggle-num-pages-action.component';
 import { ToggleSideBySideComponent } from './toggle-side-by-side-action.component';
+import { ToggleAddToCComponent } from './toggle-add-toc-action.component';
 
 const components = [
 	CloseActionComponent,
@@ -18,6 +19,7 @@ const components = [
 	ToggleOratorComponent,
 	ToggleSideBySideComponent,
 	ToggleThumbnailViewActionComponent,
+	ToggleAddToCComponent,
 	ToggleToCComponent
 ];
 

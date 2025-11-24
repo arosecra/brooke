@@ -3,7 +3,7 @@ import { Component, ElementRef, HostListener, inject, Injector, viewChild } from
 import { PageEvent } from '@angular/material/paginator';
 import YAML from 'yaml';
 import { AppActionsComponent } from './app-actions.component';
-import { AppToolbarsComponent } from './toolbars/app-header.component';
+import { AppToolbarsComponent } from './toolbars/app-toolbars.component';
 import { AppResourcesComponent } from './app-resources.component';
 import { AppStateComponent } from './app-state.component';
 import { AppWidgetsComponent } from './app-widgets.component';

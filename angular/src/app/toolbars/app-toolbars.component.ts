@@ -1,20 +1,15 @@
-import { Component, inject, viewChild } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { ActionsModule } from '../actions/actions.module';
 import { AppComponent } from '../app.component';
 import { Orator } from '../audio/orator';
 import { BookToCComponent } from '../media/book-toc/book-toc.component';
-import { ActionComponent } from '../actions/action.component';
 import { CustomPaginatorIntl } from './custom-paginator-intl.service';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatChipAndRemoveComponent } from '../shared/mat-chip-and-remove.component';
-import { ToggleFullscreenActionComponent } from "../actions/toggle-fullscreen-action.component";
-import { ToggleOratorComponent } from "../actions/toggle-orator-action.component";
-import { ToggleBookOptionsComponent } from "../actions/toggle-book-options-action.component";
-import { ActionsModule } from '../actions/actions.module';
-import { ToggleAddToCComponent } from "../actions/toggle-add-toc-action.component";
+import { MatChipAndRemoveComponent } from "../shared/mat-chip-and-remove.component";
 
 @Component({
   selector: 'app-toolbars',
@@ -24,15 +19,13 @@ import { ToggleAddToCComponent } from "../actions/toggle-add-toc-action.componen
     MatToolbarModule,
     MatPaginatorModule,
     BookToCComponent,
-    ActionComponent,
     MatSidenavModule,
-    MatChipAndRemoveComponent,
     ActionsModule,
-    ToggleAddToCComponent
+    MatChipAndRemoveComponent
 ],
   providers: [{ provide: MatPaginatorIntl, useClass: CustomPaginatorIntl }],
-  templateUrl: './app-header.component.html',
-  styleUrls: ['./app-header.component.scss'],
+  templateUrl: './app-toolbars.component.html',
+  styleUrls: ['./app-toolbars.component.scss'],
 
 })
 export class AppToolbarsComponent {
