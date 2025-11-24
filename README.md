@@ -49,7 +49,7 @@ updated todo:
 
 	- convert settings to a Record<string, any>, create an interface for what the value is supposed to be (string, etc)
 
-	- add wakelock while orating
+	- add volume control for orator
 
 	- add network interface check to see if we're on wifi / wired before we download
 		- maybe also location check
