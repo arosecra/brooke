@@ -7,7 +7,6 @@
     <mat-toolbar-row>
       <mat-icon fontSet="material-symbols-outlined">newsstand</mat-icon>
       <h1>Brooke</h1>
-      <!-- <app-breadcrumb class="flex flex-align-center flex-no-gap"></app-breadcrumb> -->
 			 @if(!widgets.isMobile()) {
 				  @if (appState.currentCollection()) {
 						@let collectionLabel = appState.currentItem() ? '...' : appState.currentCollection()?.name;
@@ -70,60 +69,23 @@
 <mat-drawer-container class="example-container" hasBackdrop="false" class="fw fh-body">
   <mat-drawer #drawer mode="push" class="width-auto" opened="true">
 		<div class="flex flex-column flex-align-center toolbar">
-			<action [m]="app.toggleFullScreen" title="Fullscreen">
-        @if (widgets.fullscreen()) {
-          fullscreen_exit
-        } @else {
-          fullscreen
-        }
-			</action> 
-			@if(!orator.reading) {
-				<action [m]="app.textToSpeech" title="Text to Speech" [disabled]="orator.reading"
-					[disabled]="!app.widgets().panel.showBook() || app.widgets().book.thumbnailView()"
-				>text_to_speech</action>
-			} @else {
-				<action [m]="app.stopTextToSpeech" title="Stop Text to Speech" [disabled]="!orator.reading">
-					stop
-				</action>
-			}
-      <button matMiniFab title="Book Options" (click)="app.toggleBookOptions()">
-        <mat-icon fontSet="material-symbols-outlined">book_2</mat-icon>
-      </button>
-			<button matMiniFab title="Table of Contents" (click)="app.toggleToC()"> <!-- book toc -->
-				<mat-icon fontSet="material-symbols-outlined">format_list_bulleted</mat-icon>
-			</button>
-			<button matMiniFab title="Add ToC Entry" (click)="app.toggleAddToC()"> <!-- add to book toc -->
-				<mat-icon fontSet="material-symbols-outlined">format_list_bulleted_add</mat-icon>
-			</button>
-
-      <button matMiniFab title="Close" (click)="app.openHome()" [disabled]="!app.appState().currentCollection()">
-        <mat-icon fontSet="material-symbols-outlined">close</mat-icon>
-      </button>
+			<toggle-fullscreen-action></toggle-fullscreen-action> 
+			<toggle-orator-action></toggle-orator-action>
+			<toggle-book-options-action></toggle-book-options-action>
+			<toggle-toc-action></toggle-toc-action>
+			<toggle-add-toc-action></toggle-add-toc-action>
+			<close-action></close-action>
 		</div>
 	</mat-drawer>
   <mat-drawer-content class="fh-body">
 		<mat-drawer-container hasBackdrop="true" class="fw fh-body">
 			<mat-drawer id="itemOptionsDrawer" #itemOptionsDrawer mode="over" class="width-auto" [opened]="app.widgets().sideNavOpen()">
-					<!-- book options or toc go here -->
 				<div class="flex flex-column flex-align-center toolbar">
 					@if(app.widgets().sideNav.showOptions()) {
-						<action [m]="app.toggleMarkdownView" title="View Markdown">
-							markdown
-						</action>
-						<action [m]="app.toggleThumbnailView" 
-							title="View Thumbnails"
-							[disabled]="app.widgets().isMobile()"
-						>
-							dataset
-						</action>
-						<action [m]="app.toggleOneOrTwoPageMode" 
-							title="Toggle Page Mode"
-							[disabled]="app.widgets().isMobile()"
-						>two_pager</action>
-						<action [m]="app.toggleSideBySide" 
-							title="Compare Markdown and Image"
-							[disabled]="app.widgets().isMobile()"
-						>compare</action>
+						<toggle-markdown-view-action></toggle-markdown-view-action>
+						<toggle-thumbnail-view-action></toggle-thumbnail-view-action>
+						<toggle-num-pages-action></toggle-num-pages-action>
+						<toggle-side-by-side-action></toggle-side-by-side-action>
 					}
 				</div>
 			</mat-drawer>

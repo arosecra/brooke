@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { AppComponent } from '../../../app.component';
-import { ActionComponent } from '../../../shared/action.component';
+import { ActionComponent } from '../../../actions/action.component';
 import { Item } from '../../../model/item';
 import { ItemRef } from '../../../model/item-ref';
 import { ItemNamePipe } from '../../../shared/item-name.pipe';

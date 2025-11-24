@@ -1,9 +1,7 @@
-import { NgStyle } from '@angular/common';
 import {
 	Component,
 	inject,
-	input,
-	ViewEncapsulation
+	input
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';

@@ -16,7 +16,7 @@ updated todo:
 		- can also accomodate more customized buttons
 		- can inject all actionables
 		- can be named
-		- 
+		- should be able to cleanup common action button component a bunch
 
 	- convert all services to components (allows for hierarchal injection)
 
