@@ -20,6 +20,10 @@ updated todo:
 
 	- finish and use web-fs and web-path utilities
 
+	- add auto crop based off of ocr output
+
+	- add bounding box overlay based off of ocr output
+
 	- item name pipe can maybe just be a function? it's kinda unwieldy to use. and being the only pipe...
 		- maybe function, then create a display name string on items / etc
 		- more difficult to do than you may think, since category isn't known until later
@@ -72,25 +76,8 @@ updated todo:
 		-need to handle series thumbnails in pipeline
 
 	- update for responsive
-		- only one page by default when less than 1k width
-		- breadcrumb in separate toolbar row
-		- make the newstand icon show other topbar rows
-		- no buttons on main topbar, move them to other topbars on mobile
-		- some buttons do not show at all - 
-			- do not show the 1/2 page button
-			- do not show the side by side button
-			- do not show the thumbs button
-			- do not show the book options icon
-		- main topbar is newstand button, fullscreen, paginator
-		- don't show paginator
 		- clicking the page on the right goes to next page
 		- clicking on the page on the left goes back
-		- change how paginator displays in mobile,
-			- don't show 1-1 of 283, just show 1 of 283
-			- don't show next / previous, just start / end
-			- hide start / end on mobile
-		- less of a margin on the left / right
-
 		- add gestures (swipe specifically)
 	
 

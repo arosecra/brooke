@@ -21,7 +21,7 @@ import { Library } from './model/library';
 import { SettingsComponent } from './settings/settings';
 import { resourceStatusToPromise } from './shared/res-status-to-promise';
 import { Orator } from './audio/orator';
-import { MatDrawer, MatSidenav, MatSidenavModule } from '@angular/material/sidenav'
+import { GalleryComponent } from './media/gallery/gallery.component';
 
 @Component({
   selector: 'app',
@@ -35,8 +35,8 @@ import { MatDrawer, MatSidenav, MatSidenavModule } from '@angular/material/siden
     AppResourcesComponent,
     AppWidgetsComponent,
     AppActionsComponent,
-		MatSidenavModule,
-  ],
+    GalleryComponent
+],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 

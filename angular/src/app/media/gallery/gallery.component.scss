@@ -1,0 +1,21 @@
+
+.thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-end;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 16px;
+}
+
+
+
+.thumbnails mat-card {
+  align-items: center;
+}
+
+.thumbnails mat-card-actions {
+  align-items: flex-start;
+  flex-direction: column;
+  row-gap: 16px;
+}

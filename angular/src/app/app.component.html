@@ -7,7 +7,11 @@
 			@if (widgets().panel.showSettings()) {
 				<settings></settings>
 			} @else if (widgets().panel.showBook()) {
-				<lectern></lectern>
+				@if(widgets().book.thumbnailView()) {
+					<gallery></gallery>
+				} @else {
+					<lectern></lectern>
+				}
 			} @else if (widgets().panel.showLibrarySettings()) {
 				<library-settings></library-settings>
 			} @else {

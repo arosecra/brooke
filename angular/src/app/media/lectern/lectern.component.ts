@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { AppComponent } from '../../app.component';
 
 import { FormsModule } from '@angular/forms';
@@ -24,22 +24,32 @@ import { VirtualPageComponent } from '../virtual-page/virtual-page.component';
     VirtualPageComponent,
   ],
   host: {
-    '[class.one-page]':
-      '!app.widgets()?.book?.thumbnailView() && app.widgets()?.book?.pagesInDisplay() === 1 && !app.widgets()?.book?.sideBySide()',
-    '[class.two-page]':
-      '!app.widgets()?.book?.thumbnailView() && (app.widgets()?.book?.pagesInDisplay() === 2 || app.widgets()?.book?.sideBySide())',
+    '[class.one-page]': 'onePage() && !app.widgets()?.book?.sideBySide()',
+    '[class.two-page]': '!onePage() || app.widgets()?.book?.sideBySide()',
   },
   templateUrl: './lectern.component.html',
   styleUrls: ['./lectern.component.scss'],
-
 })
 export class BookComponent {
   app = inject(AppComponent);
 
-  cycleImageType(page: Page) {
-    const types: PageType[] = ['Text', 'Image', 'Blank'];
-    let idx = types.findIndex((type) => page.type === type);
-    idx = (idx + 1) % types.length;
-    page.type = types[idx];
-  }
+  onePage = computed<boolean>(() => {
+    return this.app.widgets().book.pagesInDisplay() === 1;
+  });
+
+	showRightPage = computed<boolean>(() => {
+		const bookLength = (this.app.resources().bookCbt.value()?.length ?? 0);
+		return this.app.widgets().book.sideBySide() || 
+			(this.app.widgets().book.pagesInDisplay() === 2 && 
+				bookLength > this.rightPageNo()
+			);
+	});
+	
+  leftPageNo = computed<number>(() => {
+		return this.app.appState().currentPageSet() * this.app.widgets().book.pagesInDisplay();
+	});
+
+	rightPageNo = computed<number>(() => {
+		return this.leftPageNo() + 1;
+	});
 }
