@@ -14,39 +14,47 @@ import { map } from 'rxjs/operators';
 })
 export class AppWidgetsComponent {
   private app = inject(AppComponent);
-	private breakpointObserver = inject(BreakpointObserver);
+  private breakpointObserver = inject(BreakpointObserver);
 
-	busy = signal<boolean>(false);
-	fullscreen = signal<boolean>(false);
-	
-	isMobile = toSignal(
-    this.breakpointObserver.observe([Breakpoints.Handset, Breakpoints.Small])
-			.pipe(
-				map((breakpointState: BreakpointState) => {
-					return breakpointState.matches
-				})
-			)		
-		,
-    { initialValue: false }
-  )
+  busy = signal<boolean>(false);
+  fullscreen = signal<boolean>(false);
+
+  isMobile = toSignal(
+    this.breakpointObserver.observe([Breakpoints.Handset, Breakpoints.Small]).pipe(
+      map((breakpointState: BreakpointState) => {
+        return breakpointState.matches;
+      }),
+    ),
+    { initialValue: false },
+  );
 
   panel = {
     showBook: computed(() => {
-      return this.app.appState().currentItem() 
-				&& this.app.appState().currentCollection()?.openType === 'book'
-				&& this.app.resources().bookCbt.hasValue();
+      return (
+        this.app.appState().currentItem() &&
+        this.app.appState().currentCollection()?.openType === 'book' &&
+        this.app.resources().bookCbt.hasValue()
+      );
     }),
 
     showSettings: computed(() => {
       return !!this.app.appState().showSettingsManual() || !!this.app.appState().showSettingsRequired();
     }),
 
-    showLibrarySettings: computed(() => this.app.appState().showLibraryEditorManual())
+    showLibrarySettings: computed(() => this.app.appState().showLibraryEditorManual()),
   };
   book = {
-    pagesInDisplay: linkedSignal<number>(() => this.isMobile() ? 1 : 2),
+    pagesInDisplay: linkedSignal<number>(() => (this.isMobile() ? 1 : 2)),
     thumbnailView: signal<boolean>(false),
     markdownView: signal<boolean>(false),
     sideBySide: signal<boolean>(false),
   };
+  sideNav = {
+    showOptions: signal<boolean>(false),
+    showToc: signal<boolean>(false),
+    showTocAdd: signal<boolean>(false),
+  };
+  sideNavOpen = computed<boolean>(() => {
+    return this.sideNav.showOptions() || this.sideNav.showToc() || this.sideNav.showTocAdd();
+  });
 }

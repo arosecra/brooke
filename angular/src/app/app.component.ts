@@ -22,6 +22,7 @@ import { SettingsComponent } from './settings/settings';
 import { resourceStatusToPromise } from './shared/res-status-to-promise';
 import { Orator } from './audio/orator';
 import { GalleryComponent } from './media/gallery/gallery.component';
+import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app',
@@ -286,6 +287,27 @@ export class AppComponent {
     if (appState) this.goToPageSet(appState.currentPageSet() - 1);
 		return Promise.resolve(true);
   }
+
+	toggleBookOptions(): Promise<boolean> {
+		this.widgets().sideNav.showOptions.update((val) => !val);
+		this.widgets().sideNav.showToc.set(false);
+		this.widgets().sideNav.showTocAdd.set(false);
+		return Promise.resolve(true);
+	}
+
+	toggleToC(): Promise<boolean> {
+		this.widgets().sideNav.showToc.update((val) => !val);
+		this.widgets().sideNav.showOptions.set(false);
+		this.widgets().sideNav.showTocAdd.set(false);
+		return Promise.resolve(true);
+	}
+
+	toggleAddToC(): Promise<boolean> {
+		this.widgets().sideNav.showTocAdd.update((val) => !val);
+		this.widgets().sideNav.showToc.set(false);
+		this.widgets().sideNav.showOptions.set(false);
+		return Promise.resolve(true);
+	}
 
   toggleThumbnailView(): Promise<boolean> {
     this.widgets()?.book.thumbnailView.update((val) => !val);

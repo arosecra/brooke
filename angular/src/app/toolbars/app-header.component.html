@@ -78,53 +78,53 @@
         }
 			</action> 
 			@if(!orator.reading) {
-				<action [m]="app.textToSpeech" title="Text to Speech" [disabled]="orator.reading">
-					text_to_speech
-				</action>
-
+				<action [m]="app.textToSpeech" title="Text to Speech" [disabled]="orator.reading"
+					[disabled]="!app.widgets().panel.showBook() || app.widgets().book.thumbnailView()"
+				>text_to_speech</action>
 			} @else {
 				<action [m]="app.stopTextToSpeech" title="Stop Text to Speech" [disabled]="!orator.reading">
 					stop
 				</action>
 			}
-			<action [m]="app.toggleMarkdownView" title="View Markdown">
-				markdown
-			</action>
-			@if(!app.widgets().isMobile()) {
-				<action [m]="app.toggleThumbnailView" title="View Thumbnails">
-					dataset
-				</action>
-			}
-      <button matMiniFab title="Book Options" (click)="itemOptionsDrawer.toggle()">
+      <button matMiniFab title="Book Options" (click)="app.toggleBookOptions()">
         <mat-icon fontSet="material-symbols-outlined">book_2</mat-icon>
       </button>
-      <!-- <button matMiniFab title="Right to Left Mode">
-        <mat-icon fontSet="material-symbols-outlined">rotate_left</mat-icon>
-      </button> -->
-			<button matMiniFab title="Table of Contents" > <!-- book toc -->
+			<button matMiniFab title="Table of Contents" (click)="app.toggleToC()"> <!-- book toc -->
 				<mat-icon fontSet="material-symbols-outlined">format_list_bulleted</mat-icon>
 			</button>
-			<button matMiniFab title="Add ToC Entry" > <!-- add to book toc -->
+			<button matMiniFab title="Add ToC Entry" (click)="app.toggleAddToC()"> <!-- add to book toc -->
 				<mat-icon fontSet="material-symbols-outlined">format_list_bulleted_add</mat-icon>
 			</button>
-			@if(!app.widgets().isMobile()) {
-				<action [m]="app.toggleOneOrTwoPageMode" title="Toggle Page Mode">
-					two_pager
-				</action>
-				<action [m]="app.toggleSideBySide" title="Compare Markdown and Image">
-					compare
-				</action>
-			}
-      <button matMiniFab title="Close" (click)="app.openHome()">
+
+      <button matMiniFab title="Close" (click)="app.openHome()" [disabled]="!app.appState().currentCollection()">
         <mat-icon fontSet="material-symbols-outlined">close</mat-icon>
       </button>
 		</div>
 	</mat-drawer>
   <mat-drawer-content class="fh-body">
 		<mat-drawer-container hasBackdrop="true" class="fw fh-body">
-			<mat-drawer #itemOptionsDrawer mode="over" class="width-auto" >
+			<mat-drawer id="itemOptionsDrawer" #itemOptionsDrawer mode="over" class="width-auto" [opened]="app.widgets().sideNavOpen()">
 					<!-- book options or toc go here -->
 				<div class="flex flex-column flex-align-center toolbar">
+					@if(app.widgets().sideNav.showOptions()) {
+						<action [m]="app.toggleMarkdownView" title="View Markdown">
+							markdown
+						</action>
+						<action [m]="app.toggleThumbnailView" 
+							title="View Thumbnails"
+							[disabled]="app.widgets().isMobile()"
+						>
+							dataset
+						</action>
+						<action [m]="app.toggleOneOrTwoPageMode" 
+							title="Toggle Page Mode"
+							[disabled]="app.widgets().isMobile()"
+						>two_pager</action>
+						<action [m]="app.toggleSideBySide" 
+							title="Compare Markdown and Image"
+							[disabled]="app.widgets().isMobile()"
+						>compare</action>
+					}
 				</div>
 			</mat-drawer>
 			<mat-drawer-content class="fh-body">

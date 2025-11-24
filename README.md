@@ -8,6 +8,16 @@ updated todo:
 
 
 - ui:
+	- consider create a separate component for each action
+		- makes other html simple
+		- can implement actionable
+		- doing this allows action button component to inject the actionable
+		- can have an 'act' function in actionable
+		- can also accomodate more customized buttons
+		- can inject all actionables
+		- can be named
+		- 
+
 	- convert all services to components (allows for hierarchal injection)
 
 	- consider injecting resource values. actions that use the resource will take the resource as a parameter
