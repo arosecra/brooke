@@ -9,9 +9,11 @@ import { ToggleThumbnailViewActionComponent } from './toggle-thumbnail-view-acti
 import { ToggleNumPagesComponent } from './toggle-num-pages-action.component';
 import { ToggleSideBySideComponent } from './toggle-side-by-side-action.component';
 import { ToggleAddToCComponent } from './toggle-add-toc-action.component';
+import { SelectCollectionActionComponent } from './select-collection-action.component';
 
 const components = [
 	CloseActionComponent,
+	SelectCollectionActionComponent,
 	ToggleBookOptionsComponent, 
 	ToggleFullscreenActionComponent, 
 	ToggleMarkdownViewActionComponent,

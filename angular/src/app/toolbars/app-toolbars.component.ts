@@ -6,10 +6,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActionsModule } from '../actions/actions.module';
 import { AppComponent } from '../app.component';
-import { Orator } from '../audio/orator';
 import { BookToCComponent } from '../media/book-toc/book-toc.component';
-import { CustomPaginatorIntl } from './custom-paginator-intl.service';
 import { MatChipAndRemoveComponent } from "../shared/mat-chip-and-remove.component";
+import { CustomPaginatorIntl } from './custom-paginator-intl.service';
 
 @Component({
   selector: 'app-toolbars',
@@ -30,5 +29,4 @@ import { MatChipAndRemoveComponent } from "../shared/mat-chip-and-remove.compone
 })
 export class AppToolbarsComponent {
   protected app = inject(AppComponent);
-	protected orator = inject(Orator);
 }

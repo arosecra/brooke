@@ -6,13 +6,13 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { SeriesComponent } from '../cards/series-card/series-card.component';
 import { ActionComponent } from '../../actions/action.component';
+import { ActionsModule } from "../../actions/actions.module";
 
 @Component({
   selector: 'collection-browser',
-  imports: [ItemCardComponent, MatButtonModule, MatChipsModule, MatIconModule, MatButtonModule, SeriesComponent, ActionComponent],
+  imports: [ItemCardComponent, MatButtonModule, MatChipsModule, MatIconModule, MatButtonModule, SeriesComponent, ActionComponent, ActionsModule],
   templateUrl: './collection-browser.component.html', 
   styleUrls: ['./collection-browser.component.scss'],
-
 })
 export class CollectionBrowserComponent {
   app = inject(AppComponent);

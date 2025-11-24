@@ -10,7 +10,7 @@
     <h2 class="flex flex-justify-content-center">Collections</h2>
     <div class="flex flex-justify-content-center">
       @for (collection of library.collections; track collection.name) {
-        <action tonal="{{ collection.name.replaceAll('_', ' ') }}" [m]="app.openCollection" [p]="[collection]"></action>
+				<select-collection-action [collection]="collection"></select-collection-action>
       }
     </div>
   }
