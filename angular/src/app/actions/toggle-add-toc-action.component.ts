@@ -7,9 +7,14 @@ import { AppComponent } from '../app.component';
   selector: 'toggle-add-toc-action',
   imports: [MatButtonModule, MatIconModule],
   template: `
-		<button matMiniFab title="Add ToC Entry" (click)="app.toggleAddToC()"> <!-- add to book toc -->
-			<mat-icon fontSet="material-symbols-outlined">format_list_bulleted_add</mat-icon>
-		</button>
+    <button
+      matMiniFab
+      title="Add ToC Entry"
+      (click)="app.toggleAddToC()"
+      [disabled]="!app.widgets().panel.showBook() || app.widgets().book.thumbnailView()"
+    >
+      <mat-icon fontSet="material-symbols-outlined">format_list_bulleted_add</mat-icon>
+    </button>
   `,
   styles: ``,
 })

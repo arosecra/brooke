@@ -7,7 +7,12 @@ import { AppComponent } from '../app.component';
   selector: 'toggle-book-options-action',
   imports: [MatButtonModule, MatIconModule],
   template: `
-    <button matMiniFab title="Book Options" (click)="app.toggleBookOptions()">
+    <button
+      matMiniFab
+      title="Book Options"
+      (click)="app.toggleBookOptions()"
+      [disabled]="!app.widgets().panel.showBook() || app.widgets().book.thumbnailView()"
+    >
       <mat-icon fontSet="material-symbols-outlined">book_2</mat-icon>
     </button>
   `,
