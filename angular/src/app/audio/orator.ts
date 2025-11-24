@@ -10,6 +10,7 @@ import { Injectable } from '@angular/core';
 export class Orator {
   private processor: any;
   private synthesis: SpeechSynthesis = window.speechSynthesis;
+	private wakeLock: WakeLockSentinel | null;
   
 	public reading: boolean = false;
 
@@ -17,9 +18,12 @@ export class Orator {
     this.processor = unified().use(remarkParse);
   }
 
-  stop() {
+  async stop() {
     this.reading = false;
     this.synthesis.cancel();
+		await this.wakeLock?.release().then(() => {
+			this.wakeLock = null;
+		});
   }
 
   getVoices() {
@@ -32,6 +36,13 @@ export class Orator {
 		pagesInDisplay: number, 
 		afterPageCallback: Function
 	) {
+		try {
+			this.wakeLock = await navigator.wakeLock.request("screen");
+		} catch (err: any) {
+			// The Wake Lock request has failed - usually system related, such as battery.
+			console.log(`${err.name}, ${err.message}`);
+		}
+
 		this.reading = true;
 		for (let i = startingPage; i < book.length && this.reading; i += pagesInDisplay) {
       if (!book[i].markdown) {
@@ -49,6 +60,7 @@ export class Orator {
       }
       afterPageCallback();
     }
+		await this.stop();
   }
 
   async read(text: string, voiceName: string) {
