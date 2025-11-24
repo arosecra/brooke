@@ -95,6 +95,12 @@ updated todo:
 		- add gestures (swipe specifically)
 
 	- editor for markdown, if i want to change / update it?
+
+	- switch to pnpm
+
+	- switch to pnpm mono repo
+
+	- once switched, create a project to create a subset of the material-symbols
 	
 
 ToDo:
