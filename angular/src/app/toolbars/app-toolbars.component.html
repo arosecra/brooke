@@ -1,98 +1,105 @@
-
 @let widgets = app.widgets();
 @let appState = app.appState();
 @let resources = app.resources();
 @if (widgets && appState && resources) {
-  <mat-toolbar color="primary" class="flex flex-align-center">
-    <mat-toolbar-row>
-      <mat-icon fontSet="material-symbols-outlined">newsstand</mat-icon>
-      <h1>Brooke</h1>
-			 @if(!widgets.isMobile()) {
-				  @if (appState.currentCollection()) {
-						@let collectionLabel = appState.currentItem() ? '...' : appState.currentCollection()?.name;
-						<mat-icon fontSet="material-symbols-outlined">chevron_right</mat-icon>
-						<mat-chip-and-remove [label]="collectionLabel" (removed)="app.openHome()" />
-					}
-					@if (appState.currentCategory()) {
-						@let categoryLabel = appState.currentSeries() || appState.currentItem() ? '...' : appState.currentCategory()?.name;
-						<mat-icon fontSet="material-symbols-outlined">chevron_right</mat-icon>
-						<mat-chip-and-remove [label]="categoryLabel" (removed)="app.openCollection()" />
-					}
-					@if (appState.currentSeries()) {
-						<mat-icon fontSet="material-symbols-outlined">chevron_right</mat-icon>
-						<mat-chip-and-remove [label]="appState.currentSeries()?.name" (removed)="app.openCategory()" />
-					}
-					@if (appState.currentItem()) {
-						<mat-icon fontSet="material-symbols-outlined">chevron_right</mat-icon>
-						<mat-chip-and-remove [label]="appState.currentItem()?.name" (removed)="app.openCategory()" />
-					}
-			 }
-      <span class="spacer"></span>
-
-      @if (!widgets.panel.showBook()) {
-        <button matMiniFab (click)="appState.showLibraryEditorManual.set(true)" title="Modify Categories">
-          <mat-icon fontSet="material-symbols-outlined">library_books</mat-icon>
-        </button>
-        <button matMiniFab title="Write Categories">
-          <mat-icon fontSet="material-symbols-outlined">sync_arrow_up</mat-icon>
-        </button>
-        <button matMiniFab (click)="appState.showSettingsManual.set(true)">
-          <mat-icon fontSet="material-symbols-outlined">settings</mat-icon>
-        </button>
-      }
-			@if (widgets.book.thumbnailView()) {
-				<button matMiniFab (click)="app.updateItem()" title="Save">
-					<mat-icon fontSet="material-symbols-outlined">save</mat-icon>
-				</button>
-			}
-
-      @if (widgets.panel.showBook()) {
-        @if (resources.bookCbt.hasValue()) {
-					@let book = resources.bookCbt.value();
-					@let page = appState.currentPageSet();
-					@let pageSize = widgets.book.pagesInDisplay();
-					<span class="pages-of">
-						@if(pageSize === 1) {
-							Page {{page * pageSize + 1}} of {{book.length}}
-						} @else {
-							Pages {{page * pageSize + 1}}, {{page * pageSize + 2}} of {{book.length}}
-						}
-					</span>
-					<previous-page-action></previous-page-action>
-					<next-page-action></next-page-action>
+  @if (!widgets.fullscreen()) {
+    <mat-toolbar color="primary" class="flex flex-align-center">
+      <mat-toolbar-row>
+        <mat-icon fontSet="material-symbols-outlined">newsstand</mat-icon>
+        <h1>Brooke</h1>
+        @if (!widgets.isMobile()) {
+          @if (appState.currentCollection()) {
+            @let collectionLabel = appState.currentItem() ? '...' : appState.currentCollection()?.name;
+            <mat-icon fontSet="material-symbols-outlined">chevron_right</mat-icon>
+            <mat-chip-and-remove [label]="collectionLabel" (removed)="app.openHome()" />
+          }
+          @if (appState.currentCategory()) {
+            @let categoryLabel =
+              appState.currentSeries() || appState.currentItem() ? '...' : appState.currentCategory()?.name;
+            <mat-icon fontSet="material-symbols-outlined">chevron_right</mat-icon>
+            <mat-chip-and-remove [label]="categoryLabel" (removed)="app.openCollection()" />
+          }
+          @if (appState.currentSeries()) {
+            <mat-icon fontSet="material-symbols-outlined">chevron_right</mat-icon>
+            <mat-chip-and-remove [label]="appState.currentSeries()?.name" (removed)="app.openCategory()" />
+          }
+          @if (appState.currentItem()) {
+            <mat-icon fontSet="material-symbols-outlined">chevron_right</mat-icon>
+            <mat-chip-and-remove [label]="appState.currentItem()?.name" (removed)="app.openCategory()" />
+          }
         }
-      }
-    </mat-toolbar-row>
-  </mat-toolbar>
+        <span class="spacer"></span>
+
+        @if (!widgets.panel.showBook()) {
+          <button matMiniFab (click)="appState.showLibraryEditorManual.set(true)" title="Modify Categories">
+            <mat-icon fontSet="material-symbols-outlined">library_books</mat-icon>
+          </button>
+          <button matMiniFab title="Write Categories">
+            <mat-icon fontSet="material-symbols-outlined">sync_arrow_up</mat-icon>
+          </button>
+          <button matMiniFab (click)="appState.showSettingsManual.set(true)">
+            <mat-icon fontSet="material-symbols-outlined">settings</mat-icon>
+          </button>
+        }
+        @if (widgets.book.thumbnailView()) {
+          <button matMiniFab (click)="app.updateItem()" title="Save">
+            <mat-icon fontSet="material-symbols-outlined">save</mat-icon>
+          </button>
+        }
+
+        @if (widgets.panel.showBook()) {
+          @if (resources.bookCbt.hasValue()) {
+            @let book = resources.bookCbt.value();
+            @let page = appState.currentPageSet();
+            @let pageSize = widgets.book.pagesInDisplay();
+            <span class="pages-of">
+              @if (pageSize === 1) {
+                Page {{ page * pageSize + 1 }} of {{ book.length }}
+              } @else {
+                Pages {{ page * pageSize + 1 }}, {{ page * pageSize + 2 }} of {{ book.length }}
+              }
+            </span>
+            <previous-page-action></previous-page-action>
+            <next-page-action></next-page-action>
+          }
+        }
+      </mat-toolbar-row>
+    </mat-toolbar>
+  }
 }
 
 <mat-drawer-container class="example-container" hasBackdrop="false" class="fw fh-body">
   <mat-drawer #drawer mode="push" class="width-auto" opened="true">
-		<div class="flex flex-column flex-align-center toolbar">
-			<toggle-fullscreen-action></toggle-fullscreen-action> 
-			<toggle-orator-action></toggle-orator-action>
-			<toggle-book-options-action></toggle-book-options-action>
-			<toggle-toc-action></toggle-toc-action>
-			<toggle-add-toc-action></toggle-add-toc-action>
-			<close-action></close-action>
-		</div>
-	</mat-drawer>
+    <div class="flex flex-column flex-align-center toolbar">
+      <toggle-fullscreen-action></toggle-fullscreen-action>
+      <toggle-orator-action></toggle-orator-action>
+      <toggle-book-options-action></toggle-book-options-action>
+      <toggle-toc-action></toggle-toc-action>
+      <toggle-add-toc-action></toggle-add-toc-action>
+      <close-action></close-action>
+    </div>
+  </mat-drawer>
   <mat-drawer-content class="fh-body">
-		<mat-drawer-container hasBackdrop="true" class="fw fh-body">
-			<mat-drawer id="itemOptionsDrawer" #itemOptionsDrawer mode="over" class="width-auto" [opened]="app.widgets().sideNavOpen()">
-				<div class="flex flex-column flex-align-center toolbar">
-					@if(app.widgets().sideNav.showOptions()) {
-						<toggle-markdown-view-action></toggle-markdown-view-action>
-						<toggle-thumbnail-view-action></toggle-thumbnail-view-action>
-						<toggle-num-pages-action></toggle-num-pages-action>
-						<toggle-side-by-side-action></toggle-side-by-side-action>
-					}
-				</div>
-			</mat-drawer>
-			<mat-drawer-content class="fh-body">
-				<ng-content></ng-content>
-			</mat-drawer-content>
-		</mat-drawer-container>
+    <mat-drawer-container hasBackdrop="true" class="fw fh-body">
+      <mat-drawer
+        id="itemOptionsDrawer"
+        #itemOptionsDrawer
+        mode="over"
+        class="width-auto"
+        [opened]="app.widgets().sideNavOpen()"
+      >
+        <div class="flex flex-column flex-align-center toolbar">
+          @if (app.widgets().sideNav.showOptions()) {
+            <toggle-markdown-view-action></toggle-markdown-view-action>
+            <toggle-thumbnail-view-action></toggle-thumbnail-view-action>
+            <toggle-num-pages-action></toggle-num-pages-action>
+            <toggle-side-by-side-action></toggle-side-by-side-action>
+          }
+        </div>
+      </mat-drawer>
+      <mat-drawer-content class="fh-body">
+        <ng-content></ng-content>
+      </mat-drawer-content>
+    </mat-drawer-container>
   </mat-drawer-content>
 </mat-drawer-container>
-
