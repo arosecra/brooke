@@ -10,9 +10,13 @@ import { ToggleNumPagesComponent } from './toggle-num-pages-action.component';
 import { ToggleSideBySideComponent } from './toggle-side-by-side-action.component';
 import { ToggleAddToCComponent } from './toggle-add-toc-action.component';
 import { SelectCollectionActionComponent } from './select-collection-action.component';
+import { NextPageActionComponent } from './next-page-acton.component';
+import { PreviousPageActionComponent } from './previous-page-acton.component';
 
 const components = [
 	CloseActionComponent,
+	NextPageActionComponent,
+	PreviousPageActionComponent,
 	SelectCollectionActionComponent,
 	ToggleBookOptionsComponent, 
 	ToggleFullscreenActionComponent, 

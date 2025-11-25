@@ -42,24 +42,24 @@
       }
 			@if (widgets.book.thumbnailView()) {
 				<button matMiniFab (click)="app.updateItem()" title="Save">
-					<!-- save ocr details -->
 					<mat-icon fontSet="material-symbols-outlined">save</mat-icon>
 				</button>
 			}
 
       @if (widgets.panel.showBook()) {
         @if (resources.bookCbt.hasValue()) {
-          <mat-paginator
-            (page)="app.handlePaginationEvent($event)"
-            [length]="resources.bookCbt.value().length"
-            [pageSize]="widgets.book.pagesInDisplay()"
-            [disabled]="false"
-            [showFirstLastButtons]="false"
-            [pageIndex]="appState.currentPageSet()"
-            [hidePageSize]="true"
-            aria-label="Select page"
-          >
-          </mat-paginator>
+					@let book = resources.bookCbt.value();
+					@let page = appState.currentPageSet();
+					@let pageSize = widgets.book.pagesInDisplay();
+					<span class="pages-of">
+						@if(pageSize === 1) {
+							Page {{page * pageSize + 1}} of {{book.length}}
+						} @else {
+							Pages {{page * pageSize + 1}}, {{page * pageSize + 2}} of {{book.length}}
+						}
+					</span>
+					<previous-page-action></previous-page-action>
+					<next-page-action></next-page-action>
         }
       }
     </mat-toolbar-row>
