@@ -102,9 +102,6 @@ updated todo:
 
 	- once switched, create a project to create a subset of the material-symbols
 
-	- consider removing cdk/layout & replacing w/ slimmer approach
-		- media query
-		- 
 	
 
 ToDo:
