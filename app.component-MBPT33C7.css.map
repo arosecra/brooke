@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/app.component.scss"],
+  "sourcesContent": ["\r\nmain {\r\n  display: flex;\r\n  gap: var(--o-gap);\r\n\twidth: calc(100vw - 16px - var(--mat-toolbar-mobile-height, 56px));\r\n}"],
+  "mappings": "AACA,KACE,QAAA,KACA,IAAA,IAAA,SACD,MAAA,KAAA,MAAA,EAAA,KAAA,EAAA,IAAA,2BAAA,EAAA",
+  "names": []
+}

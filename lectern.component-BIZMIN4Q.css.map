@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/media/lectern/lectern.component.scss"],
+  "sourcesContent": ["\r\n:host {\r\n\tbackground-color: #f8f6f1;\r\n\tmin-height: 100%;\r\n\tmin-width:  100%;\r\n}\r\n\r\n:host-context(.one-page) {\r\n\tdisplay: grid;\r\n  grid-gap: 10px;\r\n  grid-template-rows: auto;\r\n  align-items: start;\r\n}\r\n\r\n:host-context(.two-page) {\r\n\tdisplay: grid;\r\n  grid-template-columns: calc((100% - 5px) / 2) calc((100% - 5px) / 2);\r\n  grid-gap: 10px;\r\n  grid-template-rows: auto;\r\n  align-items: start;\r\n}"],
+  "mappings": "AACA,MACC,iBAAA,QACA,WAAA,KACA,UAAA,KAGD,cAAA,CAAA,UACC,QAAA,KACC,SAAA,KACA,mBAAA,KACA,YAAA,MAGF,cAAA,CAAA,UACC,QAAA,KACC,sBAAA,KAAA,MAAA,EAAA,IAAA,CAAA,GAAA,KAAA,MAAA,EAAA,IAAA,CAAA,GACA,SAAA,KACA,mBAAA,KACA,YAAA",
+  "names": []
+}

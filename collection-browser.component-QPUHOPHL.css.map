@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/media/collection-browser/collection-browser.component.scss"],
+  "sourcesContent": [":host {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: start;\r\n  gap: 8px;\r\n  width: 100%;\r\n}\r\n\r\n.books {\r\n\t--item-card-width: 250px;\r\n}\r\n\r\n.videos {\r\n\t--item-card-width: 350px;\r\n}\t"],
+  "mappings": "AAAA,MACE,QAAA,KACA,eAAA,OACA,gBAAA,MACA,IAAA,IACA,MAAA,KAGF,CAAA,MACC,mBAAA,MAGD,CAAA,OACC,mBAAA",
+  "names": []
+}

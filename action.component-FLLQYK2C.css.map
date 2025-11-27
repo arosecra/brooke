@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["angular:styles/component:css;43d1ace7caaf7b26b2bccde593f895716055d2ae59f0f673c4f68d8bbd6d2059;D:/Projects/brooke/angular/src/app/actions/action.component.ts"],
+  "sourcesContent": ["\n    .button-overlay {\n      position: absolute;\n      top: 0;\n      left: 0;\n      height: 100%;\n      width: 100%;\n      background-color: transparent;\n    }\n\n    .button-overlay-circle {\n      background-color: rgba(128, 128, 128, 0.5);\n      height: 64px;\n      width: 64px;\n      border-radius: 50%;\n      display: flex;\n      align-items: center;\n      justify-content: center;\n    }\n\n    .button-overlay-icon {\n      color: white;\n      height: 32px;\n      width: 32px;\n      line-height: 32px;\n    }\n  "],
+  "mappings": "AACI,CAAC,eACC,SAAU,SACV,IAAK,EACL,KAAM,EACN,OAAQ,KACR,MAAO,KACP,iBAAkB,WACpB,CAEA,CAAC,sBACC,iBAAkB,UAClB,OAAQ,KACR,MAAO,KAbb,cAcqB,IACf,QAAS,KACT,YAAa,OACb,gBAAiB,MACnB,CAEA,CAAC,oBACC,MAAO,KACP,OAAQ,KACR,MAAO,KACP,YAAa,IACf",
+  "names": []
+}

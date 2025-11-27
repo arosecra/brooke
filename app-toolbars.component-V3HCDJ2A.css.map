@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/toolbars/app-toolbars.component.scss"],
+  "sourcesContent": [":host {\r\n\t--mat-sidenav-container-width: auto;\r\n\t--mat-chip-label-text-color: var(--mat-sys-on-primary-container);\r\n  --mat-chip-outline-color: var(--mat-sys-on-primary-container);\r\n  --mat-chip-with-trailing-icon-trailing-icon-color: var(--mat-sys-on-primary-container);\r\n}\r\n\r\nmat-toolbar-row {\r\n  column-gap: 8px;\r\n}\r\n\r\n.mat-drawer-inner-container {\r\n\twidth: auto !important;\r\n}\r\n\r\n.pages-of {\r\n\tfont-size: small;\r\n  margin-right: 16px;\r\n  font-weight: 600;\r\n}\r\n\r\n.toolbar {\r\n\twidth: var(--mat-toolbar-mobile-height, 56px);\r\n\tmargin-top: 8px;\r\n}\r\n\r\n.font-bold {\r\n  font-weight: bold;\r\n}\r\n\r\n.margin-top-8 {\r\n\tmargin-top: 8px;\r\n}\r\n\r\n.version {\r\n\tfont-size: small;\r\n  line-height: 8px;\r\n}"],
+  "mappings": "AAAA,MACC,+BAAA,KACA,6BAAA,IAAA,gCACC,0BAAA,IAAA,gCACA,mDAAA,IAAA,gCAGF,gBACE,WAAA,IAGF,CAAA,2BACC,MAAA,eAGD,CAAA,SACC,UAAA,MACC,aAAA,KACA,YAAA,IAGF,CAAA,QACC,MAAA,IAAA,2BAAA,EAAA,MACA,WAAA,IAGD,CAAA,UACE,YAAA,IAGF,CAAA,aACC,WAAA,IAGD,CAAA,QACC,UAAA,MACC,YAAA",
+  "names": []
+}

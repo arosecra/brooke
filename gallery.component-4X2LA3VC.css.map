@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/media/gallery/gallery.component.scss"],
+  "sourcesContent": ["\r\n.thumbnails {\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  align-content: flex-end;\r\n  align-items: flex-end;\r\n  justify-content: center;\r\n  gap: 16px;\r\n}\r\n\r\n.thumbnails mat-card {\r\n  align-items: center;\r\n}\r\n\r\n.thumbnails mat-card-actions {\r\n  align-items: flex-start;\r\n  flex-direction: column;\r\n  row-gap: 16px;\r\n}"],
+  "mappings": "AACA,CAAA,WACE,QAAA,KACA,UAAA,KACA,cAAA,SACA,YAAA,SACA,gBAAA,OACA,IAAA,KAGF,CATA,WASA,SACE,YAAA,OAGF,CAbA,WAaA,iBACE,YAAA,WACA,eAAA,OACA,QAAA",
+  "names": []
+}

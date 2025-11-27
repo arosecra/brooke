@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/media/virtual-page/virtual-page-component.scss"],
+  "sourcesContent": [":host {\r\n  font-family: 'Times New Roman', Times, serif;\r\n  font-size: 24px;\r\n}\r\n\r\ndiv:not(:first-of-type) p {\r\n  margin-block-start: 0em;\r\n  margin-block-end: 0.5em;\r\n}\r\n\r\np {\r\n  text-indent: 1em;\r\n}\r\n"],
+  "mappings": "AAAA,MACE,YAAA,eAAA,CAAA,KAAA,CAAA,MACA,UAAA,KAGF,GAAA,KAAA,gBAAA,EACE,mBAAA,IACA,iBAAA,KAGF,EACE,YAAA",
+  "names": []
+}
