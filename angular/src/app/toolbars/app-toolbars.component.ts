@@ -7,6 +7,7 @@ import { ActionsModule } from '../actions/actions.module';
 import { AppComponent } from '../app.component';
 import { BookToCComponent } from '../media/book-toc/book-toc.component';
 import { MatChipAndRemoveComponent } from "../shared/mat-chip-and-remove.component";
+import { version } from '../../../package.json';
 
 @Component({
   selector: 'app-toolbars',
@@ -25,4 +26,5 @@ import { MatChipAndRemoveComponent } from "../shared/mat-chip-and-remove.compone
 })
 export class AppToolbarsComponent {
   protected app = inject(AppComponent);
+	version = version;
 }

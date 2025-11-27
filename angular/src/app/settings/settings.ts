@@ -35,12 +35,12 @@ export class SettingsComponent {
   orator = inject(Orator);
 
   busy = signal<boolean>(false);
-  busyMessage = signal<string>('not busy');
+  busyMessage = signal<string[]>(['not busy']);
   voice: SpeechSynthesisVoice;
 
   async requestPermission(permissable: Collection | CacheDirectory) {
     this.busy.set(true);
-    this.busyMessage.set('Requesting Permission');
+    this.busyMessage.set(['Requesting Permission']);
     permissable.hasPermission = await this.files.getReadWritePermission(permissable.handle);
     this.app.resources()?.storedLibrary.reload();
     this.busy.set(false);
@@ -48,7 +48,7 @@ export class SettingsComponent {
 
   async updateCollectionFromFiles(collection: Collection) {
     this.busy.set(true);
-    this.busyMessage.set('Downloading Collection');
+    this.busyMessage.set(['Downloading Collection']);
     let handle = collection.handle;
     this.removeCollection(collection);
     this.addCollectionFromHandle(handle);
@@ -59,7 +59,7 @@ export class SettingsComponent {
     const alreadyBusy = this.busy();
     if (!alreadyBusy) {
       this.busy.set(true);
-      this.busyMessage.set('Removing Collection');
+      this.busyMessage.set(['Removing Collection']);
     }
     await this.appDB.removeCollection(collection);
     await this.appDB.removeCategories(collection);
@@ -75,7 +75,7 @@ export class SettingsComponent {
     let handle: FileSystemDirectoryHandle = await window.showDirectoryPicker();
 
     this.busy.set(true);
-    this.busyMessage.set('Setting cache directory');
+    this.busyMessage.set(['Setting cache directory']);
 
     await this.files.getReadWritePermission(handle);
 
@@ -92,7 +92,7 @@ export class SettingsComponent {
 
   async addCollectionFromHandle(handle: FileSystemDirectoryHandle) {
     this.busy.set(true);
-    this.busyMessage.set('Adding Collection');
+    this.busyMessage.set(['Adding Collection']);
 
     await this.files.getReadWritePermission(handle);
 
@@ -106,7 +106,7 @@ export class SettingsComponent {
 
     collection.handle = handle;
 
-    this.busyMessage.set('Collection and categories loaded');
+    this.busyMessage.set(['Collection and categories loaded']);
 
     category.forEach((cat) => (cat.collectionName = collection.name));
     let itemToCategory: Record<string, Category> = {};
@@ -119,12 +119,12 @@ export class SettingsComponent {
       });
     });
 
-    this.busyMessage.set('Categories marked for collection');
+    this.busyMessage.set(['Categories marked for collection']);
 
     let fileExtensionFSEntries = Object.values(currentDirectory).filter((fsEntry) => {
       return fsEntry.name.endsWith(`${collection.itemExtension}`);
     });
-    this.busyMessage.set(`${fileExtensionFSEntries.length} item directories found. Processing.`);
+    this.busyMessage.set([`${fileExtensionFSEntries.length} item directories found. Processing.`]);
 
     let { items, thumbs } = await this.findItemsFromFiles(
       fileExtensionFSEntries,
@@ -132,6 +132,11 @@ export class SettingsComponent {
       collection,
       itemToCategory,
     );
+
+		
+		this.busyMessage.set([
+			`Adding to library`
+		]);
 
     let library = new Library({
       collections: [collection],
@@ -141,11 +146,23 @@ export class SettingsComponent {
     });
 
     await this.appDB.addLibrary(library);
+
+		
+		this.busyMessage.set([
+			`Adding thumbnails`
+		]);
     await this.appDB.addThumbnails(thumbs);
 
+		this.busyMessage.set([
+			`Reloading library`
+		]);
     this.app.resources()?.storedLibrary.reload();
 
     resourceStatusToPromise(this.app.resources()?.storedLibrary, this.injector).then(() => {
+			
+			this.busyMessage.set([
+				`Library reloaded`
+			]);
       this.busy.set(false);
     });
   }
@@ -160,13 +177,22 @@ export class SettingsComponent {
     let thumbs: Thumbnail[] = [];
     for (let i = 0; i < fileExtensionFSEntries.length; i++) {
       let fsEntry = fileExtensionFSEntries[i];
-      this.busyMessage.set(`Processing. ${fileExtensionFSEntries.length - i} files remaining.`);
+      this.busyMessage.set([
+				`Processing. ${fileExtensionFSEntries.length - i} files remaining.`, 
+				`${fsEntry.name}`
+			]);
 
       let seriesPath = this.files.getParentDirectoryForDirectoryPath(fsEntry.parentPath);
       let seriesFSEntry = currentDirectory[seriesPath];
       let seriesThumbnailFile = currentDirectory[`${seriesPath}/thumbnail.webp`]?.handle;
 
       if (seriesThumbnailFile) {
+				
+				this.busyMessage.set([
+					`Processing. ${fileExtensionFSEntries.length - i} files remaining.`, 
+					`${fsEntry.name}`,
+					'Is a series'
+				]);
         let seriesItem = itemsByPath[seriesFSEntry.path];
         if (!seriesItem) {
           seriesItem = await this.createSeriesItem(currentDirectory, seriesFSEntry, collection.name);
@@ -183,6 +209,11 @@ export class SettingsComponent {
           await this.createItem(currentDirectory, fsEntry, collection.name, collection.itemExtension),
         );
       } else {
+				this.busyMessage.set([
+					`Processing. ${fileExtensionFSEntries.length - i} files remaining.`, 
+					`${fsEntry.name}`,
+					'Not a series'
+				]);
         let item: Item = await this.createItem(currentDirectory, fsEntry, collection.name, collection.itemExtension);
         itemsByPath[item.pathFromCategoryRoot] = item;
 
@@ -196,6 +227,11 @@ export class SettingsComponent {
           });
         }
       }
+			this.busyMessage.set([
+				`Processing. ${fileExtensionFSEntries.length - i} files remaining.`, 
+				`${fsEntry.name}`,
+				'Completed'
+			]);
     }
 
     const items = Object.values(itemsByPath);
@@ -209,7 +245,7 @@ export class SettingsComponent {
 
   async playSampleText() {
     this.busy.set(true);
-    this.busyMessage.set('');
+    this.busyMessage.set(['']);
     this.orator.read(this.sampleText, this.app.resources().storedLibrary.value()!.voice).then(() => {
       this.busy.set(false);
     });
@@ -217,7 +253,7 @@ export class SettingsComponent {
 
   saveVoice() {
     this.busy.set(true);
-    this.busyMessage.set('');
+    this.busyMessage.set(['']);
     this.appDB
       .addSetting({
         name: 'voice',

@@ -9,6 +9,7 @@ export function mqSignal(mediaQuery: string) {
 	let writableSignal = signal<boolean>(false);
 	let ro: Partial<MediaQuerySignal> = writableSignal.asReadonly();
 	ro.mediaQueryList = window.matchMedia(mediaQuery);
+	writableSignal.set(ro.mediaQueryList.matches);
 	ro.mediaQueryList.addEventListener('change', (match) => {
 		writableSignal.set(match.matches);
 	});

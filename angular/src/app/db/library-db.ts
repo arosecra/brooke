@@ -74,8 +74,16 @@ export class LibraryDB {
 
     tx.commit();
 
-    return new Promise<boolean>((resolve) => {
+    return new Promise<boolean>((resolve, reject) => {
       tx.oncomplete = (e) => resolve(true);
+			tx.onerror = (e) => {
+				alert(JSON.stringify(e)); 
+				reject(e);
+			};
+			tx.onabort = (e) => {
+				alert('aborted' + JSON.stringify(e)); 
+				reject(e);
+			};
     });
   }
 
@@ -121,12 +129,20 @@ export class LibraryDB {
 	async addThumbnails(thumbnails: Thumbnail[]) {
     const db = await openDB('db', 1, onUpgradeNeeded);
     let tx = db.transaction(TABLE_NAMES, 'readwrite');
-    this.addAll<Thumbnail>(tx, thumbnails, 'thumbnails');
 
-    tx.commit();
-
-    return new Promise<boolean>((resolve) => {
+    return new Promise<boolean>((resolve, reject) => {
       tx.oncomplete = (e) => resolve(true);
+			tx.onerror = (e) => {
+				alert(JSON.stringify(e)); 
+				reject(false);
+			};
+			tx.onabort = (e) => {
+				alert('aborted' + JSON.stringify(e)); 
+				reject(false);
+			};
+
+			this.addAll<Thumbnail>(tx, thumbnails, 'thumbnails');
+			tx.commit();
     });
 	}
 
@@ -207,9 +223,15 @@ export class LibraryDB {
   }
 
   addAll<T>(tx: IDBTransaction, values: T[], objectStoreName: string) {
+		const requests: Promise<void>[] = [];
     let req = tx.objectStore(objectStoreName);
     for (let i = 0; i < values.length; i++) {
-      req.put(values[i]);
+			requests.push(new Promise<void>((resolve, reject) => {
+      	const request = req.put(values[i]);
+      	request.onsuccess = (e) => resolve();
+				request.onerror = (e) => reject(e);
+			}));
     }
+		return Promise.all(requests);
   }
 }

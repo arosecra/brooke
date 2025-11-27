@@ -10,7 +10,7 @@ import { ItemNamePipe } from './item-name.pipe';
     <mat-chip (removed)="remove()">
       {{ label() | itemName }}
       <button matChipRemove>
-        <mat-icon>cancel</mat-icon>
+        <mat-icon class="icon-fill icon-wght-700" fontSet="material-symbols-outlined">cancel</mat-icon>
       </button>
     </mat-chip>
   `,

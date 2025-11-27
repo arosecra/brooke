@@ -6,22 +6,8 @@ import { RemarkModule } from 'ngx-remark';
 @Component({
   selector: 'virtual-page',
   imports: [RemarkModule],
-  template: `
-		@let imgMode = !preferMarkdown() || !page().markdown;
-
-		@if(page().type === 'Blank') {
-			<div> Intentionally left blank </div>
-		} @else if (imgMode) {
-			<img style="width: 100%" [src]="page().fullPage"
-			/>
-		} @else {
-			<remark [markdown]="page().markdown">
-				<div *remarkTemplate="'paragraph'; let node" [remarkNode]="node"></div>
-				<p *remarkTemplate="'text'; let node">{{ node.value }}</p>
-			</remark>
-		}
-  `,
-  styles: ``,
+  templateUrl: './virtual-page-component.html',
+  styleUrls: ['./virtual-page-component.scss'],
 
 })
 export class VirtualPageComponent implements OnInit, OnDestroy {

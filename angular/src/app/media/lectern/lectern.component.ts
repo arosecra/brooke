@@ -32,7 +32,7 @@ export class BookComponent {
 	});
 	
   leftPageNo = computed<number>(() => {
-		return this.app.appState().currentPageSet() * this.app.widgets().book.pagesInDisplay();
+		return this.app.appState().currentPageSet();
 	});
 
 	rightPageNo = computed<number>(() => {

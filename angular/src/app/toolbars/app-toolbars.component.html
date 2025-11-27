@@ -6,7 +6,10 @@
     <mat-toolbar color="primary" class="flex flex-align-center">
       <mat-toolbar-row>
         <mat-icon fontSet="material-symbols-outlined">newsstand</mat-icon>
-        <h1>Brooke</h1>
+				<div class="flex flex-column flex-align-center flex-no-gap font-bold margin-top-8">
+        	<h1>Brooke</h1>
+					<span class="version">{{ version }}</span>
+				</div>
         @if (!widgets.isMobile()) {
           @if (appState.currentCollection()) {
             @let collectionLabel = appState.currentItem() ? '...' : appState.currentCollection()?.name;
@@ -53,10 +56,10 @@
             @let page = appState.currentPageSet();
             @let pageSize = widgets.book.pagesInDisplay();
             <span class="pages-of">
-              @if (pageSize === 1) {
-                Page {{ page * pageSize + 1 }} of {{ book.length }}
+              @if (pageSize === 1 || page + 1 >= book.length) {
+                Page {{ page + 1 }} of {{ book.length }}
               } @else {
-                Pages {{ page * pageSize + 1 }}, {{ page * pageSize + 2 }} of {{ book.length }}
+                Pages {{ page + 1 }}, {{ page + 2 }} of {{ book.length }}
               }
             </span>
             <previous-page-action></previous-page-action>

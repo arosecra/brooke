@@ -21,11 +21,9 @@ html {
 
 body {
   color-scheme: light;
-
   background-color: var(--mat-sys-surface);
   color: var(--mat-sys-on-surface);
   font: var(--mat-sys-body-medium);
-
   margin: 0;
 }
 
@@ -71,5 +69,13 @@ settings {
   display: flex;
   flex-direction: column;
   row-gap: var(--o-gap);
+}
+
+.icon-fill {
+	font-variation-settings: 'FILL' 1;
+}
+
+.icon-wght-700 {
+	font-weight: 700;
 }
 

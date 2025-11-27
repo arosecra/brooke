@@ -15,4 +15,5 @@ import { AppComponent } from '../app.component';
 })
 export class NextPageActionComponent {
   app = inject(AppComponent);
+
 }

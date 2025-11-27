@@ -2,9 +2,10 @@ export class CRUD {
 	
   static add<T>(tx: IDBTransaction, values: T, objectStoreName: string) {
     let req = tx.objectStore(objectStoreName);
-		return new Promise<void>((resolve) => {
+		return new Promise<void>((resolve, reject) => {
       	const request = req.put(values);
       	request.onsuccess = (e) => resolve();
+				request.onerror = (e) => reject(e);
 			});
   }
 
@@ -12,9 +13,10 @@ export class CRUD {
 		const requests: Promise<void>[] = [];
     let req = tx.objectStore(objectStoreName);
     for (let i = 0; i < values.length; i++) {
-			requests.push(new Promise<void>((resolve) => {
+			requests.push(new Promise<void>((resolve, reject) => {
       	const request = req.put(values[i]);
       	request.onsuccess = (e) => resolve();
+				request.onerror = (e) => reject(e);
 			}));
     }
 		return Promise.all(requests);

@@ -13,7 +13,7 @@
   @if (showRightPage()) {
     <virtual-page
       [page]="widgets.book.sideBySide() ? bookCbt[leftPageNo()] : bookCbt[rightPageNo()]"
-      [preferMarkdown]="widgets.book.markdownView()"
+      [preferMarkdown]="widgets.book.markdownView() && !widgets.book.sideBySide()"
     />
   }
 }

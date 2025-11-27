@@ -10,6 +10,11 @@ updated todo:
 
 
 - ui:
+	- change settings to add individual items, not groups
+		- can store as we go
+		- may show android error?
+		- change how series are setup - childs refer to parent, not get included in parent
+
 	- consider create a separate component for each action
 		- makes other html simple
 		- can implement actionable
