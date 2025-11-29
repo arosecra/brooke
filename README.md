@@ -10,10 +10,6 @@ updated todo:
 
 
 - ui:
-	- change settings to add individual items, not groups
-		- can store as we go - stream to storage
-		- may show android error?
-		- change how series are setup - childs refer to parent, not get included in parent
 
 	- consider create a separate component for each action
 		- makes other html simple
@@ -37,8 +33,6 @@ updated todo:
 
 	- implement BookToC, BookOptions, BookDetails
 
-	- finish and use web-fs and web-path utilities
-
 	- add auto crop based off of ocr output
 
 	- add bounding box overlay based off of ocr output
@@ -48,6 +42,7 @@ updated todo:
 		- more difficult to do than you may think, since category isn't known until later
 			- we find all the items in a category by the category, not the other way around
 			- and sometimes we generate categories?
+		- put the display name on the item ref, not the item
 	
 	- finish and use crud interface for indexeddb
 		- make an api that's something like
@@ -56,8 +51,6 @@ updated todo:
 
 	- keep track of which files are cached & make download button disabled accordingly
 		- just get the cached files when the app starts / another resource
-
-	- move settings code to library-fs class (after finishing and using web-fs/web-path)
 
 	- while app is loading / library is loading, improve the way app displays
 
@@ -69,6 +62,7 @@ updated todo:
 	- convert settings to a Record<string, any>, create an interface for what the value is supposed to be (string, etc)
 
 	- add volume control for orator
+		- button, then slider
 
 	- add network interface check to see if we're on wifi / wired before we download
 		- maybe also location check

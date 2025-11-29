@@ -106,21 +106,19 @@ export class SettingsComponent {
       ? await WebFS.readYaml<Collection>(collectionHandle)
       : ({} as Collection);
     collection.handle = handle;
-		
+
     this.busyMessage.set([`Adding Collection`, ' ', ' ']);
 
     await this.appDB.addCollection(collection);
 
-    let category = categoriesHandle
-      ? await WebFS.readYaml<Category[]>(categoriesHandle)
-      : ([] as Category[]);
+    let category = categoriesHandle ? await WebFS.readYaml<Category[]>(categoriesHandle) : ([] as Category[]);
 
     await category.forEach(async (cat) => {
       cat.collectionName = collection.name;
-    	this.busyMessage.set([`Adding Category ${cat.name}`]);
+      this.busyMessage.set([`Adding Category ${cat.name}`]);
       await this.appDB.addCategory(cat);
     });
-		
+
     this.busyMessage.set(['Collection and Categories added.', 'Processing items', ' ']);
 
     let itemToCategory: Record<string, Category> = {};
@@ -136,31 +134,22 @@ export class SettingsComponent {
     let parentDirInterogation: PossibleItem;
     for (let i = 0; i < childDirs.length; i++) {
       let child = childDirs[i];
-    	this.busyMessage.set([
-				'Collection and Categories added.', 
-				'Processing items in ' + child.name,
-				' '
-			]);
+      this.busyMessage.set(['Collection and Categories added.', 'Processing items in ' + child.name, ' ']);
       await WebFS.onLeafDirs(
         child,
         async (index: number, parent: FileSystemDirectoryHandle, leaf: FileSystemDirectoryHandle) => {
-					
-					this.busyMessage.set([
-						'Collection and Categories added.', 
-						'Processing leaf folder ' + leaf.name,
-						' '
-					]);
+          this.busyMessage.set(['Collection and Categories added.', 'Processing leaf folder ' + leaf.name, ' ']);
           if (parentDirInterogation?.name !== parent.name)
             parentDirInterogation = await this.possibleItem(collection, parent);
 
           const intero = await this.possibleItem(collection, leaf);
 
           if (parentDirInterogation.thumbnail && index === 0) {
-						this.busyMessage.set([
-							'Collection and Categories added.', 
-							'Processing leaf folder ' + leaf.name,
-							'Adding series item'
-						]);
+            this.busyMessage.set([
+              'Collection and Categories added.',
+              'Processing leaf folder ' + leaf.name,
+              'Adding series item',
+            ]);
             await this.appDB.addItem({
               name: parentDirInterogation.name,
               collectionName: collection.name,
@@ -168,11 +157,11 @@ export class SettingsComponent {
               pathFromCategoryRoot: (await handle.resolve(parent))?.join('/') ?? ' ',
               childItems: [],
             });
-						this.busyMessage.set([
-							'Collection and Categories added.', 
-							'Processing leaf folder ' + leaf.name,
-							'Adding series thumbnail'
-						]);
+            this.busyMessage.set([
+              'Collection and Categories added.',
+              'Processing leaf folder ' + leaf.name,
+              'Adding series thumbnail',
+            ]);
 
             await this.appDB.addThumbnail({
               itemName: parent.name,
@@ -182,11 +171,11 @@ export class SettingsComponent {
             });
           }
 
-					this.busyMessage.set([
-						'Collection and Categories added.', 
-						'Processing leaf folder ' + leaf.name,
-						'Adding item'
-					]);
+          this.busyMessage.set([
+            'Collection and Categories added.',
+            'Processing leaf folder ' + leaf.name,
+            'Adding item',
+          ]);
           await this.appDB.addItem({
             name: leaf.name,
             collectionName: collection.name,
@@ -198,12 +187,11 @@ export class SettingsComponent {
           });
 
           if (intero.thumbnail) {
-
-						this.busyMessage.set([
-							'Collection and Categories added.', 
-							'Processing leaf folder ' + leaf.name,
-							'Adding item thumbnail'
-						]);
+            this.busyMessage.set([
+              'Collection and Categories added.',
+              'Processing leaf folder ' + leaf.name,
+              'Adding item thumbnail',
+            ]);
             await this.appDB.addThumbnail({
               itemName: leaf.name,
               collectionName: collection.name,
@@ -212,11 +200,11 @@ export class SettingsComponent {
             });
           }
 
-					this.busyMessage.set([
-						'Collection and Categories added.', 
-						'Processing leaf folder ' + leaf.name,
-						'Completed item'
-					]);
+          this.busyMessage.set([
+            'Collection and Categories added.',
+            'Processing leaf folder ' + leaf.name,
+            'Completed item',
+          ]);
 
           return Promise.resolve(true);
         },
@@ -225,9 +213,7 @@ export class SettingsComponent {
       );
     }
 
-		this.busyMessage.set([
-			'Reloading library'
-		]);
+    this.busyMessage.set(['Reloading library']);
     this.app.resources()?.storedLibrary.reload();
 
     resourceStatusToPromise(this.app.resources().storedLibrary, this.injector).then(() => {
@@ -236,10 +222,7 @@ export class SettingsComponent {
     });
   }
 
-  async possibleItem(
-    collection: Collection,
-    dir: FileSystemDirectoryHandle,
-  ): Promise<PossibleItem> {
+  async possibleItem(collection: Collection, dir: FileSystemDirectoryHandle): Promise<PossibleItem> {
     let thumbnail;
     let cbtDetails;
     let item;
