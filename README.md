@@ -11,6 +11,20 @@ updated todo:
 
 - ui:
 
+	- add full screen progress overlay for adding collection
+		- show top level folder being processed
+		- show current leaf being processed
+		- on each current leaf, add a couple steps / checkmarks
+			- check for series
+			- add series if necessary
+			- add series thumb if necessary
+			- add item
+			- add item thumb if necessary
+		- show last few leafs being processed (last 10 or so)
+			- truncate leaf folder name in the middle if necessary (over 30 chars) - last 3, first 24, ...
+
+
+
 	- consider create a separate component for each action
 		- makes other html simple
 		- can implement actionable
@@ -98,8 +112,6 @@ updated todo:
 	- switch to pnpm
 
 	- switch to pnpm mono repo
-
-	- once switched, create a project to create a subset of the material-symbols
 
 	
 
