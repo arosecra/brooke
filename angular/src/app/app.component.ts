@@ -1,6 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, ElementRef, HostListener, inject, Injector, viewChild } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
+import { Component, ElementRef, inject, Injector, viewChild } from '@angular/core';
 import YAML from 'yaml';
 import { AppActionsComponent } from './app-actions.component';
 import { AppToolbarsComponent } from './toolbars/app-toolbars.component';
@@ -8,7 +7,6 @@ import { AppResourcesComponent } from './app-resources.component';
 import { AppStateComponent } from './app-state.component';
 import { AppWidgetsComponent } from './app-widgets.component';
 import { LibraryDB } from './db/library-db';
-import { Files } from './fs/library-fs';
 import { BookComponent } from './media/lectern/lectern.component';
 import { CollectionBrowserComponent } from './media/collection-browser/collection-browser.component';
 import { LibrarySettingsComponent } from './library-settings/library-settings.component';
@@ -22,7 +20,7 @@ import { SettingsComponent } from './settings/settings';
 import { resourceStatusToPromise } from './shared/res-status-to-promise';
 import { Orator } from './audio/orator';
 import { GalleryComponent } from './media/gallery/gallery.component';
-import { MatDrawer } from '@angular/material/sidenav';
+import { WebFS } from './shared/web-fs';
 
 @Component({
   selector: 'app',
@@ -51,7 +49,6 @@ import { MatDrawer } from '@angular/material/sidenav';
 export class AppComponent {
   private location = inject(Location);
   private appDb = inject(LibraryDB);
-  private files = inject(Files);
   private injector = inject(Injector);
   private fullScreenTarget = inject(ElementRef);
 
@@ -96,7 +93,7 @@ export class AppComponent {
         }
       }
 
-      const itemHandle = await this.files.getDirectoryHandle(collection.handle, item.pathFromCategoryRoot);
+      const itemHandle = await WebFS.getDirectoryHandle(collection.handle, item.pathFromCategoryRoot);
       const cbtDetailsHandle = await itemHandle.getFileHandle('cbtDetails.yaml', { create: true });
       const writableStream = await cbtDetailsHandle.createWritable();
       await writableStream.write(YAML.stringify(item.bookDetails));
@@ -367,26 +364,8 @@ export class AppComponent {
 
   cacheItem(itemRef: ItemRef, item: Item) {
     const library = this.resources()?.storedLibrary.value() as Library;
-    const collection = library.collections.find((value) => value.name === item.collectionName) as Collection;
-    return this.files.cacheFile(library, collection, item); //.then((res) => {
-    // let newCachedItem: CachedFile = {
-    //   collectionName: item.collectionName,
-    //   itemName: item.name,
-    //   filename: res as string,
-    // };
-
-    // let libraryUpdates = new Library({
-    //   collections: [],
-    //   categories: [],
-    //   items: [],
-    //   settings: [],
-    //   cachedItems: [newCachedItem],
-    // });
-
-    // this.appDb.addLibrary(libraryUpdates);
-    // this.resources()?.storedLibrary.reload();
-
-    // this.displayItem(itemRef, item);
-    //});
+		if(item.handle && library.cacheDirectory)
+    	return WebFS.copyFile(item.handle, library.cacheDirectory.handle);
+		return false;
   }
 }

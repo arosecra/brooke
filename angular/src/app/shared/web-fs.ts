@@ -1,10 +1,9 @@
-;import { FSEntry } from "../fs/fs-entry";
+import YAML from 'yaml';
 
 
 export type WebFSPermission = 'readwrite' | 'read';
 
 export class WebFS {
-
 	static async onLeafDirs(
 		baseDir: FileSystemDirectoryHandle, 
 		callback: (index: number, parent: FileSystemDirectoryHandle, leaf: FileSystemDirectoryHandle) => Promise<any>,
@@ -44,28 +43,23 @@ export class WebFS {
 	}
 
   static async copyFile(
-    inputBaseDir: FileSystemDirectoryHandle,
-    inputPath: string,
-    outputBaseDir: FileSystemDirectoryHandle,
-    outputPath: string,
+    sourceHandle: FileSystemFileHandle, toDir: FileSystemDirectoryHandle
   ) {
-    const outputPermission = await WebFS.getPermission(outputBaseDir, 'readwrite');
-    const inputPermission = await WebFS.getPermission(inputBaseDir, 'read');
+    const outputPermission = await WebFS.getPermission(toDir, 'readwrite');
+    const inputPermission = await WebFS.getPermission(sourceHandle, 'read');
 
     if (inputPermission && outputPermission) {
-      let inputFileHandle = await WebFS.getFileHandle(inputBaseDir, inputPath);
-      let outputFile = await WebFS.getFileHandle(outputBaseDir, outputPath, { create: true });
-      let inputFile = await inputFileHandle?.getFile();
+			let cacheFile = await toDir.getFileHandle(sourceHandle.name, { create: true });
+			let remoteFile = await sourceHandle.getFile();
 
-      if (outputFile && inputFile) {
-        const fileContent = await inputFile.arrayBuffer();
-        const writableStream = await outputFile.createWritable();
-        await writableStream.write(fileContent);
-        writableStream.close();
-        return true;
-      }
+			if(cacheFile && remoteFile) {
+				const fileContent = await remoteFile.arrayBuffer();
+				const writableStream = await cacheFile.createWritable();
+				await writableStream.write(fileContent);
+				writableStream.close();
+			}
     }
-    return false;
+    return true;
   }
 
   static async hasPermission(handle: any, permission: WebFSPermission) {
@@ -106,5 +100,22 @@ export class WebFS {
     return currentHandle;
   }
 
-	
+	static async readText(file: FileSystemFileHandle) {
+		let f = await file.getFile();
+		return f.text();
+	}
+
+	static async readYaml<T>(file: FileSystemFileHandle) {
+		return YAML.parse(await WebFS.readText(file)) as T;
+	}
+
+	static async bytesToBase64DataUrl(bytes: any, type = "image/webp"): Promise<string> {
+		return await new Promise((resolve, reject) => {
+			const reader = Object.assign(new FileReader(), {
+				onload: () => resolve(reader.result as string),
+				onerror: () => reject(reader.error),
+			});
+			reader.readAsDataURL(new File([bytes], "", { type }));
+		});
+	}
 }

@@ -8,11 +8,10 @@ import { MatTableModule } from '@angular/material/table';
 import { AppComponent } from '../app.component';
 import { Orator } from '../audio/orator';
 import { LibraryDB } from '../db/library-db';
-import { Files } from '../fs/library-fs';
 import { CacheDirectory } from '../model/cache-directory';
 import { Category } from '../model/category';
 import { Collection } from '../model/collection';
-import { FileSystemDirectoryInterogation } from '../model/file-system-directory-interogation';
+import { PossibleItem } from '../model/possible-item';
 import { resourceStatusToPromise } from '../shared/res-status-to-promise';
 import { WebFS } from '../shared/web-fs';
 
@@ -26,7 +25,6 @@ export class SettingsComponent {
   sampleText: string = 'The quick brown fox jumped over the lazy dog';
   app = inject(AppComponent);
   appDB = inject(LibraryDB);
-  files = inject(Files);
   injector = inject(Injector);
 
   orator = inject(Orator);
@@ -38,7 +36,7 @@ export class SettingsComponent {
   async requestPermission(permissable: Collection | CacheDirectory) {
     this.busy.set(true);
     this.busyMessage.set(['Requesting Permission']);
-    permissable.hasPermission = await this.files.getReadWritePermission(permissable.handle);
+    permissable.hasPermission = await WebFS.getPermission(permissable.handle, 'readwrite');
     this.app.resources()?.storedLibrary.reload();
     this.busy.set(false);
   }
@@ -74,7 +72,7 @@ export class SettingsComponent {
     this.busy.set(true);
     this.busyMessage.set(['Setting cache directory']);
 
-    await this.files.getReadWritePermission(handle);
+    await WebFS.getPermission(handle, 'readwrite');
 
     await this.appDB.addSetting({
       name: 'cacheDirectory',
@@ -105,7 +103,7 @@ export class SettingsComponent {
 
     console.log(collectionHandle, categoriesHandle, childDirs);
     let collection: Collection = collectionHandle
-      ? await this.files.getYAMLFileContents<Collection>(collectionHandle)
+      ? await WebFS.readYaml<Collection>(collectionHandle)
       : ({} as Collection);
     collection.handle = handle;
 		
@@ -114,7 +112,7 @@ export class SettingsComponent {
     await this.appDB.addCollection(collection);
 
     let category = categoriesHandle
-      ? await this.files.getYAMLFileContents<Category[]>(categoriesHandle)
+      ? await WebFS.readYaml<Category[]>(categoriesHandle)
       : ([] as Category[]);
 
     await category.forEach(async (cat) => {
@@ -135,7 +133,7 @@ export class SettingsComponent {
       });
     });
 
-    let parentDirInterogation: FileSystemDirectoryInterogation;
+    let parentDirInterogation: PossibleItem;
     for (let i = 0; i < childDirs.length; i++) {
       let child = childDirs[i];
     	this.busyMessage.set([
@@ -153,9 +151,9 @@ export class SettingsComponent {
 						' '
 					]);
           if (parentDirInterogation?.name !== parent.name)
-            parentDirInterogation = await this.interogatePossibleItemDir(collection, parent);
+            parentDirInterogation = await this.possibleItem(collection, parent);
 
-          const intero = await this.interogatePossibleItemDir(collection, leaf);
+          const intero = await this.possibleItem(collection, leaf);
 
           if (parentDirInterogation.thumbnail && index === 0) {
 						this.busyMessage.set([
@@ -180,7 +178,7 @@ export class SettingsComponent {
               itemName: parent.name,
               collectionName: collection.name,
               categoryName: itemToCategory[parent.name]?.name ?? 'unassigned',
-              thumbnail: await this.files.getImageFileContents(parentDirInterogation.thumbnail),
+              thumbnail: await parentDirInterogation.thumbnail.getFile(),
             });
           }
 
@@ -195,7 +193,7 @@ export class SettingsComponent {
             pathFromCategoryRoot: (await handle.resolve(parent))?.join('/') ?? ' ',
             handle: intero.item,
             series: false,
-            bookDetails: intero.cbtDetails ? await this.files.getYAMLFileContents(intero.cbtDetails) : undefined,
+            bookDetails: intero.cbtDetails ? await WebFS.readYaml(intero.cbtDetails) : undefined,
             childItems: [],
           });
 
@@ -210,7 +208,7 @@ export class SettingsComponent {
               itemName: leaf.name,
               collectionName: collection.name,
               categoryName: itemToCategory[leaf.name]?.name ?? 'unassigned',
-              thumbnail: await this.files.getImageFileContents(intero.thumbnail),
+              thumbnail: await intero.thumbnail.getFile(),
             });
           }
 
@@ -238,10 +236,10 @@ export class SettingsComponent {
     });
   }
 
-  async interogatePossibleItemDir(
+  async possibleItem(
     collection: Collection,
     dir: FileSystemDirectoryHandle,
-  ): Promise<FileSystemDirectoryInterogation> {
+  ): Promise<PossibleItem> {
     let thumbnail;
     let cbtDetails;
     let item;

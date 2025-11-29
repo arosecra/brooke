@@ -1,15 +1,13 @@
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { parseTarGzip } from 'nanotar';
-import { Files } from '../fs/library-fs';
 import { Item } from '../model/item';
 import { Page } from '../model/page';
+import { WebFS } from '../shared/web-fs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CbtService {
-  appFs = inject(Files);
-
 
   loadCbtGz(item: Item | undefined, cacheFileHandle: FileSystemFileHandle): Promise<Page[]> {
     return new Promise(async (resolve, reject) => {
@@ -25,7 +23,7 @@ export class CbtService {
       for (let i = 0; i < webpFiles.length; i++) {
         const file = webpFiles[i];
         const basename = file.name.replaceAll('.webp', '').replaceAll('.png', '');
-        let base64 = await this.appFs.bytesToBase64DataUrl(file.data);
+        let base64 = await WebFS.bytesToBase64DataUrl(file.data);
         let page = {
           name: basename,
           fullPage: base64,
@@ -56,7 +54,7 @@ export class CbtService {
           .replace('.thumbnails/', '')
           .replaceAll('.webp', '')
           .replaceAll('.png', '');
-        let base64 = await this.appFs.bytesToBase64DataUrl(file.data);
+        let base64 = await WebFS.bytesToBase64DataUrl(file.data);
         pagesByName[name].thumbnail = base64;
       }
 

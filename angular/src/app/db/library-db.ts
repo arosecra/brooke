@@ -5,10 +5,10 @@ import { Setting } from '../model/setting';
 import { Category } from '../model/category';
 import { Collection } from '../model/collection';
 import { openDB } from './pidb';
-import { Files } from '../fs/library-fs';
 import { Thumbnail } from '../model/thumbnail';
 import { Orator } from '../audio/orator';
 import { CRUD } from '../shared/web-crud';
+import { WebFS } from '../shared/web-fs';
 
 export function onUpgradeNeeded(this: IDBOpenDBRequest, event: IDBVersionChangeEvent) {
   let db = this.result;
@@ -31,7 +31,6 @@ export const TABLE_NAMES = ['collections', 'categories', 'items', 'settings', 't
   providedIn: 'root',
 })
 export class LibraryDB {
-  files = inject(Files);
 	orator = inject(Orator);
 
   constructor() {}
@@ -47,15 +46,15 @@ export class LibraryDB {
       settings: await this.getAll<Setting[]>(tx, 'settings')
     });
     for (let i = 0; i < res.collections.length; i++) {
-      res.collections[i].hasPermission = await this.files.hasReadWritePermission(
-        res.collections[i].handle,
+      res.collections[i].hasPermission = await WebFS.hasPermission(
+        res.collections[i].handle, 'readwrite'
       );
     }
 		const cacheSetting = res.settings?.find((val) => val.name === 'cacheDirectory');
 		if(cacheSetting) {
 			res.cacheDirectory = {
 				handle: cacheSetting?.value,
-				hasPermission:  cacheSetting && await this.files.hasReadWritePermission(cacheSetting.value)
+				hasPermission:  cacheSetting && await WebFS.hasPermission(cacheSetting.value, 'readwrite')
 			}
 		}
 		const voiceSetting = res.settings?.find((val) => val.name === 'voice');
