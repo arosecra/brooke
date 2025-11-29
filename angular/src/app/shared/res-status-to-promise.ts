@@ -7,7 +7,7 @@ export function resourceStatusToPromise(
 ) {
   return new Promise<any>((resolve) => {
     const effectRef = effect(
-      () => {
+      () => {				
         const value = resource.status();
         if (value === 'resolved') {
           resolve(value as any);

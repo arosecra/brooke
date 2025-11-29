@@ -8,6 +8,7 @@ import { openDB } from './pidb';
 import { Files } from '../fs/library-fs';
 import { Thumbnail } from '../model/thumbnail';
 import { Orator } from '../audio/orator';
+import { CRUD } from '../shared/web-crud';
 
 export function onUpgradeNeeded(this: IDBOpenDBRequest, event: IDBVersionChangeEvent) {
   let db = this.result;
@@ -100,11 +101,24 @@ export class LibraryDB {
     });
   }
 
-  async addCategory(category: Category[]) {
+  async addCategories(category: Category[]) {
     const db = await openDB('db', 1, onUpgradeNeeded);
     let tx = db.transaction(TABLE_NAMES, 'readwrite');
 
     this.addAll<Category>(tx, category, 'categories');
+
+    tx.commit();
+
+    return new Promise<boolean>((resolve) => {
+      tx.oncomplete = (e) => resolve(true);
+    });
+  }
+
+  async addCategory(category: Category) {
+    const db = await openDB('db', 1, onUpgradeNeeded);
+    let tx = db.transaction(TABLE_NAMES, 'readwrite');
+
+    CRUD.add<Category>(tx, category, 'categories');
 
     tx.commit();
 
@@ -118,6 +132,32 @@ export class LibraryDB {
     let tx = db.transaction(TABLE_NAMES, 'readwrite');
 
     this.addAll<Item>(tx, items, 'items');
+
+    tx.commit();
+
+    return new Promise<boolean>((resolve) => {
+      tx.oncomplete = (e) => resolve(true);
+    });
+  }
+
+  async addItem(item: Item) {
+    const db = await openDB('db', 1, onUpgradeNeeded);
+    let tx = db.transaction(TABLE_NAMES, 'readwrite');
+
+    await CRUD.add<Item>(tx, item, 'items');
+
+    tx.commit();
+
+    return new Promise<boolean>((resolve) => {
+      tx.oncomplete = (e) => resolve(true);
+    });
+  }
+
+  async addThumbnail(thumbnail: Thumbnail) {
+    const db = await openDB('db', 1, onUpgradeNeeded);
+    let tx = db.transaction(TABLE_NAMES, 'readwrite');
+
+    await CRUD.add<Thumbnail>(tx, thumbnail, 'thumbnails');
 
     tx.commit();
 

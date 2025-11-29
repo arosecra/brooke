@@ -1,29 +1,26 @@
 import { Component, inject, Injector, signal } from '@angular/core';
-import { AppComponent } from '../app.component';
-import { LibraryDB } from '../db/library-db';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { Files } from '../fs/library-fs';
-import { Item } from '../model/item';
-import { Category } from '../model/category';
-import { Collection } from '../model/collection';
-import { FSEntry } from '../fs/fs-entry';
-import { Library } from '../model/library';
 import { MatIconModule } from '@angular/material/icon';
-import { MatTableModule } from '@angular/material/table';
-import { CacheDirectory } from '../model/cache-directory';
-import { Thumbnail } from '../model/thumbnail';
-import { resourceStatusToPromise } from '../shared/res-status-to-promise';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { FormsModule } from '@angular/forms';
+import { MatTableModule } from '@angular/material/table';
+import { AppComponent } from '../app.component';
 import { Orator } from '../audio/orator';
+import { LibraryDB } from '../db/library-db';
+import { Files } from '../fs/library-fs';
+import { CacheDirectory } from '../model/cache-directory';
+import { Category } from '../model/category';
+import { Collection } from '../model/collection';
+import { FileSystemDirectoryInterogation } from '../model/file-system-directory-interogation';
+import { resourceStatusToPromise } from '../shared/res-status-to-promise';
+import { WebFS } from '../shared/web-fs';
 
 @Component({
   selector: 'settings',
   imports: [MatButtonModule, MatIconModule, MatTableModule, MatInputModule, MatSelectModule, FormsModule],
   templateUrl: './settings.html',
   styles: ``,
-
 })
 export class SettingsComponent {
   sampleText: string = 'The quick brown fox jumped over the lazy dog';
@@ -92,23 +89,42 @@ export class SettingsComponent {
 
   async addCollectionFromHandle(handle: FileSystemDirectoryHandle) {
     this.busy.set(true);
-    this.busyMessage.set(['Adding Collection']);
+    this.busyMessage.set(['Adding Collection', ' ', ' ']);
 
-    await this.files.getReadWritePermission(handle);
+    await WebFS.getPermission(handle, 'readwrite');
 
-    let currentDirectory = await this.files.getFiles(handle);
+    const children = await WebFS.readdir(handle);
+    const childDirs: FileSystemDirectoryHandle[] = [];
+    let collectionHandle;
+    let categoriesHandle;
+    children.forEach((child) => {
+      if (child.kind === 'directory') childDirs.push(child);
+      else if (child.name === 'collection.yaml') collectionHandle = child;
+      else if (child.name === 'categories.yaml') categoriesHandle = child;
+    });
 
-    let collectionFSEntry = currentDirectory['/collection.yaml'];
-    let categoriesFSEntry = currentDirectory['/categories.yaml'];
-
-    let collection = await this.files.getYAMLFileContents<Collection>(collectionFSEntry.handle as FileSystemFileHandle);
-    let category = await this.files.getYAMLFileContents<Category[]>(categoriesFSEntry.handle as FileSystemFileHandle);
-
+    console.log(collectionHandle, categoriesHandle, childDirs);
+    let collection: Collection = collectionHandle
+      ? await this.files.getYAMLFileContents<Collection>(collectionHandle)
+      : ({} as Collection);
     collection.handle = handle;
+		
+    this.busyMessage.set([`Adding Collection`, ' ', ' ']);
 
-    this.busyMessage.set(['Collection and categories loaded']);
+    await this.appDB.addCollection(collection);
 
-    category.forEach((cat) => (cat.collectionName = collection.name));
+    let category = categoriesHandle
+      ? await this.files.getYAMLFileContents<Category[]>(categoriesHandle)
+      : ([] as Category[]);
+
+    await category.forEach(async (cat) => {
+      cat.collectionName = collection.name;
+    	this.busyMessage.set([`Adding Category ${cat.name}`]);
+      await this.appDB.addCategory(cat);
+    });
+		
+    this.busyMessage.set(['Collection and Categories added.', 'Processing items', ' ']);
+
     let itemToCategory: Record<string, Category> = {};
     category.forEach((cat) => {
       cat.items.forEach((itemRef) => {
@@ -119,123 +135,130 @@ export class SettingsComponent {
       });
     });
 
-    this.busyMessage.set(['Categories marked for collection']);
+    let parentDirInterogation: FileSystemDirectoryInterogation;
+    for (let i = 0; i < childDirs.length; i++) {
+      let child = childDirs[i];
+    	this.busyMessage.set([
+				'Collection and Categories added.', 
+				'Processing items in ' + child.name,
+				' '
+			]);
+      await WebFS.onLeafDirs(
+        child,
+        async (index: number, parent: FileSystemDirectoryHandle, leaf: FileSystemDirectoryHandle) => {
+					
+					this.busyMessage.set([
+						'Collection and Categories added.', 
+						'Processing leaf folder ' + leaf.name,
+						' '
+					]);
+          if (parentDirInterogation?.name !== parent.name)
+            parentDirInterogation = await this.interogatePossibleItemDir(collection, parent);
 
-    let fileExtensionFSEntries = Object.values(currentDirectory).filter((fsEntry) => {
-      return fsEntry.name.endsWith(`${collection.itemExtension}`);
-    });
-    this.busyMessage.set([`${fileExtensionFSEntries.length} item directories found. Processing.`]);
+          const intero = await this.interogatePossibleItemDir(collection, leaf);
 
-    let { items, thumbs } = await this.findItemsFromFiles(
-      fileExtensionFSEntries,
-      currentDirectory,
-      collection,
-      itemToCategory,
-    );
+          if (parentDirInterogation.thumbnail && index === 0) {
+						this.busyMessage.set([
+							'Collection and Categories added.', 
+							'Processing leaf folder ' + leaf.name,
+							'Adding series item'
+						]);
+            await this.appDB.addItem({
+              name: parentDirInterogation.name,
+              collectionName: collection.name,
+              series: true,
+              pathFromCategoryRoot: (await handle.resolve(parent))?.join('/') ?? ' ',
+              childItems: [],
+            });
+						this.busyMessage.set([
+							'Collection and Categories added.', 
+							'Processing leaf folder ' + leaf.name,
+							'Adding series thumbnail'
+						]);
 
-		
+            await this.appDB.addThumbnail({
+              itemName: parent.name,
+              collectionName: collection.name,
+              categoryName: itemToCategory[parent.name]?.name ?? 'unassigned',
+              thumbnail: await this.files.getImageFileContents(parentDirInterogation.thumbnail),
+            });
+          }
+
+					this.busyMessage.set([
+						'Collection and Categories added.', 
+						'Processing leaf folder ' + leaf.name,
+						'Adding item'
+					]);
+          await this.appDB.addItem({
+            name: leaf.name,
+            collectionName: collection.name,
+            pathFromCategoryRoot: (await handle.resolve(parent))?.join('/') ?? ' ',
+            handle: intero.item,
+            series: false,
+            bookDetails: intero.cbtDetails ? await this.files.getYAMLFileContents(intero.cbtDetails) : undefined,
+            childItems: [],
+          });
+
+          if (intero.thumbnail) {
+
+						this.busyMessage.set([
+							'Collection and Categories added.', 
+							'Processing leaf folder ' + leaf.name,
+							'Adding item thumbnail'
+						]);
+            await this.appDB.addThumbnail({
+              itemName: leaf.name,
+              collectionName: collection.name,
+              categoryName: itemToCategory[leaf.name]?.name ?? 'unassigned',
+              thumbnail: await this.files.getImageFileContents(intero.thumbnail),
+            });
+          }
+
+					this.busyMessage.set([
+						'Collection and Categories added.', 
+						'Processing leaf folder ' + leaf.name,
+						'Completed item'
+					]);
+
+          return Promise.resolve(true);
+        },
+        handle,
+        i,
+      );
+    }
+
 		this.busyMessage.set([
-			`Adding to library`
-		]);
-
-    let library = new Library({
-      collections: [collection],
-      categories: category,
-      items: items,
-      settings: [],
-    });
-
-    await this.appDB.addLibrary(library);
-
-		
-		this.busyMessage.set([
-			`Adding thumbnails`
-		]);
-    await this.appDB.addThumbnails(thumbs);
-
-		this.busyMessage.set([
-			`Reloading library`
+			'Reloading library'
 		]);
     this.app.resources()?.storedLibrary.reload();
 
-    resourceStatusToPromise(this.app.resources()?.storedLibrary, this.injector).then(() => {
-			
-			this.busyMessage.set([
-				`Library reloaded`
-			]);
+    resourceStatusToPromise(this.app.resources().storedLibrary, this.injector).then(() => {
+      this.busyMessage.set([`Library reloaded`]);
       this.busy.set(false);
     });
   }
 
-  private async findItemsFromFiles(
-    fileExtensionFSEntries: FSEntry[],
-    currentDirectory: Record<string, FSEntry>,
+  async interogatePossibleItemDir(
     collection: Collection,
-    itemToCategory: Record<string, Category>,
-  ) {
-    let itemsByPath: Record<string, Item> = {};
-    let thumbs: Thumbnail[] = [];
-    for (let i = 0; i < fileExtensionFSEntries.length; i++) {
-      let fsEntry = fileExtensionFSEntries[i];
-      this.busyMessage.set([
-				`Processing. ${fileExtensionFSEntries.length - i} files remaining.`, 
-				`${fsEntry.name}`
-			]);
+    dir: FileSystemDirectoryHandle,
+  ): Promise<FileSystemDirectoryInterogation> {
+    let thumbnail;
+    let cbtDetails;
+    let item;
 
-      let seriesPath = this.files.getParentDirectoryForDirectoryPath(fsEntry.parentPath);
-      let seriesFSEntry = currentDirectory[seriesPath];
-      let seriesThumbnailFile = currentDirectory[`${seriesPath}/thumbnail.webp`]?.handle;
+    const files = await WebFS.readdir(dir);
+    files.forEach((file) => {
+      if (file.kind === 'file' && file.name.startsWith('thumbnail')) thumbnail = file;
+      if (file.kind === 'file' && file.name.startsWith('cbtDetails')) cbtDetails = file;
+      if (file.kind === 'file' && file.name.endsWith(collection.itemExtension)) item = file;
+    });
 
-      if (seriesThumbnailFile) {
-				
-				this.busyMessage.set([
-					`Processing. ${fileExtensionFSEntries.length - i} files remaining.`, 
-					`${fsEntry.name}`,
-					'Is a series'
-				]);
-        let seriesItem = itemsByPath[seriesFSEntry.path];
-        if (!seriesItem) {
-          seriesItem = await this.createSeriesItem(currentDirectory, seriesFSEntry, collection.name);
-          itemsByPath[seriesFSEntry.path] = seriesItem;
-
-          thumbs.push({
-            itemName: seriesItem.name,
-            collectionName: collection.name,
-            categoryName: itemToCategory[seriesItem.name]?.name ?? 'unassigned',
-            thumbnail: await this.files.getImageFileContents(seriesThumbnailFile as FileSystemFileHandle),
-          });
-        }
-        seriesItem.childItems?.push(
-          await this.createItem(currentDirectory, fsEntry, collection.name, collection.itemExtension),
-        );
-      } else {
-				this.busyMessage.set([
-					`Processing. ${fileExtensionFSEntries.length - i} files remaining.`, 
-					`${fsEntry.name}`,
-					'Not a series'
-				]);
-        let item: Item = await this.createItem(currentDirectory, fsEntry, collection.name, collection.itemExtension);
-        itemsByPath[item.pathFromCategoryRoot] = item;
-
-        let thumbnailFile = currentDirectory[`${fsEntry.parentPath}/thumbnail.webp`]?.handle as FileSystemFileHandle;
-        if (thumbnailFile) {
-          thumbs.push({
-            itemName: item.name,
-            collectionName: collection.name,
-            categoryName: itemToCategory[item.name]?.name ?? 'unassigned',
-            thumbnail: await this.files.getImageFileContents(thumbnailFile),
-          });
-        }
-      }
-			this.busyMessage.set([
-				`Processing. ${fileExtensionFSEntries.length - i} files remaining.`, 
-				`${fsEntry.name}`,
-				'Completed'
-			]);
-    }
-
-    const items = Object.values(itemsByPath);
-    return { items, thumbs };
+    return {
+      thumbnail,
+      cbtDetails,
+      item,
+      name: dir.name,
+    };
   }
 
   async addNewCollection() {
@@ -245,7 +268,7 @@ export class SettingsComponent {
 
   async playSampleText() {
     this.busy.set(true);
-    this.busyMessage.set(['']);
+    this.busyMessage.set([' ']);
     this.orator.read(this.sampleText, this.app.resources().storedLibrary.value()!.voice).then(() => {
       this.busy.set(false);
     });
@@ -253,7 +276,7 @@ export class SettingsComponent {
 
   saveVoice() {
     this.busy.set(true);
-    this.busyMessage.set(['']);
+    this.busyMessage.set([' ']);
     this.appDB
       .addSetting({
         name: 'voice',
@@ -268,94 +291,61 @@ export class SettingsComponent {
       });
   }
 
-  private async createItem(
-    currentDirectory: Record<string, FSEntry>,
-    fsEntry: FSEntry,
-    collectionName: string,
-    fileExtension: string,
-  ) {
-    let item: Item = {
-      name: fsEntry.name.replace('.' + fileExtension, ''),
-      collectionName,
-      pathFromCategoryRoot: fsEntry.parentPath,
-      handle: fsEntry.handle as FileSystemFileHandle,
-      series: false,
-      childItems: [],
-    };
-    let cbtDetailsFile = currentDirectory[`${fsEntry.parentPath}/cbtDetails.yaml`]?.handle as FileSystemFileHandle;
+  async share() {
+    const input = document.getElementById('files');
+    const output = document.getElementById('output');
 
-    if (cbtDetailsFile) {
-      item.bookDetails = await this.files.getYAMLFileContents(cbtDetailsFile);
+    const files = (input as any)!.files;
+
+    if (files.length === 0) {
+      output!.textContent = 'No files selected.';
+      return;
     }
-    return item;
+
+    // feature detecting navigator.canShare() also implies
+    // the same for the navigator.share()
+    if (!navigator.canShare) {
+      output!.textContent = `Your browser doesn't support the Web Share API.`;
+      return;
+    }
+
+    // if (navigator.canShare({ files })) {
+    try {
+      await navigator.share({
+        files,
+        title: 'Images',
+        text: 'Beautiful images',
+      });
+      output!.textContent = 'Shared!';
+    } catch (error: any) {
+      output!.textContent = `Error: ${error.message}`;
+    }
   }
 
-  private async createSeriesItem(currentDirectory: Record<string, FSEntry>, fsEntry: FSEntry, collectionName: string) {
-    let item: Item = {
-      name: fsEntry.name,
-      collectionName,
-      series: true,
-      pathFromCategoryRoot: fsEntry.path,
-      childItems: [],
-    };
-    return item;
+  async shareUrl(url: string) {
+    const input = document.getElementById('files');
+    const output = document.getElementById('output');
+
+    // feature detecting navigator.canShare() also implies
+    // the same for the navigator.share()
+    if (!navigator.canShare) {
+      output!.textContent = `Your browser doesn't support the Web Share API.`;
+      return;
+    }
+
+    // if (navigator.canShare({ files })) {
+    try {
+      await navigator.share({
+        title: 'mkv',
+        text: 'test',
+        url,
+      });
+      output!.textContent = 'Shared!';
+    } catch (error: any) {
+      output!.textContent = `Error: ${JSON.stringify(error)}`;
+    }
+    // } else {
+    // 	output!.textContent = `Your system doesn't support sharing these files.`;
+    // }
   }
-
-	async share() {
-		const input = document.getElementById("files");
-		const output = document.getElementById("output");
-
-		const files = (input as any)!.files;
-
-		if (files.length === 0) {
-			output!.textContent = "No files selected.";
-			return;
-		}
-
-		// feature detecting navigator.canShare() also implies
-		// the same for the navigator.share()
-		if (!navigator.canShare) {
-			output!.textContent = `Your browser doesn't support the Web Share API.`;
-			return;
-		}
-
-		// if (navigator.canShare({ files })) {
-			try {
-				await navigator.share({
-					files,
-					title: "Images",
-					text: "Beautiful images",
-				});
-				output!.textContent = "Shared!";
-			} catch (error: any) {
-				output!.textContent = `Error: ${error.message}`;
-			}
-	}
-
-	async shareUrl(url: string) {
-		const input = document.getElementById("files");
-		const output = document.getElementById("output");
-
-		// feature detecting navigator.canShare() also implies
-		// the same for the navigator.share()
-		if (!navigator.canShare) {
-			output!.textContent = `Your browser doesn't support the Web Share API.`;
-			return;
-		}
-
-		// if (navigator.canShare({ files })) {
-			try {
-				await navigator.share({
-					title: 'mkv',
-					text: 'test',
-					url
-				});
-				output!.textContent = "Shared!";
-			} catch (error: any) {
-				output!.textContent = `Error: ${JSON.stringify(error)}`;
-			}
-		// } else {
-		// 	output!.textContent = `Your system doesn't support sharing these files.`;
-		// }
-	}
 }

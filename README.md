@@ -11,7 +11,7 @@ updated todo:
 
 - ui:
 	- change settings to add individual items, not groups
-		- can store as we go
+		- can store as we go - stream to storage
 		- may show android error?
 		- change how series are setup - childs refer to parent, not get included in parent
 

@@ -1,8 +1,47 @@
+;import { FSEntry } from "../fs/fs-entry";
 
 
 export type WebFSPermission = 'readwrite' | 'read';
 
 export class WebFS {
+
+	static async onLeafDirs(
+		baseDir: FileSystemDirectoryHandle, 
+		callback: (index: number, parent: FileSystemDirectoryHandle, leaf: FileSystemDirectoryHandle) => Promise<any>,
+		parent: FileSystemDirectoryHandle,
+		index: number
+	) {
+		const children = await WebFS.readdir(baseDir);
+		const iAmLeaf = !children.some((child) => child.kind === 'directory');
+
+		if(iAmLeaf) {
+			await callback(index, parent, baseDir);
+		} else {
+			for(let i = 0; i < children.length; i++) {
+				let child = children[i];
+				if(child.kind === 'directory') {
+					await WebFS.onLeafDirs(child, callback, baseDir, i);
+				}
+			}
+		}
+		return Promise.resolve(true);
+	}
+
+	static async readdir(baseDir: FileSystemDirectoryHandle,
+		options?: { recursive: false }
+	): Promise<(FileSystemDirectoryHandle | FileSystemFileHandle)[]> {
+		let files: (FileSystemDirectoryHandle | FileSystemFileHandle)[] = [];
+		for await (const [name, handle] of baseDir.entries()) {
+      files.push(handle);
+
+			if(options?.recursive) {
+				if(handle.kind === 'directory') {
+					files = [...files, ...await WebFS.readdir(handle, options)];
+				}
+			}
+    }
+		return files;
+	}
 
   static async copyFile(
     inputBaseDir: FileSystemDirectoryHandle,
@@ -45,21 +84,21 @@ export class WebFS {
     return true;
   }
 
-  static async getFileHandle(handle: FileSystemDirectoryHandle, arg1: string, arg2?: any) {
+  static async getFileHandle(handle: FileSystemDirectoryHandle, baseDir: string, path?: any) {
     try {
-      let parts = arg1.split('/').filter((val) => val !== '');
+      let parts = baseDir.split('/').filter((val) => val !== '');
       let currentHandle = handle;
       for (let i = 0; i < parts.length - 1; i++) {
         currentHandle = await currentHandle.getDirectoryHandle(parts[i]);
       }
-      return await currentHandle.getFileHandle(parts[parts.length - 1], arg2);
+      return await currentHandle.getFileHandle(parts[parts.length - 1], path);
     } catch (err) {
       return null;
     }
   }
 	
-  static async getDirectoryHandle(handle: FileSystemDirectoryHandle, arg1: string) {
-    let parts = arg1.split('/').filter((val) => val !== '');
+  static async getDirectoryHandle(handle: FileSystemDirectoryHandle, relativePath: string) {
+    let parts = relativePath.split('/').filter((val) => val !== '');
     let currentHandle = handle;
     for (let i = 0; i < parts.length; i++) {
       currentHandle = await currentHandle.getDirectoryHandle(parts[i]);
