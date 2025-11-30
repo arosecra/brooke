@@ -1,12 +1,11 @@
 import { JobFolder } from "../model/job-folder";
 import { JobStep } from "../model/job-step";
 import * as fs from 'fs';
-import { Pipeline } from "../model/pipeline";
-import * as child_process from 'child_process';
 import * as path from 'path';
 import { node } from "../util/node";
 
-export class BookExtractPDFsStep implements JobStep {
+export class MovieExtractPDFsStep implements JobStep {
+	name: 'MovieExtractPDFsStep';
 	execute(job: JobFolder): void {
 		const workFiles = fs.readdirSync(job.sourceFolder);
 		let reOrdered = [];

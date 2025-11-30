@@ -9,8 +9,9 @@ import * as fs from 'fs';
 export class BookResizeImageStep implements JobStep {
 	name = "BookResizeImageStep";
   execute(job: JobFolder): void {
-		const hasCover = fs.readdirSync(job.sourceFolder).some((file) => file.includes('-8-'));
-		if(hasCover) {
+		const hasColor = fs.readdirSync(job.sourceFolder).some((file) => file.includes('-8-'));
+		const hasBw = fs.readdirSync(job.sourceFolder).some((file) => file.includes('-1-'));
+		if(hasColor) {
 			node.execFileSync( //
 				"D:\\Software\\ImageMagick\\magick.exe", //
 				[
@@ -25,18 +26,21 @@ export class BookResizeImageStep implements JobStep {
 			);
 		}
 		
-    node.execFileSync( //
-			"D:\\Software\\ImageMagick\\magick.exe", //
-			[
-				"mogrify", //
-				"-path", job.destFolder, //
-				"-format", "png", //
-				"-depth", "1", //
-				"-adaptive-resize", "1920x>", //
-				"*-1-*.png"
-			], {
-				cwd: job.sourceFolder
-			}
-		);
+		if(hasBw) {
+			node.execFileSync( //
+				"D:\\Software\\ImageMagick\\magick.exe", //
+				[
+					"mogrify", //
+					"-path", job.destFolder, //
+					"-format", "png", //
+					"-depth", "1", //
+					"-adaptive-resize", "1920x>", //
+					"*-1-*.png"
+				], {
+					cwd: job.sourceFolder
+				}
+			);
+
+		}
   }
 }

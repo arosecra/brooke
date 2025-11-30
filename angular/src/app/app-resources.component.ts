@@ -44,9 +44,7 @@ export class AppResourcesComponent {
 					const cachedFilename = item?.name + '.' + collection?.itemExtension;
 					const cacheFileHandle = await WebFS.getFileHandle(cacheDirectory, cachedFilename);
 
-					const itemHandle = await WebFS.getFileHandle(collection.handle, 
-						item.pathFromCategoryRoot + '/' + cachedFilename
-					)
+					const itemHandle = item.handle;
 
 					if(cacheFileHandle) {
 						this.cbt.loadCbtGz(item, cacheFileHandle).then((val) => resolve(val));
