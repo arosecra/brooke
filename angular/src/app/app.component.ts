@@ -362,10 +362,10 @@ export class AppComponent {
   //     });
   // }
 
-  cacheItem(itemRef: ItemRef, item: Item) {
+  cacheItem(itemRef: ItemRef, item: Item): Promise<boolean> {
     const library = this.resources()?.storedLibrary.value() as Library;
 		if(item.handle && library.cacheDirectory)
     	return WebFS.copyFile(item.handle, library.cacheDirectory.handle);
-		return false;
+		return Promise.resolve(false);
   }
 }
