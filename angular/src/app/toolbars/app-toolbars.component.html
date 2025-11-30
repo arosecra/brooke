@@ -57,9 +57,9 @@
             @let pageSize = widgets.book.pagesInDisplay();
             <span class="pages-of">
               @if (pageSize === 1 || page + 1 >= book.length) {
-                Page {{ page + 1 }} of {{ book.length }}
+                {{ page + 1 }} / {{ book.length }}
               } @else {
-                Pages {{ page + 1 }}, {{ page + 2 }} of {{ book.length }}
+                {{ page + 1 }}, {{ page + 2 }} / {{ book.length }}
               }
             </span>
             <previous-page-action></previous-page-action>
