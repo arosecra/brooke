@@ -113,6 +113,11 @@ updated todo:
 
 	- switch to pnpm mono repo
 
+	- add a setting for preferring one page vs two page
+
+	- in settings, split read/write permission in table
+		- only load settings if read is not present, or action requires write
+
 	
 
 ToDo:
