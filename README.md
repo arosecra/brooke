@@ -73,7 +73,6 @@ updated todo:
 		- etc?
 	- disable download button if already downloaded
 
-	- convert settings to a Record<string, any>, create an interface for what the value is supposed to be (string, etc)
 
 	- add volume control for orator
 		- button, then slider
@@ -117,6 +116,12 @@ updated todo:
 
 	- in settings, split read/write permission in table
 		- only load settings if read is not present, or action requires write
+
+	- settings
+		- convert settings table to a Record<string, any>, 
+		- create an interface for what the value is supposed to be (string, etc)
+		- add zod & use it for model
+		- use new angular signal forms
 
 	
 
