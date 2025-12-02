@@ -1,14 +1,6 @@
-import { VLCOptions } from './vlc-options';
-import { BookDetails } from './book-details';
+import { ChildItem } from './child-item';
 
 
-export declare interface Item {
-	name: string;
-	collectionName: string;
-	pathFromCategoryRoot: string;
-	handle?: FileSystemFileHandle;
-	series: boolean;
-	vlcOptions?: VLCOptions;
-	bookDetails?: BookDetails;
-	childItems: Item[];
+export declare interface Item extends ChildItem {
+	childItems: ChildItem[];
 }

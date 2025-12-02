@@ -63,6 +63,12 @@ export class LibraryDB {
     return res;
   }
 
+	async getCollections() {
+    const db = await openDB('db', 1, onUpgradeNeeded);
+    let tx = db.transaction(TABLE_NAMES, 'readonly');
+		return this.getAll<Collection[]>(tx, 'collections');
+	}
+
   async addLibrary(library: Library) {
     const db = await openDB('db', 1, onUpgradeNeeded);
     let tx = db.transaction(TABLE_NAMES, 'readwrite');
@@ -229,6 +235,22 @@ export class LibraryDB {
     const upperBoundKey = [collection.name, [], []]; 
     const keyRange = IDBKeyRange.bound(lowerBoundKey, upperBoundKey);
 		await this.remove(tx, 'thumbnails', keyRange);
+	}
+
+	async getCategoriesForCollection(collectionName: string) {
+    const db = await openDB('db', 1, onUpgradeNeeded);
+    let tx = db.transaction(TABLE_NAMES, 'readwrite');
+		const lowerBoundKey = [collectionName];
+    const upperBoundKey = [collectionName, []]; 
+    const keyRange = IDBKeyRange.bound(lowerBoundKey, upperBoundKey);
+		return new Promise<Category[]>((resolve) => {
+      const request = tx.objectStore('categories').getAll(keyRange);
+      request.onsuccess = (e) => {
+				const r: Category[] = [];
+				request.result.forEach((category) => r.push(category))
+				resolve(r);
+			}
+    });
 	}
 
 	async getThumbnailsForCollectionAndCategory(collectionName: string, categoryName: string) {

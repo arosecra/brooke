@@ -106,6 +106,7 @@ export class SettingsComponent {
       ? await WebFS.readYaml<Collection>(collectionHandle)
       : ({} as Collection);
     collection.handle = handle;
+		collection.displayName = collection.name.replaceAll('_', ' ');
 
     this.busyMessage.set([`Adding Collection`, ' ', ' ']);
 
@@ -115,6 +116,7 @@ export class SettingsComponent {
 
     await category.forEach(async (cat) => {
       cat.collectionName = collection.name;
+			cat.displayName = cat.name.replaceAll('_', ' ');
       this.busyMessage.set([`Adding Category ${cat.name}`]);
       await this.appDB.addCategory(cat);
     });
@@ -124,8 +126,10 @@ export class SettingsComponent {
     let itemToCategory: Record<string, Category> = {};
     category.forEach((cat) => {
       cat.items.forEach((itemRef) => {
+				itemRef.displayName = itemRef.name.replaceAll(cat.name, '').replaceAll('_', '');
         itemToCategory[itemRef.name] = cat;
         itemRef.childItems?.forEach((itemRef) => {
+					itemRef.displayName = itemRef.name.replaceAll(cat.name, '').replaceAll('_', '');
           itemToCategory[itemRef.name] = cat;
         });
       });

@@ -121,6 +121,7 @@ updated todo:
 		- convert settings table to a Record<string, any>, 
 		- create an interface for what the value is supposed to be (string, etc)
 		- add zod & use it for model
+			- how to refer to FileSystemFileHandle
 		- use new angular signal forms
 
 	

@@ -5,41 +5,41 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { ActionComponent } from '../../../actions/action.component';
 import { AppComponent } from '../../../app.component';
+import { ChildItemRef } from '../../../model/child-item-ref';
 import { Item } from '../../../model/item';
 import { ItemRef } from '../../../model/item-ref';
 import { Thumbnail } from '../../../model/thumbnail';
+import { ChildItem } from '../../../model/child-item';
 
 @Component({
-  selector: 'item-card',
+  selector: 'child-item-card',
   imports: [MatButtonModule, MatIconModule, MatCardModule, ActionComponent, MatBadgeModule],
-  templateUrl: './item-card.component.html',
-  styleUrls: ['./item-card.component.scss'],
+  templateUrl: './child-item-card.component.html',
+  styleUrls: ['./child-item-card.component.scss'],
 
 })
-export class ItemCardComponent implements OnInit, OnDestroy {
+export class ChildItemCardComponent {
   app = inject(AppComponent);
-  itemRef = input.required<ItemRef>();
-  item = input.required<Item>();
+  item = input.required<ChildItem>();
+  itemRef = input.required<ChildItemRef>();
+	seriesItemRef = input.required<ItemRef>();
+	seriesItem = input.required<Item>();
 	thumbnail = input<Thumbnail>();
 
 	imageUrl: string;
-
-	ngOnInit(): void {
-		const item = this.thumbnail();
-		if(item) {
-			this.imageUrl = URL.createObjectURL(item.thumbnail);
-		}
-	}
-	ngOnDestroy(): void {
-		if(this.imageUrl) URL.revokeObjectURL(this.imageUrl);
-	}
 
   downloadForOffline() {
 		return this.app.cacheItem(this.item());
 	}
 
   openItem() {
+		const seriesItemRef = this.seriesItemRef();
+		const seriesItem = this.seriesItem();
+		if(seriesItem && seriesItemRef) {
+			return this.app.openSeriesItem(seriesItemRef, seriesItem);
+		} else {
     return this.app.openItem(this.item());
+		}
   }
 
   openItemThumbnails() {

@@ -3,6 +3,7 @@ import { Category } from './category';
 
 export declare interface Collection {
 	name: string;
+	displayName: string;
 	directory: string;
 	handle: FileSystemDirectoryHandle;
 	hasPermission?: boolean;

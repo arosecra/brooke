@@ -21,6 +21,8 @@ import { resourceStatusToPromise } from './shared/res-status-to-promise';
 import { Orator } from './audio/orator';
 import { GalleryComponent } from './media/gallery/gallery.component';
 import { WebFS } from './shared/web-fs';
+import { ChildItemRef } from './model/child-item-ref';
+import { ChildItem } from './model/child-item';
 
 @Component({
   selector: 'app',
@@ -133,8 +135,14 @@ export class AppComponent {
   }
 
   openCollection(collection?: Collection): Promise<boolean> {
-    return new Promise<boolean>((resolve) => {
-      if (collection) this.appState()?.currentCollection.set(collection);
+    return new Promise<boolean>(async (resolve) => {
+      if (collection) { 
+				this.appState()?.currentCollection.set(collection);
+				const categories = await this.appDb.getCategoriesForCollection(collection.name);
+				this.appState().currentCollectionCategories.set(categories);
+			} else {
+				this.appState().currentCollectionCategories.set(undefined);
+			}
       this.appState().currentCategory.set(undefined);
       this.appState().currentCategoryThumbnails.set({});
       this.appState().currentSeries.set(undefined);
@@ -169,37 +177,24 @@ export class AppComponent {
     });
   }
 
-  openItem(itemRef: ItemRef, item: Item): Promise<any> {
-    let res: Promise<any> = Promise.resolve(true);
-    if (this.appState()?.currentCollection()?.openType === 'video' && itemRef.series) {
-      this.appState()?.currentSeries.update(() => itemRef);
-      this.appState()?.currentItem.update(() => undefined);
-    } else {
-      res = this.displayItem(itemRef, item);
+	openSeriesItem(seriesItemRef: ItemRef, seriesItem: Item) {
+		this.appState()?.currentSeries.update(() => seriesItemRef);
+    this.appState()?.currentItem.update(() => undefined);
+		return Promise.resolve(true);
+	}
 
-      // let isCached = this.resources()?.storedLibrary.value()?.cachedItems.some((value) => {
-      // 	return (
-      // 		value.collectionName === this.appState()?.currentCollection()?.name &&
-      // 		value.itemName === item.name
-      // 	);
-      // });
-      // if (!isCached) {
-      // 	this.cacheItem(itemRef, item);
-      // } else {
-      // 	this.displayItem(itemRef, item);
-      // }
-    }
-    return res;
+  openItem(item: Item | ChildItem): Promise<any> {
+    return this.displayItem(item);
   }
 
-  openItemThumbnails(itemRef: ItemRef, item: Item) {
+  openItemThumbnails(item: Item | ChildItem) {
     this.widgets()?.book.thumbnailView.set(true);
-    return this.displayBookItem(itemRef, item);
+    return this.displayBookItem(item);
   }
 
-  openItemMarkdown(itemRef: ItemRef, item: Item) {
+  openItemMarkdown(item: Item | ChildItem) {
     this.widgets()?.book.markdownView.set(true);
-    return this.displayBookItem(itemRef, item);
+    return this.displayBookItem(item);
   }
 
   async textToSpeech() {
@@ -242,10 +237,10 @@ export class AppComponent {
     }
   }
 
-  displayItem(itemRef: ItemRef, item: Item): Promise<any> {
+  displayItem(item: Item | ChildItem): Promise<any> {
     let res: Promise<any> = Promise.resolve(true);
     if (this.appState()?.currentCollection()?.openType === 'book') {
-      res = this.displayBookItem(itemRef, item);
+      res = this.displayBookItem(item);
     } else {
       // this.displayVideoItem(item);
     }
@@ -342,7 +337,7 @@ export class AppComponent {
     return Promise.resolve(true);
   }
 
-  private displayBookItem(itemRef: ItemRef, item: Item) {
+  private displayBookItem(item: Item | ChildItem) {
     this.appState().currentItem.update(() => item);
 
     this.appState().currentBookDetails.update(() => undefined);
@@ -362,7 +357,7 @@ export class AppComponent {
   //     });
   // }
 
-  cacheItem(itemRef: ItemRef, item: Item): Promise<boolean> {
+  cacheItem(item: Item | ChildItem): Promise<boolean> {
     const library = this.resources()?.storedLibrary.value() as Library;
 		if(item.handle && library.cacheDirectory)
     	return WebFS.copyFile(item.handle, library.cacheDirectory.handle);

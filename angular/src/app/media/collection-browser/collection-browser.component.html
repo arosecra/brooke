@@ -3,6 +3,7 @@
 @if (appState && resources && resources.storedLibrary.hasValue()) {
   @let library = resources.storedLibrary.value();
   @let currentCollection = appState.currentCollection();
+	@let collectionCategories = appState.currentCollectionCategories();
   @let currentCategory = appState.currentCategory();
   @let currentSeries = appState.currentSeries();
 
@@ -18,10 +19,8 @@
   @if (currentCollection && !currentCategory) {
     <h2 class="flex flex-justify-content-center">Categories</h2>
     <div class="flex flex-justify-content-center">
-      @for (category of library.categories; track $index) {
-        @if (category.collectionName === currentCollection.name) {
-          <action tonal="{{ category.name.replaceAll('_', ' ') }}" [m]="app.openCategory" [p]="[category]"></action>
-        }
+      @for (category of collectionCategories; track $index) {
+        <select-category-action [category]="category"></select-category-action>
       }
     </div>
   }

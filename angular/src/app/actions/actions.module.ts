@@ -12,11 +12,13 @@ import { ToggleAddToCComponent } from './toggle-add-toc-action.component';
 import { SelectCollectionActionComponent } from './select-collection-action.component';
 import { NextPageActionComponent } from './next-page-acton.component';
 import { PreviousPageActionComponent } from './previous-page-acton.component';
+import { SelectCategoryActionComponent } from './select-category-action.component';
 
 const components = [
 	CloseActionComponent,
 	NextPageActionComponent,
 	PreviousPageActionComponent,
+	SelectCategoryActionComponent,
 	SelectCollectionActionComponent,
 	ToggleBookOptionsComponent, 
 	ToggleFullscreenActionComponent, 

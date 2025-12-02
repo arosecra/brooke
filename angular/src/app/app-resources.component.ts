@@ -5,6 +5,7 @@ import { LibraryDB } from './db/library-db';
 import { Library } from './model/library';
 import { Page } from './model/page';
 import { WebFS } from './shared/web-fs';
+import { Collection } from './model/collection';
 
 @Component({
   selector: 'app-resources',
@@ -18,6 +19,12 @@ export class AppResourcesComponent {
   private appDb = inject(LibraryDB);
   private app = inject(AppComponent);
   private cbt = inject(CbtService);
+
+	collections = resource<Collection[], void>({
+		loader: async({ params, abortSignal }): Promise<Collection[]> => {
+			return await this.appDb.getCollections();
+		},
+	})
 
   storedLibrary = resource<Library, void>({
     loader: async ({ params, abortSignal }): Promise<Library> => {

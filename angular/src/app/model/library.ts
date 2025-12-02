@@ -1,11 +1,9 @@
-import { CachedFile } from './cached-file';
 import { CacheDirectory } from './cache-directory';
-import { Item } from './item';
-import { Setting } from './setting';
 import { Category } from './category';
 import { Collection } from './collection';
+import { Item } from './item';
 import { LibraryOptions } from './library-options';
-import { Thumbnail } from './thumbnail';
+import { Setting } from './setting';
 
 export class Library {
   collections: Collection[];

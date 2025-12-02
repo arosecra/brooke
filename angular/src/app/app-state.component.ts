@@ -6,6 +6,7 @@ import { Collection } from './model/collection';
 import { Item } from './model/item';
 import { ItemRef } from './model/item-ref';
 import { Thumbnail } from './model/thumbnail';
+import { ChildItem } from './model/child-item';
 
 
 @Component({
@@ -20,10 +21,11 @@ export class AppStateComponent {
   private app = inject(AppComponent);
 
   currentCollection = signal<Collection | undefined>(undefined);
+	currentCollectionCategories = signal<Category[] | undefined>(undefined);
   currentCategory = signal<Category | undefined>(undefined);
 	currentCategoryThumbnails = signal<Record<string, Thumbnail>>({});
   currentSeries = signal<ItemRef | undefined>(undefined);
-  currentItem = signal<Item | undefined>(undefined);
+  currentItem = signal<ChildItem | undefined>(undefined);
   currentPageSet = signal<number>(0);
   currentBookDetails = signal<BookDetails | undefined>(undefined);
 

@@ -1,0 +1,39 @@
+
+
+.books img {
+  width: var(--item-card-width);
+  height: 400px;
+  object-fit: scale-down;
+}
+
+.videos img {
+  width: var(--item-card-width);
+  height: 350px;
+  object-fit: scale-down;
+}
+
+mat-card {
+  height: 100%;
+	display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--o-gap);
+	width: var(--item-card-width);
+}
+
+mat-card-actions > div {
+  display: flex;
+  gap: var(--o-gap);
+}
+
+.childitem {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  row-gap: 16px;
+}
+
+.childItem mat-card-actions > div {
+  display: flex;
+  gap: var(--o-gap);
+}

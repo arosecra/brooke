@@ -1,6 +1,6 @@
+import { ChildItemRef } from "./child-item-ref";
 
-export declare interface ItemRef {
-	name: string;
+export declare interface ItemRef extends ChildItemRef {
 	series: boolean;
-	childItems: ItemRef[];
+	childItems: ChildItemRef[];
 }

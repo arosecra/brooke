@@ -7,7 +7,10 @@ import { ActionComponent } from './action.component';
   selector: 'select-collection-action',
   imports: [ActionComponent],
   template: `
-    <action tonal="{{ collection().name.replaceAll('_', ' ') }}" [m]="app.openCollection" [p]="[collection()]"></action>
+    <action 
+			tonal="{{ collection().displayName }}" 
+			[m]="app.openCollection" 
+			[p]="[collection()]"></action>
   `,
   styles: ``,
 })

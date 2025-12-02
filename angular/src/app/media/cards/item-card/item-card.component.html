@@ -3,10 +3,10 @@
 @let itm = item();
 @let mainActionItem = appState.currentCollection()?.openType === 'book' ? 'file_open' : 'play_arrow';
 @if (appState && itm) {
-  <mat-card [class.childitem]="seriesItemRef()">
+  <mat-card>
     <mat-card-header>
       <mat-card-title
-        >{{ item() | itemName: appState.currentCollection() : appState.currentCategory() : true }}
+        >{{ itemRef().displayName }}
       </mat-card-title>
     </mat-card-header>
     @if (imageUrl) {
@@ -16,9 +16,9 @@
       <div>
         <action [m]="openItem" [o]="this">{{ mainActionItem }}</action>
         <action
-          [matBadge]="item().childItems.length"
+          [matBadge]="itemRef().childItems.length"
           matBadgeSize="large"
-          [matBadgeHidden]="!item().childItems.length"
+          [matBadgeHidden]="!itemRef().childItems.length"
           [m]="downloadForOffline"
           [o]="this"
           [disabled]="!appResource.storedLibrary.value()?.cacheDirectory"
