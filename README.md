@@ -66,6 +66,7 @@ updated todo:
 
 	- add volume control for orator
 		- button, then slider
+		- can i hook into volume buttons on mobile?
 
 	- add network interface check to see if we're on wifi / wired before we download
 		- maybe also location check
