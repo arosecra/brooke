@@ -23,8 +23,6 @@ updated todo:
 		- show last few leafs being processed (last 10 or so)
 			- truncate leaf folder name in the middle if necessary (over 30 chars) - last 3, first 24, ...
 
-
-
 	- consider create a separate component for each action
 		- makes other html simple
 		- can implement actionable
