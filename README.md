@@ -50,13 +50,6 @@ updated todo:
 	- add auto crop based off of ocr output
 
 	- add bounding box overlay based off of ocr output
-
-	- item name pipe can maybe just be a function? it's kinda unwieldy to use. and being the only pipe...
-		- maybe function, then create a display name string on items / etc
-		- more difficult to do than you may think, since category isn't known until later
-			- we find all the items in a category by the category, not the other way around
-			- and sometimes we generate categories?
-		- put the display name on the item ref, not the item
 	
 	- finish and use crud interface for indexeddb
 		- make an api that's something like
