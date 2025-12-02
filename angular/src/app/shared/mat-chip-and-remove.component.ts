@@ -1,14 +1,13 @@
 import { Component, input, output } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
-import { ItemNamePipe } from './item-name.pipe';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'mat-chip-and-remove',
-  imports: [MatIconModule, MatChipsModule, ItemNamePipe],
+  imports: [MatIconModule, MatChipsModule],
   template: `
     <mat-chip (removed)="remove()">
-      {{ label() | itemName }}
+      {{ label() }}
       <button matChipRemove>
         <mat-icon class="icon-fill icon-wght-700" fontSet="material-symbols-outlined">cancel</mat-icon>
       </button>
