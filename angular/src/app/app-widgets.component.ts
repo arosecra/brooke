@@ -1,6 +1,6 @@
 import { Component, computed, inject, linkedSignal, signal } from '@angular/core';
 import { AppComponent } from './app.component';
-import { mqSignal } from './shared/mq-signal';
+import { mqSignal } from './shared/signals/mq-signal';
 
 @Component({
   selector: 'app-widgets',
