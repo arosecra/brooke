@@ -9,6 +9,14 @@
   gap: 8px;
 }
 
+.flex-inline {
+	display: inline-flex;
+}
+
+.flex-no-wrap {
+	flex-wrap: nowrap;
+}
+
 .flex-column {
 	flex-direction: column;
 }

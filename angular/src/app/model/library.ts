@@ -10,7 +10,7 @@ export class Library {
   categories: Category[];
   items: Item[];
   settings: Setting[];
-	cacheDirectory: CacheDirectory | null = null;
+	cacheDirectory: FileSystemDirectoryHandle | null = null;
 
   itemsByCollectionAndName: Record<string, Item> = {};
 	settingsByName: Record<string, any> = {};

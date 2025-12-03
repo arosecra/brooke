@@ -4,8 +4,8 @@ import { VLCOptions } from "./vlc-options";
 export declare interface ChildItem {
 	name: string;
 	collectionName: string;
-	pathFromCategoryRoot: string;
 	handle?: FileSystemFileHandle;
+	dirHandle: FileSystemDirectoryHandle;
 	series: boolean;
 	vlcOptions?: VLCOptions;
 	bookDetails?: BookDetails;

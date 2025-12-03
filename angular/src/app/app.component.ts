@@ -17,7 +17,7 @@ import { Item } from './model/item';
 import { ItemRef } from './model/item-ref';
 import { Library } from './model/library';
 import { SettingsComponent } from './settings/settings';
-import { resourceStatusToPromise } from './shared/res-status-to-promise';
+import { resourceStatusToPromise } from './shared/signals/res-status-to-promise';
 import { Orator } from './audio/orator';
 import { GalleryComponent } from './media/gallery/gallery.component';
 import { WebFS } from './shared/web-fs';
@@ -95,8 +95,7 @@ export class AppComponent {
         }
       }
 
-      const itemHandle = await WebFS.getDirectoryHandle(collection.handle, item.pathFromCategoryRoot);
-      const cbtDetailsHandle = await itemHandle.getFileHandle('cbtDetails.yaml', { create: true });
+      const cbtDetailsHandle = await item.dirHandle.getFileHandle('cbtDetails.yaml', { create: true });
       const writableStream = await cbtDetailsHandle.createWritable();
       await writableStream.write(YAML.stringify(item.bookDetails));
       writableStream.close();
@@ -105,8 +104,8 @@ export class AppComponent {
 
   onTouchStart($event: PointerEvent) {
     if (this.widgets()?.panel.showBook() && $event.y > 64 && $event.x > 56 && !this.widgets().sideNavOpen()) {
-			const modX = $event.x - 56;
-			const modMaxX = window.innerWidth - 56;
+      const modX = $event.x - 56;
+      const modMaxX = window.innerWidth - 56;
       const percentage = (modX / modMaxX) * 100;
       if (percentage > 85) this.goToNextPage($event);
       if (percentage < 15) this.goToPreviousPage($event);
@@ -136,13 +135,11 @@ export class AppComponent {
 
   openCollection(collection?: Collection): Promise<boolean> {
     return new Promise<boolean>(async (resolve) => {
-      if (collection) { 
-				this.appState()?.currentCollection.set(collection);
-				const categories = await this.appDb.getCategoriesForCollection(collection.name);
-				this.appState().currentCollectionCategories.set(categories);
-			} else {
-				this.appState().currentCollectionCategories.set(undefined);
-			}
+      if (collection) {
+        this.appState()?.currentCollection.set(collection);
+        const categories = await this.appDb.getCategoriesForCollection(collection.name);
+        this.appState().currentCollectionCategories.set(categories);
+      }
       this.appState().currentCategory.set(undefined);
       this.appState().currentCategoryThumbnails.set({});
       this.appState().currentSeries.set(undefined);
@@ -177,11 +174,11 @@ export class AppComponent {
     });
   }
 
-	openSeriesItem(seriesItemRef: ItemRef, seriesItem: Item) {
-		this.appState()?.currentSeries.update(() => seriesItemRef);
+  openSeriesItem(seriesItemRef: ItemRef, seriesItem: Item) {
+    this.appState()?.currentSeries.update(() => seriesItemRef);
     this.appState()?.currentItem.update(() => undefined);
-		return Promise.resolve(true);
-	}
+    return Promise.resolve(true);
+  }
 
   openItem(item: Item | ChildItem): Promise<any> {
     return this.displayItem(item);
@@ -359,8 +356,7 @@ export class AppComponent {
 
   cacheItem(item: Item | ChildItem): Promise<boolean> {
     const library = this.resources()?.storedLibrary.value() as Library;
-		if(item.handle && library.cacheDirectory)
-    	return WebFS.copyFile(item.handle, library.cacheDirectory.handle);
-		return Promise.resolve(false);
+    if (item.handle && library.cacheDirectory) return WebFS.copyFile(item.handle, library.cacheDirectory);
+    return Promise.resolve(false);
   }
 }

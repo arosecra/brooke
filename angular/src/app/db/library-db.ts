@@ -46,17 +46,14 @@ export class LibraryDB {
       settings: await this.getAll<Setting[]>(tx, 'settings')
     });
     for (let i = 0; i < res.collections.length; i++) {
-      res.collections[i].hasPermission = await WebFS.hasPermission(
+      res.collections[i].hasRWPermission = await WebFS.hasPermission(
         res.collections[i].handle, 'readwrite'
       );
+			res.collections[i].hasRPermission = await WebFS.hasPermission(
+        res.collections[i].handle, 'read'
+      );
     }
-		const cacheSetting = res.settings?.find((val) => val.name === 'cacheDirectory');
-		if(cacheSetting) {
-			res.cacheDirectory = {
-				handle: cacheSetting?.value,
-				hasPermission:  cacheSetting && await WebFS.hasPermission(cacheSetting.value, 'readwrite')
-			}
-		}
+		res.cacheDirectory = res.settings?.find((val) => val.name === 'cacheDirectory')?.value;
 		const voiceSetting = res.settings?.find((val) => val.name === 'voice');
 		res.voice = voiceSetting?.value ?? this.orator.getVoices().find((voice: SpeechSynthesisVoice) => voice.default)?.name;
 		

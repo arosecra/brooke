@@ -6,7 +6,8 @@ export declare interface Collection {
 	displayName: string;
 	directory: string;
 	handle: FileSystemDirectoryHandle;
-	hasPermission?: boolean;
+	hasRPermission: boolean;
+	hasRWPermission: boolean;
 	itemExtension: string;
 	excludeExtensions: string[];
 	openType: string;

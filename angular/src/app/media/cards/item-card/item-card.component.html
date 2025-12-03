@@ -5,9 +5,7 @@
 @if (appState && itm) {
   <mat-card>
     <mat-card-header>
-      <mat-card-title
-        >{{ itemRef().displayName }}
-      </mat-card-title>
+      <mat-card-title>{{ itemRef().displayName }} </mat-card-title>
     </mat-card-header>
     @if (imageUrl) {
       <action mat-card-image [img]="imageUrl" [m]="openItem" [o]="this">{{ mainActionItem }}</action>
@@ -26,7 +24,15 @@
         >
         <action [m]="openItemDetails" [o]="this">notes</action>
         @if (appState.currentCollection()?.openType === 'book') {
-          <action [m]="openItemThumbnails" [o]="this" title="Thumbnails">dataset</action>
+          <action
+            [m]="openItemThumbnails"
+            [o]="this"
+            title="Thumbnails"
+            matBadge="?"
+            matBadgeSize="large"
+            [matBadgeHidden]="item().bookDetails?.blankPages?.length || item().bookDetails?.imagePages?.length"
+            >dataset</action
+          >
           <action [m]="openItemMarkdown" [o]="this" title="Markdown">markdown</action>
         }
       </div>

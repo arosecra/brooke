@@ -7,7 +7,7 @@
     <!-- TODO add bookmark button to indicate this is a TOC target -->
     @for (page of bookCbt; track $index) {
       <mat-card>
-        <img mat-card-image style="width: 250px" [src]="page.thumbnail" (click)="cycleImageType(page)" />
+        <img mat-card-image style="width: 250px" [src]="page.thumbnail" (click)="cycleImageType(page, $event)" />
         <mat-card-actions>
           <div>
             <mat-form-field hintLabel="Max 30 characters">

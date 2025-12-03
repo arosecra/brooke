@@ -4,17 +4,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
 import { AppComponent } from '../app.component';
 import { Orator } from '../audio/orator';
 import { LibraryDB } from '../db/library-db';
-import { CacheDirectory } from '../model/cache-directory';
 import { Category } from '../model/category';
 import { Collection } from '../model/collection';
 import { PossibleItem } from '../model/possible-item';
-import { resourceStatusToPromise } from '../shared/res-status-to-promise';
+import { asyncComputed } from '../shared/signals/async-computed';
+import { resourceStatusToPromise } from '../shared/signals/res-status-to-promise';
 import { WebFS } from '../shared/web-fs';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'settings',
@@ -42,10 +42,31 @@ export class SettingsComponent {
   busyMessage = signal<string[]>(['not busy']);
   voice: SpeechSynthesisVoice;
 
-  async requestPermission(permissable: Collection | CacheDirectory) {
+	cacheDirectory = asyncComputed(async () => {
+		const cacheDir = this.app.resources().storedLibrary.value()?.cacheDirectory;
+		if(!cacheDir) return {
+			cachedirectory: cacheDir,
+			rw: false
+		};
+		return {
+			cachedirectory: cacheDir,
+			rw: await WebFS.hasPermission(cacheDir, 'readwrite')
+		};
+	})
+
+  async requestCollectionPermission(permissable: Collection) {
     this.busy.set(true);
     this.busyMessage.set(['Requesting Permission']);
-    permissable.hasPermission = await WebFS.getPermission(permissable.handle, 'readwrite');
+    permissable.hasRWPermission = await WebFS.getPermission(permissable.handle, 'readwrite');
+    permissable.hasRPermission = await WebFS.getPermission(permissable.handle, 'read');
+    this.app.resources()?.storedLibrary.reload();
+    this.busy.set(false);
+  }
+
+  async requestCacheDirPermission(handle: FileSystemDirectoryHandle) {
+    this.busy.set(true);
+    this.busyMessage.set(['Requesting Permission']);
+    await WebFS.getPermission(handle, 'readwrite');
     this.app.resources()?.storedLibrary.reload();
     this.busy.set(false);
   }
@@ -168,7 +189,7 @@ export class SettingsComponent {
               name: parentDirInterogation.name,
               collectionName: collection.name,
               series: true,
-              pathFromCategoryRoot: (await handle.resolve(parent))?.join('/') ?? ' ',
+							dirHandle: parent,
               childItems: [],
             });
             this.busyMessage.set([
@@ -193,8 +214,8 @@ export class SettingsComponent {
           await this.appDB.addItem({
             name: leaf.name,
             collectionName: collection.name,
-            pathFromCategoryRoot: (await handle.resolve(parent))?.join('/') ?? ' ',
             handle: intero.item,
+						dirHandle: leaf,
             series: false,
             bookDetails: intero.cbtDetails ? await WebFS.readYaml(intero.cbtDetails) : undefined,
             childItems: [],

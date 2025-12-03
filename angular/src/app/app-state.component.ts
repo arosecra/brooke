@@ -2,12 +2,10 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BookDetails } from './model/book-details';
 import { Category } from './model/category';
+import { ChildItem } from './model/child-item';
 import { Collection } from './model/collection';
-import { Item } from './model/item';
 import { ItemRef } from './model/item-ref';
 import { Thumbnail } from './model/thumbnail';
-import { ChildItem } from './model/child-item';
-
 
 @Component({
   selector: 'app-state',
@@ -37,11 +35,10 @@ export class AppStateComponent {
 
     const hasCollections = library?.collections && library?.collections?.length > 0;
     const hasCollectionMissingPermissions = !!library?.collections.some((val: any) => {
-      return !val.hasPermission;
+      return !val.hasRWPermission;
     });
 
     return (
-      (!!library?.cacheDirectory && !library?.cacheDirectory?.hasPermission) ||
       !hasCollections ||
       hasCollectionMissingPermissions
     );

@@ -47,7 +47,7 @@ export class AppResourcesComponent {
 			
 			return new Promise(async (resolve, reject) => {
 				if(library && collection && item) {
-					const cacheDirectory = library?.cacheDirectory?.handle as FileSystemDirectoryHandle;
+					const cacheDirectory = library?.cacheDirectory as FileSystemDirectoryHandle;
 					const cachedFilename = item?.name + '.' + collection?.itemExtension;
 					const cacheFileHandle = await WebFS.getFileHandle(cacheDirectory, cachedFilename);
 
