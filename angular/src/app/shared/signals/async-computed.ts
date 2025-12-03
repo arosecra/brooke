@@ -10,7 +10,7 @@ export function asyncComputed<T>(
   effect(async () => {
     const result = await computation();
     resultSignal.set(result);
-  }, { allowSignalWrites: true }); // Must set this flag to allow signal writes inside an effect
+  });
 
   return resultSignal.asReadonly();
 }
