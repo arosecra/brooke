@@ -21,7 +21,6 @@ import { resourceStatusToPromise } from './shared/signals/res-status-to-promise'
 import { Orator } from './audio/orator';
 import { GalleryComponent } from './media/gallery/gallery.component';
 import { WebFS } from './shared/web-fs';
-import { ChildItemRef } from './model/child-item-ref';
 import { ChildItem } from './model/child-item';
 
 @Component({
