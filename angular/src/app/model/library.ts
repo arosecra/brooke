@@ -15,6 +15,7 @@ export class Library {
   itemsByCollectionAndName: Record<string, Item> = {};
 	settingsByName: Record<string, any> = {};
 	voice: string;
+	defaultPagesPer: boolean;
 
   constructor(options?: LibraryOptions) {
     this.collections = options?.collections ? [...options.collections] : [];

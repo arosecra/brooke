@@ -10,7 +10,7 @@
 <table mat-table [dataSource]="app.resources().storedLibrary.value()?.collections || []">
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef>Name</th>
-    <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+    <td mat-cell *matCellDef="let row">{{ row.displayName }}</td>
   </ng-container>
 
   <ng-container matColumnDef="permission">
@@ -71,6 +71,15 @@
       </button>
     </div>
   </div>
+}
+
+<h3>Default Pages Per</h3>
+@if (library) {
+	<mat-slide-toggle
+      [checked]="library.defaultPagesPer"
+      [disabled]="busy()">
+    2 pages per
+  </mat-slide-toggle>
 }
 
 <h3>Cache Directory</h3>

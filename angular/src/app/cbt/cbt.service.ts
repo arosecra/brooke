@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { parseTarGzip } from 'nanotar';
-import { Item } from '../model/item';
+import { ChildItem } from '../model/child-item';
 import { Page } from '../model/page';
 import { WebFS } from '../shared/web-fs';
 
@@ -9,7 +9,7 @@ import { WebFS } from '../shared/web-fs';
 })
 export class CbtService {
 
-  loadCbtGz(item: Item | undefined, cacheFileHandle: FileSystemFileHandle): Promise<Page[]> {
+  loadCbtGz(item: ChildItem | undefined, cacheFileHandle: FileSystemFileHandle): Promise<Page[]> {
     return new Promise(async (resolve, reject) => {
       let pages: Page[] = [];
       let pagesByName: Record<string, Page> = {};
