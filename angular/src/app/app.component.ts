@@ -98,6 +98,8 @@ export class AppComponent {
       const writableStream = await cbtDetailsHandle.createWritable();
       await writableStream.write(YAML.stringify(item.bookDetails));
       writableStream.close();
+
+      this.appDb.addItem(item as Item);
     }
   }
 

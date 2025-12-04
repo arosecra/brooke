@@ -7,9 +7,12 @@
     <!-- TODO add bookmark button to indicate this is a TOC target -->
     @for (page of bookCbt; track $index) {
       <mat-card>
-        <img mat-card-image style="width: 250px" [src]="page.thumbnail" (click)="cycleImageType(page, $event)" />
+				<button (click)="cycleImageType(page)" >
+        <img mat-card-image style="width: 250px" [src]="page.thumbnail" />
+
+				</button>
         <mat-card-actions>
-          <div>
+          <!-- <div>
             <mat-form-field hintLabel="Max 30 characters">
               <mat-label>Chapter</mat-label>
               <input
@@ -22,7 +25,7 @@
               />
               <mat-hint align="end">{{ page.bookmarkName?.length ?? 0 }}/30</mat-hint>
             </mat-form-field>
-          </div>
+          </div> -->
           <div>
             <mat-button-toggle-group name="page-type-{{ $index }}" [(ngModel)]="page.type">
               <mat-button-toggle value="Text"> Text </mat-button-toggle>

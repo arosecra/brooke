@@ -156,11 +156,11 @@ export class SettingsComponent {
     let itemToCategory: Record<string, Category> = {};
     category.forEach((cat) => {
       cat.items.forEach((itemRef) => {
-        itemRef.displayName = itemRef.name.replaceAll(cat.name, '').replaceAll('_', '');
+        itemRef.displayName = itemRef.name.replaceAll(cat.name, '').replaceAll('_', ' ');
         itemToCategory[itemRef.name] = cat;
 				if(!itemRef.childItems) itemRef.childItems = [];
         itemRef.childItems.forEach((itemRef) => {
-          itemRef.displayName = itemRef.name.replaceAll(cat.name, '').replaceAll('_', '');
+          itemRef.displayName = itemRef.name.replaceAll(cat.name, '').replaceAll('_', ' ');
           itemToCategory[itemRef.name] = cat;
         });
       });

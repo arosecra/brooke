@@ -9,6 +9,7 @@ import { Thumbnail } from '../model/thumbnail';
 import { Orator } from '../audio/orator';
 import { CRUD } from '../shared/web-crud';
 import { WebFS } from '../shared/web-fs';
+import { ChildItem } from '../model/child-item';
 
 export function onUpgradeNeeded(this: IDBOpenDBRequest, event: IDBVersionChangeEvent) {
   let db = this.result;
@@ -142,11 +143,11 @@ export class LibraryDB {
     });
   }
 
-  async addItem(item: Item) {
+  async addItem(item: Item | ChildItem) {
     const db = await openDB('db', 1, onUpgradeNeeded);
     let tx = db.transaction(TABLE_NAMES, 'readwrite');
 
-    await CRUD.add<Item>(tx, item, 'items');
+    await CRUD.add<Item | ChildItem>(tx, item, 'items');
 
     tx.commit();
 
