@@ -17,10 +17,26 @@
   }
 
   @if (currentCollection && !currentCategory) {
-    <h2 class="flex flex-justify-content-center">Categories</h2>
+    <h2 class="flex flex-justify-content-center flex-align-center">
+			Categories 
+			@for (category of collectionCategories; track $index) {
+				@if(category.synthetic && !category.alphabetical) {
+        	<select-category-action [category]="category"></select-category-action>
+				}
+      }
+		</h2>
     <div class="flex flex-justify-content-center">
       @for (category of collectionCategories; track $index) {
-        <select-category-action [category]="category"></select-category-action>
+				@if(!category.synthetic) {
+        	<select-category-action [category]="category"></select-category-action>
+				}
+      }
+    </div>
+    <div class="flex flex-justify-content-center">
+      @for (category of collectionCategories; track $index) {
+				@if(category.synthetic && category.alphabetical) {
+        	<select-category-action [category]="category"></select-category-action>
+				}
       }
     </div>
   }

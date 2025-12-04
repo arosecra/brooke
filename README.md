@@ -37,10 +37,6 @@ updated todo:
 
 	- evaluate popover api and consider replacing angular components with it
 
-	- add special 'Alphabetical' categories
-
-	- add special 'Requires OCR Details' category. show anything that has 0 image or blank pages
-
 	- convert all services to components (allows for hierarchal injection)
 
 	- consider injecting resource values. actions that use the resource will take the resource as a parameter

@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { SeriesComponent } from '../cards/series-card/series-card.component';
 import { ActionComponent } from '../../actions/action.component';
 import { ActionsModule } from "../../actions/actions.module";
+import { Category } from '../../model/category';
 
 @Component({
   selector: 'collection-browser',

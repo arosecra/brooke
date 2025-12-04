@@ -251,6 +251,38 @@ export class LibraryDB {
     });
 	}
 
+	async getItemsForCollection(collectionName: string) {
+    const db = await openDB('db', 1, onUpgradeNeeded);
+    let tx = db.transaction(TABLE_NAMES, 'readwrite');
+		const lowerBoundKey = [collectionName];
+    const upperBoundKey = [collectionName, []]; 
+    const keyRange = IDBKeyRange.bound(lowerBoundKey, upperBoundKey);
+		return new Promise<Item[]>((resolve) => {
+      const request = tx.objectStore('items').getAll(keyRange);
+      request.onsuccess = (e) => {
+				const r: Item[] = [];
+				request.result.forEach((item) => r.push(item))
+				resolve(r);
+			}
+    });
+	}
+
+	async getThumbnailsForCollectionAndItems(collectionName: string, itemNames: Set<string>) {
+    const db = await openDB('db', 1, onUpgradeNeeded);
+    let tx = db.transaction(TABLE_NAMES, 'readwrite');
+		const lowerBoundKey = [collectionName];
+    const upperBoundKey = [collectionName, []]; 
+    const keyRange = IDBKeyRange.bound(lowerBoundKey, upperBoundKey);
+		return new Promise<Record<string, Thumbnail>>((resolve) => {
+      const request = tx.objectStore('thumbnails').getAll(keyRange);
+      request.onsuccess = (e) => {
+				const r: Record<string, Thumbnail> = {};
+				request.result.forEach((thumbnail) => { if(itemNames.has(thumbnail.itemName)) r[thumbnail.itemName] = thumbnail })
+				resolve(r);
+			}
+    });
+	}
+
 	async getThumbnailsForCollectionAndCategory(collectionName: string, categoryName: string) {
     const db = await openDB('db', 1, onUpgradeNeeded);
     let tx = db.transaction(TABLE_NAMES, 'readwrite');
