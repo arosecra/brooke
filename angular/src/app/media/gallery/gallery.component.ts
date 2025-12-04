@@ -27,7 +27,8 @@ import { Page, PageType } from '../../model/page';
 export class GalleryComponent {
   app = inject(AppComponent);
 
-  cycleImageType(page: Page) {
+  cycleImageType(page: Page, $event: any) {
+		$event.preventDefault();
     const types: PageType[] = ['Text', 'Image', 'Blank'];
     let idx = types.findIndex((type) => page.type === type);
     idx = (idx + 1) % types.length;

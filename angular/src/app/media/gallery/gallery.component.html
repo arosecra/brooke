@@ -7,8 +7,8 @@
     <!-- TODO add bookmark button to indicate this is a TOC target -->
     @for (page of bookCbt; track $index) {
       <mat-card>
-				<button (click)="cycleImageType(page)" >
-        <img mat-card-image style="width: 250px" [src]="page.thumbnail" />
+				<button (click)="cycleImageType(page, $event)" id="page-type-img-{{$index}}">
+        <img mat-card-image width="250px" height="400px" [src]="page.thumbnail" />
 
 				</button>
         <mat-card-actions>
@@ -27,7 +27,7 @@
             </mat-form-field>
           </div> -->
           <div>
-            <mat-button-toggle-group name="page-type-{{ $index }}" [(ngModel)]="page.type">
+            <mat-button-toggle-group id="page-type-{{$index}}" name="page-type-{{$index}}" [(ngModel)]="page.type">
               <mat-button-toggle value="Text"> Text </mat-button-toggle>
               <mat-button-toggle value="Image"> Image </mat-button-toggle>
               <mat-button-toggle value="Blank"> Blank </mat-button-toggle>
