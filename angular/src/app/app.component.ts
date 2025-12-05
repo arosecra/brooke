@@ -104,7 +104,13 @@ export class AppComponent {
   }
 
   onTouchStart($event: PointerEvent) {
-    if (this.widgets()?.panel.showBook() && $event.y > 64 && $event.x > 56 && !this.widgets().sideNavOpen()) {
+    if (
+      this.widgets()?.panel.showBook() &&
+      !this.widgets().book.thumbnailView() &&
+      $event.y > 64 &&
+      $event.x > 56 &&
+      !this.widgets().sideNavOpen()
+    ) {
       const modX = $event.x - 56;
       const modMaxX = window.innerWidth - 56;
       const percentage = (modX / modMaxX) * 100;
@@ -139,54 +145,55 @@ export class AppComponent {
       if (collection) {
         this.appState()?.currentCollection.set(collection);
         const categories = await this.appDb.getCategoriesForCollection(collection.name);
-				const items = await this.appDb.getItemsForCollection(collection.name);
-				//synthesize some categories 
-				const requiresOcrDetailsCategories: Category = {
-					collectionName: collection.name,
-					name: 'Requires OCR Details',
-					displayName: 'Requires OCR Details',
-					synthetic: true,
-					alphabetical: false,
-					items: items.filter((item) => {
-						const noBlankPages = !item.bookDetails?.blankPages?.length; 
-						const noImagePages = !item.bookDetails?.imagePages?.length;
-						return noBlankPages && noImagePages;
-					}).map((item) => { 
-						const itemRef: ItemRef = {
-							series: false,
-							childItems: [],
-							name: item.name,
-							displayName: item.name.replaceAll('_', ' ')
-						}
-						return itemRef;
+        const items = await this.appDb.getItemsForCollection(collection.name);
+        //synthesize some categories
+        const requiresOcrDetailsCategories: Category = {
+          collectionName: collection.name,
+          name: 'Requires OCR Details',
+          displayName: 'Requires OCR Details',
+          synthetic: true,
+          alphabetical: false,
+          items: items
+            .filter((item) => {
+              const noBlankPages = !item.bookDetails?.blankPages?.length;
+              const noImagePages = !item.bookDetails?.imagePages?.length;
+              return noBlankPages && noImagePages;
+            })
+            .map((item) => {
+              const itemRef: ItemRef = {
+                series: false,
+                childItems: [],
+                name: item.name,
+                displayName: item.name.replaceAll('_', ' '),
+              };
+              return itemRef;
+            }),
+        };
+        categories.push(requiresOcrDetailsCategories);
 
-					})
-				}
-				categories.push(requiresOcrDetailsCategories);
-				
-				const alphaNum = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-				for(let i = 0; i < alphaNum.length; i++) {
-					let char = alphaNum.charAt(i);
-					const aphaNumCategory: Category = {
-						collectionName: collection.name,
-						name: char,
-						displayName: char,
-						synthetic: true,
-						alphabetical: true,
-						items: items
-						.filter((item) => item.name.startsWith(char))
-						.map((item) => { 
-							const itemRef: ItemRef = {
-								series: false,
-								childItems: [],
-								name: item.name,
-								displayName: item.name.replaceAll('_', ' ')
-							}
-							return itemRef;
-						})
-					}
-					if(aphaNumCategory.items.length) categories.push(aphaNumCategory);
-				}
+        const alphaNum = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        for (let i = 0; i < alphaNum.length; i++) {
+          let char = alphaNum.charAt(i);
+          const aphaNumCategory: Category = {
+            collectionName: collection.name,
+            name: char,
+            displayName: char,
+            synthetic: true,
+            alphabetical: true,
+            items: items
+              .filter((item) => item.name.startsWith(char))
+              .map((item) => {
+                const itemRef: ItemRef = {
+                  series: false,
+                  childItems: [],
+                  name: item.name,
+                  displayName: item.name.replaceAll('_', ' '),
+                };
+                return itemRef;
+              }),
+          };
+          if (aphaNumCategory.items.length) categories.push(aphaNumCategory);
+        }
 
         this.appState().currentCollectionCategories.set(categories);
       }
@@ -211,17 +218,16 @@ export class AppComponent {
       this.setLocation();
 
       if (category) {
-				const itemNames = new Set(category.items.map((itemRef) => itemRef.name));
-				const thumbs = category.synthetic ? 
-					this.appDb.getThumbnailsForCollectionAndItems(this.appState().currentCollection()!.name, itemNames)
-					: this.appDb.getThumbnailsForCollectionAndCategory(this.appState().currentCollection()!.name, category.name)
+        const itemNames = new Set(category.items.map((itemRef) => itemRef.name));
+        const thumbs = category.synthetic
+          ? this.appDb.getThumbnailsForCollectionAndItems(this.appState().currentCollection()!.name, itemNames)
+          : this.appDb.getThumbnailsForCollectionAndCategory(this.appState().currentCollection()!.name, category.name);
 
-				thumbs.then((thumbnails) => {
-					this.appState().currentCategoryThumbnails.set(thumbnails);
-					this.appState().currentCategory.set(category);
-					resolve(true);
-				});
-				
+        thumbs.then((thumbnails) => {
+          this.appState().currentCategoryThumbnails.set(thumbnails);
+          this.appState().currentCategory.set(category);
+          resolve(true);
+        });
       } else {
         resolve(true);
       }
