@@ -8,10 +8,11 @@ import { node } from '../util/node';
 
 export class SinglePipelineExecutor {
 	executeTask(args: Args, pipeline: Pipeline, itemFolder: string) {
+		const temp = process.env.scantemp ?? 'D:/scans'
 		let job = new JobFolder();
 		job.remoteFolder = itemFolder;
 
-		job.workFolder = path.join('D:/scans/pipeline_temp', path.basename(itemFolder));
+		job.workFolder = path.join(`${temp}/pipeline_temp`, path.basename(itemFolder));
 		fs.mkdirSync(job.workFolder, { recursive: true });
 
 		let steps = [

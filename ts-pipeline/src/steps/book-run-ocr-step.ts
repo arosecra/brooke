@@ -11,6 +11,10 @@ export class BookRunOcrStep implements JobStep {
 		const detailsContent = fs.readFileSync(node.pathJoin(job.remoteFolder, 'cbtDetails.yaml'));
 		const cbtDetails = parse(String(detailsContent));
 
+		
+		const thumbs = node.pathJoin(job.sourceFolder, '.thumbnails')
+		if(fs.existsSync(thumbs)) fs.renameSync(thumbs, node.pathJoin(job.destFolder, '.thumbnails'));
+
 		fs.readdirSync(job.sourceFolder).forEach((file) => {
 			node.fsMove(path.join(job.sourceFolder, file), path.join(job.destFolder, file));
 		})
@@ -104,10 +108,13 @@ export class BookRunOcrStep implements JobStep {
 	}
 
 	private runOcr(job: JobFolder, file: string) {
+		const python = process.env.python ?? 'D:\\Software\\Python\\Python313\\'
+		const mineru = process.env.mineru ?? 'D:\\projects\\mineru'
+
 		node.execFileSync(
-			"D:\\Software\\Python\\Python313\\Scripts\\uv.exe",
+			`${python}\\Scripts\\uv.exe`,
 			['-q',
-				'--directory', "D:\\projects\\mineru",
+				'--directory', mineru,
 				'run', 'mineru',
 				'-o', job.sourceFolder, //
 				'-l', 'en', //

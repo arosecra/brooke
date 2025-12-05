@@ -9,11 +9,12 @@ import * as fs from 'fs';
 export class BookResizeImageStep implements JobStep {
 	name = "BookResizeImageStep";
   execute(job: JobFolder): void {
+		const imagemagick = process.env.imagemagick ?? 'D:\\Software\\ImageMagick\\'
 		const hasColor = fs.readdirSync(job.sourceFolder).some((file) => file.includes('-8-'));
 		const hasBw = fs.readdirSync(job.sourceFolder).some((file) => file.includes('-1-'));
 		if(hasColor) {
 			node.execFileSync( //
-				"D:\\Software\\ImageMagick\\magick.exe", //
+				`${imagemagick}\\magick.exe`, //
 				[
 					"mogrify", //
 					"-path", job.destFolder, //
@@ -28,7 +29,7 @@ export class BookResizeImageStep implements JobStep {
 		
 		if(hasBw) {
 			node.execFileSync( //
-				"D:\\Software\\ImageMagick\\magick.exe", //
+				`${imagemagick}\\magick.exe`, //
 				[
 					"mogrify", //
 					"-path", job.destFolder, //

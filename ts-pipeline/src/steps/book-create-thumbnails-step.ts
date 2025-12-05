@@ -8,6 +8,7 @@ import * as fs from 'fs';
 export class BookCreateThumbnailsStep implements JobStep {
 	name="BookCreateThumbnailsStep";
 	execute(job: JobFolder): void {
+		const imagemagick = process.env.imagemagick ?? 'D:\\Software\\ImageMagick\\'
 		const thumbnailFolder = node.pathJoin(job.destFolder, '.thumbnails');
 		node.mkdirs(thumbnailFolder);
 
@@ -15,7 +16,7 @@ export class BookCreateThumbnailsStep implements JobStep {
 		const hasBw = fs.readdirSync(job.sourceFolder).some((file) => file.includes('-1-'));
 		if(hasColor) {
 			node.execFileSync(
-				'D:\\Software\\ImageMagick\\magick.exe',
+				`${imagemagick}\\magick.exe`, //
 				[ 'mogrify',
 					'-path', thumbnailFolder,
 					'-format', 'webp',
@@ -29,7 +30,7 @@ export class BookCreateThumbnailsStep implements JobStep {
 
 		if(hasBw) {
 			node.execFileSync(
-				'D:\\Software\\ImageMagick\\magick.exe',
+				`${imagemagick}\\magick.exe`, //
 				[ 'mogrify',
 					'-path', thumbnailFolder,
 					'-format', 'png',

@@ -7,6 +7,7 @@ import { node } from "../util/node";
 export class MovieExtractPDFsStep implements JobStep {
 	name: 'MovieExtractPDFsStep';
 	execute(job: JobFolder): void {
+		const ghostscript = process.env.ghostscript ?? 'C:\\software\\ghostscript'
 		const workFiles = fs.readdirSync(job.sourceFolder);
 		let reOrdered = [];
 
@@ -39,7 +40,7 @@ export class MovieExtractPDFsStep implements JobStep {
 //				JobSubStep jss = new JobSubStep("Extract", job.workFolder, i + 2, pdfCount);
 //				jss.startAndPrint();
 			node.execFileSync(
-				'C:\\software\\ghostscript\\bin\\gswin64c.exe',
+				`${ghostscript}\\bin\\gswin64c.exe`,
 				[
 					'-dBATCH', //
 					'-dNOPAUSE', //

@@ -10,12 +10,13 @@ export class BookCreateCoverThumbnailStep implements JobStep {
 	constructor(public width: number, public height: number, public name: string = 'thumbnail.webp') {}
 	
 	execute(job: JobFolder): void {
+		const imagemagick = process.env.imagemagick ?? 'D:\\Software\\ImageMagick\\'
 
 		const thumbs = fs.readdirSync(job.tempFolder);
 		const sourceImg = thumbs[0];
 
 		node.execFileSync(
-			'D:\\Software\\ImageMagick\\magick.exe',
+			`${imagemagick}\\magick.exe`, //
 			[ path.join(job.tempFolder, sourceImg),
 				'-thumbnail', this.width+'x' + this.height + '>',
 				'-background', 'none',

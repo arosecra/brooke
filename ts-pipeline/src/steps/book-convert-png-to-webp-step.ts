@@ -7,6 +7,7 @@ import { node } from "../util/node";
 export class BookConvertPngToWebpStep implements JobStep {
 	name = "BookConvertPngToWebpStep";
 	execute(job: JobFolder): void {
+		const libwebp = process.env.libwebp ?? 'C:\\Software\\libwebp'
 		//move the .thumbnails folder
 		const thumbs = node.pathJoin(job.sourceFolder, '.thumbnails')
 		if(fs.existsSync(thumbs)) fs.renameSync(thumbs, node.pathJoin(job.destFolder, '.thumbnails'));
@@ -14,7 +15,7 @@ export class BookConvertPngToWebpStep implements JobStep {
 
 		fs.readdirSync(job.sourceFolder).filter((file) => file.endsWith('.png')).forEach((file) => {
 			node.execFileSync(
-				'C:\\Software\\libwebp\\bin\\cwebp',
+				`${libwebp}\\bin\\cwebp`,
 				[ '-lossless',
 					node.pathJoin(job.sourceFolder, file),
 					'-o',

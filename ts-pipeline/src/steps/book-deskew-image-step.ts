@@ -7,13 +7,14 @@ import { node } from "../util/node";
 export class BookDeskewImageStep implements JobStep {
 	name = "BookDeskewImageStep";
 	execute(job: JobFolder): void {
+		const imagemagick = process.env.imagemagick ?? 'D:\\Software\\ImageMagick\\'
 		const files = fs.readdirSync(job.sourceFolder);
 		files.forEach((file) => {
 			if(file.includes('-8-')) {
 				node.fsMove(node.pathJoin(job.sourceFolder, file), node.pathJoin(job.destFolder, file));
 			} else {
 				let skewDegrees = node.execFileSync(
-					"D:\\Software\\ImageMagick\\magick.exe",
+					`${imagemagick}\\magick.exe`, //
 					[ node.pathJoin(job.sourceFolder, file), //
 						'-deskew', '40%', //
 						'-format', '%[deskew:angle]', //
@@ -25,7 +26,7 @@ export class BookDeskewImageStep implements JobStep {
 				
 				if(skewDegrees !== '0' && skewDegrees !== '-0') {
 					const skewOut = node.execFileSync(
-						"D:\\Software\\ImageMagick\\magick.exe",
+					`${imagemagick}\\magick.exe`, //
 						[ 'convert', node.pathJoin(job.sourceFolder, file),
 							'-virtual-pixel', 'white', //
 							'-distort', 'SRT', skewDegrees, //

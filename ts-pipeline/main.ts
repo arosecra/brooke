@@ -21,6 +21,9 @@ import { OcrUntarCbtGzStep } from "./src/steps/ocr-extract-cbts-step";
 import { BookRunOcrStep } from "./src/steps/book-run-ocr-step";
 import * as child_process from 'child_process';
 
+import * as dotenv from 'dotenv'; // or import 'dotenv/config'
+dotenv.config();
+
 const argv = yargs(hideBin(process.argv))
   .option("tasks", {
     type: "number",
@@ -75,19 +78,19 @@ function setupMasterSchedule() {
   // const anime = new RootFolder("Anime", "\\\\syn01\\syn01public\\Anime");
   // const movies = new RootFolder("Movies", "\\\\drobo5n2\\public\\Movies");
 
-  // const bookOcrPipeline = new Pipeline() //
-  //   .setName("Book OCR") //
-  //   .setUses([".*.cbt.gz", ".*.yaml"]) //
-  //   .setProduces(".*.cbt.gz") //
-  //   .setPropertyCheck((file: string) => {
-	// 		const pout = String(child_process.execFileSync("tar", ["-ztf", file]));
-  //     const list = pout.split("\r\n");
-  //     return list.some((line) => line.trim().endsWith(".md"));
-  //   }) //
-  //   .addStep(new OcrUntarCbtGzStep())
-  //   .addStep(new BookRunOcrStep())
-  //   .addStep(new BookTarToCbtGzStep())
-	// ;
+  const bookOcrPipeline = new Pipeline() //
+    .setName("Book OCR") //
+    .setUses([".*.cbt.gz", ".*.yaml"]) //
+    .setProduces(".*.cbt.gz") //
+    .setPropertyCheck((file: string) => {
+			const pout = String(child_process.execFileSync("tar", ["-ztf", file]));
+      const list = pout.split("\r\n");
+      return list.some((line) => line.trim().endsWith(".md"));
+    }) //
+    .addStep(new OcrUntarCbtGzStep())
+    .addStep(new BookRunOcrStep())
+    .addStep(new BookTarToCbtGzStep())
+	;
 
   const bookCoverThumbnailPipeline = new Pipeline()
     .setName("Book Cover Thumbnail") //
@@ -133,13 +136,13 @@ function setupMasterSchedule() {
       bookCoverThumbnailPipeline,
       bookCbtPipeline,
       // bookGzipCbtsPipeline,
-      // bookOcrPipeline,
+      bookOcrPipeline,
 			singlePdfThumbnailPipeline, 
 			movieThumbnailPipeline, 
     ]) //
       .schedule(bookCoverThumbnailPipeline.name, lightNovels) //
       .schedule(bookCbtPipeline.name, lightNovels) //
-      // .schedule(bookOcrPipeline.name, lightNovels) //
+      .schedule(bookOcrPipeline.name, lightNovels) //
       //
       .schedule(bookCoverThumbnailPipeline.name, fiction) //
       .schedule(bookCbtPipeline.name, fiction) //
