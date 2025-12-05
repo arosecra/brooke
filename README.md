@@ -10,6 +10,7 @@ updated todo:
 
 
 - ui:
+	- synthesize an unassigned category
 
 	- add full screen progress overlay for adding collection
 		- show top level folder being processed
