@@ -175,7 +175,7 @@
 // const ms = setupMasterSchedule();
 
 // if (threads === 1) {
-//   ms.determineTasks(argv.pipelines);
+//   ms.determineTasks(argv.tasks, argv.pipelines);
 //   ms.printSummary();
 
 // 	if(argv.summary) {
@@ -195,7 +195,7 @@
 //   }
 // } else {
 //   if (cluster.isPrimary) {
-//     ms.determineTasks(argv.pipelines);
+//     ms.determineTasks(argv.tasks, argv.pipelines);
 //     ms.printSummary();
 
 //     for (let id = 0; id < threads; id++) {

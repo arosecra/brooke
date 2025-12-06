@@ -10,12 +10,14 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^17.2.3",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.9.3",
+    "express": "^5.2.1",
     "yaml": "^2.8.1",
     "yargs": "^18.0.0"
   },
   "devDependencies": {
-    "@types/yargs": "^17.0.34"
+    "@types/express": "^5.0.6",
+    "@types/yargs": "^17.0.34",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
   }
 }

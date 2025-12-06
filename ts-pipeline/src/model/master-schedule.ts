@@ -62,7 +62,7 @@ export class MasterSchedule {
 		schedule.workRequired.push(t);
 	}
 
-	determineTasks(max: number, pipelines: string | undefined) {
+	determineTasks(pipelines: string | undefined) {
 		this.schedules.forEach((schedule) => {
 			schedule.rootFolder.itemFolders.forEach((itemFolder) => {
 				const pipeline = this.pipelineByName(schedule.pipelineName);
@@ -79,9 +79,7 @@ export class MasterSchedule {
 				// console.log(producesExists, usesExists, pipelineMatches, produceMissing, taskApplicable, itemFolder);
 
 				if (taskApplicable) {
-					if(this.tasks.length < max || max === 0) {
-						this.addTask(new Task(pipeline.name, itemFolder), schedule);
-					}
+					this.addTask(new Task(pipeline.name, itemFolder), schedule);
 				}
 			});
 		});
@@ -112,5 +110,31 @@ export class MasterSchedule {
 		console.log(format("-------------", "--------", "------"));
 		console.log(format("Total", "--------", total));
 
+	}
+
+	summary() {
+		const format = (rf: string, pipeline: string, num: string | number) => {
+			return [rf.padEnd(24, ' '), 
+					pipeline.padEnd(48, ' '), 
+					String(num).padEnd(8, ' ')].join(' ');
+		}
+
+		let res = format("-------------", "--------", "------") + '\r\n';
+
+		res += format("Remote Folder", "Pipeline", "# ToDo") + '\r\n';
+		res += format("-------------", "--------", "------") + '\r\n';
+
+		let total = 0;
+		this.schedules.forEach((schedule) => {
+			res += format(
+				schedule.rootFolder.rootFolder,
+				schedule.pipelineName,
+				schedule.workRequired.length,
+				) + "\r\n";
+			total += schedule.workRequired.length;
+		});
+		res += format("-------------", "--------", "------") + '\r\n';
+		res += format("Total", "--------", total) + '\r\n';
+		return res;
 	}
 }

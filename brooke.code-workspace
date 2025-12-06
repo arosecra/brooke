@@ -18,6 +18,9 @@
 		},
 		{
 			"path": "ts-vlc-launcher"
+		},
+		{
+			"path": "ts-pipeline"
 		}
 	]
 }

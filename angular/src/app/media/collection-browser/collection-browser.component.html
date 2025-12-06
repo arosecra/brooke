@@ -3,7 +3,7 @@
 @if (appState && resources && resources.storedLibrary.hasValue()) {
   @let library = resources.storedLibrary.value();
   @let currentCollection = appState.currentCollection();
-	@let collectionCategories = appState.currentCollectionCategories();
+  @let collectionCategories = appState.currentCollectionCategories();
   @let currentCategory = appState.currentCategory();
   @let currentSeries = appState.currentSeries();
 
@@ -11,32 +11,36 @@
     <h2 class="flex flex-justify-content-center">Collections</h2>
     <div class="flex flex-justify-content-center">
       @for (collection of library.collections; track collection.name) {
-				<select-collection-action [collection]="collection"></select-collection-action>
+        <select-collection-action [collection]="collection"></select-collection-action>
       }
     </div>
   }
 
   @if (currentCollection && !currentCategory) {
     <h2 class="flex flex-justify-content-center flex-align-center">
-			Categories 
-			@for (category of collectionCategories; track $index) {
-				@if(category.synthetic && !category.alphabetical) {
-        	<select-category-action [category]="category"></select-category-action>
-				}
+      Categories
+      @for (category of collectionCategories; track $index) {
+        @if (category.synthetic && !category.alphabetical) {
+          <select-category-action
+            [category]="category"
+            [matBadge]="category.items.length"
+            matBadgeSize="large"
+          ></select-category-action>
+        }
       }
-		</h2>
+    </h2>
     <div class="flex flex-justify-content-center">
       @for (category of collectionCategories; track $index) {
-				@if(!category.synthetic) {
-        	<select-category-action [category]="category"></select-category-action>
-				}
+        @if (!category.synthetic) {
+          <select-category-action [category]="category" [matBadge]="category.items.length"></select-category-action>
+        }
       }
     </div>
     <div class="flex flex-justify-content-center">
       @for (category of collectionCategories; track $index) {
-				@if(category.synthetic && category.alphabetical) {
-        	<select-category-action [category]="category"></select-category-action>
-				}
+        @if (category.synthetic && category.alphabetical) {
+          <select-category-action [category]="category" [matBadge]="category.items.length"></select-category-action>
+        }
       }
     </div>
   }

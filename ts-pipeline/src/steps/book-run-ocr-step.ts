@@ -16,7 +16,8 @@ export class BookRunOcrStep implements JobStep {
 		if(fs.existsSync(thumbs)) fs.renameSync(thumbs, node.pathJoin(job.destFolder, '.thumbnails'));
 
 		fs.readdirSync(job.sourceFolder).forEach((file) => {
-			node.fsMove(path.join(job.sourceFolder, file), path.join(job.destFolder, file));
+			if(file.endsWith('.webp'))
+				node.fsMove(path.join(job.sourceFolder, file), path.join(job.destFolder, file));
 		})
 
 		const ocrFolder = node.pathJoin(job.destFolder, '.ocr');
