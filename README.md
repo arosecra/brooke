@@ -8,13 +8,6 @@ updated todo:
 	- try other ocr
 		- perhaps we can compare ocr results?
 
-	- convert pipeline into master & workers
-		- master is a rest api
-		- workers request work, master assigns work
-		- workers tell when work is done
-		- small ui to master to show current assignments, required and in process
-		- 
-
 
 - ui:
 	- synthesize an unassigned category
