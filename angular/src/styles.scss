@@ -1,5 +1,5 @@
 @use '@angular/material' as mat;
-@use './styles/azure-blue.scss';
+@use '@angular/material/prebuilt-themes/azure-blue.css';
 
 @forward './styles/flex.scss';
 @forward './styles/html.scss';
