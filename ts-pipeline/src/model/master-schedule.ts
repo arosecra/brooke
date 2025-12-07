@@ -113,28 +113,36 @@ export class MasterSchedule {
 	}
 
 	summary() {
-		const format = (rf: string, pipeline: string, num: string | number) => {
+		const format = (rf: string, pipeline: string, num: string | number, num2: string | number) => {
 			return [rf.padEnd(24, ' '), 
 					pipeline.padEnd(48, ' '), 
-					String(num).padEnd(8, ' ')].join(' ');
+					String(num).padEnd(8, ' '), 
+					String(num2).padEnd(8, ' ')
+				].join(' ');
 		}
 
-		let res = format("-------------", "--------", "------") + '\r\n';
+		let res = format("-------------", "--------", "------", "------") + '\r\n';
 
-		res += format("Remote Folder", "Pipeline", "# ToDo") + '\r\n';
-		res += format("-------------", "--------", "------") + '\r\n';
+		res += format("Remote Folder", "Pipeline", "# ToDo", "# Assigned") + '\r\n';
+		res += format("-------------", "--------", "------", "------") + '\r\n';
 
 		let total = 0;
+		let total2 = 0;
 		this.schedules.forEach((schedule) => {
+			const req = schedule.workRequired.filter((t) => !t.assigned).length;
+			const asn = schedule.workRequired.length - req;
+
 			res += format(
 				schedule.rootFolder.rootFolder,
 				schedule.pipelineName,
-				schedule.workRequired.length,
+				req,
+				asn
 				) + "\r\n";
-			total += schedule.workRequired.length;
+			total += req;
+			total2 += asn;
 		});
-		res += format("-------------", "--------", "------") + '\r\n';
-		res += format("Total", "--------", total) + '\r\n';
+		res += format("-------------", "--------", "------", "------") + '\r\n';
+		res += format("Total", "--------", total, total2) + '\r\n';
 		return res;
 	}
 }

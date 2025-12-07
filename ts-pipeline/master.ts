@@ -52,6 +52,10 @@ app.get('/summary', (req: Request, res: Response) => {
 app.get('/compute', (req: Request, res: Response) => {
   const newMs = setupMasterSchedule();
   newMs.determineTasks(argv.pipelines);
+  newMs.tasks.forEach((newT) => {
+    const oT = ms.tasks.find((oldTask) => oldTask.itemFolder === newT.itemFolder && oldTask.pipelineName === newT.pipelineName);
+    newT.assigned = !!oT?.assigned;
+  })
   ms = newMs;
   res.redirect('/summary');
 });

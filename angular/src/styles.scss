@@ -1,5 +1,5 @@
 @use '@angular/material' as mat;
-@use '@angular/material/prebuilt-themes/azure-blue.css';
+@use './styles/theme.scss';
 
 @forward './styles/flex.scss';
 @forward './styles/html.scss';
@@ -10,19 +10,19 @@ $theme: mat.define-theme();
 html {
   @include mat.all-component-themes($theme);
   @include mat.color-variants-backwards-compatibility($theme);
-  @include mat.theme(
-    (
-      color: mat.$azure-palette,
-      typography: Roboto,
-      density: 0,
-    )
-  );
+  // @include mat.theme(
+  //   (
+  //     color: mat.$azure-palette,
+  //     typography: Roboto,
+  //     density: 0,
+  //   )
+  // );
 }
 
 body {
   color-scheme: light;
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
+  // background-color: var(--mat-sys-surface);
+  // color: var(--mat-sys-on-surface);
   font: var(--mat-sys-body-medium);
   margin: 0;
 }

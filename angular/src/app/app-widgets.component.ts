@@ -34,7 +34,11 @@ export class AppWidgetsComponent {
     showLibrarySettings: computed(() => this.app.appState().showLibraryEditorManual()),
   };
   book = {
-    pagesInDisplay: linkedSignal<number>(() => (this.isMobile() ? 1 : 2)),
+    pagesInDisplay: linkedSignal<number>(() => {
+      const setting = this.app.resources().storedLibrary.value()?.defaultPagesPer ? 2 : 1;
+      if(this.isMobile()) return 1
+      else return setting;
+    }),
     thumbnailView: signal<boolean>(false),
     markdownView: signal<boolean>(false),
     sideBySide: signal<boolean>(false),

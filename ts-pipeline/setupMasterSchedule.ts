@@ -45,7 +45,7 @@ export function setupMasterSchedule() {
 
   const bookCoverThumbnailPipeline = new Pipeline()
     .setName("Book Cover Thumbnail") //
-    .setUses([".*cover[s].pdf"]) //
+    .setUses([".*cover[s]?.pdf"]) //
     .setProduces("thumbnail.webp") //
     .addStep(new BookExtractPDFsStep()) //
     .addStep(new BookCreateCoverThumbnailStep(250, 400));

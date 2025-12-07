@@ -312,11 +312,17 @@ export class AppComponent {
         this.appState().currentPageSet.set(newPageNo);
         this.setLocation();
 
-        // this.location.replaceState('test');
-        const elements = document.getElementsByTagName('main');
-        if (elements?.length) elements[0].scrollIntoView();
+        this.scrollToTop();
       }
     }
+  }
+
+  scrollToTop() {
+    document.getElementsByTagName('main')?.[0]?.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
   }
 
   goToNextPage(event?: Event): Promise<boolean> {
