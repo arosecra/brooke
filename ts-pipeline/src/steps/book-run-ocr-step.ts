@@ -7,7 +7,7 @@ import { node } from "../util/node";
 
 export class BookRunOcrStep implements JobStep {
 	name = 'BookRunOcrStep';
-	execute(job: JobFolder): void {
+	async execute(job: JobFolder): Promise<void> {
 		const detailsContent = fs.readFileSync(node.pathJoin(job.remoteFolder, 'cbtDetails.yaml'));
 		const cbtDetails = parse(String(detailsContent));
 
@@ -26,6 +26,7 @@ export class BookRunOcrStep implements JobStep {
 		fs.mkdirSync(node.pathJoin(ocrFolder, 'md'), { recursive: true });
 		fs.mkdirSync(node.pathJoin(ocrFolder, 'model'), { recursive: true });
 
+		let ocrFiles: any[] = [];
 		fs.readdirSync(job.destFolder).filter((file) => file.includes('-1-')).forEach((file) => {
 			const baseFilename = path.basename(file);
 			const baseFilenameNoExt = path.basename(file).replace('.png', '').replace('.webp', '');
@@ -42,36 +43,77 @@ export class BookRunOcrStep implements JobStep {
 				// no need to create a file
 			} else if (isWebp || isPng) {
 				if(!fs.existsSync(expectedOcrOutput)) {
-					this.runOcr(job, baseFilename);
+					ocrFiles.push(baseFilename);
+					// this.runOcr(job, baseFilename);
+					// this.afterOcr(ocrFolder, expectedOcrOutput, dataPrefix);
+				} else {
+					this.afterOcr(ocrFolder, expectedOcrOutput, dataPrefix);
 				}
-
-				const ocrOutput = node.pathJoin(expectedOcrOutput, 'auto');
-				const ocrFiles = fs.readdirSync(ocrOutput);
-
-				for(let i = 0; i < ocrFiles.length; i++) {
-					const ocrFile = ocrFiles[i];
-					const inputPath = node.pathJoin(ocrOutput, ocrFiles[i]);
-
-					let folder = "md";
-          if (ocrFile.includes("content_list")) {
-            folder = "content_list";
-          } else if (ocrFile.includes("model")) {
-            folder = "model";
-          } 
-					const outputPath = node.pathJoin(ocrFolder, folder, path.basename(ocrFile));
-					if(ocrFile.endsWith('json') && !ocrFile.includes('middle')) {
-						fs.copyFileSync(inputPath, outputPath)
-					} else if(ocrFile.endsWith('md')) {
-						let modifiedLines = this.internImages(inputPath, ocrOutput, dataPrefix);
-						fs.writeFileSync(outputPath, modifiedLines.join('\n'));
-					}
-				}
-
 			}			
 		});
 
+		console.log('Running OCR for ' + ocrFiles.length + ' files');
+
+		await this.ocrPool(ocrFiles, ocrFolder, job.sourceFolder, job.destFolder);
+
 		//D:\Software\7za\7za.exe a -ttar D:\scans\pipeline_temp\Is_it_Wrong_to_Pick_Up_Girls_in_a_Dungeon_01\dest\dest.tar D:\scans\pipeline_temp\Is_it_Wrong_to_Pick_Up_Girls_in_a_Dungeon_01\dest\.ocr.zip
 	}
+
+	async ocrPool(ocrFiles: string[], ocrFolder: string, sourceFolder: string, destFolder: string) {
+
+
+		const chunkSize = 10;
+		for (let i = 0; i < ocrFiles.length; i += chunkSize) {
+			const chunk = ocrFiles.slice(i, i + chunkSize);
+			
+			const pool = [];
+
+			for(let j = 0; j < chunk.length; j++) {
+				const file = chunk[j];
+				const baseFilename = path.basename(file);
+				const baseFilenameNoExt = path.basename(file).replace('.png', '').replace('.webp', '');
+				let expectedOcrOutput = node.pathJoin(sourceFolder, baseFilenameNoExt);
+
+				const isPng = file.endsWith('png');
+				const isWebp = file.endsWith('webp');
+				const dataPrefix = isPng ? 'data:image/png;base64,' : 'data:image/webp;base64,';
+				pool.push(new Promise((resolve) => {
+					this.runOcr(sourceFolder, destFolder, file).then(() => {
+						this.afterOcr(ocrFolder, expectedOcrOutput, dataPrefix);
+						resolve(true);
+					})
+				}))
+			}
+
+			await Promise.all(pool);
+
+		}
+	}
+
+	afterOcr(ocrFolder: string, expectedOcrOutput: string, dataPrefix: string) {
+		const ocrOutput = node.pathJoin(expectedOcrOutput, 'auto');
+		const ocrFiles = fs.readdirSync(ocrOutput);
+
+		for(let i = 0; i < ocrFiles.length; i++) {
+			const ocrFile = ocrFiles[i];
+			const inputPath = node.pathJoin(ocrOutput, ocrFiles[i]);
+
+			let folder = "md";
+			if (ocrFile.includes("content_list")) {
+				folder = "content_list";
+			} else if (ocrFile.includes("model")) {
+				folder = "model";
+			} 
+			const outputPath = node.pathJoin(ocrFolder, folder, path.basename(ocrFile));
+			if(ocrFile.endsWith('json') && !ocrFile.includes('middle')) {
+				fs.copyFileSync(inputPath, outputPath)
+			} else if(ocrFile.endsWith('md')) {
+				let modifiedLines = this.internImages(inputPath, ocrOutput, dataPrefix);
+				fs.writeFileSync(outputPath, modifiedLines.join('\n'));
+			}
+		}
+	}
+
 
 	async compressData(data: any) {
 		const textEncoder = new TextEncoder();
@@ -108,22 +150,22 @@ export class BookRunOcrStep implements JobStep {
 		return modifiedLines;
 	}
 
-	private runOcr(job: JobFolder, file: string) {
+	private runOcr(sourceFolder: string, destFolder: string, file: string) {
 		const python = process.env.python ?? 'D:\\Software\\Python\\Python313\\'
 		const mineru = process.env.mineru ?? 'D:\\projects\\mineru'
 
-		node.execFileSync(
+		return node.execFile(
 			`${python}\\Scripts\\uv.exe`,
 			['-q',
 				'--directory', mineru,
 				'run', 'mineru',
-				'-o', job.sourceFolder, //
+				'-o', sourceFolder, //
 				'-l', 'en', //
 				'-d', 'cpu', //
 				'-b', 'pipeline', //
 				'-m', 'auto', //
 				'--source', 'local', //
-				'-p', node.pathJoin(job.destFolder, file),
+				'-p', node.pathJoin(destFolder, file),
 			], {
 			shell: true
 		});

@@ -40,7 +40,7 @@ let done = false;
       done = !!task.done;
       if(!done) 
         console.log(`Starting ${task.pipelineName} - ${task.itemFolder}`);
-        new SinglePipelineExecutor().executeTask(
+        await new SinglePipelineExecutor().executeTask(
           argv,
           ms.pipelineByName(task.pipelineName),
           task.itemFolder

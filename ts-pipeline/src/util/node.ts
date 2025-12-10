@@ -19,6 +19,18 @@ export class node {
 		return String(child_process.execFileSync(file, args, opts));
 	} 
 
+	static execFile(file: string, args: string[], opts?: any) {
+		const dir = opts?.cwd ? ` in ${opts.cwd}` : '';
+		const cmd = `Running> ${file} ${args.join(' ')}${dir}`
+
+		console.log(cmd);
+		return new Promise((resolve) => {
+			child_process.execFile(file, args, opts, (error, stdout, stderr) => {
+				resolve(stdout.toString());
+			});
+		});
+	} 
+
 	static fsMove(source: string, dest: string) {
 		fs.copyFileSync(source, dest);
 		fs.rmSync(source);

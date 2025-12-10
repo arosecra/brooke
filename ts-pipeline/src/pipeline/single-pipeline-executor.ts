@@ -7,7 +7,7 @@ import { JobStep } from '../model/job-step';
 import { node } from '../util/node';
 
 export class SinglePipelineExecutor {
-	executeTask(args: Args, pipeline: Pipeline, itemFolder: string) {
+	async executeTask(args: Args, pipeline: Pipeline, itemFolder: string) {
 		const temp = process.env.scantemp ?? 'D:/scans'
 		let job = new JobFolder();
 		job.remoteFolder = itemFolder;
@@ -21,14 +21,14 @@ export class SinglePipelineExecutor {
 			new CopyProducedFilesToRemote(pipeline.produces)
 		]
 
-		executeSteps(steps, job);
+		await executeSteps(steps, job);
 
 		if(args.delete) fs.rmdirSync(job.workFolder, { recursive: true })
 	}
 }
 
 
-function executeSteps(steps: JobStep[], job: JobFolder) {
+async function  executeSteps(steps: JobStep[], job: JobFolder) {
 	let stepSourceFolders = ['remote', ...steps.map((step, index) => path.join(job.workFolder, `${index}_${step.name}`)), 'remote'];
 
 	let lastStepIndex = 0;
@@ -47,7 +47,7 @@ function executeSteps(steps: JobStep[], job: JobFolder) {
 		job.destFolder = stepSourceFolders[i+1];
 		fs.mkdirSync(job.destFolder, { recursive: true })
 		
-		jobStep.execute(job);
+		await jobStep.execute(job);
 
 		node.rmdir(job.sourceFolder);
 		lastDest = job.destFolder;

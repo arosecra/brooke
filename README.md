@@ -7,10 +7,17 @@ updated todo:
 	- generate webp thumbnails for movies
 	- try other ocr
 		- perhaps we can compare ocr results?
+	- consider moving ocr results to separate file
+		- easier startup of pipeline
+		- easier to update the ocr files in an editor (not also writing the whole set of images)
+		- also consider moving thumbs to another file
+			- will no longer have to worry about .thumbnails folder in the main cbt
 
 
 - ui:
 	- synthesize an unassigned category
+
+	- prune leaf nodes with no item file
 
 	- add full screen progress overlay for adding collection
 		- show top level folder being processed
@@ -92,11 +99,6 @@ updated todo:
 	
 	- attempt to standardize image sizes. pad transparency onto images to fill height gap?
 		-need to handle series thumbnails in pipeline
-
-	- update for responsive
-		- clicking the page on the right goes to next page
-		- clicking on the page on the left goes back
-		- add gestures (swipe specifically)
 
 	- editor for markdown, if i want to change / update it?
 
