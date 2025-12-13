@@ -9,16 +9,14 @@ import { WebFS } from '../shared/web-fs';
 })
 export class CbtService {
 
-  loadCbtGz(item: ChildItem | undefined, cacheFileHandle: FileSystemFileHandle): Promise<Page[]> {
+  loadCbtGz(item: ChildItem): Promise<Page[]> {
     return new Promise(async (resolve, reject) => {
       let pages: Page[] = [];
       let pagesByName: Record<string, Page> = {};
 
-      const cacheFile = await cacheFileHandle.getFile();
-      const cacheFileBuff = await cacheFile.arrayBuffer();
-      const files = await parseTarGzip(cacheFileBuff, { metaOnly: false });
-
-      let { webpFiles, thumbnailFiles, mdFiles } = this.separateFiles(files);
+      const webpFiles = item.handle ? await parseTarGzip(await WebFS.readBuffer(item.handle), { metaOnly: false }) : [];
+      const thumbnailFiles = item.thumbsHandle ? await parseTarGzip(await WebFS.readBuffer(item.thumbsHandle), { metaOnly: false }) : [];
+      const mdFiles = item.ocrHandle ? await parseTarGzip(await WebFS.readBuffer(item.ocrHandle), { metaOnly: false }) : [];
 
       for (let i = 0; i < webpFiles.length; i++) {
         const file = webpFiles[i];
@@ -51,7 +49,6 @@ export class CbtService {
       for (let i = 0; i < thumbnailFiles.length; i++) {
         const file = thumbnailFiles[i];
         let name = file.name
-          .replace('.thumbnails/', '')
           .replaceAll('.webp', '')
           .replaceAll('.png', '');
         let base64 = await WebFS.bytesToBase64DataUrl(file.data);
@@ -61,30 +58,18 @@ export class CbtService {
       const decoder = new TextDecoder('utf-8');
       for (let i = 0; i < mdFiles.length; i++) {
         const file = mdFiles[i];
-        let name = file.name.replace('.ocr/md/', '').replaceAll('.md', '');
-        pagesByName[name].markdown = decoder.decode(file.data);
+        if(file.name.endsWith('.md')) {
+          let name = file.name.replace('md/', '').replaceAll('.md', '');
+          pagesByName[name].markdown = decoder.decode(file.data);
+        } else if (file.name.endsWith('_content_list.json')) {
+          let name = file.name.replace('content_list/', '').replaceAll('_content_list.json', '');
+          pagesByName[name].contentList = JSON.parse(decoder.decode(file.data));
+        } else if (file.name.endsWith('_model.json')) {
+          let name = file.name.replace('model/', '').replaceAll('_model.json', '');
+          pagesByName[name].model = JSON.parse(decoder.decode(file.data));
+        }
       }
       resolve(pages);
     });
-  }
-
-  separateFiles(files: any[]) {
-    let mdFiles = [];
-    let thumbnailFiles = [];
-    let webpFiles = [];
-
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      if (file.data) {
-        if (file.name.startsWith('.ocr')) {
-          if (file.name.endsWith('.md')) mdFiles.push(file);
-        } else if (file.name.startsWith('.thumbnails')) {
-          thumbnailFiles.push(file);
-        } else {
-          webpFiles.push(file);
-        }
-      }
-    }
-    return { webpFiles, thumbnailFiles, mdFiles };
   }
 }

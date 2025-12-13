@@ -11,23 +11,13 @@ export class BookRunOcrStep implements JobStep {
 		const detailsContent = fs.readFileSync(node.pathJoin(job.remoteFolder, 'cbtDetails.yaml'));
 		const cbtDetails = parse(String(detailsContent));
 
-		
-		const thumbs = node.pathJoin(job.sourceFolder, '.thumbnails')
-		if(fs.existsSync(thumbs)) fs.renameSync(thumbs, node.pathJoin(job.destFolder, '.thumbnails'));
-
-		fs.readdirSync(job.sourceFolder).forEach((file) => {
-			if(file.endsWith('.webp'))
-				node.fsMove(path.join(job.sourceFolder, file), path.join(job.destFolder, file));
-		})
-
-		const ocrFolder = node.pathJoin(job.destFolder, '.ocr');
-		fs.mkdirSync(ocrFolder, { recursive: true });
-		fs.mkdirSync(node.pathJoin(ocrFolder, 'content_list'), { recursive: true });
-		fs.mkdirSync(node.pathJoin(ocrFolder, 'md'), { recursive: true });
-		fs.mkdirSync(node.pathJoin(ocrFolder, 'model'), { recursive: true });
+		fs.mkdirSync(job.destFolder, { recursive: true });
+		fs.mkdirSync(node.pathJoin(job.destFolder, 'content_list'), { recursive: true });
+		fs.mkdirSync(node.pathJoin(job.destFolder, 'md'), { recursive: true });
+		fs.mkdirSync(node.pathJoin(job.destFolder, 'model'), { recursive: true });
 
 		let ocrFiles: any[] = [];
-		fs.readdirSync(job.destFolder).filter((file) => file.includes('-1-')).forEach((file) => {
+		fs.readdirSync(job.sourceFolder).filter((file) => file.includes('-1-')).forEach((file) => {
 			const baseFilename = path.basename(file);
 			const baseFilenameNoExt = path.basename(file).replace('.png', '').replace('.webp', '');
 			let expectedOcrOutput = node.pathJoin(job.sourceFolder, baseFilenameNoExt);
@@ -47,22 +37,20 @@ export class BookRunOcrStep implements JobStep {
 					// this.runOcr(job, baseFilename);
 					// this.afterOcr(ocrFolder, expectedOcrOutput, dataPrefix);
 				} else {
-					this.afterOcr(ocrFolder, expectedOcrOutput, dataPrefix);
+					this.afterOcr(job.destFolder, expectedOcrOutput, dataPrefix);
 				}
 			}			
 		});
 
 		console.log('Running OCR for ' + ocrFiles.length + ' files');
 
-		await this.ocrPool(ocrFiles, ocrFolder, job.sourceFolder, job.destFolder);
+		await this.ocrPool(ocrFiles, job.sourceFolder, job.destFolder);
 
 		//D:\Software\7za\7za.exe a -ttar D:\scans\pipeline_temp\Is_it_Wrong_to_Pick_Up_Girls_in_a_Dungeon_01\dest\dest.tar D:\scans\pipeline_temp\Is_it_Wrong_to_Pick_Up_Girls_in_a_Dungeon_01\dest\.ocr.zip
 	}
 
-	async ocrPool(ocrFiles: string[], ocrFolder: string, sourceFolder: string, destFolder: string) {
-
-
-		const chunkSize = 10;
+	async ocrPool(ocrFiles: string[], sourceFolder: string, destFolder: string) {
+		const chunkSize = 8;
 		for (let i = 0; i < ocrFiles.length; i += chunkSize) {
 			const chunk = ocrFiles.slice(i, i + chunkSize);
 			
@@ -79,7 +67,7 @@ export class BookRunOcrStep implements JobStep {
 				const dataPrefix = isPng ? 'data:image/png;base64,' : 'data:image/webp;base64,';
 				pool.push(new Promise((resolve) => {
 					this.runOcr(sourceFolder, destFolder, file).then(() => {
-						this.afterOcr(ocrFolder, expectedOcrOutput, dataPrefix);
+						this.afterOcr(destFolder, expectedOcrOutput, dataPrefix);
 						resolve(true);
 					})
 				}))
@@ -90,7 +78,7 @@ export class BookRunOcrStep implements JobStep {
 		}
 	}
 
-	afterOcr(ocrFolder: string, expectedOcrOutput: string, dataPrefix: string) {
+	afterOcr(destFolder: string, expectedOcrOutput: string, dataPrefix: string) {
 		const ocrOutput = node.pathJoin(expectedOcrOutput, 'auto');
 		const ocrFiles = fs.readdirSync(ocrOutput);
 
@@ -104,7 +92,7 @@ export class BookRunOcrStep implements JobStep {
 			} else if (ocrFile.includes("model")) {
 				folder = "model";
 			} 
-			const outputPath = node.pathJoin(ocrFolder, folder, path.basename(ocrFile));
+			const outputPath = node.pathJoin(destFolder, folder, path.basename(ocrFile));
 			if(ocrFile.endsWith('json') && !ocrFile.includes('middle')) {
 				fs.copyFileSync(inputPath, outputPath)
 			} else if(ocrFile.endsWith('md')) {
@@ -137,7 +125,7 @@ export class BookRunOcrStep implements JobStep {
 		for (let j = 0; j < lines.length; j++) {
 			let line = lines[j];
 			if (line.startsWith('![](images/')) {
-				line = line.replace('![](', '').replace(')', '');
+				line = line.replace('![](', '').replace(')', '').trim();
 				const figurePath = node.pathJoin(ocrOutput, line);
 				const base64String = fs.readFileSync(figurePath, 'base64');
 
@@ -165,7 +153,7 @@ export class BookRunOcrStep implements JobStep {
 				'-b', 'pipeline', //
 				'-m', 'auto', //
 				'--source', 'local', //
-				'-p', node.pathJoin(destFolder, file),
+				'-p', node.pathJoin(sourceFolder, file),
 			], {
 			shell: true
 		});

@@ -109,6 +109,11 @@ export class WebFS {
 		return YAML.parse(await WebFS.readText(file)) as T;
 	}
 
+	static async readBuffer(cacheFileHandle: FileSystemFileHandle) {
+		const cacheFile = await cacheFileHandle.getFile();
+		return await cacheFile.arrayBuffer();
+	}
+
 	static async bytesToBase64DataUrl(bytes: any, type = "image/webp"): Promise<string> {
 		return await new Promise((resolve, reject) => {
 			const reader = Object.assign(new FileReader(), {

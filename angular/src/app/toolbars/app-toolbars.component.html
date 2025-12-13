@@ -79,9 +79,9 @@
       <toggle-book-options-action></toggle-book-options-action>
       <toggle-toc-action></toggle-toc-action>
       <toggle-add-toc-action></toggle-add-toc-action>
-          <button matMiniFab title="Close" (click)="app.scrollToTop()" [disabled]="!app.appState().currentCollection()">
-      <mat-icon fontSet="material-symbols-outlined">arrow_circle_up</mat-icon>
-    </button>
+      <button matMiniFab title="Scroll to Top" (click)="app.scrollToTop()" [disabled]="!app.appState().currentCollection()">
+        <mat-icon fontSet="material-symbols-outlined">arrow_circle_up</mat-icon>
+      </button>
       <close-action></close-action>
     </div>
   </mat-drawer>

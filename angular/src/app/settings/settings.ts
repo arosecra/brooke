@@ -179,67 +179,73 @@ export class SettingsComponent {
 
           const intero = await this.possibleItem(collection, leaf);
 
-          if (parentDirInterogation.thumbnail && index === 0) {
+          if(intero.item) {
+
+            if (parentDirInterogation.thumbnail && index === 0) {
+              this.busyMessage.set([
+                'Collection and Categories added.',
+                'Processing leaf folder ' + leaf.name,
+                'Adding series item',
+              ]);
+              await this.appDB.addItem({
+                name: parentDirInterogation.name,
+                collectionName: collection.name,
+                series: true,
+                dirHandle: parent,
+                childItems: [],
+              });
+              this.busyMessage.set([
+                'Collection and Categories added.',
+                'Processing leaf folder ' + leaf.name,
+                'Adding series thumbnail',
+              ]);
+
+              await this.appDB.addThumbnail({
+                itemName: parent.name,
+                collectionName: collection.name,
+                categoryName: itemToCategory[parent.name]?.name ?? 'unassigned',
+                thumbnail: await parentDirInterogation.thumbnail.getFile(),
+              });
+            }
+
             this.busyMessage.set([
               'Collection and Categories added.',
               'Processing leaf folder ' + leaf.name,
-              'Adding series item',
+              'Adding item',
             ]);
             await this.appDB.addItem({
-              name: parentDirInterogation.name,
+              name: leaf.name,
               collectionName: collection.name,
-              series: true,
-							dirHandle: parent,
+              handle: intero.item,
+              ocrHandle: intero.ocr,
+              thumbsHandle: intero.thumbs,
+              dirHandle: leaf,
+              series: false,
+              bookDetails: intero.cbtDetails ? await WebFS.readYaml(intero.cbtDetails) : undefined,
               childItems: [],
             });
+
+            if (intero.thumbnail) {
+              this.busyMessage.set([
+                'Collection and Categories added.',
+                'Processing leaf folder ' + leaf.name,
+                'Adding item thumbnail',
+              ]);
+              await this.appDB.addThumbnail({
+                itemName: leaf.name,
+                collectionName: collection.name,
+                categoryName: itemToCategory[leaf.name]?.name ?? 'unassigned',
+                thumbnail: await intero.thumbnail.getFile(),
+              });
+            }
+
             this.busyMessage.set([
               'Collection and Categories added.',
               'Processing leaf folder ' + leaf.name,
-              'Adding series thumbnail',
+              'Completed item',
             ]);
 
-            await this.appDB.addThumbnail({
-              itemName: parent.name,
-              collectionName: collection.name,
-              categoryName: itemToCategory[parent.name]?.name ?? 'unassigned',
-              thumbnail: await parentDirInterogation.thumbnail.getFile(),
-            });
           }
-
-          this.busyMessage.set([
-            'Collection and Categories added.',
-            'Processing leaf folder ' + leaf.name,
-            'Adding item',
-          ]);
-          await this.appDB.addItem({
-            name: leaf.name,
-            collectionName: collection.name,
-            handle: intero.item,
-						dirHandle: leaf,
-            series: false,
-            bookDetails: intero.cbtDetails ? await WebFS.readYaml(intero.cbtDetails) : undefined,
-            childItems: [],
-          });
-
-          if (intero.thumbnail) {
-            this.busyMessage.set([
-              'Collection and Categories added.',
-              'Processing leaf folder ' + leaf.name,
-              'Adding item thumbnail',
-            ]);
-            await this.appDB.addThumbnail({
-              itemName: leaf.name,
-              collectionName: collection.name,
-              categoryName: itemToCategory[leaf.name]?.name ?? 'unassigned',
-              thumbnail: await intero.thumbnail.getFile(),
-            });
-          }
-
-          this.busyMessage.set([
-            'Collection and Categories added.',
-            'Processing leaf folder ' + leaf.name,
-            'Completed item',
-          ]);
 
           return Promise.resolve(true);
         },
@@ -261,11 +267,15 @@ export class SettingsComponent {
     let thumbnail;
     let cbtDetails;
     let item;
+    let ocr;
+    let thumbs;
 
     const files = await WebFS.readdir(dir);
     files.forEach((file) => {
       if (file.kind === 'file' && file.name.startsWith('thumbnail')) thumbnail = file;
       if (file.kind === 'file' && file.name.startsWith('cbtDetails')) cbtDetails = file;
+      if (file.kind === 'file' && file.name.endsWith('.ocr.gz')) ocr = file;
+      if (file.kind === 'file' && file.name.endsWith('.tmb.gz')) thumbs = file;
       if (file.kind === 'file' && file.name.endsWith(collection.itemExtension)) item = file;
     });
 
@@ -273,6 +283,8 @@ export class SettingsComponent {
       thumbnail,
       cbtDetails,
       item,
+      ocr,
+      thumbs,
       name: dir.name,
     };
   }

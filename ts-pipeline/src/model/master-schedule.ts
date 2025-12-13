@@ -86,30 +86,7 @@ export class MasterSchedule {
 	}
 
 	printSummary() {
-		const format = (rf: string, pipeline: string, num: string | number) => {
-			return [rf.padEnd(24, ' '), 
-					pipeline.padEnd(48, ' '), 
-					String(num).padEnd(8, ' ')].join(' ');
-		}
-
-		console.log(format("-------------", "--------", "------"));
-		console.log(format("Remote Folder", "Pipeline", "# ToDo"));
-		console.log(format("-------------", "--------", "------"));
-
-		let total = 0;
-		this.schedules.forEach((schedule) => {
-			console.log(
-				format(
-					schedule.rootFolder.rootFolder, 
-					schedule.pipelineName, 
-					schedule.workRequired.length
-				)
-			);
-			total += schedule.workRequired.length;
-		});
-		console.log(format("-------------", "--------", "------"));
-		console.log(format("Total", "--------", total));
-
+		console.log(this.summary());
 	}
 
 	summary() {

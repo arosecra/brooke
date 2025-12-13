@@ -50,13 +50,19 @@ export class AppResourcesComponent {
 					const cacheDirectory = library?.cacheDirectory as FileSystemDirectoryHandle;
 					const cachedFilename = item?.name + '.' + collection?.itemExtension;
 					const cacheFileHandle = await WebFS.getFileHandle(cacheDirectory, cachedFilename);
+					const cacheOcrHandle = await WebFS.getFileHandle(cacheDirectory, item?.name + '.ocr.gz');
+					const cacheThumbsHandle = await WebFS.getFileHandle(cacheDirectory, item?.name + '.tmb.gz');
 
 					const itemHandle = item.handle;
 
-					if(cacheFileHandle) {
-						this.cbt.loadCbtGz(item, cacheFileHandle).then((val) => resolve(val));
+					if(cacheFileHandle && cacheOcrHandle && cacheThumbsHandle) {
+						const cachedItem = {...item};
+						item.handle = cacheFileHandle;
+						item.ocrHandle = cacheOcrHandle;
+						item.thumbsHandle = cacheThumbsHandle;
+						this.cbt.loadCbtGz(cachedItem).then((val) => resolve(val));
 					} else if (itemHandle) {
-						this.cbt.loadCbtGz(item, itemHandle).then((val) => resolve(val));
+						this.cbt.loadCbtGz(item).then((val) => resolve(val));
 					} else {
 						reject('could not find file');
 					}

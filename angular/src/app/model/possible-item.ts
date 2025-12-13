@@ -3,4 +3,6 @@ export declare interface PossibleItem {
   thumbnail?: FileSystemFileHandle;
   cbtDetails?: FileSystemFileHandle;
 	item?: FileSystemFileHandle;
+  thumbs?: FileSystemFileHandle;
+  ocr?: FileSystemFileHandle;
 }

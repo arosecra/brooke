@@ -9,8 +9,8 @@ import { BookDeskewImageStep } from "./src/steps/book-deskew-image-step";
 import { BookExtractPDFsStep } from "./src/steps/book-extract-pdfs-step";
 import { BookResizeImageStep } from "./src/steps/book-resize-image-step";
 import { BookRunOcrStep } from "./src/steps/book-run-ocr-step";
-import { BookTarToCbtGzStep } from "./src/steps/book-tar-to-cbt-gz-step copy";
-import { OcrUntarCbtGzStep } from "./src/steps/ocr-extract-cbts-step";
+import { BookTarToGzStep } from "./src/steps/book-tar-to-gz-step";
+import { UnGzStep } from "./src/steps/ungz-step";
 
 export function setupMasterSchedule() {
   const lightNovels = new RootFolder(
@@ -33,15 +33,10 @@ export function setupMasterSchedule() {
   const bookOcrPipeline = new Pipeline() //
     .setName("Book OCR") //
     .setUses([".*.cbt.gz", ".*.yaml"]) //
-    .setProduces(".*.cbt.gz") //
-    .setPropertyCheck((file: string) => {
-      const pout = String(child_process.execFileSync("tar", ["-ztf", file]));
-      const list = pout.split("\r\n");
-      return list.some((line) => line.trim().endsWith(".md"));
-    }) //
-    .addStep(new OcrUntarCbtGzStep())
+    .setProduces(".*.ocr.gz") //
+    .addStep(new UnGzStep())
     .addStep(new BookRunOcrStep())
-    .addStep(new BookTarToCbtGzStep());
+    .addStep(new BookTarToGzStep('ocr'));
 
   const bookCoverThumbnailPipeline = new Pipeline()
     .setName("Book Cover Thumbnail") //
@@ -63,9 +58,18 @@ export function setupMasterSchedule() {
     .addStep(new BookExtractPDFsStep()) //
     .addStep(new BookResizeImageStep()) //
     .addStep(new BookDeskewImageStep()) //
-    .addStep(new BookCreateThumbnailsStep()) //
     .addStep(new BookConvertPngToWebpStep()) //
-    .addStep(new BookTarToCbtGzStep()); //
+    .addStep(new BookTarToGzStep('cbt')); //
+
+  const bookThumbnailsPipeline = new Pipeline() //
+    .setName("Book TMB") //
+    .setUses([".*.pdf"]) //
+    .setProduces(".*.tmb.gz") //
+    .addStep(new BookExtractPDFsStep()) //
+    .addStep(new BookResizeImageStep()) //
+    .addStep(new BookDeskewImageStep()) //
+    .addStep(new BookCreateThumbnailsStep()) //
+    .addStep(new BookTarToGzStep('tmb')); //
 
   const singlePdfThumbnailPipeline = new Pipeline()
     .setName("Single PDF Cover Thumbnail") //
@@ -85,24 +89,28 @@ export function setupMasterSchedule() {
     new MasterSchedule([
       bookCoverThumbnailPipeline,
       bookCbtPipeline,
-      // bookGzipCbtsPipeline,
+      bookThumbnailsPipeline,
       bookOcrPipeline,
       singlePdfThumbnailPipeline,
       movieThumbnailPipeline,
     ]) //
-      .schedule(bookCoverThumbnailPipeline.name, lightNovels) //
       .schedule(bookCbtPipeline.name, lightNovels) //
+      .schedule(bookCoverThumbnailPipeline.name, lightNovels) //
       .schedule(bookOcrPipeline.name, lightNovels) //
+      .schedule(bookThumbnailsPipeline.name, lightNovels) //
 
       //
       .schedule(bookCoverThumbnailPipeline.name, fiction) //
+      .schedule(bookOcrPipeline.name, fiction) //
       .schedule(bookCbtPipeline.name, fiction) //
+      .schedule(bookThumbnailsPipeline.name, fiction) //
 
 
       // .schedule(bookOcrPipeline.name, fiction) //
       //
       .schedule(bookCoverThumbnailPipeline.name, nonfiction) //
       .schedule(bookCbtPipeline.name, nonfiction) //
+      .schedule(bookThumbnailsPipeline.name, nonfiction) //
 
 
 

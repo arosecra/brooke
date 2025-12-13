@@ -3,7 +3,7 @@ import { JobFolder } from "../model/job-folder";
 import { JobStep } from "../model/job-step";
 import { node } from "../util/node";
 
-export class OcrUntarCbtGzStep implements JobStep {
+export class UnGzStep implements JobStep {
   name: string = 'OcrUntarCbtGzStep';
   execute(job: JobFolder): void {
     const tarname = node.pathJoin(
