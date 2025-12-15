@@ -56,6 +56,10 @@ body {
 	height: 100%;
 }
 
+.width-90per {
+  width: 90%;
+}
+
 
 .fh-body {
 	height: calc(100vh - 8px - var(--mat-toolbar-mobile-height, 56px)) !important;

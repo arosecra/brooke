@@ -9,7 +9,7 @@
 
   @if (!currentCollection) {
     <h2 class="flex flex-justify-content-center">Collections</h2>
-    <div class="flex flex-justify-content-center">
+    <div class="flex flex-justify-content-center width-90per">
       @for (collection of library.collections; track collection.name) {
         <select-collection-action [collection]="collection"></select-collection-action>
       }
@@ -29,14 +29,14 @@
         }
       }
     </h2>
-    <div class="flex flex-justify-content-center">
+    <div class="flex flex-justify-content-center width-90per">
       @for (category of collectionCategories; track $index) {
         @if (!category.synthetic) {
           <select-category-action [category]="category" [matBadge]="category.items.length"></select-category-action>
         }
       }
     </div>
-    <div class="flex flex-justify-content-center">
+    <div class="flex flex-justify-content-center width-90per">
       @for (category of collectionCategories; track $index) {
         @if (category.synthetic && category.alphabetical) {
           <select-category-action [category]="category" [matBadge]="category.items.length"></select-category-action>
@@ -47,7 +47,7 @@
 
   @if (currentCollection && currentCategory && !currentSeries) {
     <div
-      class="flex flex-justify-content-center"
+      class="flex flex-justify-content-center width-90per"
       [class.books]="currentCollection.openType === 'book'"
       [class.videos]="currentCollection.openType !== 'book'"
     >
