@@ -2,5 +2,4 @@
 main {
   display: flex;
   gap: var(--o-gap);
-	width: calc(100vw - 16px - var(--mat-toolbar-mobile-height, 56px));
 }

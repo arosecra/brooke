@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActionsModule } from '../actions/actions.module';
 import { AppComponent } from '../app.component';
@@ -16,7 +15,6 @@ import { version } from '../../../package.json';
     MatIconModule,
     MatToolbarModule,
     BookToCComponent,
-    MatSidenavModule,
     ActionsModule,
     MatChipAndRemoveComponent
 	],

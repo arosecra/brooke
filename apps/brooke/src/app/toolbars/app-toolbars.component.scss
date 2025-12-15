@@ -1,6 +1,6 @@
 :host {
-	--mat-sidenav-container-width: auto;
-	--mat-chip-label-text-color: var(--mat-sys-on-primary-container);
+  --mat-sidenav-container-width: auto;
+  --mat-chip-label-text-color: var(--mat-sys-on-primary-container);
   --mat-chip-outline-color: var(--mat-sys-on-primary-container);
   --mat-chip-with-trailing-icon-trailing-icon-color: var(--mat-sys-on-primary-container);
 }
@@ -10,18 +10,18 @@ mat-toolbar-row {
 }
 
 .mat-drawer-inner-container {
-	width: auto !important;
+  width: auto !important;
 }
 
 .pages-of {
-	font-size: small;
+  font-size: small;
   margin-right: 16px;
   font-weight: 600;
 }
 
 .toolbar {
-	width: var(--mat-toolbar-mobile-height, 56px);
-	margin-top: 8px;
+  width: var(--mat-toolbar-mobile-height, 56px);
+  padding: 8px 8px 0 8px;
 }
 
 .font-bold {
@@ -29,10 +29,32 @@ mat-toolbar-row {
 }
 
 .margin-top-8 {
-	margin-top: 8px;
+  margin-top: 8px;
 }
 
 .version {
-	font-size: small;
+  font-size: small;
   line-height: 8px;
+}
+
+#toolbar {
+	anchor-name: --toolbar;
+}
+
+#book-options {
+  border-radius: 0 8px 8px 0;
+  top: anchor(top);
+  left: anchor(right);
+  margin: 0;
+  border: 0;
+  position-anchor: --toolbar;
+}
+
+#book-options::backdrop {
+  background: rgb(190 190 190 / 50%);
+  top: anchor(top);
+  left: anchor(right);
+  margin: 0;
+  border: 0;
+  position-anchor: --toolbar;
 }
