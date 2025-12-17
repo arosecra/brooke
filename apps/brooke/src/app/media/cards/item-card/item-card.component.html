@@ -33,7 +33,7 @@
             [matBadgeHidden]="item().bookDetails?.blankPages?.length || item().bookDetails?.imagePages?.length"
             >dataset</action
           >
-          <action [m]="openItemMarkdown" [o]="this" title="Markdown">markdown</action>
+          <action [m]="openItemMarkdown" [o]="this" title="Markdown" [disabled]="!item().ocrHandle">markdown</action>
         }
       </div>
     </mat-card-actions>
