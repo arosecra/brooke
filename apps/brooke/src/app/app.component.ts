@@ -133,6 +133,7 @@ export class AppComponent {
   openHome() {
     this.appState()?.currentCollection.set(undefined);
     this.appState()?.currentCategory.set(undefined);
+    this.appState().currentCategoryThumbnails.set({});
     this.appState()?.currentSeries.set(undefined);
     this.appState()?.currentItem.set(undefined);
     this.widgets()?.book.thumbnailView.set(false);
