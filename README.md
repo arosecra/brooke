@@ -7,11 +7,6 @@ updated todo:
 	- generate webp thumbnails for movies
 	- try other ocr
 		- perhaps we can compare ocr results?
-	- consider moving ocr results to separate file
-		- easier startup of pipeline
-		- easier to update the ocr files in an editor (not also writing the whole set of images)
-		- also consider moving thumbs to another file
-			- will no longer have to worry about .thumbnails folder in the main cbt
 
 
 - ui:
