@@ -71,35 +71,41 @@
   }
 }
 
-<div class="fh-body flex flex-align-start flex-no-wrap">
-  <span class="fh-body width-auto flex flex-column flex-align-center toolbar" id="toolbar">
-    <toggle-fullscreen-action></toggle-fullscreen-action>
-    <toggle-orator-action></toggle-orator-action>
-    <button
-      matMiniFab
-      title="Book Options"
-      popovertarget="book-options"
-    >
-      <!--  [disabled]="!app.widgets().panel.showBook() || app.widgets().book.thumbnailView()" -->
-      <mat-icon fontSet="material-symbols-outlined">book_2</mat-icon>
-    </button>
-    <toggle-toc-action></toggle-toc-action>
-    <toggle-add-toc-action></toggle-add-toc-action>
-    <button matMiniFab title="Scroll to Top" (click)="app.scrollToTop()" [disabled]="!app.appState().currentCollection()">
-      <mat-icon fontSet="material-symbols-outlined">arrow_circle_up</mat-icon>
-    </button>
-    <close-action></close-action>
-  </span>
-
-  <span class="fh-body width-auto" id="book-options" popover anchor="toolbar">
-    <div class="flex flex-column flex-align-center toolbar" >
-      <toggle-markdown-view-action></toggle-markdown-view-action>
-      <toggle-thumbnail-view-action></toggle-thumbnail-view-action>
-      <toggle-num-pages-action></toggle-num-pages-action>
-      <toggle-side-by-side-action></toggle-side-by-side-action>
+<mat-drawer-container class="example-container" hasBackdrop="false" class="fw fh-body">
+  <mat-drawer #drawer mode="push" class="width-auto" opened="true">
+    <div class="flex flex-column flex-align-center toolbar">
+      <toggle-fullscreen-action></toggle-fullscreen-action>
+      <toggle-orator-action></toggle-orator-action>
+      <toggle-book-options-action></toggle-book-options-action>
+      <toggle-toc-action></toggle-toc-action>
+      <toggle-add-toc-action></toggle-add-toc-action>
+      <button matMiniFab title="Scroll to Top" (click)="app.scrollToTop()" [disabled]="!app.appState().currentCollection()">
+        <mat-icon fontSet="material-symbols-outlined">arrow_circle_up</mat-icon>
+      </button>
+      <close-action></close-action>
     </div>
-  </span>
-
-  <ng-content></ng-content>
-</div>
-
+  </mat-drawer>
+  <mat-drawer-content class="fh-body">
+    <mat-drawer-container hasBackdrop="true" class="fw fh-body">
+      <mat-drawer
+        id="itemOptionsDrawer"
+        #itemOptionsDrawer
+        mode="over"
+        class="width-auto"
+        [opened]="app.widgets().sideNavOpen()"
+      >
+        <div class="flex flex-column flex-align-center toolbar">
+          @if (app.widgets().sideNav.showOptions()) {
+            <toggle-markdown-view-action></toggle-markdown-view-action>
+            <toggle-thumbnail-view-action></toggle-thumbnail-view-action>
+            <toggle-num-pages-action></toggle-num-pages-action>
+            <toggle-side-by-side-action></toggle-side-by-side-action>
+          }
+        </div>
+      </mat-drawer>
+      <mat-drawer-content class="fh-body">
+        <ng-content></ng-content>
+      </mat-drawer-content>
+    </mat-drawer-container>
+  </mat-drawer-content>
+</mat-drawer-container>
