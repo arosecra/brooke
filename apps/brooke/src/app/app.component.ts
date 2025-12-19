@@ -170,7 +170,28 @@ export class AppComponent {
               return itemRef;
             }),
         };
+
+        const unassignedCategory: Category = {
+          collectionName: collection.name,
+          name: 'Unassigned',
+          displayName: 'Unassigned',
+          synthetic: true,
+          alphabetical: false,
+          items: items.filter((item) => {
+            return  !categories.find((cat) => cat.items.find((catItem) => catItem.name === item.name));
+          }).map((item) => {
+              const itemRef: ItemRef = {
+                series: false,
+                childItems: [],
+                name: item.name,
+                displayName: item.name.replaceAll('_', ' '),
+              };
+              return itemRef;
+
+          })
+        }
         categories.push(requiresOcrDetailsCategories);
+        categories.push(unassignedCategory);
 
         const alphaNum = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         for (let i = 0; i < alphaNum.length; i++) {
