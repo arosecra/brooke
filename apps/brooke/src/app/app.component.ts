@@ -177,9 +177,11 @@ export class AppComponent {
           displayName: 'Unassigned',
           synthetic: true,
           alphabetical: false,
-          items: items.filter((item) => {
-            return  !categories.find((cat) => cat.items.find((catItem) => catItem.name === item.name));
-          }).map((item) => {
+          items: items
+            .filter((item) => {
+              return !categories.find((cat) => cat.items.find((catItem) => catItem.name === item.name));
+            })
+            .map((item) => {
               const itemRef: ItemRef = {
                 series: false,
                 childItems: [],
@@ -187,9 +189,8 @@ export class AppComponent {
                 displayName: item.name.replaceAll('_', ' '),
               };
               return itemRef;
-
-          })
-        }
+            }),
+        };
         categories.push(requiresOcrDetailsCategories);
         categories.push(unassignedCategory);
 
