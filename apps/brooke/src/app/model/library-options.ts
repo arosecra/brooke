@@ -10,5 +10,4 @@ export declare interface LibraryOptions {
 	collections: Collection[];
 	categories: Category[];
 	items: Item[];
-	settings: Setting[];
 }

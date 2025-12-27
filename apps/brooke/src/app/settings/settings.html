@@ -5,143 +5,128 @@
     <div>{{ busyMessage }}</div>
   }
 }
-<h3>Collections</h3>
 
-<table mat-table [dataSource]="app.resources().storedLibrary.value()?.collections || []">
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef>Name</th>
-    <td mat-cell *matCellDef="let row">{{ row.displayName }}</td>
-  </ng-container>
+<div>
+  <h3>Collections</h3>
 
-  <ng-container matColumnDef="rpermission">
-    <th mat-header-cell *matHeaderCellDef>R</th>
-    <td mat-cell *matCellDef="let row">
-      @if (!row.hasRPermission) {
-        <button matMiniFab (click)="requestCollectionPermission(row)" title="Request Permission" [disabled]="busy()">
-          <mat-icon fontSet="material-symbols-outlined">close</mat-icon>
-        </button>
-      } @else {
-        <mat-icon fontSet="material-symbols-outlined">check_circle</mat-icon>
-      }
-    </td>
-  </ng-container>
-
-  <ng-container matColumnDef="rwpermission">
-    <th mat-header-cell *matHeaderCellDef>W</th>
-    <td mat-cell *matCellDef="let row">
-      @if (!row.hasRWPermission) {
-        <button matMiniFab (click)="requestCollectionPermission(row)" title="Request Permission" [disabled]="busy()">
-          <mat-icon fontSet="material-symbols-outlined">close</mat-icon>
-        </button>
-      } @else {
-        <mat-icon fontSet="material-symbols-outlined">check_circle</mat-icon>
-      }
-    </td>
-  </ng-container>
-
-  <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef>Actions</th>
-    <td mat-cell *matCellDef="let row">
-      <div class="flex flex-no-wrap">
-        <button matMiniFab (click)="removeCollection(row)" title="Remove" [disabled]="busy()">
-          <mat-icon fontSet="material-symbols-outlined">close</mat-icon>
-        </button>
-        <button matMiniFab (click)="updateCollectionFromFiles(row)" title="Re-Download" [disabled]="busy()">
-          <mat-icon fontSet="material-symbols-outlined">sync_arrow_down</mat-icon>
-        </button>
-      </div>
-    </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="['name', 'rpermission', 'rwpermission', 'actions']"></tr>
-  <tr mat-row *matRowDef="let row; columns: ['name', 'rpermission', 'rwpermission', 'actions']"></tr>
-</table>
-
-<button mat-raised-button (click)="addNewCollection()" [disabled]="busy()">Add Collection</button>
-
-<h3>Synthesized Voice</h3>
-@let library = app.resources().storedLibrary.value();
-@if (library) {
-  <mat-form-field>
-    <mat-label>Voice</mat-label>
-    <mat-select [(value)]="library.voice">
-      @for (option of orator.getVoices(); track option.name) {
-        <mat-option [value]="option.name">{{ option.name }} ({{ option.lang }})</mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
-  <div class="flex">
-    <mat-form-field class="flex-grow">
-      <mat-label>Sample Text</mat-label>
-      <textarea matInput [(ngModel)]="sampleText"></textarea>
-    </mat-form-field>
-    <div class="flex flex-column">
-      <button matMiniFab (click)="playSampleText()" title="Read Sample Text" [disabled]="busy()">
-        <mat-icon fontSet="material-symbols-outlined">play_circle</mat-icon>
-      </button>
-      <button matMiniFab (click)="saveVoice()" title="Save Voice" [disabled]="busy()">
-        <mat-icon fontSet="material-symbols-outlined">save</mat-icon>
-      </button>
-    </div>
-  </div>
-}
-
-<h3>Default Pages Per</h3>
-@if (library) {
-  <mat-slide-toggle [checked]="library.defaultPagesPer" [disabled]="busy()"> 2 pages per </mat-slide-toggle>
-}
-
-<h3>Cache Directory</h3>
-@let cd = cacheDirectory();
-@let cdHandle = cd?.cachedirectory;
-
-@if(cd && cdHandle) {
-	<table mat-table [dataSource]="[cacheDirectory]">
+  <table mat-table [dataSource]="app.resources().storedLibrary.value()?.collections || []">
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let row">Cache Directory</td>
+      <td mat-cell *matCellDef="let row">{{ row.displayName }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="permission">
-      <th mat-header-cell *matHeaderCellDef>W</th>
+    <ng-container matColumnDef="rpermission">
+      <th mat-header-cell *matHeaderCellDef>R</th>
       <td mat-cell *matCellDef="let row">
-        @if (cd.rw) {
-          <mat-icon fontSet="material-symbols-outlined">check_circle</mat-icon>
-        } @else {
-          <button matMiniFab (click)="requestCacheDirPermission(cdHandle)" title="Request Permission" [disabled]="busy()">
+        @if (!row.hasRPermission) {
+          <button matMiniFab (click)="requestCollectionPermission(row)" title="Request Permission" [disabled]="busy()">
             <mat-icon fontSet="material-symbols-outlined">close</mat-icon>
           </button>
+        } @else {
+          <mat-icon fontSet="material-symbols-outlined">check_circle</mat-icon>
         }
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="['name', 'permission']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['name', 'permission']"></tr>
-  </table>
-} @else {
-  <button mat-raised-button (click)="setLocalCacheDirectory()" [disabled]="busy()">Set Local Directory</button>
-} 
+    <ng-container matColumnDef="rwpermission">
+      <th mat-header-cell *matHeaderCellDef>W</th>
+      <td mat-cell *matCellDef="let row">
+        @if (!row.hasRWPermission) {
+          <button matMiniFab (click)="requestCollectionPermission(row)" title="Request Permission" [disabled]="busy()">
+            <mat-icon fontSet="material-symbols-outlined">close</mat-icon>
+          </button>
+        } @else {
+          <mat-icon fontSet="material-symbols-outlined">check_circle</mat-icon>
+        }
+      </td>
+    </ng-container>
 
-<!-- <a href="vlc://file%3A///storage/emulated/0/Brooke/Heat.mkv">Open 1</a>
-								<a href="vlc://file%3A///Brooke/Heat.mkv">Open 2</a>
-								<a href="vlc://file%3A//storage/emulated/0/Brooke/Heat.mkv">Open 3</a>
-								<a href="vlc://file%3A//Brooke/Heat.mkv">Open 4</a>
-								<a href="file%3A///storage/emulated/0/Brooke/Heat.mkv">Open 15</a>
-								<a href="file%3A///Brooke/Heat.mkv">Open 16</a> 
-								<a href="vlc://file%3A///storage/emulated/0/Brooke/Heat.mkv">Open 7</a>
-								<a href="vlc://file%3A///Brooke/Heat.mkv">Open 8</a>  
-								<a href="vlc://file%3A//storage/emulated/0/Brooke/Heat.mkv">Open 9</a>
-								<a href="vlc://file%3A//Brooke/Heat.mkv">Open 10</a>  
-								
-								
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let row">
+        <div class="flex flex-no-wrap">
+          <button matMiniFab (click)="removeCollection(row)" title="Remove" [disabled]="busy()">
+            <mat-icon fontSet="material-symbols-outlined">close</mat-icon>
+          </button>
+          <button matMiniFab (click)="updateCollectionFromFiles(row)" title="Re-Download" [disabled]="busy()">
+            <mat-icon fontSet="material-symbols-outlined">sync_arrow_down</mat-icon>
+          </button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['name', 'rpermission', 'rwpermission', 'actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['name', 'rpermission', 'rwpermission', 'actions']"></tr>
+  </table>
+
+  <button mat-raised-button (click)="addNewCollection()" [disabled]="busy()">Add Collection</button>
+</div>
 
 <div>
-	<label for="files">Select files</label>
-	<input id="files" type="file" multiple />
-</div>
-<button mat-raised-button  type="button" (click)="share()">Share</button>
-<button mat-raised-button  type="button" (click)="shareUrl('vlc://file%3A///Brooke/Heat.mkv')">Share Url 11</button>
-<button mat-raised-button  type="button" (click)="shareUrl('vlc://file%3A///storage/emulated/0/Brooke/Heat.mkv')">Share Url 12</button>
-<output id="output"></output> -->
+  <h3>Synthesized Voice</h3>
+  @let settings = app.resources().settings.value();
+  @if (settings) {
+    <mat-form-field>
+      <mat-label>Voice</mat-label>
+      <mat-select [(value)]="settings.voice">
+        @for (option of orator.getVoices(); track option.name) {
+          <mat-option [value]="option.name">{{ option.name }} ({{ option.lang }})</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <div class="flex">
+      <mat-form-field class="flex-grow">
+        <mat-label>Sample Text</mat-label>
+        <textarea matInput [(ngModel)]="sampleText"></textarea>
+      </mat-form-field>
+      <div class="flex flex-column">
+        <button matMiniFab (click)="playSampleText()" title="Read Sample Text" [disabled]="busy()">
+          <mat-icon fontSet="material-symbols-outlined">play_circle</mat-icon>
+        </button>
+        <button matMiniFab (click)="saveVoice()" title="Save Voice" [disabled]="busy()">
+          <mat-icon fontSet="material-symbols-outlined">save</mat-icon>
+        </button>
+      </div>
+    </div>
+  }
 
-<button mat-raised-button (click)="app.appState().showSettingsManual.set(false)" [disabled]="busy()">Done</button>
+  <h3>Default Pages Per</h3>
+  @if (settings) {
+    <mat-slide-toggle [checked]="settings.defaultPagesPer" [disabled]="busy()"> 2 pages per </mat-slide-toggle>
+  }
+
+  <h3>Cache Directory</h3>
+  @if (settings) {
+    @let cd = cacheDirectory();
+    
+    @if(cd && cd.cachedirectory) {
+      <table mat-table [dataSource]="[cacheDirectory]">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let row">{{ cd.cachedirectory.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="permission">
+          <th mat-header-cell *matHeaderCellDef>W</th>
+          <td mat-cell *matCellDef="let row">
+            @if (cd.rw) {
+              <mat-icon fontSet="material-symbols-outlined">check_circle</mat-icon>
+            } @else {
+              <button matMiniFab (click)="requestCacheDirPermission(cd.cachedirectory)" title="Request Permission" [disabled]="busy()">
+                <mat-icon fontSet="material-symbols-outlined">close</mat-icon>
+              </button>
+            }
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['name', 'permission']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['name', 'permission']"></tr>
+      </table>
+    } @else {
+      <button mat-raised-button (click)="setLocalCacheDirectory()" [disabled]="busy()">Set Local Directory</button>
+    } 
+  }
+
+
+  <button mat-raised-button (click)="app.appState().showSettingsManual.set(false)" [disabled]="busy()">Done</button>
+</div>

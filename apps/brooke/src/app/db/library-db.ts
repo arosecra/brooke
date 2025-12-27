@@ -10,6 +10,7 @@ import { Orator } from '../audio/orator';
 import { CRUD } from '../shared/web-crud';
 import { WebFS } from '../shared/web-fs';
 import { ChildItem } from '../model/child-item';
+import { Settings } from '../model/settings';
 
 export function onUpgradeNeeded(this: IDBOpenDBRequest, event: IDBVersionChangeEvent) {
   let db = this.result;
@@ -36,6 +37,19 @@ export class LibraryDB {
 
   constructor() {}
 
+  async getSettings(): Promise<Settings> {
+    const db = await openDB('db', 1, onUpgradeNeeded);
+    let tx = db.transaction(TABLE_NAMES, 'readonly');
+
+    const settingsArr = await this.getAll<Setting[]>(tx, 'settings');
+    return {
+      cacheDirectory: settingsArr.find((val) => val.name === 'cacheDirectory')?.value,
+      voice: settingsArr?.find((val) => val.name === 'voice')?.value ?? 
+        this.orator.getVoices().find((voice: SpeechSynthesisVoice) => voice.default)?.name,
+      defaultPagesPer: !!settingsArr?.find((val) => val.name === 'defaultPagesPer')?.value
+    }
+  }
+
   async getLibrary() {
     const db = await openDB('db', 1, onUpgradeNeeded);
     let tx = db.transaction(TABLE_NAMES, 'readonly');
@@ -43,8 +57,7 @@ export class LibraryDB {
     let res = new Library({
       collections: await this.getAll<Collection[]>(tx, 'collections'),
       categories: await this.getAll<Category[]>(tx, 'categories'),
-      items: await this.getAll<Item[]>(tx, 'items'),
-      settings: await this.getAll<Setting[]>(tx, 'settings')
+      items: await this.getAll<Item[]>(tx, 'items')
     });
     for (let i = 0; i < res.collections.length; i++) {
       res.collections[i].hasRWPermission = await WebFS.hasPermission(
@@ -54,9 +67,6 @@ export class LibraryDB {
         res.collections[i].handle, 'read'
       );
     }
-		res.cacheDirectory = res.settings?.find((val) => val.name === 'cacheDirectory')?.value;
-		const voiceSetting = res.settings?.find((val) => val.name === 'voice');
-		res.voice = voiceSetting?.value ?? this.orator.getVoices().find((voice: SpeechSynthesisVoice) => voice.default)?.name;
 		
     return res;
   }
@@ -74,7 +84,6 @@ export class LibraryDB {
     this.addAll<Collection>(tx, library.collections, 'collections');
     this.addAll<Category>(tx, library.categories, 'categories');
     this.addAll<Item>(tx, library.items, 'items');
-    this.addAll<Setting>(tx, library.settings, 'settings');
 
     tx.commit();
 
@@ -194,6 +203,21 @@ export class LibraryDB {
     let tx = db.transaction(TABLE_NAMES, 'readwrite');
 
     this.addAll<Setting>(tx, [setting], 'settings');
+
+    tx.commit();
+
+    return new Promise<boolean>((resolve) => {
+      tx.oncomplete = (e) => resolve(true);
+    });
+  }
+
+  async updateSettings(settings: Settings) {
+    const db = await openDB('db', 1, onUpgradeNeeded);
+    let tx = db.transaction(TABLE_NAMES, 'readwrite');
+
+    const settingsArr = Object.entries(settings).map((s) => ( { name: s[0], value: s[1] }) );
+
+    await this.addAll<Setting>(tx, settingsArr, 'settings');
 
     tx.commit();
 

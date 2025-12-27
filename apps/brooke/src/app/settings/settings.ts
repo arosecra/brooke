@@ -28,7 +28,7 @@ import { WebFS } from '../shared/web-fs';
     MatSlideToggleModule,
   ],
   templateUrl: './settings.html',
-  styles: ``,
+  styles: ['./settings.scss'],
 })
 export class SettingsComponent {
   sampleText: string = 'The quick brown fox jumped over the lazy dog';
@@ -43,9 +43,9 @@ export class SettingsComponent {
   voice: SpeechSynthesisVoice;
 
 	cacheDirectory = asyncComputed(async () => {
-		const cacheDir = this.app.resources().storedLibrary.value()?.cacheDirectory;
+		const cacheDir = this.app.resources().settings.value()?.cacheDirectory;
 		if(!cacheDir) return {
-			cachedirectory: cacheDir,
+			cachedirectory: undefined,
 			rw: false
 		};
 		return {
@@ -297,7 +297,7 @@ export class SettingsComponent {
   async playSampleText() {
     this.busy.set(true);
     this.busyMessage.set([' ']);
-    this.orator.read(this.sampleText, this.app.resources().storedLibrary.value()!.voice).then(() => {
+    this.orator.read(this.sampleText, this.app.resources().settings.value()!.voice).then(() => {
       this.busy.set(false);
     });
   }
@@ -308,7 +308,7 @@ export class SettingsComponent {
     this.appDB
       .addSetting({
         name: 'voice',
-        value: this.app.resources().storedLibrary.value()!.voice,
+        value: this.app.resources().settings.value()!.voice,
       })
       .then(() => {
         this.app.resources()?.storedLibrary.reload();

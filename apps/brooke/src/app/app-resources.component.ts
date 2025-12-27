@@ -6,6 +6,7 @@ import { Library } from './model/library';
 import { Page } from './model/page';
 import { WebFS } from './shared/web-fs';
 import { Collection } from './model/collection';
+import { Settings } from './model/settings';
 
 @Component({
   selector: 'app-resources',
@@ -32,6 +33,12 @@ export class AppResourcesComponent {
     },
   });
 
+  settings = resource<Settings, void>({
+    loader: async ({ params, abortSignal }): Promise<Settings> => {
+      return await this.appDb.getSettings();
+    }
+  })
+
   bookCbt = resource<
     Page[],
     void
@@ -42,13 +49,13 @@ export class AppResourcesComponent {
     // }
   >({
     loader: async ({ params, abortSignal }): Promise<Page[]> => {
-      const library = this.storedLibrary.value();
+      const settings = this.settings.value();
       const collection = this.app.appState()?.currentCollection();
       const item = this.app.appState()?.currentItem();
 
       return new Promise(async (resolve, reject) => {
-        if (library && collection && item) {
-          const cacheDirectory = library?.cacheDirectory as FileSystemDirectoryHandle;
+        if (settings && collection && item) {
+          const cacheDirectory = settings?.cacheDirectory as FileSystemDirectoryHandle;
           const cachedFilename = item?.name + '.' + collection?.itemExtension;
           const cacheFileHandle = await WebFS.getFileHandle(cacheDirectory, cachedFilename);
           const cacheOcrHandle = await WebFS.getFileHandle(cacheDirectory, item?.name + '.ocr.gz');

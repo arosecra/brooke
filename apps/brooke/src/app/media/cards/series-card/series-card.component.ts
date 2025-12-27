@@ -9,40 +9,39 @@ import { ChildItemCardComponent } from '../child-item-card/child-item-card.compo
   selector: 'series-card',
   imports: [ChildItemCardComponent],
   template: `
-		<div class="flex flex-column flex-align-content-center">
-			@for (childItemRef of seriesItemRef().childItems; track childItemRef.name) {
-				@let childItem = seriesItem().childItems[$index];
-				<child-item-card [itemRef]="childItemRef"
-					[itemRef]="childItemRef"
-					[item]="childItem"
-					[seriesItemRef]="seriesItemRef()"
-					[seriesItem]="seriesItem()"
-				></child-item-card>
-			}
+    <div class="flex flex-column flex-align-content-center">
+      @for (childItemRef of seriesItemRef().childItems; track childItemRef.name) {
+        @let childItem = seriesItem().childItems[$index];
+        <child-item-card
+          [itemRef]="childItemRef"
+          [itemRef]="childItemRef"
+          [item]="childItem"
+          [seriesItemRef]="seriesItemRef()"
+          [seriesItem]="seriesItem()"
+        ></child-item-card>
+      }
 
-			<img [src]="imageUrl" />
-		</div>
+      <img [src]="imageUrl" />
+    </div>
   `,
-  styles: `
-	`,
-
+  styles: ``,
 })
 export class SeriesComponent implements OnInit, OnDestroy {
   app = inject(AppComponent);
 
-	seriesItem = input.required<Item>();
-	seriesItemRef = input.required<ItemRef>();
-	thumbnail = input<Thumbnail>();
+  seriesItem = input.required<Item>();
+  seriesItemRef = input.required<ItemRef>();
+  thumbnail = input<Thumbnail>();
 
-	imageUrl: string;
+  imageUrl: string;
 
-	ngOnInit(): void {
-		const thumbnail = this.thumbnail();
-		if(thumbnail?.thumbnail) {
-			this.imageUrl = URL.createObjectURL(thumbnail.thumbnail);
-		}
-	}
-	ngOnDestroy(): void {
-		if(this.imageUrl) URL.revokeObjectURL(this.imageUrl);
-	}
+  ngOnInit(): void {
+    const thumbnail = this.thumbnail();
+    if (thumbnail?.thumbnail) {
+      this.imageUrl = URL.createObjectURL(thumbnail.thumbnail);
+    }
+  }
+  ngOnDestroy(): void {
+    if (this.imageUrl) URL.revokeObjectURL(this.imageUrl);
+  }
 }

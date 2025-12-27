@@ -95,7 +95,8 @@ updated todo:
 	- attempt to standardize image sizes. pad transparency onto images to fill height gap?
 		-need to handle series thumbnails in pipeline
 
-	- editor for markdown, if i want to change / update it?
+	- editor for markdown, when i want to change / update it?
+		- keep track of errata'd files / sections in case we re-ocr
 
 	- switch to pnpm
 
@@ -112,8 +113,6 @@ updated todo:
 		- add zod & use it for model
 			- how to refer to FileSystemFileHandle
 		- use new angular signal forms
-
-	
 
 ToDo:
 ----------------

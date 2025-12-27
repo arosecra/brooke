@@ -15,20 +15,20 @@ import { PreviousPageActionComponent } from './previous-page-acton.component';
 import { SelectCategoryActionComponent } from './select-category-action.component';
 
 const components = [
-	CloseActionComponent,
-	NextPageActionComponent,
-	PreviousPageActionComponent,
-	SelectCategoryActionComponent,
-	SelectCollectionActionComponent,
-	ToggleBookOptionsComponent, 
-	ToggleFullscreenActionComponent, 
-	ToggleMarkdownViewActionComponent,
-	ToggleNumPagesComponent,
-	ToggleOratorComponent,
-	ToggleSideBySideComponent,
-	ToggleThumbnailViewActionComponent,
-	ToggleAddToCComponent,
-	ToggleToCComponent
+  CloseActionComponent,
+  NextPageActionComponent,
+  PreviousPageActionComponent,
+  SelectCategoryActionComponent,
+  SelectCollectionActionComponent,
+  ToggleBookOptionsComponent,
+  ToggleFullscreenActionComponent,
+  ToggleMarkdownViewActionComponent,
+  ToggleNumPagesComponent,
+  ToggleOratorComponent,
+  ToggleSideBySideComponent,
+  ToggleThumbnailViewActionComponent,
+  ToggleAddToCComponent,
+  ToggleToCComponent,
 ];
 
 @NgModule({

@@ -281,7 +281,7 @@ export class AppComponent {
     let pagesInDisplay = this.widgets().book.pagesInDisplay();
     let i = this.appState().currentPageSet() * this.widgets().book.pagesInDisplay();
     const book = this.resources().bookCbt.value();
-    const voice = this.resources().storedLibrary.value()?.voice;
+    const voice = this.resources().settings.value()?.voice;
     if (book && voice) {
       this.orator.readBook(book, voice, i, pagesInDisplay, this.goToNextPage.bind(this));
     }
@@ -444,8 +444,8 @@ export class AppComponent {
   // }
 
   cacheItem(item: Item | ChildItem): Promise<boolean> {
-    const library = this.resources()?.storedLibrary.value() as Library;
-    if (item.handle && library.cacheDirectory) return WebFS.copyFile(item.handle, library.cacheDirectory);
+    const settings = this.resources()?.settings.value();
+    if (item.handle && settings?.cacheDirectory) return WebFS.copyFile(item.handle, settings.cacheDirectory);
     return Promise.resolve(false);
   }
 }

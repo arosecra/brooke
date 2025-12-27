@@ -6,7 +6,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActionsModule } from '../actions/actions.module';
 import { AppComponent } from '../app.component';
 import { BookToCComponent } from '../media/book-toc/book-toc.component';
-import { MatChipAndRemoveComponent } from "../shared/mat-chip-and-remove.component";
+import { MatChipAndRemoveComponent } from '../shared/mat-chip-and-remove.component';
 import { version } from '../../../package.json';
 
 @Component({
@@ -18,13 +18,12 @@ import { version } from '../../../package.json';
     BookToCComponent,
     MatSidenavModule,
     ActionsModule,
-    MatChipAndRemoveComponent
-	],
+    MatChipAndRemoveComponent,
+  ],
   templateUrl: './app-toolbars.component.html',
   styleUrls: ['./app-toolbars.component.scss'],
-
 })
 export class AppToolbarsComponent {
   protected app = inject(AppComponent);
-	version = version;
+  version = version;
 }

@@ -35,7 +35,7 @@ export class AppWidgetsComponent {
   };
   book = {
     pagesInDisplay: linkedSignal<number>(() => {
-      const setting = this.app.resources().storedLibrary.value()?.defaultPagesPer ? 2 : 1;
+      const setting = this.app.resources().settings.value()?.defaultPagesPer ? 2 : 1;
       if(this.isMobile()) return 1
       else return setting;
     }),
