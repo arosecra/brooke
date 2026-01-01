@@ -11,7 +11,7 @@
       <action
         [m]="downloadForOffline"
         [o]="this"
-        [disabled]="!appResource.storedLibrary.value()?.cacheDirectory"
+        [disabled]="!appResource.settings.value()?.cacheDirectory"
         >download_for_offline</action
       >
       <action [m]="openItemDetails" [o]="this">notes</action>
