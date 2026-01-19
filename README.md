@@ -10,7 +10,6 @@ updated todo:
 
 
 - ui:
-	- synthesize an unassigned category
 
 	- prune leaf nodes with no item file
 
