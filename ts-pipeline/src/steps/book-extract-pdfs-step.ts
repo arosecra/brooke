@@ -28,7 +28,13 @@ export class BookExtractPDFsStep implements JobStep {
 
 		for(let i = 0; i < workFiles.length; i++) {
 			const workFile = workFiles[i];
-			if(workFile.endsWith('pdf') && !workFile.includes('cover'))
+			if(workFile.endsWith('pdf') && workFile.includes('insert'))
+				reOrdered.push(workFile);
+		}
+
+		for(let i = 0; i < workFiles.length; i++) {
+			const workFile = workFiles[i];
+			if(workFile.endsWith('pdf') && !workFile.includes('cover') && !workFile.includes('insert'))
 				reOrdered.push(workFile);
 		}
 

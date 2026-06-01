@@ -1,6 +1,23 @@
 # brooke
 Custom book reader for personal use
 
+
+Merge in changes from v4
+------------------------
+- no need to keep the 'storybook' app. only need to implement widgets i have
+- figure out an incremental merge. notably, slowly phase out angular material
+	- move files around to better reflect location in v4
+	- use the aside / section strategy of v4 for header, toolbar
+	- migrate to use the 'modes', they are simpler
+	- Replace MatTableModule with <table>
+	- replace MatIconModule with span/css
+	- create an equivalent to 'createResource' for 'createAction'. migrate the current actions to use this
+	- swap out / merge the context objects (orator, AppDB, App), replacing AppState, AppWidgets, etc
+	- Replace mat-buttons with Btn
+	- Replace MatCardModule with custom css/card/component
+	- correct styling. ex - hover, click, focus, elevation/shadow
+- 
+
 updated todo:
 ----------------
 -pipeline: 

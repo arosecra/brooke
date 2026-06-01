@@ -2,26 +2,25 @@ import { Location } from '@angular/common';
 import { Component, ElementRef, inject, Injector, viewChild } from '@angular/core';
 import YAML from 'yaml';
 import { AppActionsComponent } from './app-actions.component';
-import { AppToolbarsComponent } from './toolbars/app-toolbars.component';
 import { AppResourcesComponent } from './app-resources.component';
 import { AppStateComponent } from './app-state.component';
 import { AppWidgetsComponent } from './app-widgets.component';
+import { Orator } from './audio/orator';
 import { LibraryDB } from './db/library-db';
-import { BookComponent } from './media/lectern/lectern.component';
-import { CollectionBrowserComponent } from './media/collection-browser/collection-browser.component';
 import { LibrarySettingsComponent } from './library-settings/library-settings.component';
+import { CollectionBrowserComponent } from './media/collection-browser/collection-browser.component';
+import { GalleryComponent } from './media/gallery/gallery.component';
+import { BookComponent } from './media/lectern/lectern.component';
 import { BookDetails } from './model/book-details';
 import { Category } from './model/category';
+import { ChildItem } from './model/child-item';
 import { Collection } from './model/collection';
 import { Item } from './model/item';
 import { ItemRef } from './model/item-ref';
-import { Library } from './model/library';
 import { SettingsComponent } from './settings/settings';
 import { resourceStatusToPromise } from './shared/signals/res-status-to-promise';
-import { Orator } from './audio/orator';
-import { GalleryComponent } from './media/gallery/gallery.component';
 import { WebFS } from './shared/web-fs';
-import { ChildItem } from './model/child-item';
+import { AppToolbarsComponent } from './toolbars/app-toolbars.component';
 
 @Component({
   selector: 'app',
@@ -445,7 +444,10 @@ export class AppComponent {
 
   cacheItem(item: Item | ChildItem): Promise<boolean> {
     const settings = this.resources()?.settings.value();
-    if (item.handle && settings?.cacheDirectory) return WebFS.copyFile(item.handle, settings.cacheDirectory);
-    return Promise.resolve(false);
+    const promises = [];
+    if (item.handle && settings?.cacheDirectory) promises.push(WebFS.copyFile(item.handle, settings.cacheDirectory));
+    if (item.ocrHandle && settings?.cacheDirectory) promises.push(WebFS.copyFile(item.ocrHandle, settings.cacheDirectory));
+    if (item.thumbsHandle && settings?.cacheDirectory) promises.push(WebFS.copyFile(item.thumbsHandle, settings.cacheDirectory));
+    return Promise.all(promises).then((results) => results.every((result) => result === true));
   }
 }
