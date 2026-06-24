@@ -1,6 +1,6 @@
 import { Component, inject, input } from '@angular/core';
-import { AppComponent } from '../app.component';
-import { Collection } from '../model/collection';
+import { AppContextProvider } from '../../providers/app-context-provider';
+import { Collection } from '../../shared';
 import { ActionComponent } from './action.component';
 
 @Component({
@@ -15,7 +15,7 @@ import { ActionComponent } from './action.component';
   styles: ``,
 })
 export class SelectCollectionActionComponent {
-  app = inject(AppComponent);
+  app = inject(AppContextProvider).app;
 
-	collection = input.required<Collection>();
+  collection = input.required<Collection>();
 }

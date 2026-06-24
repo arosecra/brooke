@@ -1,10 +1,12 @@
 @use '@angular/material' as mat;
-@use './styles/theme.scss';
+@use './shared/styles/theme.scss';
 
-@forward './styles/flex.scss';
-@forward './styles/html.scss';
-@forward './styles/overlay.scss';
-@forward './styles/spin.scss';
+
+@forward './shared/styles/flex.scss';
+@forward './shared/styles/html.scss';
+@forward './shared/styles/overlay.scss';
+@forward './shared/styles/spin.scss';
+@import url("./shared/styles/index.css");
 
 $theme: mat.define-theme();
 html {

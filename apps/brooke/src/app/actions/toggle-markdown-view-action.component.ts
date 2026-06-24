@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
-import { AppComponent } from '../app.component';
+import { AppContextProvider } from '../../providers/app-context-provider';
 import { ActionComponent } from './action.component';
 
 @Component({
   selector: 'toggle-markdown-view-action',
   imports: [ActionComponent],
-  template: ` <action [m]="app.toggleMarkdownView" title="View Markdown"> markdown </action> `,
+  template: ` <action [m]="app.openItemMarkdown" title="View Markdown"> markdown </action> `,
   styles: ``,
 })
 export class ToggleMarkdownViewActionComponent {
-  app = inject(AppComponent);
+  app = inject(AppContextProvider).app;
 }

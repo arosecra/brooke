@@ -1,0 +1,36 @@
+body {
+  margin: 0;
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+}
+
+main {
+  display: flex;
+  min-height: 100vh;
+  padding-left: 8px;
+}
+
+aside {
+  padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+section {
+  flex: 1;
+  padding-left: 8px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
+}
+
+.font-size-48 {
+  font-size: 48px;
+  line-height: 48px;
+}

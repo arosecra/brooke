@@ -1,0 +1,30 @@
+.field {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.field textarea {
+  padding: 30px 16px 0 16px;
+  box-sizing: border-box;
+  margin-bottom: 24px;
+  height: 100%;
+  background-color: var(--md-sys-color-surface-dim);
+}
+
+/* Style the actual input field */
+.field input {
+  width: 100%;
+  padding: 16px 12px 6px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+/* Position the label inside the input area initially */
+.field label {
+  position: absolute;
+  color: var(--mat-sys-on-surface-variant);
+  left: 16px;
+  top: 6px;
+}

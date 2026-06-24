@@ -1,0 +1,62 @@
+import { CacheDirectory } from './CacheDirectory';
+import { Category } from './Category';
+import { Collection } from './Collection';
+import { Item } from './Item';
+import { LibraryOptions } from './LibraryOptions';
+import { Setting } from './Setting';
+
+export class Library {
+  collections: Collection[];
+  categories: Category[];
+  items: Item[];
+
+  itemsByCollectionAndName: Record<string, Item> = {};
+
+  constructor(options?: LibraryOptions) {
+    this.collections = options?.collections
+      ? [...options.collections]
+      : [];
+    this.categories = options?.categories
+      ? [...options.categories]
+      : [];
+    this.items = options?.items ? [...options.items] : [];
+
+    for (
+      let i = 0;
+      options && i < options.items.length;
+      i++
+    ) {
+      const item = options.items[i];
+      this.itemsByCollectionAndName[
+        item.collectionName + '_' + item.name
+      ] = item;
+    }
+  }
+
+  private copyRecord<T>(
+    rec: Record<string, T[]> | undefined,
+  ) {
+    let res: Record<string, T[]> = {};
+    if (rec)
+      Object.entries(rec).forEach(
+        ([key, value]) => (res[key] = [...value]),
+      );
+    return res;
+  }
+
+  addCollection(collection: Collection): Library {
+    return new Library({
+      collections: [...this.collections, collection],
+      categories: this.categories,
+      items: this.items,
+    });
+  }
+
+  addCategory(category: Category): Library {
+    return new Library({
+      collections: this.collections,
+      categories: [...this.categories, category],
+      items: this.items,
+    });
+  }
+}

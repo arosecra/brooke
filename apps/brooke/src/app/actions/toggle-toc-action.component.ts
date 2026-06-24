@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { AppComponent } from '../app.component';
+import { AppContextProvider } from '../../providers/app-context-provider';
 
 @Component({
   selector: 'toggle-toc-action',
@@ -10,8 +10,7 @@ import { AppComponent } from '../app.component';
     <button
       matMiniFab
       title="Table of Contents"
-      (click)="app.toggleToC()"
-      [disabled]="!app.widgets().panel.showBook() || app.widgets().book.thumbnailView()"
+      (click)="app.openTOC()"
     >
       <mat-icon fontSet="material-symbols-outlined">format_list_bulleted</mat-icon>
     </button>
@@ -19,5 +18,5 @@ import { AppComponent } from '../app.component';
   styles: ``,
 })
 export class ToggleToCComponent {
-  app = inject(AppComponent);
+  app = inject(AppContextProvider).app;
 }

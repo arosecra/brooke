@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { AppComponent } from '../app.component';
+import { AppContextProvider } from '../../providers/app-context-provider';
 import { ActionComponent } from './action.component';
 
 @Component({
@@ -7,7 +7,7 @@ import { ActionComponent } from './action.component';
   imports: [ActionComponent],
   template: `
     <action [m]="app.toggleFullScreen" title="Fullscreen">
-      @if (app.widgets().fullscreen()) {
+      @if (app.fullscreen()) {
         fullscreen_exit
       } @else {
         fullscreen
@@ -17,5 +17,5 @@ import { ActionComponent } from './action.component';
   styles: ``,
 })
 export class ToggleFullscreenActionComponent {
-  app = inject(AppComponent);
+  app = inject(AppContextProvider).app;
 }

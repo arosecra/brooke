@@ -1,0 +1,36 @@
+
+
+.elv {
+  box-shadow: if(
+    style(--level: 0): 0px 0px 0px 0px;
+    style(--level: 1): 0px 1px 2px 0px;
+    style(--level: 2): 0px 1px 2px 0px;
+    style(--level: 3): 0px 1px 3px 0px;
+    style(--level: 4): 0px 2px 3px 0px;
+    style(--level: 5): 0px 4px 4px 0px;
+  );
+}
+
+.lvl0 {
+  --level: 0;
+}
+
+.lvl1 {
+  --level: 1;
+}
+
+.lvl2 {
+  --level: 2;
+}
+
+.lvl3 {
+  --level: 3;
+}
+
+.lvl4 {
+  --level: 4;
+}
+
+.lvl5 {
+  --level: 5;
+}

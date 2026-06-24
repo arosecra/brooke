@@ -1,19 +1,17 @@
-import { Component, inject, input } from '@angular/core';
-import { AppComponent } from '../app.component';
+import { Component, inject } from '@angular/core';
+import { AppContextProvider } from '../../providers/app-context-provider';
 import { ActionComponent } from './action.component';
-import { MatBadgeModule } from '@angular/material/badge';
-import { ItemRef } from '../model/item-ref';
 
 @Component({
   selector: 'toggle-thumbnail-view-action',
   imports: [ActionComponent],
   template: ` 
-	<action [m]="app.toggleThumbnailView" title="View Thumbnails" [disabled]="app.widgets().isMobile()"
+	<action [m]="app.openItemThumbnails" title="View Thumbnails" [disabled]="app.isMobile()"
 	
     >dataset
   </action>`,
   styles: ``,
 })
 export class ToggleThumbnailViewActionComponent {
-  app = inject(AppComponent);
+  app = inject(AppContextProvider).app;
 }

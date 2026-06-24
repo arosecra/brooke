@@ -1,6 +1,6 @@
 import { Component, inject, input } from '@angular/core';
-import { AppComponent } from '../app.component';
-import { Category } from '../model/category';
+import { AppContextProvider } from '../../providers/app-context-provider';
+import { Category } from '../../shared';
 import { ActionComponent } from './action.component';
 
 @Component({
@@ -12,8 +12,8 @@ import { ActionComponent } from './action.component';
   styles: ``,
 })
 export class SelectCategoryActionComponent {
-  app = inject(AppComponent);
+  app = inject(AppContextProvider).app;
 
-	category = input.required<Category>()
+  category = input.required<Category>()
 
 }

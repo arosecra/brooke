@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { AppComponent } from '../app.component';
-import { Orator } from '../audio/orator';
+import { Orator } from '../../shared';
 import { ActionComponent } from './action.component';
+import { AppContextProvider } from '../../providers/app-context-provider';
 
 @Component({
   selector: 'toggle-orator-action',
@@ -12,7 +12,6 @@ import { ActionComponent } from './action.component';
         [m]="app.textToSpeech"
         title="Text to Speech"
         [disabled]="orator.reading"
-        [disabled]="!app.widgets().panel.showBook() || app.widgets().book.thumbnailView()"
         >text_to_speech</action
       >
     } @else {
@@ -22,6 +21,6 @@ import { ActionComponent } from './action.component';
   styles: ``,
 })
 export class ToggleOratorComponent {
-  app = inject(AppComponent);
+  app = inject(AppContextProvider).app;
   orator = inject(Orator);
 }

@@ -1,5 +1,5 @@
-import { Component, computed, inject, signal } from '@angular/core';
-import { AppComponent } from './app.component';
+import { Component, inject } from '@angular/core';
+import { AppContextProvider } from '../providers/app-context-provider';
 
 @Component({
   selector: 'app-actions',
@@ -10,6 +10,6 @@ import { AppComponent } from './app.component';
   providers: [],
 })
 export class AppActionsComponent {
-  private app = inject(AppComponent);
+  private app = inject(AppContextProvider).app;
 
 }

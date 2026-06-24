@@ -1,8 +1,6 @@
 import { Component, inject, input, OnDestroy, OnInit } from '@angular/core';
-import { AppComponent } from '../../../app.component';
-import { Item } from '../../../model/item';
-import { ItemRef } from '../../../model/item-ref';
-import { Thumbnail } from '../../../model/thumbnail';
+import { AppContextProvider } from '../../../../providers/app-context-provider';
+import { Item, ItemRef, Thumbnail } from '../../../../shared';
 import { ChildItemCardComponent } from '../child-item-card/child-item-card.component';
 
 @Component({
@@ -27,7 +25,7 @@ import { ChildItemCardComponent } from '../child-item-card/child-item-card.compo
   styles: ``,
 })
 export class SeriesComponent implements OnInit, OnDestroy {
-  app = inject(AppComponent);
+  app = inject(AppContextProvider).app;
 
   seriesItem = input.required<Item>();
   seriesItemRef = input.required<ItemRef>();

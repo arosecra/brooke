@@ -1,0 +1,13 @@
+@import url("./theme/light-mc.css") (prefers-color-scheme: light) and
+  (prefers-contrast: no-preference);
+@import url("./theme/light.css") (prefers-color-scheme: light) and
+  (prefers-contrast: less);
+@import url("./theme/light-hc.css") (prefers-color-scheme: light) and
+  (prefers-contrast: more);
+
+@import url("./theme/dark-mc.css") (prefers-color-scheme: dark) and
+  (prefers-contrast: no-preference);
+@import url("./theme/dark.css") (prefers-color-scheme: dark) and
+  (prefers-contrast: less);
+@import url("./theme/dark-hc.css") (prefers-color-scheme: dark) and
+  (prefers-contrast: more);

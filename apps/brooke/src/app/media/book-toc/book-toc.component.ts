@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { AppComponent } from '../../app.component';
+import { AppContextProvider } from '../../../providers/app-context-provider';
 
 @Component({
   selector: 'book-toc',
@@ -21,5 +21,5 @@ import { AppComponent } from '../../app.component';
 //    thought - show thumbnails for both pages visible
 //            - if one is selected, prompt for toc item name
 export class BookToCComponent {
-  app = inject(AppComponent);
+  app = inject(AppContextProvider).app;
 }

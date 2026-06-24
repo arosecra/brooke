@@ -1,46 +1,56 @@
-import {
-	Component,
-	inject,
-	input
-} from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { AppComponent } from '../app.component';
+import { AppContextProvider } from '../../providers/app-context-provider';
 
 @Component({
   selector: 'action',
-  imports: [MatIconModule, MatButtonModule, MatProgressSpinnerModule],
+  imports: [
+    MatIconModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+  ],
   host: {
     '(click)': 'onClick()',
   },
   template: `
-    @let imgVal = img();
-    @if (imgVal) {
-      <img [src]="imgVal" />
-    }
-    @if (tonal()) {
-      <button matButton="tonal" [disabled]="app.widgets().busy() || !!disabled()" [attr.title]="title()">
+    <div style="position: relative">
+      @let imgVal = img();
+      @if (imgVal) {
+        <img [src]="imgVal" />
+      }
+      @if (tonal()) {
+        <button
+          matButton="tonal"
+          [disabled]="app.busy() || !!disabled()"
+          [attr.title]="title()"
+        >
           {{ tonal() }}
-      </button>
-    } @else {
-			<button matMiniFab [disabled]="app.widgets().busy() || !!disabled()" [class.button-overlay]="!!imgVal"  [attr.title]="title()">
-				<div [class.button-overlay-circle]="!!imgVal">
-					<mat-icon
-						fontSet="material-symbols-outlined"
-						[class.spin]="app.widgets().busy()"
-						[class.button-overlay-icon]="!!imgVal"
-					>
-						@if (app.widgets().busy()) {
-							progress_activity
-						} @else {
-							<ng-content />
-						}
-					</mat-icon>
-				</div>
-			</button>
-
-		}
+        </button>
+      } @else {
+        <button
+          matMiniFab
+          [disabled]="app.busy() || !!disabled()"
+          [class.button-overlay]="!!imgVal"
+          [attr.title]="title()"
+        >
+          <div [class.button-overlay-circle]="!!imgVal">
+            <mat-icon
+              fontSet="material-symbols-outlined"
+              [class.spin]="app.busy()"
+              [class.button-overlay-icon]="!!imgVal"
+            >
+              @if (app.busy()) {
+                progress_activity
+              } @else {
+                <ng-content />
+              }
+            </mat-icon>
+          </div>
+        </button>
+      }
+    </div>
 
     <!-- @if (g()) {
   	  <div
@@ -61,10 +71,8 @@ import { AppComponent } from '../app.component';
   styles: `
     .button-overlay {
       position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
+      top: calc(50% - 32px);
+      left: calc(50% - 32px);
       background-color: transparent;
     }
 
@@ -89,25 +97,27 @@ import { AppComponent } from '../app.component';
   providers: [],
 })
 export class ActionComponent {
-  app = inject(AppComponent);
+  app = inject(AppContextProvider).app;
 
   o = input<any>();
   m = input.required<(...args: any[]) => Promise<any>>();
   p = input<any[]>();
   img = input<string>();
   tonal = input<string>();
-	
+
   disabled = input<boolean>(false);
-	title = input<string>('');
+  title = input<string>('');
 
   onClick(): void {
-    this.app.widgets().busy.set(true);
+    this.app.busy.set(true);
     let obj = this.o() ?? this.app;
     let args = this.p();
-    let pr = args ? this.m().apply(obj, args) : this.m().apply(obj);
+    let pr = args
+      ? this.m().apply(obj, args)
+      : this.m().apply(obj);
 
     pr?.then(() => {
-      this.app.widgets().busy.set(false);
-    }) ?? this.app.widgets().busy.set(false);
+      this.app.busy.set(false);
+    }) ?? this.app.busy.set(false);
   }
 }

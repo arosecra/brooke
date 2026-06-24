@@ -1,0 +1,113 @@
+select,
+::picker(select) {
+  appearance: base-select;
+}
+
+.select-label {
+  width: fit-content;
+  align-self: center;
+}
+
+select {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  height: 56px;
+  padding: 16px 16px 0 16px;
+  transition: 0.4s;
+  background-color: var(--md-sys-color-surface-dim);
+}
+
+select:hover,
+select:focus {
+  filter: brightness(85%);
+}
+
+select::picker-icon {
+  transition: 0.4s rotate;
+}
+
+select:open::picker-icon {
+  rotate: 180deg;
+}
+
+::picker(select) {
+  border: none;
+}
+
+option {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  background-color: var(--md-sys-color-surface-dim);
+  padding: 0.25rem 16.8px;
+  transition: 0.4s;
+}
+
+option:first-of-type {
+  border-radius: 8px 8px 0 0;
+}
+
+option:last-of-type {
+  border-radius: 0 0 8px 8px;
+}
+
+::picker(select) {
+  border-radius: 8px;
+}
+
+option:hover,
+option:focus {
+  filter: brightness(85%);
+}
+
+option .icon {
+  font-size: 1.6rem;
+  text-box: trim-both cap alphabetic;
+}
+
+selectedcontent .icon {
+  display: none;
+}
+
+option:checked {
+  font-weight: bold;
+}
+
+option::checkmark {
+  order: 1;
+  margin-left: auto;
+}
+
+::picker(select) {
+  opacity: 0;
+  transition: all 0.4s allow-discrete;
+}
+
+:open::picker(select) {
+  opacity: 1;
+}
+
+@starting-style {
+  :open::picker(select) {
+    opacity: 0;
+  }
+}
+
+::picker(select) {
+  top: calc(anchor(bottom) + 1px);
+}
+
+select option::checkmark {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  content: 'check' / '';
+}

@@ -1,15 +1,11 @@
-import { Component, inject, input, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { AppContextProvider } from '../../../../providers/app-context-provider';
+import { ChildItem, ChildItemRef, Item, ItemRef, Thumbnail } from '../../../../shared';
 import { ActionComponent } from '../../../actions/action.component';
-import { AppComponent } from '../../../app.component';
-import { ChildItemRef } from '../../../model/child-item-ref';
-import { Item } from '../../../model/item';
-import { ItemRef } from '../../../model/item-ref';
-import { Thumbnail } from '../../../model/thumbnail';
-import { ChildItem } from '../../../model/child-item';
 
 @Component({
   selector: 'child-item-card',
@@ -19,27 +15,27 @@ import { ChildItem } from '../../../model/child-item';
 
 })
 export class ChildItemCardComponent {
-  app = inject(AppComponent);
+  app = inject(AppContextProvider).app;
   item = input.required<ChildItem>();
   itemRef = input.required<ChildItemRef>();
-	seriesItemRef = input.required<ItemRef>();
-	seriesItem = input.required<Item>();
-	thumbnail = input<Thumbnail>();
+  seriesItemRef = input.required<ItemRef>();
+  seriesItem = input.required<Item>();
+  thumbnail = input<Thumbnail>();
 
-	imageUrl: string;
+  imageUrl: string;
 
   downloadForOffline() {
-		return this.app.cacheItem(this.item());
-	}
+    return this.app.cacheItem(this.item());
+  }
 
   openItem() {
-		const seriesItemRef = this.seriesItemRef();
-		const seriesItem = this.seriesItem();
-		if(seriesItem && seriesItemRef) {
-			return this.app.openSeriesItem(seriesItemRef, seriesItem);
-		} else {
-    return this.app.openItem(this.item());
-		}
+    const seriesItemRef = this.seriesItemRef();
+    const seriesItem = this.seriesItem();
+    if (seriesItem && seriesItemRef) {
+      return this.app.openSeriesItem(seriesItemRef, seriesItem);
+    } else {
+      return this.app.openItem(this.item());
+    }
   }
 
   openItemThumbnails() {
@@ -51,6 +47,6 @@ export class ChildItemCardComponent {
   }
 
   openItemDetails() {
-		return Promise.resolve(true);
+    return Promise.resolve(true);
   }
 }

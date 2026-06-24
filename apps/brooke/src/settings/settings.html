@@ -1,0 +1,118 @@
+<h2>Settings
+  <Btn type="fab" (click)="saveVoice()" title="Save Voice" [disabled]="busy()" icon="save" />
+  <Btn type="fab" label="Done" icon="skip_next" (click)="app.mainPanelMode.set('COLLECTIONS')" [disabled]="busy()" />
+</h2>
+
+@if (busy()) { @for (busyMessage of busyMessage(); track $index) {
+<div>{{ busyMessage }}</div>
+} }
+
+<div>
+  <h3>Collections
+    <Btn type="fab" size="s" label="Add Collection" icon="add" (click)="addNewCollection()" [disabled]="busy()" />
+  </h3>
+
+  <table>
+    <thead>
+      <tr>
+        <td>Name</td>
+        <td>R</td>
+        <td>W</td>
+        <td>Actions</td>
+      </tr>
+    </thead>
+    @for(row of app.storedLibrary.value()?.collections || []; track row.displayName) {
+    <tr>
+      <td>{{ row.displayName }}</td>
+      <td>
+        @if (!row.hasRPermission) {
+        <Btn type="fab" icon="close" (click)="requestCollectionPermission(row)" [disabled]="busy()" />
+        } @else {
+        <span class="icon icon-font font-size-48">check_circle</span>
+        }
+      </td>
+      <td>
+        @if (!row.hasRWPermission) {
+        <Btn type="fab" icon="close" (click)="requestCollectionPermission(row)" [disabled]="busy()" />
+        } @else {
+        <span class="icon icon-font font-size-48">check_circle</span>
+        }
+      </td>
+      <td>
+        <div class="flex flex-no-wrap">
+          <Btn type="fab" size="s" icon="close" (click)="removeCollection(row)" [disabled]="busy()" />
+          <Btn type="fab" size="s" icon="sync_arrow_down" (click)="updateCollectionFromFiles(row)"
+            [disabled]="busy()" />
+        </div>
+      </td>
+    </tr>
+    }
+  </table>
+</div>
+
+<div>
+  <h3>Synthesized Voice
+    <Btn class="margin-l" type="fab" (click)="playSampleText()" title="Read Sample Text" [disabled]="busy()"
+      icon="play_circle" />
+  </h3>
+
+  <div class="flex flex-gap">
+    @let settings = app.settings.value(); @if (settings) {
+    <list label="Voice" [options]="orator.getVoiceNames()" [value]="app.settings.value()?.voice"
+      (change)="changeVoice($event)" />
+
+    <div class="field">
+      <textarea [placeholder]="sampleText()"></textarea>
+      <label>Sample Text</label>
+    </div>
+    }
+  </div>
+</div>
+
+
+<div class=" flex-gap-64 flex">
+  <div>
+    <h3>Default Pages Per</h3>
+    @if (settings) {
+    <div class="flex-inline flex-gap flex-align-items-center">
+      <label class="switch" id="pages-per">
+        <input type="checkbox" [value]="app.settings.value()?.defaultPagesPer"
+          (change)="settings.defaultPagesPer = !settings.defaultPagesPer" />
+        <span class="slider round"></span>
+      </label>
+      <label for="pages-per">2 Pages</label>
+    </div>
+    }
+  </div>
+
+  <div>
+    <h3>Cache Directory</h3>
+    @if (settings) {
+    @let cd = cacheDirectory();
+    @if(cd && cd.cachedirectory) {
+    <table>
+      <thead>
+        <tr>
+          <td>Name</td>
+          <td>W</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ cd.cachedirectory.name }}</td>
+          <td>
+            @if (!cd.rw) {
+            <Btn type="fab" icon="close" (click)="requestCacheDirPermission(cd.cachedirectory)" [disabled]="busy()" />
+            } @else {
+            <span class="icon icon-font font-size-48">check_circle</span>
+            }
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    } @else {
+    <Btn type="filled" (click)="setLocalCacheDirectory()" [disabled]="busy()" label="Set Local Directory" />
+    }
+    }
+  </div>
+</div>

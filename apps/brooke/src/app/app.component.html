@@ -1,23 +1,14 @@
-<app-state></app-state>
-<app-resources></app-resources>
-<app-widgets></app-widgets>
-<app-toolbars class="flex flex-align-center flex-no-gap">
-  <main>
-    @if (widgets()) {
-      @if (widgets().panel.showSettings()) {
-        <settings class="flex flex-direction"></settings>
-      } @else if (widgets().panel.showBook()) {
-        @if (widgets().book.thumbnailView()) {
-          <gallery></gallery>
-        } @else {
-          <lectern></lectern>
-        }
-      } @else if (widgets().panel.showLibrarySettings()) {
-        <library-settings></library-settings>
-      } @else {
-        <collection-browser></collection-browser>
-      }
-    }
-  </main>
-</app-toolbars>
-<app-actions></app-actions>
+<orator-context-provider>
+  <db-context-provider>
+    <app-context-provider>
+      <main>
+        <AppToolbar></AppToolbar>
+        <section>
+          <AppBar />
+          <AppMainPanel />
+
+        </section>
+      </main>
+    </app-context-provider>
+  </db-context-provider>
+</orator-context-provider>

@@ -1,19 +1,12 @@
-@let widgets = app.widgets();
-@let resources = app.resources();
-@let bookCbtResource = resources.bookCbt;
+@let bookCbtResource = app.bookCbt;
 @if (bookCbtResource.hasValue()) {
-  @let bookCbt = bookCbtResource.value();
+@let bookCbt = bookCbtResource.value();
 
-  @if (bookCbt.length > leftPageNo()) {
-    <virtual-page
-      [page]="bookCbt[leftPageNo()]"
-      [preferMarkdown]="widgets.book.markdownView() || widgets.book.sideBySide()"
-    />
-  }
-  @if (showRightPage()) {
-    <virtual-page
-      [page]="widgets.book.sideBySide() ? bookCbt[leftPageNo()] : bookCbt[rightPageNo()]"
-      [preferMarkdown]="widgets.book.markdownView() && !widgets.book.sideBySide()"
-    />
-  }
+@if (bookCbt.length > leftPageNo()) {
+<virtual-page [page]="bookCbt[leftPageNo()]" [preferMarkdown]="['COMPARE', 'MARKDOWN'].includes(app.bookViewMode())" />
+}
+@if (showRightPage()) {
+<virtual-page [page]="app.bookViewMode() === 'COMPARE' ? bookCbt[leftPageNo()] : bookCbt[rightPageNo()]"
+  [preferMarkdown]="app.bookViewMode() === 'MARKDOWN' && app.bookViewMode() !== 'COMPARE'" />
+}
 }

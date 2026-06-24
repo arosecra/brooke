@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { AppComponent } from '../app.component';
+import { AppContextProvider } from '../../providers/app-context-provider';
 
 @Component({
   selector: 'next-page-action',
@@ -14,6 +14,6 @@ import { AppComponent } from '../app.component';
   styles: ``,
 })
 export class NextPageActionComponent {
-  app = inject(AppComponent);
+  app = inject(AppContextProvider).app;
 
 }
