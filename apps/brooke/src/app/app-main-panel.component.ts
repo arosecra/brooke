@@ -49,17 +49,56 @@ import { ThumbnailGalleryComponent } from './media/thumbnail-gallery/thumbnail-g
           }
         </div>
       } @else if (app.mainPanelMode() === 'CATEGORIES') {
+        <h3>Alpha</h3>
         <div class="flex flex-gap">
           @for (
             category of app.location().collectionCategories;
             track category.name
           ) {
-            <Btn
-              type="filled"
-              class="margin"
-              [label]="category.name"
-              (click)="app.openCategory(category)"
-            ></Btn>
+            @if (
+              category.synthetic && !category.alphabetical
+            ) {
+              <Btn
+                type="filled"
+                class="margin"
+                [label]="category.displayName"
+                (click)="app.openCategory(category)"
+              ></Btn>
+            }
+          }
+        </div>
+        <h3>Categories</h3>
+        <div class="flex flex-gap">
+          @for (
+            category of app.location().collectionCategories;
+            track category.name
+          ) {
+            @if (
+              !category.synthetic && !category.alphabetical
+            ) {
+              <Btn
+                type="filled"
+                class="margin"
+                [label]="category.displayName"
+                (click)="app.openCategory(category)"
+              ></Btn>
+            }
+          }
+        </div>
+        <h3>Alpha</h3>
+        <div class="flex flex-gap">
+          @for (
+            category of app.location().collectionCategories;
+            track category.name
+          ) {
+            @if (category.alphabetical) {
+              <Btn
+                type="filled"
+                class="margin"
+                [label]="category.displayName"
+                (click)="app.openCategory(category)"
+              ></Btn>
+            }
           }
         </div>
       } @else if (app.mainPanelMode() === 'ITEMS') {
@@ -80,17 +119,14 @@ import { ThumbnailGalleryComponent } from './media/thumbnail-gallery/thumbnail-g
           }
         </div>
       } @else if (app.mainPanelMode() === 'SERIES') {
-        TODO
-        <!-- @let seriesCollectionAndName = app.currentCollection()!.name + '_' + app.currentSeries()?.name;
-      @let seriesItem = app.storedLibrary.value()!.itemsByCollectionAndName[seriesCollectionAndName];
-            
-      <series-card [seriesItemRef]="app.currentSeries()!" [seriesItem]="seriesItem"
-        [thumbnail]="app.currentCategoryThumbnails()[seriesItem.name]"></series-card> -->
+        <series-card
+          [seriesItem]="app.location().series!"
+        ></series-card>
       } @else if (app.mainPanelMode() === 'BOOK') {
-        @if (app.bookViewMode() === 'IMAGE') {
-          <lectern />
-        } @else if (app.bookViewMode() === 'THUMBNAIL') {
+        @if (app.bookViewMode() === 'THUMBNAIL') {
           <thumbnail-gallery />
+        } @else {
+          <lectern />
         }
       }
     }

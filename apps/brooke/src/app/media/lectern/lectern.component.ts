@@ -32,6 +32,7 @@ export class BookComponent {
       this.app.bookCbt.value()?.length ?? 0;
     return (
       this.app.bookViewMode() === 'COMPARE' ||
+      this.app.bookViewMode() === 'MARKDOWN' ||
       (this.app.bookViewMode() === 'IMAGE' &&
         bookLength > this.rightPageNo())
     );

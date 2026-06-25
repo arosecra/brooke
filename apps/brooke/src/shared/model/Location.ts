@@ -10,8 +10,8 @@ export declare interface Location {
   category: Category;
   collectionCategories: Category[];
   completeItems: CompleteItem[];
-  series: ItemRef;
-  item: ChildItem;
+  series: CompleteItem;
+  item: CompleteItem;
   pageSet: number;
   bookDetails: BookDetails;
 }

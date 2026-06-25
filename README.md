@@ -4,33 +4,24 @@ Custom book reader for personal use
 
 ## Merge in changes from v4
 
-- no need to keep the 'storybook' app. only need to implement widgets i have
-- figure out an incremental merge. notably, slowly phase out angular material
-  x move files around to better reflect location in v4
-  x use the aside / section strategy of v4 for header, toolbar
-  x migrate to use the 'modes', they are simpler
-  x separate out the 1 vs 2 page modes into a separate mode
-  x make the bookviewmode have 'IMAGE' mode, separate 1 vs 2 PageMode
-  x Replace MatTableModule with <table>
-  - replace MatIconModule with span/css
-    x implement elevation css shadows from material 3
-  - camel case filenames to match solid as much as possible
-  - actions
-    - create an common act function in
-      appContext. no need for anything more
-      complicated
+- camel case filenames to match solid as much as possible
+- actions
+  - create an common act function in
+    appContext. no need for anything more
+    complicated
 
-  x swap out / merge the context objects (orator, AppDB, App), replacing AppState, AppWidgets, etc
-  - Replace mat-buttons with Btn
-  - Replace MatCardModule with custom css/card/component
-  - correct styling. ex - hover, click, focus, elevation/shadow
-  - remove styling that's not needed. buttons may not need as much variation right now
-  - streamline css - i probably don't need tokens for every little thing. this \*is my app, afterall
-    - leave tokens for color, other common stuff
-    - also for anything changed by device type/size
-  - streamline css - sizes. at least heights of buttons
-  - convert complete item into composite item - put the best of item, itemref and thumb into one object
-    - create a factory method
+x swap out / merge the context objects (orator, AppDB, App), replacing AppState, AppWidgets, etc
+x Replace mat-buttons with Btn
+
+- Replace MatCardModule with custom css/card/component
+- correct styling. ex - hover, click, focus, elevation/shadow
+- remove styling that's not needed. buttons may not need as much variation right now
+- streamline css - i probably don't need tokens for every little thing. this \*is my app, afterall
+  - leave tokens for color, other common stuff
+  - also for anything changed by device type/size
+- streamline css - sizes. at least heights of buttons
+- convert complete item into composite item - put the best of item, itemref and thumb into one object
+  - create a factory method
 
 ## updated todo:
 

@@ -8,13 +8,12 @@ import YAML from 'yaml';
 import { BookDetails } from '../model/BookDetails';
 import { BookViewMode } from '../model/BookViewMode';
 import { Category } from '../model/Category';
-import { ChildItem } from '../model/ChildItem';
 import { Collection } from '../model/Collection';
 import { CompleteItem } from '../model/CompleteItem';
-import { location, Location } from '../model/Location';
 import { Item } from '../model/Item';
 import { ItemRef } from '../model/ItemRef';
 import { Library } from '../model/Library';
+import { location, Location } from '../model/Location';
 import { MainPanelMode } from '../model/MainPanelMode';
 import { Nullable } from '../model/Nullable';
 import { Page } from '../model/Page';
@@ -25,6 +24,7 @@ import { resourceStatusToPromise } from '../signals/res-status-to-promise';
 import { AppDB } from './AppDB';
 import { loadCbtGz } from './Cbt';
 import { WebFS } from './WebFS';
+import { ChildItem } from '../model/ChildItem';
 
 export class App {
   busy = signal<boolean>(false);
@@ -112,38 +112,40 @@ export class App {
           const cacheDirectory =
             settings?.cacheDirectory as FileSystemDirectoryHandle;
           const cachedFilename =
-            item?.name + '.' + collection?.itemExtension;
+            item.item.name +
+            '.' +
+            collection?.itemExtension;
           const cacheFileHandle = await WebFS.getFileHandle(
             cacheDirectory,
             cachedFilename,
           );
           const cacheOcrHandle = await WebFS.getFileHandle(
             cacheDirectory,
-            item?.name + '.ocr.gz',
+            item.item.name + '.ocr.gz',
           );
           const cacheThumbsHandle =
             await WebFS.getFileHandle(
               cacheDirectory,
-              item?.name + '.tmb.gz',
+              item.item.name + '.tmb.gz',
             );
 
-          const itemHandle = item.handle;
+          const itemHandle = item.item.handle;
 
           if (
             cacheFileHandle &&
             cacheOcrHandle &&
             cacheThumbsHandle
           ) {
-            const cachedItem = { ...item };
-            item.handle = cacheFileHandle;
-            item.ocrHandle = cacheOcrHandle;
-            item.thumbsHandle = cacheThumbsHandle;
+            const cachedItem = { ...item.item };
+            item.item.handle = cacheFileHandle;
+            item.item.ocrHandle = cacheOcrHandle;
+            item.item.thumbsHandle = cacheThumbsHandle;
             loadCbtGz(cachedItem).then((val) => {
               this.mainPanelMode.set('BOOK');
               resolve(val);
             });
           } else if (itemHandle) {
-            loadCbtGz(item).then((val) => {
+            loadCbtGz(item.item).then((val) => {
               this.mainPanelMode.set('BOOK');
               resolve(val);
             });
@@ -171,23 +173,23 @@ export class App {
     const book = this.bookCbt.value();
     const item = this.location().item;
     if (collection && book && item) {
-      if (!item.bookDetails) {
-        item.bookDetails = {} as BookDetails;
+      if (!item.item.bookDetails) {
+        item.item.bookDetails = {} as BookDetails;
       }
-      item.bookDetails.blankPages = [];
-      item.bookDetails.imagePages = [];
-      item.bookDetails.tocEntries = [];
+      item.item.bookDetails.blankPages = [];
+      item.item.bookDetails.imagePages = [];
+      item.item.bookDetails.tocEntries = [];
 
       for (let i = 0; i < book.length; i++) {
         const page = book[i];
         if (page.type === 'Blank') {
-          item.bookDetails.blankPages.push(page.name);
+          item.item.bookDetails.blankPages.push(page.name);
         } else if (page.type === 'Image') {
-          item.bookDetails.imagePages.push(page.name);
+          item.item.bookDetails.imagePages.push(page.name);
         }
 
         if (page.bookmarkName) {
-          item.bookDetails.tocEntries.push({
+          item.item.bookDetails.tocEntries.push({
             name: page.bookmarkName,
             pageNumber: i,
           });
@@ -195,35 +197,34 @@ export class App {
       }
 
       const cbtDetailsHandle =
-        await item.dirHandle.getFileHandle(
+        await item.item.dirHandle.getFileHandle(
           'cbtDetails.yaml',
           { create: true },
         );
       const writableStream =
         await cbtDetailsHandle.createWritable();
       await writableStream.write(
-        YAML.stringify(item.bookDetails),
+        YAML.stringify(item.item.bookDetails),
       );
       writableStream.close();
 
-      this.appDB.addItem(item as Item);
+      this.appDB.addItem(item.item as Item);
     }
   }
 
   onTouchStart($event: PointerEvent) {
-    // if (
-    //   this.widgets()?.panel.showBook() &&
-    //   !this.widgets().book.thumbnailView() &&
-    //   $event.y > 64 &&
-    //   $event.x > 56 &&
-    //   !this.widgets().sideNavOpen()
-    // ) {
-    //   const modX = $event.x - 56;
-    //   const modMaxX = window.innerWidth - 56;
-    //   const percentage = (modX / modMaxX) * 100;
-    //   if (percentage > 85) this.goToNextPage($event);
-    //   if (percentage < 15) this.goToPreviousPage($event);
-    // }
+    if (
+      this.mainPanelMode() === 'BOOK' &&
+      this.bookViewMode() !== 'THUMBNAIL' &&
+      $event.y > 64 &&
+      $event.x > 56
+    ) {
+      const modX = $event.x - 56;
+      const modMaxX = window.innerWidth - 56;
+      const percentage = (modX / modMaxX) * 100;
+      if (percentage > 85) this.goToNextPage($event);
+      if (percentage < 15) this.goToPreviousPage($event);
+    }
   }
 
   openHome() {
@@ -434,30 +435,37 @@ export class App {
     });
   }
 
-  openSeriesItem(seriesItemRef: ItemRef, seriesItem: Item) {
-    this.location.update((location) => {
-      const ret = { ...location };
-      ret.series = seriesItemRef;
-      ret.item = null;
-      return ret;
-    });
-    return Promise.resolve(true);
+  openItem(item: CompleteItem): Promise<any> {
+    if (item.item.series) {
+      this.location.update((location) => {
+        const ret = { ...location };
+        ret.series = item;
+        return ret;
+      });
+      this.mainPanelMode.set('SERIES');
+      return Promise.resolve();
+    } else {
+      let res: Promise<any> = Promise.resolve(true);
+      if (this.location().collection?.openType === 'book') {
+        res = this.displayBookItem(item);
+      } else {
+        // this.displayVideoItem(item);
+      }
+      this.setLocation();
+      return res;
+    }
   }
 
-  openItem(item: Item | ChildItem): Promise<any> {
-    return this.displayItem(item);
-  }
-
-  openItemThumbnails(item: Item | ChildItem) {
+  openItemThumbnails(item: CompleteItem) {
     this.bookViewMode.set('THUMBNAIL');
     return this.displayBookItem(item);
   }
 
-  openItemMarkdown(item: Item | ChildItem) {
+  openItemMarkdown(item: CompleteItem) {
     this.bookViewMode.set('MARKDOWN');
     return this.displayBookItem(item);
   }
-  openCompare(item: Item | ChildItem) {
+  openCompare(item: CompleteItem) {
     this.bookViewMode.set('COMPARE');
     return this.displayBookItem(item);
   }
@@ -519,30 +527,17 @@ export class App {
     // }
   }
 
-  displayItem(item: Item | ChildItem): Promise<any> {
-    let res: Promise<any> = Promise.resolve(true);
-    if (this.location().collection?.openType === 'book') {
-      res = this.displayBookItem(item);
-    } else {
-      // this.displayVideoItem(item);
-    }
-    this.setLocation();
-    return res;
-  }
-
   goToPageSet(newPageNo: number) {
-    if (this.bookViewMode() === 'IMAGE') {
-      const pages = this.bookCbt.value()?.length ?? 0;
-      if (0 <= newPageNo && newPageNo < pages) {
-        this.location.update((location) => {
-          const ret = { ...location };
-          ret.pageSet = newPageNo;
-          return ret;
-        });
-        this.setLocation();
+    const pages = this.bookCbt.value()?.length ?? 0;
+    if (0 <= newPageNo && newPageNo < pages) {
+      this.location.update((location) => {
+        const ret = { ...location };
+        ret.pageSet = newPageNo;
+        return ret;
+      });
+      this.setLocation();
 
-        this.scrollToTop();
-      }
+      this.scrollToTop();
     }
   }
 
@@ -589,7 +584,7 @@ export class App {
     return Promise.resolve(true);
   }
 
-  private displayBookItem(item: Item | ChildItem) {
+  private displayBookItem(item: CompleteItem) {
     this.location.update((location) => {
       const ret = { ...location };
       ret.item = item;

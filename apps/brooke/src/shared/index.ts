@@ -1,4 +1,3 @@
-export * from './mat-chip-and-remove.component';
 export * from './services/AppDB';
 export * from './services/Cbt';
 export * from './services/DBGetAll';

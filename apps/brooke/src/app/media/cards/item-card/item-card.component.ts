@@ -36,9 +36,11 @@ export class ItemCardComponent
   imageUrl: string;
 
   ngOnInit(): void {
-    const item = this.completeItem().thumbnail;
+    const item = this.completeItem();
     if (item) {
-      this.imageUrl = URL.createObjectURL(item.thumbnail);
+      this.imageUrl = URL.createObjectURL(
+        item.thumbnail.thumbnail,
+      );
     }
   }
   ngOnDestroy(): void {
@@ -50,19 +52,15 @@ export class ItemCardComponent
   }
 
   openItem() {
-    return this.app.openItem(this.completeItem().item);
+    return this.app.openItem(this.completeItem());
   }
 
   openItemThumbnails() {
-    return this.app.openItemThumbnails(
-      this.completeItem().item,
-    );
+    return this.app.openItemThumbnails(this.completeItem());
   }
 
   openItemMarkdown() {
-    return this.app.openItemMarkdown(
-      this.completeItem().item,
-    );
+    return this.app.openItemMarkdown(this.completeItem());
   }
 
   openItemDetails() {

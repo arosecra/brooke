@@ -1,11 +1,14 @@
 import { ViewportScroller } from '@angular/common';
-import { AfterViewInit, Component, inject } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  inject,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { AppContextProvider } from '../../../providers/app-context-provider';
 import { Page, PageType } from '../../../shared';
@@ -16,28 +19,24 @@ import { Page, PageType } from '../../../shared';
     MatCardModule,
     MatButtonModule,
     MatButtonToggleModule,
-    MatIconModule,
     FormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
   ],
   templateUrl: './thumbnail-gallery.component.html',
   styleUrls: ['./thumbnail-gallery.component.scss'],
-
 })
 export class ThumbnailGalleryComponent implements AfterViewInit {
-  scroller = inject(ViewportScroller)
+  scroller = inject(ViewportScroller);
 
   ngAfterViewInit(): void {
     setTimeout(() => {
       window.scrollTo({
         top: 0,
         left: 0,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
-
-    }, 10000)
-
+    }, 10000);
   }
   app = inject(AppContextProvider).app;
 

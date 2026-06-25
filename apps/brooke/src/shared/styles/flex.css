@@ -31,6 +31,10 @@
   align-items: center;
 }
 
+.flex-align-items-start {
+  align-items: flex-start;
+}
+
 .flex-align-content-center {
   align-content: center;
 }
