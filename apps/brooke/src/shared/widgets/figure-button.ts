@@ -1,4 +1,9 @@
-import { Component, inject, input } from '@angular/core';
+import {
+  Component,
+  inject,
+  input,
+  output,
+} from '@angular/core';
 import { AppContextProvider } from '../../providers/app-context-provider';
 import { Item } from '../model/Item';
 import { ItemRef } from '../model/ItemRef';
@@ -9,8 +14,12 @@ import { Thumbnail } from '../model/Thumbnail';
   imports: [],
   template: `
     <figure class="underlay-figure">
-      <img [src]="imageUrl" />
-      <button type="button" class="overlay-button">
+      <img [src]="img()" (click)="onClick($event)" />
+      <button
+        type="button"
+        class="overlay-button"
+        (click)="onClick($event)"
+      >
         <span class="icon icon-font overlay-icon">
           @if (app.busy()) {
             progress_activity
@@ -24,8 +33,9 @@ import { Thumbnail } from '../model/Thumbnail';
   styles: `
     .underlay-figure {
       position: relative;
-      margin: 24px;
       padding: 0;
+      margin: 0;
+      cursor: pointer;
     }
 
     .overlay-button {
@@ -39,6 +49,7 @@ import { Thumbnail } from '../model/Thumbnail';
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
     }
 
     .overlay-icon {
@@ -52,20 +63,12 @@ import { Thumbnail } from '../model/Thumbnail';
 })
 export class FigureButton {
   app = inject(AppContextProvider).app;
-  itemRef = input.required<ItemRef>();
-  item = input.required<Item>();
-  thumbnail = input<Thumbnail>();
+  img = input<string>();
   icon = input<string>();
+  click = output();
 
-  imageUrl!: string;
-
-  ngOnInit(): void {
-    const item = this.thumbnail();
-    if (item) {
-      this.imageUrl = URL.createObjectURL(item.thumbnail);
-    }
-  }
-  ngOnDestroy(): void {
-    if (this.imageUrl) URL.revokeObjectURL(this.imageUrl);
+  onClick($event: any) {
+    $event?.stopPropagation();
+    this.click.emit();
   }
 }

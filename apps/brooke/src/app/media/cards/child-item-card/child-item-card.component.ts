@@ -1,18 +1,22 @@
 import { Component, inject, input } from '@angular/core';
-import { MatBadgeModule } from '@angular/material/badge';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
 import { AppContextProvider } from '../../../../providers/app-context-provider';
-import { ChildItem, ChildItemRef, Item, ItemRef, Thumbnail } from '../../../../shared';
-import { ActionComponent } from '../../../actions/action.component';
+import {
+  ButtonComponent,
+  ChildItem,
+  ChildItemRef,
+  Item,
+  ItemRef,
+  Thumbnail,
+} from '../../../../shared';
+import { Card } from '../card/card';
+import { CardActions } from '../card/card-actions';
+import { CardHeader } from '../card/card-header';
 
 @Component({
   selector: 'child-item-card',
-  imports: [MatButtonModule, MatIconModule, MatCardModule, ActionComponent, MatBadgeModule],
+  imports: [ButtonComponent, CardActions, CardHeader, Card],
   templateUrl: './child-item-card.component.html',
   styleUrls: ['./child-item-card.component.scss'],
-
 })
 export class ChildItemCardComponent {
   app = inject(AppContextProvider).app;
@@ -32,18 +36,13 @@ export class ChildItemCardComponent {
     const seriesItemRef = this.seriesItemRef();
     const seriesItem = this.seriesItem();
     if (seriesItem && seriesItemRef) {
-      return this.app.openSeriesItem(seriesItemRef, seriesItem);
+      return this.app.openSeriesItem(
+        seriesItemRef,
+        seriesItem,
+      );
     } else {
       return this.app.openItem(this.item());
     }
-  }
-
-  openItemThumbnails() {
-    return this.app.openItemThumbnails(this.item());
-  }
-
-  openItemMarkdown() {
-    return this.app.openItemMarkdown(this.item());
   }
 
   openItemDetails() {

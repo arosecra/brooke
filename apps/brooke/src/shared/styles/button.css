@@ -1,17 +1,17 @@
-.btn.margin {
+.margin {
   margin-right: 16px;
   margin-bottom: 16px;
 }
 
-.btn.margin-r {
+.margin-r {
   margin-right: 16px;
 }
 
-.btn.margin-l {
+.margin-l {
   margin-left: 16px;
 }
 
-.btn.margin-b {
+.margin-b {
   margin-bottom: 16px;
 }
 

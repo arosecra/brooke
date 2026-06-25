@@ -5,30 +5,24 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { MatBadgeModule } from '@angular/material/badge';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
 import { AppContextProvider } from '../../../../providers/app-context-provider';
-import { ActionComponent } from '../../../actions/action.component';
+import { ButtonComponent } from '../../../../shared';
 import { CompleteItem } from '../../../../shared/model/CompleteItem';
+import { FigureButton } from '../../../../shared/widgets/figure-button';
 import { Card } from '../card/card';
-import { CardHeader } from '../card/card-header';
-import { CardBody } from '../card/card-body';
 import { CardActions } from '../card/card-actions';
+import { CardBody } from '../card/card-body';
+import { CardHeader } from '../card/card-header';
 
 @Component({
   selector: 'item-card',
   imports: [
-    MatButtonModule,
-    MatIconModule,
-    MatCardModule,
-    ActionComponent,
-    MatBadgeModule,
     Card,
     CardHeader,
     CardBody,
     CardActions,
+    ButtonComponent,
+    FigureButton,
   ],
   templateUrl: './item-card.component.html',
   styleUrls: ['./item-card.component.scss'],

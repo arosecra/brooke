@@ -10,6 +10,7 @@ import { ButtonComponent } from '../shared';
 import { ItemCardComponent } from './media/cards/item-card/item-card.component';
 import { SeriesComponent } from './media/cards/series-card/series-card.component';
 import { BookComponent } from './media/lectern/lectern.component';
+import { ThumbnailGalleryComponent } from './media/thumbnail-gallery/thumbnail-gallery.component';
 
 @Component({
   selector: 'AppMainPanel',
@@ -19,6 +20,7 @@ import { BookComponent } from './media/lectern/lectern.component';
     ButtonComponent,
     SeriesComponent,
     BookComponent,
+    ThumbnailGalleryComponent,
   ],
   template: `
     @if (
@@ -40,6 +42,7 @@ import { BookComponent } from './media/lectern/lectern.component';
           ) {
             <Btn
               type="filled"
+              class="margin"
               [label]="collection.name"
               (click)="app.openCollection(collection)"
             ></Btn>
@@ -53,6 +56,7 @@ import { BookComponent } from './media/lectern/lectern.component';
           ) {
             <Btn
               type="filled"
+              class="margin"
               [label]="category.name"
               (click)="app.openCategory(category)"
             ></Btn>
@@ -85,6 +89,8 @@ import { BookComponent } from './media/lectern/lectern.component';
       } @else if (app.mainPanelMode() === 'BOOK') {
         @if (app.bookViewMode() === 'IMAGE') {
           <lectern />
+        } @else if (app.bookViewMode() === 'THUMBNAIL') {
+          <thumbnail-gallery />
         }
       }
     }

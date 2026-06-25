@@ -1,11 +1,21 @@
-import { Component, input, output, signal, ViewEncapsulation, WritableSignal } from '@angular/core';
+import {
+  Component,
+  input,
+  output,
+  signal,
+  ViewEncapsulation,
+  WritableSignal,
+} from '@angular/core';
 
-
-
-export type ButtonType = 'fab' | 'efab' | 'icon' | 'filled' | 'overlay';
+export type ButtonType =
+  | 'fab'
+  | 'efab'
+  | 'icon'
+  | 'filled'
+  | 'overlay';
 
 export type Color = 'p' | 's' | 't';
-export type OnColor = 'on' | 'container'
+export type OnColor = 'on' | 'container';
 
 export type Size = 'xs' | 's' | 'm' | 'l' | 'xl';
 
@@ -13,8 +23,8 @@ export type Size = 'xs' | 's' | 'm' | 'l' | 'xl';
   selector: 'Btn',
   imports: [],
   template: `
-    <button 
-      type="button" 
+    <button
+      type="button"
       [class.primary]="color() === 'p'"
       [class.secondary]="color() === 's'"
       [class.tertiary]="color() === 't'"
@@ -28,14 +38,14 @@ export type Size = 'xs' | 's' | 'm' | 'l' | 'xl';
       [class.medium]="size() === 'm'"
       [class.large]="size() === 'l'"
       [class.extra-large]="size() === 'xl'"
-      class="btn margin elv lvl3"
+      class="btn  elv lvl3"
       (click)="onClick()"
       [disabled]="disabled()"
     >
-      @if(icon()) {
+      @if (icon()) {
         <span class="icon icon-font">{{ icon() }}</span>
       }
-      @if(label() && type() !== 'fab') {
+      @if (label() && type() !== 'fab') {
         <span class="label">{{ label() }}</span>
       }
     </button>

@@ -1,18 +1,15 @@
-@let mainActionItem = app.currentCollection()?.openType === 'book' ? 'file_open' : 'play_arrow';
-<mat-card class="childitem">
-  <mat-card-header>
-    <mat-card-title>{{ itemRef().displayName }} </mat-card-title>
-  </mat-card-header>
-  <mat-card-actions>
-    <div>
-      <action [m]="openItem" [o]="this">{{ mainActionItem }}</action>
-      <action [m]="downloadForOffline" [o]="this" [disabled]="!app.settings.value()?.cacheDirectory">
-        download_for_offline</action>
-      <action [m]="openItemDetails" [o]="this">notes</action>
-      @if (app.currentCollection()?.openType === 'book') {
-      <action [m]="openItemThumbnails" [o]="this" title="Thumbnails">dataset</action>
-      <action [m]="openItemMarkdown" [o]="this" title="Markdown">markdown</action>
-      }
+@let mainActionItem = app.location().collection?.openType === 'book' ? 'file_open' : 'play_arrow';
+
+<card>
+  <card-header>
+    <h2>{{ itemRef().displayName }}</h2>
+  </card-header>
+  <card-actions>
+    <div class="flex flex-gap margin-b">
+      <Btn type="fab" icon="{{ mainActionItem }}" (click)="openItem()" />
+      <Btn type="fab" icon="download_for_offline" (click)="downloadForOffline()"
+        [disabled]="!app.settings.value()?.cacheDirectory" />
+      <Btn type="fab" icon="notes" (click)="openItemDetails()" [disabled]="!app.settings.value()?.cacheDirectory" />
     </div>
-  </mat-card-actions>
-</mat-card>
+  </card-actions>
+</card>

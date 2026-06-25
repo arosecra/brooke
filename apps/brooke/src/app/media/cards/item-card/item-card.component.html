@@ -8,47 +8,21 @@
   </card-header>
   <card-body>
     @if (imageUrl) {
-    <action mat-card-image [img]="imageUrl" [m]="openItem" [o]="this">{{ mainActionItem }}</action>
+    <figure-button [img]="imageUrl" (click)="openItem()" icon="{{ mainActionItem }}" />
     }
   </card-body>
   <card-actions>
     <div class="flex flex-gap margin-b">
-      <action [m]="openItem" [o]="this">{{ mainActionItem }}</action>
-      <action [matBadge]="itm.itemRef.childItems.length" matBadgeSize="large"
-        [matBadgeHidden]="!itm.itemRef.childItems.length" [m]="downloadForOffline" [o]="this"
-        [disabled]="!app.settings.value()?.cacheDirectory">download_for_offline</action>
-      <action [m]="openItemDetails" [o]="this">notes</action>
+      <Btn type="fab" icon="{{ mainActionItem }}" (click)="openItem()" />
+      <Btn type="fab" icon="download_for_offline" (click)="downloadForOffline()"
+        [disabled]="!app.settings.value()?.cacheDirectory" />
+
       @if (app.location().collection?.openType === 'book') {
-      <action [m]="openItemThumbnails" [o]="this" title="Thumbnails" matBadge="?" matBadgeSize="large"
-        [matBadgeHidden]="itm.item.bookDetails?.blankPages?.length || itm.item.bookDetails?.imagePages?.length">dataset
-      </action>
-      <action [m]="openItemMarkdown" [o]="this" title="Markdown" [disabled]="!itm.item.ocrHandle">markdown</action>
+      <Btn type="fab" icon="dataset" (click)="openItemThumbnails()" />
+      <Btn type="fab" icon="markdown" (click)="openItemMarkdown()" [disabled]="!itm.item.ocrHandle" />
       }
     </div>
   </card-actions>
 </card>
 
-<!-- <mat-card>
-  <mat-card-header>
-    <mat-card-title>{{ itm.itemRef.displayName }} </mat-card-title>
-  </mat-card-header>
-  @if (imageUrl) {
-  <action mat-card-image [img]="imageUrl" [m]="openItem" [o]="this">{{ mainActionItem }}</action>
-  }
-  <mat-card-actions>
-    <div>
-      <action [m]="openItem" [o]="this">{{ mainActionItem }}</action>
-      <action [matBadge]="itm.itemRef.childItems.length" matBadgeSize="large"
-        [matBadgeHidden]="!itm.itemRef.childItems.length" [m]="downloadForOffline" [o]="this"
-        [disabled]="!app.settings.value()?.cacheDirectory">download_for_offline</action>
-      <action [m]="openItemDetails" [o]="this">notes</action>
-      @if (app.currentCollection()?.openType === 'book') {
-      <action [m]="openItemThumbnails" [o]="this" title="Thumbnails" matBadge="?" matBadgeSize="large"
-        [matBadgeHidden]="itm.item.bookDetails?.blankPages?.length || itm.item.bookDetails?.imagePages?.length">dataset
-      </action>
-      <action [m]="openItemMarkdown" [o]="this" title="Markdown" [disabled]="!itm.item.ocrHandle">markdown</action>
-      }
-    </div>
-  </mat-card-actions>
-</mat-card>-->
 }

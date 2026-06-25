@@ -233,6 +233,13 @@ export class App {
     this.setLocation();
   }
 
+  openSettings() {
+    this.location.set(location());
+    this.bookCbt.reload();
+    this.mainPanelMode.set('SETTINGS');
+    this.setLocation();
+  }
+
   openCollection(collection: Collection) {
     return new Promise<void>(async (resolve, reject) => {
       if (collection) {
