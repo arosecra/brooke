@@ -23,7 +23,7 @@ export class SinglePipelineExecutor {
 
 		await executeSteps(steps, job);
 
-		if(args.delete) fs.rmdirSync(job.workFolder, { recursive: true })
+		if(args.delete) fs.rmSync(job.workFolder, { recursive: true, force: true })
 	}
 }
 

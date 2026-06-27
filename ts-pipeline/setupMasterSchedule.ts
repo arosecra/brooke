@@ -28,8 +28,8 @@ export function setupMasterSchedule() {
   // const graphicNovels = new RootFolder("Graphic Novels", "\\\\syn01\\syn01public\\Scans\\Graphic_Novels_Repository");
   // const magazines = new RootFolder("Magazines", "\\\\syn01\\syn01public\\Scans\\Magazine_Repository");
   // const researchPapers = new RootFolder("Research Papers", "\\\\syn01\\syn01public\\Scans\\Research_Papers_Repository");
-  // const anime = new RootFolder("Anime", "\\\\syn01\\syn01public\\Anime");
-  // const movies = new RootFolder("Movies", "\\\\drobo5n2\\public\\Movies");
+  const anime = new RootFolder("Anime", "\\\\syn01\\syn01public\\Anime");
+  const movies = new RootFolder("Movies", "\\\\syn01\\syn01public\\Movies");
   const bookOcrPipeline = new Pipeline() //
     .setName("Book OCR") //
     .setUses([".*.cbt.gz", ".*.yaml"]) //
@@ -111,6 +111,9 @@ export function setupMasterSchedule() {
       .schedule(bookCoverThumbnailPipeline.name, nonfiction) //
       .schedule(bookCbtPipeline.name, nonfiction) //
       .schedule(bookThumbnailsPipeline.name, nonfiction) //
+
+      .schedule(movieThumbnailPipeline.name, anime) //
+      .schedule(movieThumbnailPipeline.name, movies) //
 
 
 

@@ -14,23 +14,25 @@ import {
   selector: 'AppBar',
   imports: [CommonModule, SearchComponent, ButtonComponent],
   template: `
-    <header class="appbar">
-      <div class="appbar-left">
-        <div>
-          <h1 class="appbar-title">Brooke</h1>
-          <div class="appbar-version">version</div>
+    @if (!app.fullscreen()) {
+      <header class="appbar">
+        <div class="appbar-left">
+          <div>
+            <h1 class="appbar-title">Brooke</h1>
+            <div class="appbar-version">version</div>
+          </div>
+          <Search></Search>
         </div>
-        <Search></Search>
-      </div>
-      <div class="appbar-center"></div>
-      <div class="appbar-right">
-        <Btn
-          type="fab"
-          icon="settings"
-          (click)="app.openSettings()"
-        />
-      </div>
-    </header>
+        <div class="appbar-center"></div>
+        <div class="appbar-right">
+          <Btn
+            type="fab"
+            icon="settings"
+            (click)="app.openSettings()"
+          />
+        </div>
+      </header>
+    }
   `,
   encapsulation: ViewEncapsulation.None,
 })

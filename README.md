@@ -23,6 +23,8 @@ x Replace mat-buttons with Btn
 - convert complete item into composite item - put the best of item, itemref and thumb into one object
   - create a factory method
 
+- correct heights / alignment between fullscreen and non-fullscreen
+
 ## updated todo:
 
 -pipeline: - generate webp thumbnails for movies - try other ocr - perhaps we can compare ocr results?

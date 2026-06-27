@@ -24,6 +24,7 @@ import { OratorContextProvider } from '../providers/orator-context-provider';
           label="Minimize"
           class="margin-b"
           icon="fullscreen_exit"
+          (click)="app.toggleFullScreen()"
         />
       } @else {
         <Btn
@@ -31,6 +32,7 @@ import { OratorContextProvider } from '../providers/orator-context-provider';
           label="Maximize"
           class="margin-b"
           icon="fullscreen"
+          (click)="app.toggleFullScreen()"
         />
       }
       @if (orator.reading) {

@@ -23,6 +23,7 @@ import { ThumbnailGalleryComponent } from './media/thumbnail-gallery/thumbnail-g
     ThumbnailGalleryComponent,
   ],
   template: `
+    <div class="padding-t16"></div>
     @if (
       !app.storedLibrary.value() || !app.settings.value()
     ) {

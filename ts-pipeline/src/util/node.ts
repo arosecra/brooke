@@ -8,7 +8,7 @@ export class node {
 		if(fs.existsSync(path)) fs.rmSync(path)
 	}
 	static rmdir(path: string) {
-		if(fs.existsSync(path)) fs.rmdirSync(path, { recursive: true })
+		if(fs.existsSync(path)) fs.rmSync(path, { recursive: true, force: true })
 	}
 
 	static execFileSync(file: string, args: string[], opts?: any) {

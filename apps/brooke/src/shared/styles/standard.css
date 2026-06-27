@@ -11,7 +11,7 @@ main {
 }
 
 aside {
-  padding-top: 8px;
+  padding-top: 16px;
   display: flex;
   flex-direction: column;
 }

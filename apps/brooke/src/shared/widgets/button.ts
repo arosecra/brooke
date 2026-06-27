@@ -39,7 +39,7 @@ export type Size = 'xs' | 's' | 'm' | 'l' | 'xl';
       [class.large]="size() === 'l'"
       [class.extra-large]="size() === 'xl'"
       class="btn  elv lvl3"
-      (click)="onClick()"
+      (click)="onClick($event)"
       [disabled]="disabled()"
     >
       @if (icon()) {
@@ -66,7 +66,7 @@ export class ButtonComponent {
 
   click = output();
 
-  onClick() {
+  onClick($vent: Event) {
     const act = this.action();
     if (act) {
       this.busy()?.set(true);
@@ -79,6 +79,7 @@ export class ButtonComponent {
         this.busy()?.set(false);
       }
     } else {
+      $vent.stopPropagation();
       this.click.emit();
     }
   }

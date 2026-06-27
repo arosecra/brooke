@@ -574,13 +574,17 @@ export class App {
   openTOCPlus() {}
 
   toggleFullScreen(): Promise<boolean> {
-    if (window.document.fullscreenElement) {
-      window.document.exitFullscreen();
-      this.fullscreen.set(false);
-    } else {
-      // this.fullScreenTarget.nativeElement.requestFullscreen();
-      this.fullscreen.set(true);
-    }
+    this.fullscreen.update((value) => !value);
+    // if (window.document.fullscreenElement) {
+    //   window.document.exitFullscreen();
+    //   this.fullscreen.set(false);
+    // } else {
+    //   document
+    //     .getElementsByName('section')?.[0]
+    //     ?.requestFullscreen();
+    //   // this.fullScreenTarget.nativeElement.requestFullscreen();
+    //   this.fullscreen.set(true);
+    // }
     return Promise.resolve(true);
   }
 
