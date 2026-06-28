@@ -53,7 +53,6 @@ export type Size = 'xs' | 's' | 'm' | 'l' | 'xl';
   encapsulation: ViewEncapsulation.None,
 })
 export class ButtonComponent {
-  search = signal<string>('');
   type = input<ButtonType>();
   icon = input<string>();
   label = input<string>();
@@ -64,9 +63,9 @@ export class ButtonComponent {
   action = input<Function>();
   busy = input<WritableSignal<boolean>>();
 
-  click = output();
+  click = output<MouseEvent>();
 
-  onClick($vent: Event) {
+  onClick($vent: MouseEvent) {
     const act = this.action();
     if (act) {
       this.busy()?.set(true);
@@ -80,7 +79,7 @@ export class ButtonComponent {
       }
     } else {
       $vent.stopPropagation();
-      this.click.emit();
+      this.click.emit($vent);
     }
   }
 }

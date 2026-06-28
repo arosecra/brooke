@@ -14,11 +14,21 @@ aside {
   padding-top: 16px;
   display: flex;
   flex-direction: column;
+  position: sticky;
+  top: 0px;
 }
 
 section {
   flex: 1;
   padding-left: 8px;
+}
+
+.text-wrap {
+  text-wrap-mode: wrap;
+}
+
+.width-min-content {
+  width: min-content;
 }
 
 h1,

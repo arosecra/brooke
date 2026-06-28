@@ -13,7 +13,6 @@ Custom book reader for personal use
 x swap out / merge the context objects (orator, AppDB, App), replacing AppState, AppWidgets, etc
 x Replace mat-buttons with Btn
 
-- Replace MatCardModule with custom css/card/component
 - correct styling. ex - hover, click, focus, elevation/shadow
 - remove styling that's not needed. buttons may not need as much variation right now
 - streamline css - i probably don't need tokens for every little thing. this \*is my app, afterall

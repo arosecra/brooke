@@ -61,12 +61,20 @@ import { OratorContextProvider } from '../providers/orator-context-provider';
         label="Options"
         class="margin-b"
         icon="book_2"
+        [disabled]="
+          !app.location().item ||
+          app.location().collection?.openType !== 'book'
+        "
       />
       <Btn
         type="fab"
         label="TOC"
         class="margin-b"
         icon="format_list_bulleted"
+        [disabled]="
+          !app.location().item ||
+          app.location().collection?.openType !== 'book'
+        "
         (click)="app.openTOC()"
       />
       <Btn
@@ -74,18 +82,30 @@ import { OratorContextProvider } from '../providers/orator-context-provider';
         label="TOC+"
         class="margin-b"
         icon="format_list_bulleted_add"
+        [disabled]="
+          !app.location().item ||
+          app.location().collection?.openType !== 'book'
+        "
       />
       <Btn
         type="fab"
         label="To Top"
         class="margin-b"
         icon="arrow_circle_up"
+        [disabled]="
+          !app.location().item ||
+          app.location().collection?.openType !== 'book'
+        "
       />
       <Btn
         type="fab"
         label="Close"
         class="margin-b"
         icon="close"
+        [disabled]="
+          !app.location().collection ||
+          app.mainPanelMode() === 'SETTINGS'
+        "
         (click)="app.openHome()"
       />
     </aside>

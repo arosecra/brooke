@@ -1,11 +1,10 @@
 import { Component, computed, inject } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
 import { AppContextProvider } from '../../../providers/app-context-provider';
 import { VirtualPageComponent } from '../virtual-page/virtual-page.component';
 
 @Component({
   selector: 'lectern',
-  imports: [MatCardModule, VirtualPageComponent],
+  imports: [VirtualPageComponent],
   host: {
     '[class.one-page]':
       'onePage() && app.bookViewMode() !== "COMPARE"',

@@ -4,30 +4,41 @@ import {
   Component,
   inject,
 } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { AppContextProvider } from '../../../providers/app-context-provider';
 import { Page, PageType } from '../../../shared';
+import { Card } from '../cards/card/card';
+import { CardBody } from '../cards/card/card-body';
+import { CardActions } from '../cards/card/card-actions';
+import { ButtonRadioGroupComponent } from '../../../shared/widgets/button-radio-group';
 
 @Component({
   selector: 'thumbnail-gallery',
   imports: [
-    MatCardModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
+    Card,
+    CardBody,
+    CardActions,
+    ButtonRadioGroupComponent,
   ],
   templateUrl: './thumbnail-gallery.component.html',
   styleUrls: ['./thumbnail-gallery.component.scss'],
 })
 export class ThumbnailGalleryComponent implements AfterViewInit {
   scroller = inject(ViewportScroller);
+
+  options = [
+    {
+      value: 'Text',
+      icon: 'text_ad',
+    },
+    {
+      value: 'Image',
+      icon: 'image',
+    },
+    {
+      value: 'Blank',
+      icon: 'check_box_outline_blank',
+    },
+  ];
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -46,5 +57,9 @@ export class ThumbnailGalleryComponent implements AfterViewInit {
     let idx = types.findIndex((type) => page.type === type);
     idx = (idx + 1) % types.length;
     page.type = types[idx];
+  }
+
+  setPageType(page: Page, $event: string) {
+    page.type = $event as PageType;
   }
 }

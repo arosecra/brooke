@@ -37,7 +37,7 @@ export class ItemCardComponent
 
   ngOnInit(): void {
     const item = this.completeItem();
-    if (item) {
+    if (item.thumbnail) {
       this.imageUrl = URL.createObjectURL(
         item.thumbnail.thumbnail,
       );

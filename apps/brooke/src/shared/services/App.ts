@@ -465,6 +465,7 @@ export class App {
     this.bookViewMode.set('MARKDOWN');
     return this.displayBookItem(item);
   }
+
   openCompare(item: CompleteItem) {
     this.bookViewMode.set('COMPARE');
     return this.displayBookItem(item);
@@ -575,16 +576,6 @@ export class App {
 
   toggleFullScreen(): Promise<boolean> {
     this.fullscreen.update((value) => !value);
-    // if (window.document.fullscreenElement) {
-    //   window.document.exitFullscreen();
-    //   this.fullscreen.set(false);
-    // } else {
-    //   document
-    //     .getElementsByName('section')?.[0]
-    //     ?.requestFullscreen();
-    //   // this.fullScreenTarget.nativeElement.requestFullscreen();
-    //   this.fullscreen.set(true);
-    // }
     return Promise.resolve(true);
   }
 

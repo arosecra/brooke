@@ -1,2 +1,5 @@
-
-export declare type PageType = 'Text' | 'Image' | 'Blank' | 'Exclude';
+export declare type PageType =
+  | 'Text'
+  | 'Image'
+  | 'Blank'
+  | 'Exclude';

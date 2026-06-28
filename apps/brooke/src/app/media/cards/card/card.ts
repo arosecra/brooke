@@ -7,7 +7,9 @@ import {
   selector: 'card',
   imports: [],
   template: `
-    <div class="card elv lvl1 flex flex-column flex-gap">
+    <div
+      class="card elv lvl1 flex flex-column flex-gap width-min-content"
+    >
       <ng-content
         class="card-header"
         select="card-header"
