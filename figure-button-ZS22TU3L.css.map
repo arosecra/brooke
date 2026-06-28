@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["angular:styles/component:css;ce7d374dc087dc9982d66108e0ad15d0666131f5f32192406fe098bd8e72306f;C:/projects/brooke/apps/brooke/src/shared/widgets/figure-button.ts"],
+  "sourcesContent": ["\n    .underlay-figure {\n      position: relative;\n      padding: 0;\n      margin: 0;\n      cursor: pointer;\n    }\n\n    .overlay-button {\n      position: absolute;\n      left: calc(50% - 32px);\n      top: calc(50% - 32px);\n      background-color: rgba(128, 128, 128, 0.5);\n      height: 64px;\n      width: 64px;\n      border-radius: 50%;\n      display: flex;\n      align-items: center;\n      justify-content: center;\n      cursor: pointer;\n    }\n\n    .overlay-icon {\n      color: white;\n      height: 32px;\n      width: 32px;\n      line-height: 32px;\n      font-size: 32px;\n    }\n  "],
+  "mappings": "AACI,CAAC,gBACC,SAAU,SAFhB,QAGe,EAHf,OAIc,EACR,OAAQ,OACV,CAEA,CAAC,eACC,SAAU,SACV,KAAM,KAAK,IAAI,EAAE,MACjB,IAAK,KAAK,IAAI,EAAE,MAChB,iBAAkB,UAClB,OAAQ,KACR,MAAO,KAdb,cAeqB,IACf,QAAS,KACT,YAAa,OACb,gBAAiB,OACjB,OAAQ,OACV,CAEA,CAAC,aACC,MAAO,KACP,OAAQ,KACR,MAAO,KACP,YAAa,KACb,UAAW,IACb",
+  "names": []
+}
