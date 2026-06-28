@@ -10,9 +10,6 @@ Custom book reader for personal use
     appContext. no need for anything more
     complicated
 
-x swap out / merge the context objects (orator, AppDB, App), replacing AppState, AppWidgets, etc
-x Replace mat-buttons with Btn
-
 - correct styling. ex - hover, click, focus, elevation/shadow
 - remove styling that's not needed. buttons may not need as much variation right now
 - streamline css - i probably don't need tokens for every little thing. this \*is my app, afterall
@@ -43,25 +40,9 @@ x Replace mat-buttons with Btn
     - show last few leafs being processed (last 10 or so)
       - truncate leaf folder name in the middle if necessary (over 30 chars) - last 3, first 24, ...
 
-  - consider create a separate component for each action
-    - makes other html simple
-    - can implement actionable
-    - doing this allows action button component to inject the actionable
-    - can have an 'act' function in actionable
-    - can also accomodate more customized buttons
-    - can inject all actionables
-    - can be named
-    - should be able to cleanup common action button component a bunch
-    - can move 'action' from app to actionable component
-      - if so, how do i deal with shared actions (goToNextPage)?
-
   - evaluate popover api and consider replacing angular components with it
 
-  - convert all services to components (allows for hierarchal injection)
-
-  - consider injecting resource values. actions that use the resource will take the resource as a parameter
-
-  - don't convert image to base64, just use a blob. may need to create a page component (probably good for md too)
+  - don't convert image to base64, just use a blob
 
   - since it seems that we can't share mkv, have buttons to create playlists, download / delete local videos
 
@@ -115,19 +96,13 @@ x Replace mat-buttons with Btn
 
   - switch to pnpm
 
-  - switch to pnpm mono repo
-
   - add a setting for preferring one page vs two page
-
-  - in settings, split read/write permission in table
-    - only load settings if read is not present, or action requires write
 
   - settings
     - convert settings table to a Record<string, any>,
     - create an interface for what the value is supposed to be (string, etc)
     - add zod & use it for model
       - how to refer to FileSystemFileHandle
-    - use new angular signal forms
 
 ## ToDo:
 
