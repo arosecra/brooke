@@ -351,6 +351,35 @@ export class AppDB {
     });
   }
 
+  async getItemsThatMatch(search: string) {
+    const db = await dbOpen(DB_NAME, 1, onUpgradeNeeded);
+    let tx = db.transaction(TABLE_NAMES, 'readwrite');
+
+    return new Promise<Item[]>((resolve, reject) => {
+      const res: Item[] = [];
+      const request = tx.objectStore('items').openCursor();
+      request.onsuccess = (e) => {
+        const target =
+          e.target as IDBRequest<IDBCursorWithValue | null>;
+        const cursor = target.result;
+
+        if (cursor) {
+          if (cursor.value.name.includes(search)) {
+            // const primaryKey = cursor.primaryKey;
+            // const key = cursor.key;
+            // const value = cursor.value;
+            // console.log(primaryKey, key, value);
+            res.push(cursor.value);
+          }
+
+          cursor.continue();
+        }
+      };
+      request.onerror = () => reject(request.error);
+      tx.oncomplete = () => resolve(res);
+    });
+  }
+
   async getItemsForCollection(collectionName: string) {
     const db = await dbOpen(DB_NAME, 1, onUpgradeNeeded);
     let tx = db.transaction(TABLE_NAMES, 'readwrite');

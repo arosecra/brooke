@@ -21,7 +21,9 @@ import {
             <h1 class="appbar-title">Brooke</h1>
             <div class="appbar-version">version</div>
           </div>
-          <Search></Search>
+          @if (app.mainPanelMode() !== 'SETTINGS') {
+            <Search></Search>
+          }
         </div>
         <div class="appbar-center"></div>
         <div class="appbar-right">

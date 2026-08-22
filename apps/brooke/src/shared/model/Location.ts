@@ -1,9 +1,7 @@
 import { BookDetails } from './BookDetails';
 import { Category } from './Category';
-import { ChildItem } from './ChildItem';
 import { Collection } from './Collection';
 import { CompleteItem } from './CompleteItem';
-import { ItemRef } from './ItemRef';
 
 export declare interface Location {
   collection: Collection;
@@ -14,6 +12,7 @@ export declare interface Location {
   item: CompleteItem;
   pageSet: number;
   bookDetails: BookDetails;
+  search: string;
 }
 
 export function location() {
@@ -26,5 +25,6 @@ export function location() {
     series: null,
     bookDetails: null,
     pageSet: 0,
+    search: '',
   };
 }

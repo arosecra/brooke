@@ -167,6 +167,16 @@ export class App {
     throw new Error('Method not implemented.');
   }
 
+  search(search: string) {
+    this.location().search = search;
+    return new Promise<Item[]>(async (resolve, reject) => {
+      const res =
+        await this.appDB.getItemsThatMatch(search);
+      console.log(res);
+    });
+    //TODO search through items
+  }
+
   async updateItem() {
     const library = this.storedLibrary.value();
     const collection = this.location().collection;

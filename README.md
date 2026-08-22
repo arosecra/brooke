@@ -9,6 +9,15 @@ Custom book reader for personal use
   - create an common act function in
     appContext. no need for anything more
     complicated
+- implement search
+  - get all keys from the items in the search component
+    - show nothing until past the settings page, then show loading / busy circle while loading the keys
+  - implement disable for the search
+  - when typed, search through the items
+  - implement a method in appDB to get all of the items via matched keys
+  - create a main panel mode for search results, showing the list of items
+- implement webmcp
+- show which anime are on cr
 
 - correct styling. ex - hover, click, focus, elevation/shadow
 - remove styling that's not needed. buttons may not need as much variation right now
@@ -26,8 +35,6 @@ Custom book reader for personal use
 -pipeline: - generate webp thumbnails for movies - try other ocr - perhaps we can compare ocr results?
 
 - ui:
-  - prune leaf nodes with no item file
-
   - add full screen progress overlay for adding collection
     - show top level folder being processed
     - show current leaf being processed

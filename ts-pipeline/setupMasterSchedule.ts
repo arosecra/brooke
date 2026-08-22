@@ -11,6 +11,7 @@ import { BookResizeImageStep } from "./src/steps/book-resize-image-step";
 import { BookRunOcrStep } from "./src/steps/book-run-ocr-step";
 import { BookTarToGzStep } from "./src/steps/book-tar-to-gz-step";
 import { UnGzStep } from "./src/steps/ungz-step";
+import { MovieExtractPDFsStep } from './src/steps/movie-extract-pdfs-step';
 
 export function setupMasterSchedule() {
   const lightNovels = new RootFolder(
@@ -25,9 +26,9 @@ export function setupMasterSchedule() {
     "Non Fiction",
     "\\\\syn01\\syn01public\\Scans\\NonFiction_Repository"
   );
-  // const graphicNovels = new RootFolder("Graphic Novels", "\\\\syn01\\syn01public\\Scans\\Graphic_Novels_Repository");
-  // const magazines = new RootFolder("Magazines", "\\\\syn01\\syn01public\\Scans\\Magazine_Repository");
-  // const researchPapers = new RootFolder("Research Papers", "\\\\syn01\\syn01public\\Scans\\Research_Papers_Repository");
+  const graphicNovels = new RootFolder("Graphic Novels", "\\\\syn01\\syn01public\\Scans\\Graphic_Novels_Repository");
+  const magazines = new RootFolder("Magazines", "\\\\syn01\\syn01public\\Scans\\Magazine_Repository");
+  const researchPapers = new RootFolder("Research Papers", "\\\\syn01\\syn01public\\Scans\\Research_Papers_Repository");
   const anime = new RootFolder("Anime", "\\\\syn01\\syn01public\\Anime");
   const movies = new RootFolder("Movies", "\\\\syn01\\syn01public\\Movies");
   const bookOcrPipeline = new Pipeline() //
@@ -82,7 +83,7 @@ export function setupMasterSchedule() {
     .setName("Movie Cover Thumbnail") //
     .setUses([".*cover[s]?.pdf"]) //
     .setProduces("thumbnail.webp") //
-    .addStep(new BookExtractPDFsStep()) //
+    .addStep(new MovieExtractPDFsStep()) //
     .addStep(new BookCreateCoverThumbnailStep(350, 350));
 
   return (
@@ -111,6 +112,10 @@ export function setupMasterSchedule() {
       .schedule(bookCoverThumbnailPipeline.name, nonfiction) //
       .schedule(bookCbtPipeline.name, nonfiction) //
       .schedule(bookThumbnailsPipeline.name, nonfiction) //
+      
+      .schedule(singlePdfThumbnailPipeline.name, magazines) //
+      .schedule(singlePdfThumbnailPipeline.name, researchPapers) //
+      .schedule(bookCoverThumbnailPipeline.name, graphicNovels) //
 
       .schedule(movieThumbnailPipeline.name, anime) //
       .schedule(movieThumbnailPipeline.name, movies) //
